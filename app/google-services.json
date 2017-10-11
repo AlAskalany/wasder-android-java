@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1084741997638",
+    "firebase_url": "https://wasder-6424b.firebaseio.com",
+    "project_id": "wasder-6424b",
+    "storage_bucket": "wasder-6424b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084741997638:android:938214472b1ccffe",
+        "android_client_info": {
+          "package_name": "com.wasder.wasder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084741997638-lnug4d0m4qgnl8lpp740u2g1ar2bmj5d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wasder.wasder",
+            "certificate_hash": "0501813f73bd7e71cbc55fcf563a0c80697b8687"
+          }
+        },
+        {
+          "client_id": "1084741997638-dh87mi8skgp4blvnh6jku8hr2tr1pjna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ6y9Tj_WJSQQisSUonptVbAp_vwlc5_Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084741997638-dh87mi8skgp4blvnh6jku8hr2tr1pjna.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
