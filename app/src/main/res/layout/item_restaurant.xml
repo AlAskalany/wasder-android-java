@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    android:layout_marginTop="1dp"
+    android:background="@color/cardview_light_background"
+    android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
     android:padding="8dp">
 

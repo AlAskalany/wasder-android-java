@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0"
+    android:background="@android:color/darker_gray"
     tools:context=".MainActivity">
 
     <android.support.v7.widget.Toolbar
@@ -103,7 +103,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/filter_bar_container"
-        android:background="@android:color/white"
         tools:listitem="@layout/item_restaurant" />
 
     <!-- Shadow below toolbar -->
