@@ -41,6 +41,7 @@ dependencies {
     compile 'com.android.support:customtabs:26.0.1'
     compile 'com.android.support:design:26.0.1'
     compile 'com.android.support:recyclerview-v7:26.0.1'
+    compile 'com.android.support:palette-v7:26.0.1'
 
     // Android architecture components
     compile 'android.arch.lifecycle:runtime:1.0.0-alpha9'

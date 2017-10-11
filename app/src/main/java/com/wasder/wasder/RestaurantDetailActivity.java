@@ -16,10 +16,15 @@
 package com.wasder.wasder;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -51,7 +56,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-public class RestaurantDetailActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>, RatingDialogFragment.RatingListener {
+public class RestaurantDetailActivity extends AppCompatActivity implements
+        EventListener<DocumentSnapshot>, RatingDialogFragment.RatingListener {
 
     private static final String TAG = "RestaurantDetail";
 
@@ -84,6 +90,9 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Event
     @BindView(R.id.recycler_ratings)
     RecyclerView mRatingsRecycler;
 
+    @BindView(R.id.fab_show_rating_dialog)
+    FloatingActionButton floatingActionButton;
+
     private RatingDialogFragment mRatingDialog;
 
     private FirebaseFirestore mFirestore;
@@ -111,7 +120,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Event
         mRestaurantRef = mFirestore.collection("restaurants").document(restaurantId);
 
         // Get ratings
-        Query ratingsQuery = mRestaurantRef.collection("ratings").orderBy("timestamp", Query.Direction.DESCENDING).limit(50);
+        Query ratingsQuery = mRestaurantRef.collection("ratings").orderBy("timestamp", Query
+                .Direction.DESCENDING).limit(50);
 
         // RecyclerView
         mRatingAdapter = new RatingAdapter(ratingsQuery) {
@@ -131,6 +141,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Event
         mRatingsRecycler.setAdapter(mRatingAdapter);
 
         mRatingDialog = new RatingDialogFragment();
+
     }
 
     @Override
@@ -238,7 +249,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Event
 
                 // Show failure message and hide keyboard
                 hideKeyboard();
-                Snackbar.make(findViewById(android.R.id.content), "Failed to add rating", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(android.R.id.content), "Failed to add rating",
+                        Snackbar.LENGTH_SHORT).show();
             }
         });
     }
@@ -246,7 +258,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Event
     private void hideKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }

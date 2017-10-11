@@ -30,7 +30,8 @@ public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rating, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout
+                .item_rating, parent, false));
     }
 
     @Override

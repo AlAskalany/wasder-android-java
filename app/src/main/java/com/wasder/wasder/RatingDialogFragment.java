@@ -55,7 +55,8 @@ public class RatingDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+            Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_rating, container, false);
         ButterKnife.bind(this, v);
 
@@ -74,13 +75,15 @@ public class RatingDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+                .LayoutParams.WRAP_CONTENT);
 
     }
 
     @OnClick(R.id.restaurant_form_button)
     public void onSubmitClicked(View view) {
-        Rating rating = new Rating(FirebaseAuth.getInstance().getCurrentUser(), mRatingBar.getRating(), mRatingText.getText().toString());
+        Rating rating = new Rating(FirebaseAuth.getInstance().getCurrentUser(), mRatingBar
+                .getRating(), mRatingText.getText().toString());
 
         if (mRatingListener != null) {
             mRatingListener.onRating(rating);

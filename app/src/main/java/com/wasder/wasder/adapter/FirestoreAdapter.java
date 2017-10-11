@@ -25,7 +25,8 @@ import java.util.ArrayList;
  * {@link DocumentSnapshot#toObject(Class)} is not cached so the same object may be deserialized
  * many times as the user scrolls.
  */
-public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> implements EventListener<QuerySnapshot> {
+public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView
+        .Adapter<VH> implements EventListener<QuerySnapshot> {
 
     private static final String TAG = "Firestore Adapter";
 

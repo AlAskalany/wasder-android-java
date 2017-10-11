@@ -12,9 +12,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dialog_filers_title_margin_bottom"
-        android:text="@string/header_filters" />
+        android:text="@string/add_restaurant" />
 
     <!-- Food Type -->
+    <EditText
+        android:id="@+id/restaurantNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="RestaurantName"
+        android:inputType="text" />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -78,24 +86,6 @@
     </RelativeLayout>
 
     <!-- Sort by -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_sort"
-            style="@style/AppTheme.FilterIcon"
-            android:layout_centerVertical="true"
-            android:tint="@color/greySecondary"
-            app:srcCompat="@drawable/ic_sort_white_24px" />
-
-        <Spinner
-            android:id="@+id/spinner_sort"
-            style="@style/AppTheme.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_sort"
-            android:entries="@array/sort_by" />
-    </RelativeLayout>
 
     <!-- Cancel and apply buttons -->
     <LinearLayout
@@ -120,11 +110,11 @@
 
 
         <Button
-            android:id="@+id/button_search"
+            android:id="@+id/button_add_restaurant"
             android:layout_width="@dimen/dialog_filters_search_button_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/apply"
+            android:text="@string/add"
             android:theme="@style/ThemeOverlay.FilterButton" />
 
     </LinearLayout>

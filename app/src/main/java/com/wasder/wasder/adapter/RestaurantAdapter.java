@@ -91,7 +91,8 @@ public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHo
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot, final OnRestaurantSelectedListener listener) {
+        public void bind(final DocumentSnapshot snapshot, final OnRestaurantSelectedListener
+                listener) {
 
             Restaurant restaurant = snapshot.toObject(Restaurant.class);
             Resources resources = itemView.getResources();
@@ -103,7 +104,8 @@ public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHo
             ratingBar.setRating((float) restaurant.getAvgRating());
             cityView.setText(restaurant.getCity());
             categoryView.setText(restaurant.getCategory());
-            numRatingsView.setText(resources.getString(R.string.fmt_num_ratings, restaurant.getNumRatings()));
+            numRatingsView.setText(resources.getString(R.string.fmt_num_ratings, restaurant
+                    .getNumRatings()));
             priceView.setText(RestaurantUtil.getPriceString(restaurant));
 
             // Click listener

@@ -1,151 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
-    tools:context=".MainActivity">
+    android:background="@android:color/darker_gray">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/AppTheme"
-        app:logo="@drawable/ic_restaurant_white_24px"
-        app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
-        app:title="@string/app_name"
-        app:titleMarginStart="24dp"
-        app:titleTextColor="@android:color/white" />
+        android:layout_margin="16dp"
+        android:clickable="true"
+        app:layout_anchor="@+id/nestedScrollView"
+        app:layout_anchorGravity="right|bottom"
+        app:srcCompat="@drawable/ic_add_white_24px" />
 
-    <FrameLayout
-        android:id="@+id/filter_bar_container"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:background="?attr/colorPrimary"
-        android:paddingBottom="12dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp">
+        app:elevation="4dp">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/filter_bar"
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:elevation="8dp"
-            android:foreground="?attr/selectableItemBackground">
+            app:contentScrim="?attr/colorPrimary"
+            app:titleEnabled="false"
+            app:toolbarId="@+id/toolbar">
 
-            <RelativeLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:background="?attr/colorPrimary"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:theme="@style/AppTheme"
+                app:logo="@drawable/ic_restaurant_white_24px"
+                app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
+                app:title="@string/app_name"
+                app:titleMarginStart="24dp"
+                app:titleTextColor="@android:color/white">
 
-                <ImageView
-                    android:id="@+id/button_filter"
+                <FrameLayout
+                    android:id="@+id/filter_bar_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:padding="8dp"
-                    android:tint="@color/greySecondary"
-                    app:srcCompat="@drawable/ic_filter_list_white_24px" />
+                    android:layout_below="@+id/toolbar"
+                    android:layout_marginStart="50dp">
 
-                <LinearLayout
-                    android:id="@+id/text_current_search_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@+id/button_filter"
-                    android:orientation="vertical"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        android:id="@+id/text_current_search"
-                        style="@style/AppTheme.Body1"
-                        android:layout_width="wrap_content"
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/filter_bar"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/all_restaurants"
-                        android:textColor="@color/greySecondary"
-                        tools:text="Filter" />
+                        android:clickable="true"
+                        android:elevation="8dp"
+                        android:foreground="?attr/selectableItemBackground">
 
-                    <TextView
-                        android:id="@+id/text_current_sort_by"
-                        style="@style/AppTheme.Caption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/sorted_by_rating"
-                        android:textColor="@color/greyDisabled" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical">
 
-                </LinearLayout>
+                            <ImageView
+                                android:id="@+id/button_filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:padding="8dp"
+                                android:tint="@color/greySecondary"
+                                app:srcCompat="@drawable/ic_filter_list_white_24px" />
 
-                <ImageView
-                    android:id="@+id/button_clear_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="8dp"
-                    android:tint="@color/greySecondary"
-                    app:srcCompat="@drawable/ic_close_white_24px" />
+                            <LinearLayout
+                                android:id="@+id/text_current_search_container"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="8dp"
+                                android:layout_toRightOf="@+id/button_filter"
+                                android:orientation="vertical"
+                                android:paddingBottom="8dp"
+                                android:paddingTop="8dp">
 
-            </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/text_current_search"
+                                    style="@style/AppTheme.Body1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/all_restaurants"
+                                    android:textColor="@color/greySecondary"
+                                    tools:text="Filter" />
 
-        </android.support.v7.widget.CardView>
+                                <TextView
+                                    android:id="@+id/text_current_sort_by"
+                                    style="@style/AppTheme.Caption"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/sorted_by_rating"
+                                    android:textColor="@color/greyDisabled" />
 
-    </FrameLayout>
+                            </LinearLayout>
 
-    <!-- Main Restaurants recycler -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_restaurants"
+                            <ImageView
+                                android:id="@+id/button_clear_filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:padding="8dp"
+                                android:tint="@color/greySecondary"
+                                app:srcCompat="@drawable/ic_close_white_24px" />
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </FrameLayout>
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/filter_bar_container"
-        tools:listitem="@layout/item_restaurant" />
-
-    <!-- Shadow below toolbar -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_below="@+id/filter_bar_container"
-        android:background="@drawable/bg_shadow" />
-
-    <!-- Empty list (pizza guy) view -->
-    <LinearLayout
-        android:id="@+id/view_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="gone">
-
-        <ImageView
-            style="@style/AppTheme.PizzaGuy"
-            android:src="@drawable/pizza_monster" />
-
-        <TextView
-            style="@style/AppTheme.Body1"
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+        <!-- Main Restaurants recycler -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_restaurants"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/message_no_results"
-            android:textColor="@color/greyDisabled" />
+            android:layout_below="@+id/filter_bar_container"
+            tools:listitem="@layout/item_restaurant" />
 
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/recycler_restaurants"
-        android:layout_alignTop="@+id/recycler_restaurants"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
-
-</RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

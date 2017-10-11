@@ -50,7 +50,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements FilterDialogFragment.FilterListener, RestaurantAdapter.OnRestaurantSelectedListener {
+public class MainActivity extends AppCompatActivity implements FilterDialogFragment
+        .FilterListener, RestaurantAdapter.OnRestaurantSelectedListener {
 
     private static final String TAG = "MainActivity";
 
@@ -70,14 +71,11 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
     @BindView(R.id.recycler_restaurants)
     RecyclerView mRestaurantsRecycler;
 
-    @BindView(R.id.view_empty)
-    ViewGroup mEmptyView;
-    ;
-
     private FirebaseFirestore mFirestore;
     private Query mQuery;
 
     private FilterDialogFragment mFilterDialog;
+    private AddRestaurantDialogFragment mAddRestaurantDialog;
     private RestaurantAdapter mAdapter;
 
     private MainActivityViewModel mViewModel;
@@ -101,13 +99,15 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
 
         // Filter Dialog
         mFilterDialog = new FilterDialogFragment();
+        mAddRestaurantDialog = new AddRestaurantDialogFragment();
     }
 
     private void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
 
         // Get the 50 highest rated restaurants
-        mQuery = mFirestore.collection("restaurants").orderBy("avgRating", Query.Direction.DESCENDING).limit(LIMIT);
+        mQuery = mFirestore.collection("restaurants").orderBy("avgRating", Query.Direction
+                .DESCENDING).limit(LIMIT);
     }
 
     private void initRecyclerView() {
@@ -122,17 +122,16 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
                     mRestaurantsRecycler.setVisibility(View.GONE);
-                    mEmptyView.setVisibility(View.VISIBLE);
                 } else {
                     mRestaurantsRecycler.setVisibility(View.VISIBLE);
-                    mEmptyView.setVisibility(View.GONE);
                 }
             }
 
             @Override
             protected void onError(FirebaseFirestoreException e) {
                 // Show a snackbar on errors
-                Snackbar.make(findViewById(android.R.id.content), "Error: check logs for info.", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), "Error: check logs for info.",
+                        Snackbar.LENGTH_LONG).show();
             }
         };
 
@@ -258,6 +257,11 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
         mFilterDialog.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
     }
 
+    @OnClick(R.id.floatingActionButton)
+    public void submit(View view) {
+        mAddRestaurantDialog.show(getSupportFragmentManager(), AddRestaurantDialogFragment.TAG);
+    }
+
     @OnClick(R.id.button_clear_filter)
     public void onClearFilterClicked() {
         mFilterDialog.resetFilters();
@@ -275,12 +279,15 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
     }
 
     private boolean shouldStartSignIn() {
-        return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() == null);
+        return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() ==
+                null);
     }
 
     private void startSignIn() {
         // Sign in with FirebaseUI
-        Intent intent = AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(Collections.singletonList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build())).setIsSmartLockEnabled(false).build();
+        Intent intent = AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders
+                (Collections.singletonList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                        .build())).setIsSmartLockEnabled(false).build();
 
         startActivityForResult(intent, RC_SIGN_IN);
         mViewModel.setIsSigningIn(true);

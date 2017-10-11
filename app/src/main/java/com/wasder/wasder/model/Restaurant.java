@@ -27,10 +27,12 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(String name, String city, String category, String photo, int price, int numRatings, double avgRating) {
+    public Restaurant(String name, String city, String category, String photo, int price, int
+            numRatings, double avgRating) {
         this.name = name;
         this.city = city;
         this.category = category;
+        this.photo = photo;
         this.price = price;
         this.numRatings = numRatings;
         this.avgRating = avgRating;

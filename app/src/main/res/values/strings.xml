@@ -44,6 +44,9 @@
     <string name="image_description">image description</string>
     <string name="text_view">text view</string>
     <string name="delete_feed">delete feed</string>
+    <string name="add_restaurant">Add Restaurant</string>
+    <string name="name">Name</string>
+    <string name="add">Add</string>
 
     <!-- Types of food I could think of in 5 minutes -->
     <string-array name="categories">

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0"
+    android:background="@color/restaurantDetailBackgroundColor"
     tools:context="com.wasder.wasder.RestaurantDetailActivity">
 
     <RelativeLayout
         android:id="@+id/restaurant_top_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp">
+        android:elevation="@dimen/restaurant_top_card_elevation">
 
         <ImageView
             android:id="@+id/restaurant_image"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/restaurant_rating"
             android:layout_alignTop="@+id/restaurant_rating"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="@dimen/restaurant_num_rating_margin_left"
             android:layout_toRightOf="@+id/restaurant_rating"
             android:gravity="center"
             android:textColor="@android:color/white"
@@ -79,7 +79,7 @@
             android:layout_alignBottom="@+id/restaurant_image"
             android:layout_alignLeft="@+id/restaurant_name"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/restaurant_category_text_view_margin_top"
             android:textColor="@android:color/white"
             tools:text="Italian" />
 
@@ -110,7 +110,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/restaurant_name"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/restaurant_price_text_view_margin_top"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             tools:text="$$$" />
@@ -135,8 +135,8 @@
         android:layout_below="@+id/restaurant_top_card"
         android:background="@android:color/transparent"
         android:clipToPadding="false"
-        android:paddingBottom="16dp"
-        android:paddingTop="28dp"
+        android:paddingBottom="@dimen/restaurant_activity_recycler_padding_bottom"
+        android:paddingTop="@dimen/restaurant_activity_recycler_padding_top"
         android:visibility="gone"
         tools:listitem="@layout/item_rating" />
 

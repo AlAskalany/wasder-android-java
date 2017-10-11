@@ -70,6 +70,7 @@
           <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
           <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false" />
           <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />
+          <option name="WRAP_LONG_LINES" value="true" />
         </codeStyleSettings>
         <codeStyleSettings language="XML">
           <option name="FORCE_REARRANGE_MODE" value="1" />
