@@ -2,7 +2,7 @@ package com.wasder.wasder.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 
-import com.wasder.wasder.RestaurantsFilters;
+import com.wasder.wasder.filter.RestaurantsFilters;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.

@@ -1,9 +1,10 @@
-package com.wasder.wasder;
+package com.wasder.wasder.filter;
 
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.R;
 import com.wasder.wasder.Util.RestaurantUtil;
 import com.wasder.wasder.model.Restaurant;
 

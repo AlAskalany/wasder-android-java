@@ -40,6 +40,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.wasder.wasder.Util.RestaurantUtil;
 import com.wasder.wasder.adapter.RestaurantAdapter;
+import com.wasder.wasder.dialog.AddRestaurantDialogFragment;
+import com.wasder.wasder.dialog.RestaurantsFilterDialogFragment;
+import com.wasder.wasder.filter.RestaurantsFilters;
 import com.wasder.wasder.model.Restaurant;
 import com.wasder.wasder.viewmodel.MainActivityViewModel;
 

@@ -1,4 +1,4 @@
-package com.wasder.wasder;
+package com.wasder.wasder.dialog;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

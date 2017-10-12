@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wasder.wasder;
+package com.wasder.wasder.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.wasder.wasder.R;
 import com.wasder.wasder.model.Rating;
 
 import butterknife.BindView;
@@ -45,7 +46,7 @@ public class RatingDialogFragment extends DialogFragment {
     @BindView(R.id.restaurant_form_text)
     EditText mRatingText;
 
-    interface RatingListener {
+    public interface RatingListener {
 
         void onRating(Rating rating);
 

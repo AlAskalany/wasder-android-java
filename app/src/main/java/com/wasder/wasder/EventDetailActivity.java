@@ -44,6 +44,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 import com.wasder.wasder.Util.EventUtil;
 import com.wasder.wasder.adapter.RatingAdapter;
+import com.wasder.wasder.dialog.AddEventDialogFragment;
+import com.wasder.wasder.dialog.RatingDialogFragment;
 import com.wasder.wasder.model.Event;
 import com.wasder.wasder.model.Rating;
 

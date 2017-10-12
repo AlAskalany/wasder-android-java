@@ -16,15 +16,11 @@
 package com.wasder.wasder;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -48,6 +44,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 import com.wasder.wasder.Util.RestaurantUtil;
 import com.wasder.wasder.adapter.RatingAdapter;
+import com.wasder.wasder.dialog.RatingDialogFragment;
 import com.wasder.wasder.model.Rating;
 import com.wasder.wasder.model.Restaurant;
 

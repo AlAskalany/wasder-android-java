@@ -1,9 +1,10 @@
-package com.wasder.wasder;
+package com.wasder.wasder.filter;
 
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.R;
 import com.wasder.wasder.Util.EventUtil;
 import com.wasder.wasder.model.Event;
 

@@ -13,30 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wasder.wasder;
+package com.wasder.wasder.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.google.firebase.firestore.Query;
-import com.wasder.wasder.model.Restaurant;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.wasder.wasder.R;
+import com.wasder.wasder.filter.RestaurantsFilters;
+import com.wasder.wasder.model.Event;
+
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.wasder.wasder.Util.RestaurantUtil.getRandomImageUrl;
+
 /**
  * Dialog Fragment containing filter form.
  */
-public class RestaurantsFilterDialogFragment extends DialogFragment {
+public class AddEventDialogFragment extends DialogFragment {
 
-    public static final String TAG = "FilterDialog";
+    public static final String TAG = "AddEventDialog";
+    private static final int INITIAL_AVG_RATING = 0;
+    private static final int INITIAL_NUM_RATINGS = 0;
+    private final int INITIAL_CATEGORY_SELECTION = 0;
+    private final int INITIAL_CITY_SELECTION = 0;
+    private final int INITIAL_PRICE_SELECTION = 0;
+    private final String INITIAL_NAME = "";
 
     interface FilterListener {
 
@@ -46,14 +62,14 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
 
     private View mRootView;
 
+    @BindView(R.id.eventNameEditText)
+    EditText mEventNameEditText;
+
     @BindView(R.id.spinner_category)
     Spinner mCategorySpinner;
 
     @BindView(R.id.spinner_city)
     Spinner mCitySpinner;
-
-    @BindView(R.id.spinner_sort)
-    Spinner mSortSpinner;
 
     @BindView(R.id.spinner_price)
     Spinner mPriceSpinner;
@@ -64,16 +80,14 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.dialog_filters_restaurants, container, false);
+        mRootView = inflater.inflate(R.layout.dialog_add_event, container, false);
         ButterKnife.bind(this, mRootView);
-
         return mRootView;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         if (context instanceof FilterListener) {
             mFilterListener = (FilterListener) context;
         }
@@ -82,17 +96,35 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        resetFields();
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
                 .LayoutParams.WRAP_CONTENT);
     }
 
-    @OnClick(R.id.button_search)
-    public void onSearchClicked() {
-        if (mFilterListener != null) {
-            mFilterListener.onFilter(getFilters());
-        }
+    private void resetFields() {
+        mEventNameEditText.setText(INITIAL_NAME);
+        mCategorySpinner.setSelection(INITIAL_CATEGORY_SELECTION);
+        mCitySpinner.setSelection(INITIAL_CITY_SELECTION);
+        mPriceSpinner.setSelection(INITIAL_PRICE_SELECTION);
+    }
 
+    @OnClick(R.id.button_add_event)
+    public void onAddEventClicked() {
+        addEventToDatabase(createEventFromFields());
         dismiss();
+    }
+
+    @NonNull
+    private Event createEventFromFields() {
+        Random random = new Random();
+        return new Event(getEventName(), getEventCity(), getEventCategory(),
+                getRandomImageUrl(random), getEventPrice(), INITIAL_AVG_RATING,
+                INITIAL_NUM_RATINGS);
+    }
+
+    private void addEventToDatabase(@NonNull Event event) {
+        CollectionReference events = FirebaseFirestore.getInstance().collection("events");
+        events.add(event);
     }
 
     @OnClick(R.id.button_cancel)
@@ -101,7 +133,7 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
     }
 
     @Nullable
-    private String getSelectedCategory() {
+    private String getEventCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
         if (getString(R.string.value_any_category_restaurants).equals(selected)) {
             return null;
@@ -110,8 +142,17 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
         }
     }
 
+    private String getEventName() {
+        String name = (String) mEventNameEditText.getText().toString();
+        if (!TextUtils.isEmpty(name)) {
+            return name;
+        } else {
+            return null;
+        }
+    }
+
     @Nullable
-    private String getSelectedCity() {
+    private String getEventCity() {
         String selected = (String) mCitySpinner.getSelectedItem();
         if (getString(R.string.value_any_city).equals(selected)) {
             return null;
@@ -120,7 +161,7 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
         }
     }
 
-    private int getSelectedPrice() {
+    private int getEventPrice() {
         String selected = (String) mPriceSpinner.getSelectedItem();
         if (selected.equals(getString(R.string.price_1))) {
             return 1;
@@ -131,60 +172,5 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
         } else {
             return -1;
         }
-    }
-
-    @Nullable
-    private String getSelectedSortBy() {
-        String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_restaurants_by_rating).equals(selected)) {
-            return Restaurant.FIELD_AVG_RATING;
-        }
-        if (getString(R.string.sort_restaurants_by_price).equals(selected)) {
-            return Restaurant.FIELD_PRICE;
-        }
-        if (getString(R.string.sort_restaurants_by_popularity).equals(selected)) {
-            return Restaurant.FIELD_POPULARITY;
-        }
-
-        return null;
-    }
-
-    @Nullable
-    private Query.Direction getSortDirection() {
-        String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_restaurants_by_rating).equals(selected)) {
-            return Query.Direction.DESCENDING;
-        }
-        if (getString(R.string.sort_restaurants_by_price).equals(selected)) {
-            return Query.Direction.ASCENDING;
-        }
-        if (getString(R.string.sort_restaurants_by_popularity).equals(selected)) {
-            return Query.Direction.DESCENDING;
-        }
-
-        return null;
-    }
-
-    public void resetFilters() {
-        if (mRootView != null) {
-            mCategorySpinner.setSelection(0);
-            mCitySpinner.setSelection(0);
-            mPriceSpinner.setSelection(0);
-            mSortSpinner.setSelection(0);
-        }
-    }
-
-    public RestaurantsFilters getFilters() {
-        RestaurantsFilters restaurantsFilters = new RestaurantsFilters();
-
-        if (mRootView != null) {
-            restaurantsFilters.setCategory(getSelectedCategory());
-            restaurantsFilters.setCity(getSelectedCity());
-            restaurantsFilters.setPrice(getSelectedPrice());
-            restaurantsFilters.setSortBy(getSelectedSortBy());
-            restaurantsFilters.setSortDirection(getSortDirection());
-        }
-
-        return restaurantsFilters;
     }
 }

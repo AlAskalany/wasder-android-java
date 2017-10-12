@@ -28,6 +28,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.filter.EventsFilters;
 import com.wasder.wasder.model.Event;
 
 import java.util.Calendar;

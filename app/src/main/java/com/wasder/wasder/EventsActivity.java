@@ -40,6 +40,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.wasder.wasder.Util.EventUtil;
 import com.wasder.wasder.adapter.EventAdapter;
+import com.wasder.wasder.dialog.AddEventDialogFragment;
+import com.wasder.wasder.filter.EventsFilters;
 import com.wasder.wasder.model.Event;
 import com.wasder.wasder.viewmodel.EventsActivityViewModel;
 
