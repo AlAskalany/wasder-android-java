@@ -133,7 +133,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     @Nullable
     private String getRestaurantCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
-        if (getString(R.string.value_any_category).equals(selected)) {
+        if (getString(R.string.value_any_category_restaurants).equals(selected)) {
             return null;
         } else {
             return selected;

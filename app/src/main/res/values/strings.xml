@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="value_any_category">All food</string>
+    <string name="value_any_category_restaurants">All food</string>
     <string name="value_any_city">Anywhere</string>
     <string name="value_any_price">Any price</string>
 
@@ -53,7 +53,7 @@
 
     <!-- Types of food I could think of in 5 minutes -->
     <string-array name="categories_restaurants">
-        <item>@string/value_any_category</item>
+        <item>@string/value_any_category_restaurants</item>
 
         <item>Brunch</item>
         <item>Burgers</item>
@@ -139,9 +139,11 @@
         <item>@string/sort_restaurants_by_price</item>
     </string-array>
 
+
+    <string name="value_any_category_events">All Events</string>
     <!-- Events Filters -->
     <string-array name="categories_events">
-        <item>@string/value_any_category</item>
+        <item>@string/value_any_category_events</item>
 
         <item>Game play</item>
         <item>Tournament</item>

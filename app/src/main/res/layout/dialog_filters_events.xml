@@ -24,7 +24,7 @@
             style="@style/AppTheme.FilterIcon"
             android:layout_centerVertical="true"
             android:tint="@color/greySecondary"
-            app:srcCompat="@drawable/ic_fastfood_white_24dp" />
+            app:srcCompat="@drawable/ic_games_white_24dp" />
 
         <Spinner
             android:id="@+id/spinner_category"
@@ -88,7 +88,7 @@
             style="@style/AppTheme.FilterIcon"
             android:layout_centerVertical="true"
             android:tint="@color/greySecondary"
-            app:srcCompat="@drawable/ic_place_white_24px" />
+            app:srcCompat="@drawable/ic_event_white_24dp" />
 
         <Spinner
             android:id="@+id/spinner_date"

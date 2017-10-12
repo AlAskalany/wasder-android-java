@@ -103,7 +103,7 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
     @Nullable
     private String getSelectedCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
-        if (getString(R.string.value_any_category).equals(selected)) {
+        if (getString(R.string.value_any_category_restaurants).equals(selected)) {
             return null;
         } else {
             return selected;

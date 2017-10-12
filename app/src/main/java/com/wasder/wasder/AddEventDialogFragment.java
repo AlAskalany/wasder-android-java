@@ -133,7 +133,7 @@ public class AddEventDialogFragment extends DialogFragment {
     @Nullable
     private String getEventCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
-        if (getString(R.string.value_any_category).equals(selected)) {
+        if (getString(R.string.value_any_category_restaurants).equals(selected)) {
             return null;
         } else {
             return selected;
