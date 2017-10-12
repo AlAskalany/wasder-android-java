@@ -2,6 +2,7 @@ package com.wasder.wasder.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 
+import com.wasder.wasder.EventsFilters;
 import com.wasder.wasder.RestaurantsFilters;
 
 /**
@@ -9,14 +10,14 @@ import com.wasder.wasder.RestaurantsFilters;
  * Wasder AB
  */
 
-public class MainActivityViewModel extends ViewModel {
+public class EventsActivityViewModel extends ViewModel {
 
     private boolean mIsSigningIn;
-    private RestaurantsFilters mRestaurantsFilters;
+    private EventsFilters mEventsFilters;
 
-    public MainActivityViewModel() {
+    public EventsActivityViewModel() {
         mIsSigningIn = false;
-        mRestaurantsFilters = RestaurantsFilters.getDefault();
+        mEventsFilters = EventsFilters.getDefault();
     }
 
     public boolean getIsSigningIn() {
@@ -27,11 +28,11 @@ public class MainActivityViewModel extends ViewModel {
         this.mIsSigningIn = mIsSigningIn;
     }
 
-    public RestaurantsFilters getFilters() {
-        return mRestaurantsFilters;
+    public EventsFilters getFilters() {
+        return mEventsFilters;
     }
 
-    public void setFilters(RestaurantsFilters mRestaurantsFilters) {
-        this.mRestaurantsFilters = mRestaurantsFilters;
+    public void setFilters(EventsFilters mEventsFilters) {
+        this.mEventsFilters = mEventsFilters;
     }
 }

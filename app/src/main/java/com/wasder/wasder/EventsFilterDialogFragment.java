@@ -15,6 +15,7 @@
  */
 package com.wasder.wasder;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,10 +23,14 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import com.google.firebase.firestore.Query;
-import com.wasder.wasder.model.Restaurant;
+import com.wasder.wasder.model.Event;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,13 +39,14 @@ import butterknife.OnClick;
 /**
  * Dialog Fragment containing filter form.
  */
-public class FilterDialogFragment extends DialogFragment {
+public class EventsFilterDialogFragment extends DialogFragment implements DatePickerDialog
+        .OnDateSetListener {
 
-    public static final String TAG = "FilterDialog";
+    public static final String TAG = "EventsFilterDialog";
 
     interface FilterListener {
 
-        void onFilter(Filters filters);
+        void onFilter(EventsFilters eventsFilters);
 
     }
 
@@ -58,14 +64,39 @@ public class FilterDialogFragment extends DialogFragment {
     @BindView(R.id.spinner_price)
     Spinner mPriceSpinner;
 
+    @BindView(R.id.spinner_date)
+    Spinner mDateSpinner;
+
+    private String mSelectedDate;
+
     private FilterListener mFilterListener;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.dialog_filters, container, false);
+        mRootView = inflater.inflate(R.layout.dialog_filters_events, container, false);
         ButterKnife.bind(this, mRootView);
+
+        mDateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 1) {
+                    final Calendar c;
+                    c = Calendar.getInstance();
+                    int year = c.get(Calendar.YEAR);
+                    int month = c.get(Calendar.MONTH);
+                    int day = c.get(Calendar.DAY_OF_MONTH);
+                    new DatePickerDialog(getContext(), getTheme(), EventsFilterDialogFragment
+                            .this, year, month, day).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         return mRootView;
     }
@@ -91,12 +122,13 @@ public class FilterDialogFragment extends DialogFragment {
         if (mFilterListener != null) {
             mFilterListener.onFilter(getFilters());
         }
-
+        resetFilters();
         dismiss();
     }
 
     @OnClick(R.id.button_cancel)
     public void onCancelClicked() {
+        resetFilters();
         dismiss();
     }
 
@@ -133,17 +165,29 @@ public class FilterDialogFragment extends DialogFragment {
         }
     }
 
+    private String getSelectedDate() {
+        String selected = (String) mDateSpinner.getSelectedItem();
+        if (getString(R.string.value_any_date).equals(selected)) {
+            return null;
+        } else {
+            return mSelectedDate;
+        }
+    }
+
     @Nullable
     private String getSelectedSortBy() {
         String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_by_rating).equals(selected)) {
-            return Restaurant.FIELD_AVG_RATING;
+        if (getString(R.string.sort_events_by_rating).equals(selected)) {
+            return Event.FIELD_AVG_RATING;
         }
-        if (getString(R.string.sort_by_price).equals(selected)) {
-            return Restaurant.FIELD_PRICE;
+        if (getString(R.string.sort_events_by_price).equals(selected)) {
+            return Event.FIELD_PRICE;
         }
-        if (getString(R.string.sort_by_popularity).equals(selected)) {
-            return Restaurant.FIELD_POPULARITY;
+        if (getString(R.string.sort_events_by_popularity).equals(selected)) {
+            return Event.FIELD_POPULARITY;
+        }
+        if (getString(R.string.sort_events_by_date).equals(selected)) {
+            return Event.FIELD_DATE;
         }
 
         return null;
@@ -152,14 +196,17 @@ public class FilterDialogFragment extends DialogFragment {
     @Nullable
     private Query.Direction getSortDirection() {
         String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_by_rating).equals(selected)) {
+        if (getString(R.string.sort_events_by_rating).equals(selected)) {
             return Query.Direction.DESCENDING;
         }
-        if (getString(R.string.sort_by_price).equals(selected)) {
+        if (getString(R.string.sort_events_by_price).equals(selected)) {
             return Query.Direction.ASCENDING;
         }
-        if (getString(R.string.sort_by_popularity).equals(selected)) {
+        if (getString(R.string.sort_events_by_popularity).equals(selected)) {
             return Query.Direction.DESCENDING;
+        }
+        if (getString(R.string.sort_events_by_date).equals(selected)) {
+            return Query.Direction.ASCENDING;
         }
 
         return null;
@@ -170,21 +217,29 @@ public class FilterDialogFragment extends DialogFragment {
             mCategorySpinner.setSelection(0);
             mCitySpinner.setSelection(0);
             mPriceSpinner.setSelection(0);
+            mDateSpinner.setSelection(0);
             mSortSpinner.setSelection(0);
         }
     }
 
-    public Filters getFilters() {
-        Filters filters = new Filters();
+    public EventsFilters getFilters() {
+        EventsFilters eventsFilters = new EventsFilters();
 
         if (mRootView != null) {
-            filters.setCategory(getSelectedCategory());
-            filters.setCity(getSelectedCity());
-            filters.setPrice(getSelectedPrice());
-            filters.setSortBy(getSelectedSortBy());
-            filters.setSortDirection(getSortDirection());
+            eventsFilters.setCategory(getSelectedCategory());
+            eventsFilters.setCity(getSelectedCity());
+            eventsFilters.setPrice(getSelectedPrice());
+            eventsFilters.setDate(getSelectedDate());
+            eventsFilters.setSortBy(getSelectedSortBy());
+            eventsFilters.setSortDirection(getSortDirection());
         }
 
-        return filters;
+        return eventsFilters;
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String date = year + "/" + (month + 1) + "/" + dayOfMonth;
+        mSelectedDate = date;
     }
 }

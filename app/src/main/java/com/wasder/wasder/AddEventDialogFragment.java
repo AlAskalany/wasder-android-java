@@ -29,7 +29,7 @@ import android.widget.Spinner;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.wasder.wasder.model.Restaurant;
+import com.wasder.wasder.model.Event;
 
 import java.util.Random;
 
@@ -42,9 +42,9 @@ import static com.wasder.wasder.Util.RestaurantUtil.getRandomImageUrl;
 /**
  * Dialog Fragment containing filter form.
  */
-public class AddRestaurantDialogFragment extends DialogFragment {
+public class AddEventDialogFragment extends DialogFragment {
 
-    public static final String TAG = "AddRestaurantDialog";
+    public static final String TAG = "AddEventDialog";
     private static final int INITIAL_AVG_RATING = 0;
     private static final int INITIAL_NUM_RATINGS = 0;
     private final int INITIAL_CATEGORY_SELECTION = 0;
@@ -60,8 +60,8 @@ public class AddRestaurantDialogFragment extends DialogFragment {
 
     private View mRootView;
 
-    @BindView(R.id.restaurantNameEditText)
-    EditText mRestaurantNameEditText;
+    @BindView(R.id.eventNameEditText)
+    EditText mEventNameEditText;
 
     @BindView(R.id.spinner_category)
     Spinner mCategorySpinner;
@@ -78,7 +78,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.dialog_add_restaurant, container, false);
+        mRootView = inflater.inflate(R.layout.dialog_add_event, container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
     }
@@ -100,29 +100,29 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     }
 
     private void resetFields() {
-        mRestaurantNameEditText.setText(INITIAL_NAME);
+        mEventNameEditText.setText(INITIAL_NAME);
         mCategorySpinner.setSelection(INITIAL_CATEGORY_SELECTION);
         mCitySpinner.setSelection(INITIAL_CITY_SELECTION);
         mPriceSpinner.setSelection(INITIAL_PRICE_SELECTION);
     }
 
-    @OnClick(R.id.button_add_restaurant)
-    public void onAddRestaurantClicked() {
-        addRestaurantToDatabase(createRestaurantFromFields());
+    @OnClick(R.id.button_add_event)
+    public void onAddEventClicked() {
+        addEventToDatabase(createEventFromFields());
         dismiss();
     }
 
     @NonNull
-    private Restaurant createRestaurantFromFields() {
+    private Event createEventFromFields() {
         Random random = new Random();
-        return new Restaurant(getRestaurantName(), getRestaurantCity(), getRestaurantCategory(),
-                getRandomImageUrl(random), getRestaurantPrice(), INITIAL_AVG_RATING,
+        return new Event(getEventName(), getEventCity(), getEventCategory(),
+                getRandomImageUrl(random), getEventPrice(), INITIAL_AVG_RATING,
                 INITIAL_NUM_RATINGS);
     }
 
-    private void addRestaurantToDatabase(@NonNull Restaurant restaurant) {
-        CollectionReference restaurants = FirebaseFirestore.getInstance().collection("restaurants");
-        restaurants.add(restaurant);
+    private void addEventToDatabase(@NonNull Event event) {
+        CollectionReference events = FirebaseFirestore.getInstance().collection("events");
+        events.add(event);
     }
 
     @OnClick(R.id.button_cancel)
@@ -131,7 +131,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     }
 
     @Nullable
-    private String getRestaurantCategory() {
+    private String getEventCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
         if (getString(R.string.value_any_category).equals(selected)) {
             return null;
@@ -140,8 +140,8 @@ public class AddRestaurantDialogFragment extends DialogFragment {
         }
     }
 
-    private String getRestaurantName() {
-        String name = (String) mRestaurantNameEditText.getText().toString();
+    private String getEventName() {
+        String name = (String) mEventNameEditText.getText().toString();
         if (!TextUtils.isEmpty(name)) {
             return name;
         } else {
@@ -150,7 +150,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     }
 
     @Nullable
-    private String getRestaurantCity() {
+    private String getEventCity() {
         String selected = (String) mCitySpinner.getSelectedItem();
         if (getString(R.string.value_any_city).equals(selected)) {
             return null;
@@ -159,7 +159,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
         }
     }
 
-    private int getRestaurantPrice() {
+    private int getEventPrice() {
         String selected = (String) mPriceSpinner.getSelectedItem();
         if (selected.equals(getString(R.string.price_1))) {
             return 1;

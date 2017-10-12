@@ -8,4 +8,5 @@
     <color name="greySecondary">#8B000000</color>
     <color name="greyDisabled">#61000000</color>
     <color name="restaurantDetailBackgroundColor">#E0E0E0</color>
+    <color name="eventDetailBackgroundColor">#E0E0E0</color>
 </resources>

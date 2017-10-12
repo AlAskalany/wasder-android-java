@@ -19,18 +19,20 @@
 
     <string name="fmt_num_ratings" translatable="false">(%d)</string>
     <string name="all_restaurants">All Restaurants</string>
+    <string name="all_events">All Events</string>
     <string name="header_filters">Filter</string>
     <string name="search">Search</string>
+    <!-- Restaurants Sorting Methods -->
+    <string name="sort_restaurants_by_rating">Sort by Rating</string>
+    <string name="sort_restaurants_by_popularity">Sort by Popularity</string>
+    <string name="sort_restaurants_by_price">Sort by Price</string>
+    <!-- Restaurants Sorted By -->
+    <string name="restaurants_sorted_by_rating">sorted by rating</string>
+    <string name="restaurants_sorted_by_price">sorted by price</string>
+    <string name="restaurants_sorted_by_popularity">sorted by popularity</string>
 
-    <string name="sort_by_rating">Sort by Rating</string>
-    <string name="sort_by_popularity">Sort by Popularity</string>
-    <string name="sort_by_price">Sort by Price</string>
-
-    <string name="sorted_by_rating">sorted by rating</string>
-    <string name="sorted_by_price">sorted by price</string>
-    <string name="sorted_by_popularity">sorted by popularity</string>
-
-    <string name="add_random_items">Add Random Items</string>
+    <string name="add_random_restaurants">Add Random Restaurants</string>
+    <string name="add_random_events">Add Random Events</string>
     <string name="sign_out">Sign Out</string>
     <string name="delete_all">Delete All</string>
     <string name="divider_bullet">•</string>
@@ -47,9 +49,10 @@
     <string name="add_restaurant">Add Restaurant</string>
     <string name="name">Name</string>
     <string name="add">Add</string>
+    <string name="add_event">Add Event</string>
 
     <!-- Types of food I could think of in 5 minutes -->
-    <string-array name="categories">
+    <string-array name="categories_restaurants">
         <item>@string/value_any_category</item>
 
         <item>Brunch</item>
@@ -120,8 +123,8 @@
         <item>Washington</item>
     </string-array>
 
-    <!-- Price filters -->
-    <string-array name="prices">
+    <!-- PrrestaurantsFiltersters -->
+    <string-array name="prices_restaurants">
         <item>@string/value_any_price</item>
 
         <item>@string/price_1</item>
@@ -130,9 +133,54 @@
     </string-array>
 
     <!-- Ways you can sort restaurants -->
-    <string-array name="sort_by">
-        <item>@string/sort_by_rating</item>
-        <item>@string/sort_by_popularity</item>
-        <item>@string/sort_by_price</item>
+    <string-array name="sort_by_restaurants">
+        <item>@string/sort_restaurants_by_rating</item>
+        <item>@string/sort_restaurants_by_popularity</item>
+        <item>@string/sort_restaurants_by_price</item>
     </string-array>
+
+    <!-- Events Filters -->
+    <string-array name="categories_events">
+        <item>@string/value_any_category</item>
+
+        <item>Game play</item>
+        <item>Tournament</item>
+    </string-array>
+
+    <!-- Events Filters -->
+    <string-array name="prices_events">
+        <item>@string/value_any_price</item>
+
+        <item>@string/price_1</item>
+        <item>@string/price_2</item>
+        <item>@string/price_3</item>
+    </string-array>
+
+    <!-- Events Date -->
+    <string-array name="date_events">
+        <item>@string/value_any_date</item>
+        <item>@string/pick_a_date</item>
+    </string-array>
+
+    <string name="value_any_date">Anytime</string>
+    <string name="pick_a_date">Pick a date</string>
+
+    <!-- Ways you can sort Event -->
+    <string-array name="sort_by_events">
+        <item>@string/sort_events_by_rating</item>
+        <item>@string/sort_events_by_popularity</item>
+        <item>@string/sort_events_by_price</item>
+        <item>@string/sort_events_by_date</item>
+    </string-array>
+
+    <!-- Events Sorting Methods -->
+    <string name="sort_events_by_rating">Sort by Rating</string>
+    <string name="sort_events_by_popularity">Sort by Popularity</string>
+    <string name="sort_events_by_price">Sort by Price</string>
+    <string name="sort_events_by_date">Sort by Date</string>
+    <!-- Events Sorted By -->
+    <string name="events_sorted_by_rating">sorted by rating</string>
+    <string name="events_sorted_by_price">sorted by price</string>
+    <string name="events_sorted_by_popularity">sorted by popularity</string>
+    <string name="events_sorted_by_date">sorted by date</string>
 </resources>

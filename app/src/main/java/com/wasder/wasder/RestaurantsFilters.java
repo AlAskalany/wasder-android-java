@@ -12,7 +12,7 @@ import com.wasder.wasder.model.Restaurant;
  * Wasder AB
  */
 
-public class Filters {
+public class RestaurantsFilters {
 
     private String category = null;
     private String city = null;
@@ -20,15 +20,15 @@ public class Filters {
     private String sortBy = null;
     private Query.Direction sortDirection = null;
 
-    public Filters() {
+    public RestaurantsFilters() {
     }
 
-    public static Filters getDefault() {
-        Filters filters = new Filters();
-        filters.setSortBy(Restaurant.FIELD_AVG_RATING);
-        filters.setSortDirection(Query.Direction.DESCENDING);
+    public static RestaurantsFilters getDefault() {
+        RestaurantsFilters restaurantsFilters = new RestaurantsFilters();
+        restaurantsFilters.setSortBy(Restaurant.FIELD_AVG_RATING);
+        restaurantsFilters.setSortDirection(Query.Direction.DESCENDING);
 
-        return filters;
+        return restaurantsFilters;
     }
 
     public boolean hasCategory() {
@@ -124,11 +124,11 @@ public class Filters {
 
     public String getOrderDescription(Context context) {
         if (Restaurant.FIELD_PRICE.equals(sortBy)) {
-            return context.getString(R.string.sorted_by_price);
+            return context.getString(R.string.restaurants_sorted_by_price);
         } else if (Restaurant.FIELD_POPULARITY.equals(sortBy)) {
-            return context.getString(R.string.sorted_by_popularity);
+            return context.getString(R.string.restaurants_sorted_by_popularity);
         } else {
-            return context.getString(R.string.sorted_by_rating);
+            return context.getString(R.string.restaurants_sorted_by_rating);
         }
     }
 }

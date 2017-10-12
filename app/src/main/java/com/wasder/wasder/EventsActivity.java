@@ -38,10 +38,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.wasder.wasder.Util.RestaurantUtil;
-import com.wasder.wasder.adapter.RestaurantAdapter;
-import com.wasder.wasder.model.Restaurant;
-import com.wasder.wasder.viewmodel.MainActivityViewModel;
+import com.wasder.wasder.Util.EventUtil;
+import com.wasder.wasder.adapter.EventAdapter;
+import com.wasder.wasder.model.Event;
+import com.wasder.wasder.viewmodel.EventsActivityViewModel;
 
 import java.util.Collections;
 
@@ -49,8 +49,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements RestaurantsFilterDialogFragment
-        .FilterListener, RestaurantAdapter.OnRestaurantSelectedListener {
+public class EventsActivity extends AppCompatActivity implements EventsFilterDialogFragment
+        .FilterListener, EventAdapter.OnEventSelectedListener {
 
     private static final String TAG = "MainActivity";
 
@@ -67,27 +67,27 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     @BindView(R.id.text_current_sort_by)
     TextView mCurrentSortByView;
 
-    @BindView(R.id.recycler_restaurants)
-    RecyclerView mRestaurantsRecycler;
+    @BindView(R.id.recycler_events)
+    RecyclerView mEventsRecycler;
 
     private FirebaseFirestore mFirestore;
     private Query mQuery;
 
-    private RestaurantsFilterDialogFragment mFilterDialog;
-    private AddRestaurantDialogFragment mAddRestaurantDialog;
-    private RestaurantAdapter mAdapter;
+    private EventsFilterDialogFragment mEventsFilterDialog;
+    private AddEventDialogFragment mAddEventDialog;
+    private EventAdapter mAdapter;
 
-    private MainActivityViewModel mViewModel;
+    private EventsActivityViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_events);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
 
         // View model
-        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(EventsActivityViewModel.class);
 
         // Enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true);
@@ -97,16 +97,16 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         initRecyclerView();
 
         // Filter Dialog
-        mFilterDialog = new RestaurantsFilterDialogFragment();
-        mAddRestaurantDialog = new AddRestaurantDialogFragment();
+        mEventsFilterDialog = new EventsFilterDialogFragment();
+        mAddEventDialog = new AddEventDialogFragment();
     }
 
     private void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get the 50 highest rated restaurants
-        mQuery = mFirestore.collection("restaurants").orderBy("avgRating", Query.Direction
-                .DESCENDING).limit(LIMIT);
+        // Get the 50 highest rated events
+        mQuery = mFirestore.collection("events").orderBy("avgRating", Query.Direction.DESCENDING)
+                .limit(LIMIT);
     }
 
     private void initRecyclerView() {
@@ -114,15 +114,15 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
 
-        mAdapter = new RestaurantAdapter(mQuery, this) {
+        mAdapter = new EventAdapter(mQuery, this) {
 
             @Override
             protected void onDataChanged() {
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
-                    mRestaurantsRecycler.setVisibility(View.GONE);
+                    mEventsRecycler.setVisibility(View.GONE);
                 } else {
-                    mRestaurantsRecycler.setVisibility(View.VISIBLE);
+                    mEventsRecycler.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -134,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
             }
         };
 
-        mRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mRestaurantsRecycler.setAdapter(mAdapter);
+        mEventsRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mEventsRecycler.setAdapter(mAdapter);
     }
 
     @Override
@@ -166,22 +166,22 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     }
 
     private void onAddItemsClicked() {
-        // Get a reference to the restaurants collection
-        CollectionReference restaurants = mFirestore.collection("restaurants");
+        // Get a reference to the events collection
+        CollectionReference events = mFirestore.collection("events");
 
         for (int i = 0; i < 10; i++) {
-            // Get a random Restaurant POJO
-            Restaurant restaurant = RestaurantUtil.getRandom(this);
+            // Get a random events POJO
+            Event event = EventUtil.getRandom(this);
 
-            // Add a new document to the restaurants collection
-            restaurants.add(restaurant);
+            // Add a new document to the events collection
+            events.add(event);
         }
     }
 
     @Override
-    public void onFilter(RestaurantsFilters filters) {
+    public void onFilter(EventsFilters filters) {
         // Construct query basic query
-        Query query = mFirestore.collection("restaurants");
+        Query query = mFirestore.collection("events");
 
         // Category (equality filter)
         if (filters.hasCategory()) {
@@ -196,6 +196,10 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         // Price (equality filter)
         if (filters.hasPrice()) {
             query = query.whereEqualTo("price", filters.getPrice());
+        }
+        // Date (equality filters)
+        if (filters.hasDate()) {
+            query = query.whereEqualTo("date", filters.getDate());
         }
 
         // Sort by (orderBy with direction)
@@ -227,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_add_restaurants:
+            case R.id.menu_add_events:
                 onAddItemsClicked();
                 break;
             case R.id.menu_sign_out:
@@ -253,27 +257,26 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     @OnClick(R.id.filter_bar)
     public void onFilterClicked() {
         // Show the dialog containing filter options
-        mFilterDialog.show(getSupportFragmentManager(), RestaurantsFilterDialogFragment.TAG);
+        mEventsFilterDialog.show(getSupportFragmentManager(), EventsFilterDialogFragment.TAG);
     }
 
     @OnClick(R.id.floatingActionButton)
     public void submit(View view) {
-        //mAddRestaurantDialog.show(getSupportFragmentManager(), AddRestaurantDialogFragment.TAG);
-        startActivity(new Intent(this, EventsActivity.class));
+        mAddEventDialog.show(getSupportFragmentManager(), AddEventDialogFragment.TAG);
     }
 
     @OnClick(R.id.button_clear_filter)
     public void onClearFilterClicked() {
-        mFilterDialog.resetFilters();
+        mEventsFilterDialog.resetFilters();
 
-        onFilter(RestaurantsFilters.getDefault());
+        onFilter(EventsFilters.getDefault());
     }
 
     @Override
-    public void onRestaurantSelected(DocumentSnapshot restaurant) {
-        // Go to the details page for the selected restaurant
-        Intent intent = new Intent(this, RestaurantDetailActivity.class);
-        intent.putExtra(RestaurantDetailActivity.KEY_RESTAURANT_ID, restaurant.getId());
+    public void onEventSelected(DocumentSnapshot event) {
+        // Go to the details page for the selected event
+        Intent intent = new Intent(this, EventDetailActivity.class);
+        intent.putExtra(EventDetailActivity.KEY_EVENT_ID, event.getId());
 
         startActivity(intent);
     }
