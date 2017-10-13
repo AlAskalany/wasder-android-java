@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray">
 
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="match_parent"
@@ -138,4 +139,15 @@
             tools:listitem="@layout/item_restaurant" />
 
     </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/welcome_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@android:drawable/screen_background_dark_transparent"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        tools:text="Welcome Text" />
 </android.support.design.widget.CoordinatorLayout>

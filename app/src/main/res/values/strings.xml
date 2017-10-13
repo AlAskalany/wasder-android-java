@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Wasder</string>
-
+<string name="com_apsee_apikey">29e9a300c73d4dc1bf56f20335ea4479</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

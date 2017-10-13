@@ -18,6 +18,7 @@ package com.wasder.wasder;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,13 +32,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.wasder.wasder.Util.RestaurantUtil;
 import com.wasder.wasder.adapter.RestaurantAdapter;
 import com.wasder.wasder.detail.RestaurantDetailActivity;
@@ -47,7 +54,11 @@ import com.wasder.wasder.filter.RestaurantsFilters;
 import com.wasder.wasder.model.Restaurant;
 import com.wasder.wasder.viewmodel.MainActivityViewModel;
 
+import io.fabric.sdk.android.Fabric;
+
 import java.util.Collections;
+
+import com.appsee.Appsee;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,10 +68,12 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         .FilterListener, RestaurantAdapter.OnRestaurantSelectedListener {
 
     private static final String TAG = "MainActivity";
-
     private static final int RC_SIGN_IN = 9001;
-
     private static final int LIMIT = 50;
+    // Remote Config keys
+    private static final String LOADING_PHRASE_CONFIG_KEY = "loading_phrase";
+    private static final String WELCOME_MESSAGE_KEY = "welcome_message";
+    private static final String WELCOME_MESSAGE_CAPS_KEY = "welcome_message_caps";
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -74,20 +87,43 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     @BindView(R.id.recycler_restaurants)
     RecyclerView mRestaurantsRecycler;
 
+    @BindView(R.id.welcome_text_view)
+    TextView mWelcomeTextView;
+
     private FirebaseFirestore mFirestore;
     private Query mQuery;
 
     private RestaurantsFilterDialogFragment mFilterDialog;
     private AddRestaurantDialogFragment mAddRestaurantDialog;
     private RestaurantAdapter mAdapter;
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     private MainActivityViewModel mViewModel;
+
+    private void logUserCrashlytics() {
+        // TODO: Use the current user's information
+        // You can call any combination of these three methods
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String uId = user.getUid();
+        String userEmail = user.getEmail();
+        String userName = user.getDisplayName();
+        Crashlytics.setUserIdentifier(uId);
+        Crashlytics.setUserEmail(userEmail);
+        Crashlytics.setUserName(userName);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
+        Appsee.start(getString(R.string.com_apsee_apikey));
+        logUserCrashlytics();
+        setupFirebaseRemoteConfig();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        fetchWelcomeMessage();
         setSupportActionBar(mToolbar);
 
         // View model
@@ -103,6 +139,59 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         // Filter Dialog
         mFilterDialog = new RestaurantsFilterDialogFragment();
         mAddRestaurantDialog = new AddRestaurantDialogFragment();
+    }
+
+    private void fetchWelcomeMessage() {
+        mWelcomeTextView.setText(mFirebaseRemoteConfig.getString(LOADING_PHRASE_CONFIG_KEY));
+
+        long cacheExpiration = 3600; // 1 hour in seconds.
+        // If your app is using developer mode, cacheExpiration is set to 0, so each fetch will
+        // retrieve values from the service.
+        if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+            cacheExpiration = 0;
+        }
+
+        // [START fetch_config_with_callback]
+        // cacheExpirationSeconds is set to cacheExpiration here, indicating the next fetch request
+        // will use fetch data from the Remote Config service, rather than cached parameter values,
+        // if cached parameter values are more than cacheExpiration seconds old.
+        // See Best Practices in the README for more information.
+        mFirebaseRemoteConfig.fetch(cacheExpiration)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(MainActivity.this, "Fetch Succeeded",
+                                    Toast.LENGTH_SHORT).show();
+
+                            // After config data is successfully fetched, it must be activated before newly fetched
+                            // values are returned.
+                            mFirebaseRemoteConfig.activateFetched();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Fetch Failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        displayWelcomeMessage();
+                    }
+                });
+        // [END fetch_config_with_callback]
+    }
+
+    private void displayWelcomeMessage() {
+        String welcomeMessage = mFirebaseRemoteConfig.getString(WELCOME_MESSAGE_KEY);
+        if (mFirebaseRemoteConfig.getBoolean(WELCOME_MESSAGE_CAPS_KEY)) {
+            mWelcomeTextView.setAllCaps(true);
+        } else {
+            mWelcomeTextView.setAllCaps(false);
+        }
+        mWelcomeTextView.setText(welcomeMessage);
+    }
+
+    private void setupFirebaseRemoteConfig() {
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG).build();
+        mFirebaseRemoteConfig.setConfigSettings(configSettings);
     }
 
     private void initFirestore() {

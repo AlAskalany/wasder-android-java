@@ -3,6 +3,7 @@
     package="com.wasder.wasder">
 
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,6 +20,12 @@
         <activity android:name=".detail.RestaurantDetailActivity" />
         <activity android:name=".EventsActivity" />
         <activity android:name=".detail.EventDetailActivity" />
+
+        <meta-data xmlns:tools="http://schemas.android.com/tools"
+            tools:replace="android:value"
+            android:name="io.fabric.ApiKey"
+            android:value="8df3619c6e081ddf78247924077b51d93acca7fb" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
