@@ -13,13 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".WasderActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".detail.RestaurantDetailActivity" />
         <activity android:name=".EventsActivity" />
         <activity android:name=".detail.EventDetailActivity" />
@@ -44,16 +48,7 @@
             android:value="8df3619c6e081ddf78247924077b51d93acca7fb"
             tools:replace="android:value" />
 
-        <activity
-            android:name=".WasderActivity"
-            android:label="@string/title_activity_wasder"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
