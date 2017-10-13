@@ -20,7 +20,21 @@
         <activity android:name=".detail.RestaurantDetailActivity" />
         <activity android:name=".EventsActivity" />
         <activity android:name=".detail.EventDetailActivity" />
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
+        <service
+            android:name=".MyFirebaseInstanceIdService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
         <meta-data xmlns:tools="http://schemas.android.com/tools"
             android:name="io.fabric.ApiKey"
             android:value="8df3619c6e081ddf78247924077b51d93acca7fb"

@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.24.2'
     }
 }
 apply plugin: 'com.android.application'
@@ -47,6 +47,7 @@ dependencies {
     compile 'com.google.firebase:firebase-perf:11.4.2'
     compile 'com.google.firebase:firebase-config:11.4.2'
     compile 'com.google.firebase:firebase-invites:11.4.2'
+    compile 'com.google.firebase:firebase-messaging:11.4.2'
 
     // FirebaseUI (for authentication)
     compile 'com.firebaseui:firebase-ui-auth:3.0.0'
