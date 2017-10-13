@@ -18,6 +18,7 @@ package com.wasder.wasder;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -72,6 +73,9 @@ public class EventsActivity extends AppCompatActivity implements EventsFilterDia
 
     @BindView(R.id.recycler_events)
     RecyclerView mEventsRecycler;
+
+    @BindView(R.id.activity_events_coordinator_layout)
+    public View mCoordinatorLayout;
 
     private FirebaseFirestore mFirestore;
     private Query mQuery;

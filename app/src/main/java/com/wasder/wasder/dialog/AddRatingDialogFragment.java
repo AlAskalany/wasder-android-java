@@ -36,7 +36,7 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 /**
  * Dialog Fragment containing rating form.
  */
-public class RatingDialogFragment extends DialogFragment {
+public class AddRatingDialogFragment extends DialogFragment {
 
     public static final String TAG = "RatingDialog";
 

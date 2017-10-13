@@ -19,6 +19,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,11 +27,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.wasder.wasder.EventsActivity;
+import com.wasder.wasder.MainActivity;
 import com.wasder.wasder.R;
 import com.wasder.wasder.filter.RestaurantsFilters;
 import com.wasder.wasder.model.Event;
@@ -46,7 +53,8 @@ import static com.wasder.wasder.Util.RestaurantUtil.getRandomImageUrl;
 /**
  * Dialog Fragment containing filter form.
  */
-public class AddEventDialogFragment extends DialogFragment {
+public class AddEventDialogFragment extends DialogFragment implements
+        OnCompleteListener<DocumentReference> {
 
     public static final String TAG = "AddEventDialog";
     private static final int INITIAL_AVG_RATING = 0;
@@ -55,6 +63,19 @@ public class AddEventDialogFragment extends DialogFragment {
     private final int INITIAL_CITY_SELECTION = 0;
     private final int INITIAL_PRICE_SELECTION = 0;
     private final String INITIAL_NAME = "";
+
+    @Override
+    public void onComplete(@NonNull Task<DocumentReference> task) {
+        if (task.isSuccessful()) {
+            Snackbar.make(getActivity().findViewById(R.id.activity_events_coordinator_layout), R
+                    .string.snackbar_event_added, Snackbar.LENGTH_SHORT).show();
+            dismiss();
+        } else {
+            Snackbar.make(getActivity().findViewById(R.id.activity_events_coordinator_layout), R
+                    .string.snackbar_event_add_failed, Snackbar.LENGTH_SHORT).show();
+            dismiss();
+        }
+    }
 
     interface FilterListener {
 
@@ -113,7 +134,6 @@ public class AddEventDialogFragment extends DialogFragment {
     @OnClick(R.id.button_add_event)
     public void onAddEventClicked() {
         addEventToDatabase(createEventFromFields());
-        dismiss();
     }
 
     @NonNull
@@ -130,7 +150,7 @@ public class AddEventDialogFragment extends DialogFragment {
 
     private void addEventToDatabase(@NonNull Event event) {
         CollectionReference events = FirebaseFirestore.getInstance().collection("events");
-        events.add(event);
+        events.add(event).addOnCompleteListener(this);
     }
 
     @OnClick(R.id.button_cancel)

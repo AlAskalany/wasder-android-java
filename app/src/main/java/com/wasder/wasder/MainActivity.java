@@ -17,6 +17,7 @@ package com.wasder.wasder;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final int LIMIT = 50;
+    private static final int REQUEST_INVITE = 0;
     // Remote Config keys
     private static final String LOADING_PHRASE_CONFIG_KEY = "loading_phrase";
     private static final String WELCOME_MESSAGE_KEY = "welcome_message";
@@ -141,6 +144,15 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         mAddRestaurantDialog = new AddRestaurantDialogFragment();
     }
 
+    private void onInviteClicked() {
+        Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string
+                .invitation_title)).setMessage(getString(R.string.invitation_message))
+                .setDeepLink(Uri.parse(getString(R.string.invitation_deep_link))).setCustomImage
+                        (Uri.parse(getString(R.string.invitation_custom_image)))
+                .setCallToActionText(getString(R.string.invitation_cta)).build();
+        startActivityForResult(intent, REQUEST_INVITE);
+    }
+
     private void fetchWelcomeMessage() {
         mWelcomeTextView.setText(mFirebaseRemoteConfig.getString(LOADING_PHRASE_CONFIG_KEY));
 
@@ -156,24 +168,23 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         // will use fetch data from the Remote Config service, rather than cached parameter values,
         // if cached parameter values are more than cacheExpiration seconds old.
         // See Best Practices in the README for more information.
-        mFirebaseRemoteConfig.fetch(cacheExpiration)
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Fetch Succeeded",
-                                    Toast.LENGTH_SHORT).show();
+        mFirebaseRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(this, new
+                OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Fetch Succeeded", Toast.LENGTH_SHORT).show();
 
-                            // After config data is successfully fetched, it must be activated before newly fetched
-                            // values are returned.
-                            mFirebaseRemoteConfig.activateFetched();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Fetch Failed",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        displayWelcomeMessage();
-                    }
-                });
+                    // After config data is successfully fetched, it must be activated before
+                    // newly fetched
+                    // values are returned.
+                    mFirebaseRemoteConfig.activateFetched();
+                } else {
+                    Toast.makeText(MainActivity.this, "Fetch Failed", Toast.LENGTH_SHORT).show();
+                }
+                displayWelcomeMessage();
+            }
+        });
         // [END fetch_config_with_callback]
     }
 
@@ -326,6 +337,9 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
             case R.id.menu_sign_out:
                 AuthUI.getInstance().signOut(this);
                 startSignIn();
+                break;
+            case R.id.menu_invite:
+                onInviteClicked();
                 break;
         }
         return super.onOptionsItemSelected(item);

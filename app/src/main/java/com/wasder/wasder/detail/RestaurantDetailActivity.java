@@ -45,7 +45,7 @@ import com.google.firebase.firestore.Transaction;
 import com.wasder.wasder.R;
 import com.wasder.wasder.Util.RestaurantUtil;
 import com.wasder.wasder.adapter.RatingAdapter;
-import com.wasder.wasder.dialog.RatingDialogFragment;
+import com.wasder.wasder.dialog.AddRatingDialogFragment;
 import com.wasder.wasder.model.Rating;
 import com.wasder.wasder.model.Restaurant;
 
@@ -55,7 +55,7 @@ import butterknife.OnClick;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class RestaurantDetailActivity extends AppCompatActivity implements
-        EventListener<DocumentSnapshot>, RatingDialogFragment.RatingListener {
+        EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
 
     private static final String TAG = "RestaurantDetail";
 
@@ -91,7 +91,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
     @BindView(R.id.fab_show_rating_dialog)
     FloatingActionButton floatingActionButton;
 
-    private RatingDialogFragment mRatingDialog;
+    private AddRatingDialogFragment mRatingDialog;
 
     private FirebaseFirestore mFirestore;
     private DocumentReference mRestaurantRef;
@@ -138,7 +138,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
         mRatingsRecycler.setLayoutManager(new LinearLayoutManager(this));
         mRatingsRecycler.setAdapter(mRatingAdapter);
 
-        mRatingDialog = new RatingDialogFragment();
+        mRatingDialog = new AddRatingDialogFragment();
 
     }
 
@@ -225,7 +225,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
 
     @OnClick(R.id.fab_show_rating_dialog)
     public void onAddRatingClicked(View view) {
-        mRatingDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
+        mRatingDialog.show(getSupportFragmentManager(), AddRatingDialogFragment.TAG);
     }
 
     @Override
@@ -239,6 +239,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
                 // Hide keyboard and scroll to top
                 hideKeyboard();
                 mRatingsRecycler.smoothScrollToPosition(0);
+                Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_rating_added,
+                        Snackbar.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(this, new OnFailureListener() {
             @Override
@@ -247,8 +249,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
 
                 // Show failure message and hide keyboard
                 hideKeyboard();
-                Snackbar.make(findViewById(android.R.id.content), "Failed to add rating",
-                        Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(android.R.id.content), R.string
+                        .snackbar_rating_add_failed, Snackbar.LENGTH_SHORT).show();
             }
         });
     }

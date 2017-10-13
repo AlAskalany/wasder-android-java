@@ -46,7 +46,7 @@ import com.wasder.wasder.R;
 import com.wasder.wasder.Util.EventUtil;
 import com.wasder.wasder.adapter.RatingAdapter;
 import com.wasder.wasder.dialog.AddEventDialogFragment;
-import com.wasder.wasder.dialog.RatingDialogFragment;
+import com.wasder.wasder.dialog.AddRatingDialogFragment;
 import com.wasder.wasder.model.Event;
 import com.wasder.wasder.model.Rating;
 
@@ -56,7 +56,7 @@ import butterknife.OnClick;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class EventDetailActivity extends AppCompatActivity implements
-        EventListener<DocumentSnapshot>, RatingDialogFragment.RatingListener {
+        EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
 
     private static final String TAG = "EventDetail";
 
@@ -97,6 +97,9 @@ public class EventDetailActivity extends AppCompatActivity implements
 
     @BindView(R.id.fab_show_rating_dialog)
     FloatingActionButton floatingActionButton;
+
+    @BindView(R.id.activity_event_detail_coordinator_layout)
+    View mCoordinatorLayout;
 
     private AddEventDialogFragment mEventDialog;
 
@@ -234,7 +237,7 @@ public class EventDetailActivity extends AppCompatActivity implements
 
     @OnClick(R.id.fab_show_rating_dialog)
     public void onAddRatingClicked(View view) {
-        mEventDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
+        mEventDialog.show(getSupportFragmentManager(), AddRatingDialogFragment.TAG);
     }
 
     @Override
@@ -243,20 +246,20 @@ public class EventDetailActivity extends AppCompatActivity implements
         addRating(mEventRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d(TAG, "Rating added");
 
                 // Hide keyboard and scroll to top
                 hideKeyboard();
                 mRatingsRecycler.smoothScrollToPosition(0);
+                Snackbar.make(mCoordinatorLayout, R.string
+                        .snackbar_rating_added, Snackbar.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Add rating failed", e);
 
                 // Show failure message and hide keyboard
                 hideKeyboard();
-                Snackbar.make(findViewById(android.R.id.content), "Failed to add rating",
+                Snackbar.make(mCoordinatorLayout, "Failed to add rating",
                         Snackbar.LENGTH_SHORT).show();
             }
         });
