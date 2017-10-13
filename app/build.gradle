@@ -52,6 +52,12 @@ dependencies {
 
     // FirebaseUI (for authentication)
     compile 'com.firebaseui:firebase-ui-auth:3.0.0'
+    // FirebaseUI for Cloud Firestore
+    compile 'com.firebaseui:firebase-ui-firestore:3.0.0'
+    // FirebaseUI for Cloud Storage
+    compile 'com.firebaseui:firebase-ui-storage:3.0.0'
+    // FirebaseUI for Firebase Realtime Database
+    compile 'com.firebaseui:firebase-ui-database:3.0.0'
 
     // ButterKnife (for sample code brevity)
     compile 'com.jakewharton:butterknife:8.7.0'
