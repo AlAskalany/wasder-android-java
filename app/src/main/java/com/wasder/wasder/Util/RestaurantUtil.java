@@ -6,7 +6,6 @@ import com.wasder.wasder.R;
 import com.wasder.wasder.model.Restaurant;
 
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -72,7 +71,8 @@ public class RestaurantUtil {
         // Integer between 1 and MAX_IMAGE_NUM (inclusive)
         int id = random.nextInt(MAX_IMAGE_NUM) + 1;
 
-        return String.format(Locale.getDefault(), RESTAURANT_URL_FMT, id);
+        //return String.format(Locale.getDefault(), RESTAURANT_URL_FMT, id);
+        return "f07fafef-219a-4d10-90b5-bcabc1c82348";
     }
 
     /**

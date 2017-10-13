@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,7 +114,7 @@ public class RestaurantAdapter extends FirestoreRecyclerAdapter<Restaurant, Rest
 
             // Load image
             String uuid = restaurant.getPhoto();
-            if (uuid != null) {
+            if (!TextUtils.isEmpty(uuid)) {
                 StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
                 GlideApp.with(imageView.getContext()).load(mImageRef).transition
                         (DrawableTransitionOptions.withCrossFade()).into(imageView);
