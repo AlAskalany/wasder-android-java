@@ -1,6 +1,10 @@
 package com.wasder.wasder;
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -13,8 +17,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class WasderActivity extends AppCompatActivity implements NavigationView
-        .OnNavigationItemSelectedListener {
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.wasder.wasder.viewmodel.WasderActivityViewModel;
+
+import java.util.Collections;
+
+public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
+        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener {
+
+    private static final String TAG = "WasderActivity";
+    private static final int RC_SIGN_IN = 9001;
+
+    private WasderActivityViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +37,9 @@ public class WasderActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_wasder);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // View model
+        mViewModel = ViewModelProviders.of(this).get(WasderActivityViewModel.class);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +58,32 @@ public class WasderActivity extends AppCompatActivity implements NavigationView
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Start sign in if necessary
+        if (shouldStartSignIn()) {
+            startSignIn();
+            return;
+        }
+    }
+
+    private boolean shouldStartSignIn() {
+        return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() ==
+                null);
+    }
+
+    private void startSignIn() {
+        // Sign in with FirebaseUI
+        Intent intent = AuthUI.getInstance().createSignInIntentBuilder().setTheme(R.style
+                .GreenTheme).setAvailableProviders(Collections.singletonList(new AuthUI.IdpConfig
+                .Builder(AuthUI.EMAIL_PROVIDER).build())).setIsSmartLockEnabled(!BuildConfig
+                .DEBUG).build();
+
+        startActivityForResult(intent, RC_SIGN_IN);
+        mViewModel.setIsSigningIn(true);
     }
 
     @Override
@@ -97,5 +141,21 @@ public class WasderActivity extends AppCompatActivity implements NavigationView
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            mViewModel.setIsSigningIn(false);
+            if (resultCode != RESULT_OK && shouldStartSignIn()) {
+                startSignIn();
+            }
+        }
     }
 }
