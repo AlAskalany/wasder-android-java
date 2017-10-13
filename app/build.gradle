@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:multidex:1.0.2'
     // Firestore
     compile 'com.google.firebase:firebase-firestore:11.4.2'
