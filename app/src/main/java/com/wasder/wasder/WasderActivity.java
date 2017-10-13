@@ -8,7 +8,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,9 +38,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
 
-    @BindView(R.id.message2)
-    TextView mTextMessage;
-
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
@@ -50,6 +50,12 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.tabLayout)
+    TabLayout mTabLayout;
+
+    @BindView(R.id.viewPager)
+    ViewPager mViewPager;
+
     private WasderActivityViewModel mViewModel;
 
     private BottomNavigationView.OnNavigationItemSelectedListener
@@ -60,13 +66,13 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    //mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    //mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    //mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -92,6 +98,22 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         mBottomNavigationView.setOnNavigationItemSelectedListener
                 (mOnNavigationItemSelectedListener);
+
+        // Setup Tabs
+        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return null;
+            }
+
+            @Override
+            public int getCount() {
+                return 0;
+            }
+        };
+
+        mViewPager.setAdapter(pagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
