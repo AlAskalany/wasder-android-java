@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wasder.wasder;
+package com.wasder.wasder.detail;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -42,44 +42,52 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
-import com.wasder.wasder.Util.RestaurantUtil;
+import com.wasder.wasder.R;
+import com.wasder.wasder.Util.EventUtil;
 import com.wasder.wasder.adapter.RatingAdapter;
+import com.wasder.wasder.dialog.AddEventDialogFragment;
 import com.wasder.wasder.dialog.RatingDialogFragment;
+import com.wasder.wasder.model.Event;
 import com.wasder.wasder.model.Rating;
-import com.wasder.wasder.model.Restaurant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-public class RestaurantDetailActivity extends AppCompatActivity implements
+public class EventDetailActivity extends AppCompatActivity implements
         EventListener<DocumentSnapshot>, RatingDialogFragment.RatingListener {
 
-    private static final String TAG = "RestaurantDetail";
+    private static final String TAG = "EventDetail";
 
-    public static final String KEY_RESTAURANT_ID = "key_restaurant_id";
+    public static final String KEY_EVENT_ID = "key_event_id";
 
-    @BindView(R.id.restaurant_image)
+    @BindView(R.id.event_user_user_name)
+    TextView mUserName;
+
+    @BindView(R.id.event_image)
     ImageView mImageView;
 
-    @BindView(R.id.restaurant_name)
+    @BindView(R.id.event_name)
     TextView mNameView;
 
-    @BindView(R.id.restaurant_rating)
+    @BindView(R.id.event_rating)
     MaterialRatingBar mRatingIndicator;
 
-    @BindView(R.id.restaurant_num_ratings)
+    @BindView(R.id.event_num_ratings)
     TextView mNumRatingsView;
 
-    @BindView(R.id.restaurant_city)
+    @BindView(R.id.event_city)
     TextView mCityView;
 
-    @BindView(R.id.restaurant_category)
+    @BindView(R.id.event_category)
     TextView mCategoryView;
 
-    @BindView(R.id.restaurant_price)
+    @BindView(R.id.event_price)
     TextView mPriceView;
+
+    @BindView(R.id.event_date)
+    TextView mDateView;
 
     @BindView(R.id.view_empty_ratings)
     ViewGroup mEmptyView;
@@ -90,35 +98,35 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
     @BindView(R.id.fab_show_rating_dialog)
     FloatingActionButton floatingActionButton;
 
-    private RatingDialogFragment mRatingDialog;
+    private AddEventDialogFragment mEventDialog;
 
     private FirebaseFirestore mFirestore;
-    private DocumentReference mRestaurantRef;
-    private ListenerRegistration mRestaurantRegistration;
+    private DocumentReference mEventRef;
+    private ListenerRegistration mEventRegistration;
 
     private RatingAdapter mRatingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_detail);
+        setContentView(R.layout.activity_event_detail);
         ButterKnife.bind(this);
 
-        // Get restaurant ID from extras
-        String restaurantId = getIntent().getExtras().getString(KEY_RESTAURANT_ID);
-        if (restaurantId == null) {
-            throw new IllegalArgumentException("Must pass extra " + KEY_RESTAURANT_ID);
+        // Get event ID from extras
+        String eventId = getIntent().getExtras().getString(KEY_EVENT_ID);
+        if (eventId == null) {
+            throw new IllegalArgumentException("Must pass extra " + KEY_EVENT_ID);
         }
 
         // Initialize Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get reference to the restaurant
-        mRestaurantRef = mFirestore.collection("restaurants").document(restaurantId);
+        // Get reference to the event
+        mEventRef = mFirestore.collection("events").document(eventId);
 
         // Get ratings
-        Query ratingsQuery = mRestaurantRef.collection("ratings").orderBy("timestamp", Query
-                .Direction.DESCENDING).limit(50);
+        Query ratingsQuery = mEventRef.collection("ratings").orderBy("timestamp", Query.Direction
+                .DESCENDING).limit(50);
 
         // RecyclerView
         mRatingAdapter = new RatingAdapter(ratingsQuery) {
@@ -137,7 +145,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
         mRatingsRecycler.setLayoutManager(new LinearLayoutManager(this));
         mRatingsRecycler.setAdapter(mRatingAdapter);
 
-        mRatingDialog = new RatingDialogFragment();
+        mEventDialog = new AddEventDialogFragment();
 
     }
 
@@ -146,7 +154,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
         super.onStart();
 
         mRatingAdapter.startListening();
-        mRestaurantRegistration = mRestaurantRef.addSnapshotListener(this);
+        mEventRegistration = mEventRef.addSnapshotListener(this);
     }
 
     @Override
@@ -155,36 +163,36 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
 
         mRatingAdapter.stopListening();
 
-        if (mRestaurantRegistration != null) {
-            mRestaurantRegistration.remove();
-            mRestaurantRegistration = null;
+        if (mEventRegistration != null) {
+            mEventRegistration.remove();
+            mEventRegistration = null;
         }
     }
 
-    private Task<Void> addRating(final DocumentReference restaurantRef, final Rating rating) {
+    private Task<Void> addRating(final DocumentReference eventRef, final Rating rating) {
         // Create reference for new rating, for use inside the transaction
-        final DocumentReference ratingRef = restaurantRef.collection("ratings").document();
+        final DocumentReference ratingRef = eventRef.collection("ratings").document();
 
         // In a transaction, add the new rating and update the aggregate totals
         return mFirestore.runTransaction(new Transaction.Function<Void>() {
             @Override
             public Void apply(Transaction transaction) throws FirebaseFirestoreException {
 
-                Restaurant restaurant = transaction.get(restaurantRef).toObject(Restaurant.class);
+                Event event = transaction.get(eventRef).toObject(Event.class);
 
                 // Compute new number of ratings
-                int newNumRatings = restaurant.getNumRatings() + 1;
+                int newNumRatings = event.getNumRatings() + 1;
 
                 // Compute new average rating
-                double oldRatingTotal = restaurant.getAvgRating() * restaurant.getNumRatings();
+                double oldRatingTotal = event.getAvgRating() * event.getNumRatings();
                 double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRatings;
 
-                // Set new restaurant info
-                restaurant.setNumRatings(newNumRatings);
-                restaurant.setAvgRating(newAvgRating);
+                // Set new event info
+                event.setNumRatings(newNumRatings);
+                event.setAvgRating(newAvgRating);
 
                 // Commit to Firestore
-                transaction.set(restaurantRef, restaurant);
+                transaction.set(eventRef, event);
                 transaction.set(ratingRef, rating);
 
                 return null;
@@ -193,44 +201,46 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
     }
 
     /**
-     * Listener for the Restaurant document ({@link #mRestaurantRef}).
+     * Listener for the Event document ({@link #mEventRef}).
      */
     @Override
     public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
         if (e != null) {
-            Log.w(TAG, "restaurant:onEvent", e);
+            Log.w(TAG, "event:onEvent", e);
             return;
         }
 
-        onRestaurantLoaded(snapshot.toObject(Restaurant.class));
+        onEventLoaded(snapshot.toObject(Event.class));
     }
 
-    private void onRestaurantLoaded(Restaurant restaurant) {
-        mNameView.setText(restaurant.getName());
-        mRatingIndicator.setRating((float) restaurant.getAvgRating());
-        mNumRatingsView.setText(getString(R.string.fmt_num_ratings, restaurant.getNumRatings()));
-        mCityView.setText(restaurant.getCity());
-        mCategoryView.setText(restaurant.getCategory());
-        mPriceView.setText(RestaurantUtil.getPriceString(restaurant));
+    private void onEventLoaded(Event event) {
+        mUserName.setText(event.getUserName());
+        mNameView.setText(event.getEventName());
+        mRatingIndicator.setRating((float) event.getAvgRating());
+        mNumRatingsView.setText(getString(R.string.fmt_num_ratings, event.getNumRatings()));
+        mCityView.setText(event.getCity());
+        mCategoryView.setText(event.getCategory());
+        mPriceView.setText(EventUtil.getPriceString(event));
+        mDateView.setText(event.getDate());
 
         // Background image
-        Glide.with(mImageView.getContext()).load(restaurant.getPhoto()).into(mImageView);
+        Glide.with(mImageView.getContext()).load(event.getPhoto()).into(mImageView);
     }
 
-    @OnClick(R.id.restaurant_button_back)
+    @OnClick(R.id.event_button_back)
     public void onBackArrowClicked(View view) {
         onBackPressed();
     }
 
     @OnClick(R.id.fab_show_rating_dialog)
     public void onAddRatingClicked(View view) {
-        mRatingDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
+        mEventDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
     }
 
     @Override
     public void onRating(Rating rating) {
         // In a transaction, add the new rating and update the aggregate totals
-        addRating(mRestaurantRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+        addRating(mEventRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "Rating added");

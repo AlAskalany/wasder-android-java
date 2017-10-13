@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wasder.wasder;
+package com.wasder.wasder.dialog;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -28,6 +28,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.R;
 import com.wasder.wasder.filter.EventsFilters;
 import com.wasder.wasder.model.Event;
 
@@ -45,7 +46,7 @@ public class EventsFilterDialogFragment extends DialogFragment implements DatePi
 
     public static final String TAG = "EventsFilterDialog";
 
-    interface FilterListener {
+    public interface FilterListener {
 
         void onFilter(EventsFilters eventsFilters);
 

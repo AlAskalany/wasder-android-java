@@ -2,6 +2,7 @@ package com.wasder.wasder.Util;
 
 import android.content.Context;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.wasder.wasder.R;
 import com.wasder.wasder.model.Event;
 
@@ -52,8 +53,9 @@ public class EventUtil {
         categories = Arrays.copyOfRange(categories, 1, categories.length);
 
         int[] prices = new int[]{1, 2, 3};
-
-        event.setName(getRandomName(random));
+        event.setUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        event.setUserName(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        event.setEventName(getRandomName(random));
         event.setCity(getRandomString(cities, random));
         event.setCategory(getRandomString(categories, random));
         event.setPhoto(getRandomImageUrl(random));

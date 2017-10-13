@@ -65,11 +65,14 @@ public class EventAdapter extends FirestoreAdapter<EventAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.event_user_name)
+        TextView userNameView;
+
         @BindView(R.id.event_item_image)
         ImageView imageView;
 
         @BindView(R.id.event_item_name)
-        TextView nameView;
+        TextView eventNameView;
 
         @BindView(R.id.event_item_rating)
         MaterialRatingBar ratingBar;
@@ -102,7 +105,8 @@ public class EventAdapter extends FirestoreAdapter<EventAdapter.ViewHolder> {
             // Load image
             Glide.with(imageView.getContext()).load(event.getPhoto()).into(imageView);
 
-            nameView.setText(event.getName());
+            userNameView.setText(event.getUserName());
+            eventNameView.setText(event.getEventName());
             ratingBar.setRating((float) event.getAvgRating());
             cityView.setText(event.getCity());
             categoryView.setText(event.getCategory());

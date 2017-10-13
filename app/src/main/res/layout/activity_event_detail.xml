@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/eventDetailBackgroundColor"
-    tools:context="com.wasder.wasder.EventDetailActivity">
+    tools:context="com.wasder.wasder.detail.EventDetailActivity">
 
     <RelativeLayout
         android:id="@+id/event_top_card"
@@ -128,6 +128,15 @@
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="2017/10/20" />
+
+        <TextView
+            android:id="@+id/event_user_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/event_date"
+            android:layout_alignStart="@+id/event_date"
+            android:layout_alignTop="@+id/event_name"
+            android:text="TextView" />
 
     </RelativeLayout>
 

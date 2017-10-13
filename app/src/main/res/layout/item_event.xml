@@ -99,4 +99,15 @@
         android:layout_marginTop="44dp"
         android:text="TextView" />
 
+    <TextView
+        android:id="@+id/event_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/event_item_name"
+        android:layout_alignRight="@+id/event_item_name"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:text="TextView" />
+
 </RelativeLayout>

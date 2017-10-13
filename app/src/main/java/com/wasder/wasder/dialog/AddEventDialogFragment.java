@@ -27,6 +27,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.wasder.wasder.R;
@@ -117,7 +119,11 @@ public class AddEventDialogFragment extends DialogFragment {
     @NonNull
     private Event createEventFromFields() {
         Random random = new Random();
-        return new Event(getEventName(), getEventCity(), getEventCategory(),
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String uId = user.getUid();
+        String name = user.getDisplayName();
+        return new Event(uId, name, getEventName(), getEventCity(), getEventCategory(),
                 getRandomImageUrl(random), getEventPrice(), INITIAL_AVG_RATING,
                 INITIAL_NUM_RATINGS);
     }

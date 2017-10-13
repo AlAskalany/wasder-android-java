@@ -38,8 +38,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.dialog.EventsFilterDialogFragment;
 import com.wasder.wasder.Util.EventUtil;
 import com.wasder.wasder.adapter.EventAdapter;
+import com.wasder.wasder.detail.EventDetailActivity;
 import com.wasder.wasder.dialog.AddEventDialogFragment;
 import com.wasder.wasder.filter.EventsFilters;
 import com.wasder.wasder.model.Event;
@@ -51,8 +53,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EventsActivity extends AppCompatActivity implements EventsFilterDialogFragment
-        .FilterListener, EventAdapter.OnEventSelectedListener {
+public class EventsActivity extends AppCompatActivity implements EventsFilterDialogFragment.FilterListener, EventAdapter.OnEventSelectedListener {
 
     private static final String TAG = "MainActivity";
 
