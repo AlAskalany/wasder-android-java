@@ -452,9 +452,10 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
 
     private void startSignIn() {
         // Sign in with FirebaseUI
-        Intent intent = AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders
-                (Collections.singletonList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
-                        .build())).setIsSmartLockEnabled(!BuildConfig.DEBUG).build();
+        Intent intent = AuthUI.getInstance().createSignInIntentBuilder().setTheme(R.style
+                .GreenTheme).setAvailableProviders(Collections.singletonList(new AuthUI.IdpConfig
+                .Builder(AuthUI.EMAIL_PROVIDER).build())).setIsSmartLockEnabled(!BuildConfig
+                .DEBUG).build();
 
         startActivityForResult(intent, RC_SIGN_IN);
         mViewModel.setIsSigningIn(true);
