@@ -41,6 +41,7 @@ import com.wasder.wasder.MainActivity;
 import com.wasder.wasder.R;
 import com.wasder.wasder.filter.RestaurantsFilters;
 import com.wasder.wasder.model.Event;
+import com.wasder.wasder.model.Model;
 
 import java.util.Random;
 
@@ -143,7 +144,7 @@ public class AddEventDialogFragment extends DialogFragment implements
         FirebaseUser user = auth.getCurrentUser();
         String uId = user.getUid();
         String name = user.getDisplayName();
-        return new Event(uId, name, getEventName(), getEventCity(), getEventCategory(),
+        return Model.Event(uId, name, getEventName(), getEventCity(), getEventCategory(),
                 getRandomImageUrl(random), getEventPrice(), INITIAL_AVG_RATING,
                 INITIAL_NUM_RATINGS);
     }

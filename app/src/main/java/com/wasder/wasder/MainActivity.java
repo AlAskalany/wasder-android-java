@@ -15,12 +15,12 @@
  */
 package com.wasder.wasder;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,9 +28,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,30 +40,24 @@ import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.appinvite.AppInvite;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.appinvite.AppInviteInvitation;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.wasder.wasder.Util.RestaurantUtil;
+import com.wasder.wasder.adapter.Adapters;
 import com.wasder.wasder.adapter.RestaurantAdapter;
-import com.wasder.wasder.detail.RestaurantDetailActivity;
 import com.wasder.wasder.dialog.AddRestaurantDialogFragment;
+import com.wasder.wasder.dialog.Dialogs;
 import com.wasder.wasder.dialog.RestaurantsFilterDialogFragment;
 import com.wasder.wasder.filter.RestaurantsFilters;
 import com.wasder.wasder.model.Restaurant;
@@ -78,8 +74,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements RestaurantsFilterDialogFragment
-        .FilterListener, RestaurantAdapter.OnRestaurantSelectedListener, FirebaseAuth
-        .AuthStateListener {
+        .FilterListener, FirebaseAuth.AuthStateListener, LifecycleOwner {
 
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -109,8 +104,8 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     private Query mQuery;
 
     private RestaurantsFilterDialogFragment mFilterDialog;
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private AddRestaurantDialogFragment mAddRestaurantDialog;
-    private RestaurantAdapter mAdapter;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     private MainActivityViewModel mViewModel;
@@ -146,8 +141,8 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         initRecyclerView();
 
         // Filter Dialog
-        mFilterDialog = new RestaurantsFilterDialogFragment();
-        mAddRestaurantDialog = new AddRestaurantDialogFragment();
+        mFilterDialog = Dialogs.RestaurantsFilterDialogFragment();
+        mAddRestaurantDialog = Dialogs.AddRestaurantDialogFragment();
     }
 
     private void onInviteClicked() {
@@ -226,29 +221,9 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-
-        mAdapter = new RestaurantAdapter(mQuery, this) {
-
-            @Override
-            protected void onDataChanged() {
-                // Show/hide content if the query returns empty.
-                if (getItemCount() == 0) {
-                    mRestaurantsRecycler.setVisibility(View.GONE);
-                } else {
-                    mRestaurantsRecycler.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            protected void onError(FirebaseFirestoreException e) {
-                // Show a snackbar on errors
-                Snackbar.make(findViewById(android.R.id.content), "Error: check logs for info.",
-                        Snackbar.LENGTH_LONG).show();
-            }
-        };
-
+        RestaurantAdapter adapter = Adapters.RestaurantAdapter(this, mQuery);
         mRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mRestaurantsRecycler.setAdapter(mAdapter);
+        mRestaurantsRecycler.setAdapter(adapter);
     }
 
     @Override
@@ -268,11 +243,6 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
 
             // Apply filters
             onFilter(mViewModel.getFilters());
-
-            // Start listening for Firestore updates
-            if (mAdapter != null) {
-                mAdapter.startListening();
-            }
         }
 
     }
@@ -280,9 +250,6 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     @Override
     public void onStop() {
         super.onStop();
-        if (mAdapter != null) {
-            mAdapter.stopListening();
-        }
     }
 
     private void onAddItemsClicked() {
@@ -328,7 +295,6 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
 
         // Update the query
         mQuery = query;
-        mAdapter.setQuery(query);
 
         // Set header
         mCurrentSearchView.setText(Html.fromHtml(filters.getSearchDescription(this)));
@@ -415,15 +381,6 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         onFilter(RestaurantsFilters.getDefault());
     }
 
-    @Override
-    public void onRestaurantSelected(DocumentSnapshot restaurant) {
-        // Go to the details page for the selected restaurant
-        Intent intent = new Intent(this, RestaurantDetailActivity.class);
-        intent.putExtra(RestaurantDetailActivity.KEY_RESTAURANT_ID, restaurant.getId());
-
-        startActivity(intent);
-    }
-
     private boolean shouldStartSignIn() {
         return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() ==
                 null);
@@ -440,6 +397,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         mViewModel.setIsSigningIn(true);
     }
 
+    @SuppressWarnings("unused")
     private void showTodoToast() {
         Toast.makeText(this, "TODO: Implement", Toast.LENGTH_SHORT).show();
     }

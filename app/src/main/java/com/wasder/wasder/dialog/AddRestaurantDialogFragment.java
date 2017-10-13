@@ -31,6 +31,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.wasder.wasder.R;
 import com.wasder.wasder.filter.RestaurantsFilters;
+import com.wasder.wasder.model.Model;
 import com.wasder.wasder.model.Restaurant;
 
 import java.util.Random;
@@ -117,7 +118,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     @NonNull
     private Restaurant createRestaurantFromFields() {
         Random random = new Random();
-        return new Restaurant(getRestaurantName(), getRestaurantCity(), getRestaurantCategory(),
+        return Model.Restaurant(getRestaurantName(), getRestaurantCity(), getRestaurantCategory(),
                 getRandomImageUrl(random), getRestaurantPrice(), INITIAL_AVG_RATING,
                 INITIAL_NUM_RATINGS);
     }

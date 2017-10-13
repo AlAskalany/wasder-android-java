@@ -1,21 +1,9 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.wasder.wasder.adapter;
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.wasder.wasder.R;
 import com.wasder.wasder.Util.RestaurantUtil;
+import com.wasder.wasder.detail.RestaurantDetailActivity;
 import com.wasder.wasder.model.Restaurant;
 
 import butterknife.BindView;
@@ -35,35 +26,56 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
- * RecyclerView adapter for a list of Restaurants.
+ * Created by Ahmed AlAskalany on 10/13/2017.
+ * Wasder AB
  */
-public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHolder> {
 
-    public interface OnRestaurantSelectedListener {
+public class RestaurantAdapter extends FirestoreRecyclerAdapter<Restaurant, RestaurantAdapter
+        .RestaurantHolder> {
 
-        void onRestaurantSelected(DocumentSnapshot restaurant);
-
+    /**
+     * Create a new RecyclerView adapter that listens to a Firestore Query.  See
+     * {@link FirestoreRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    RestaurantAdapter(FirestoreRecyclerOptions options) {
+        super(options);
     }
 
-    private OnRestaurantSelectedListener mListener;
+    @SuppressWarnings("unused")
+    public static RestaurantAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query
+            query) {
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Restaurant>()
+                .setLifecycleOwner(lifecycleOwner).setQuery(query, Restaurant.class).build();
+        return new RestaurantAdapter(options);
+    }
 
-    public RestaurantAdapter(Query query, OnRestaurantSelectedListener listener) {
-        super(query);
-        mListener = listener;
+    @SuppressWarnings("unused")
+    public static RestaurantAdapter newInstance(Query query) {
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Restaurant>()
+                .setQuery(query, Restaurant.class).build();
+        return new RestaurantAdapter(options);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new ViewHolder(inflater.inflate(R.layout.item_restaurant, parent, false));
+    protected void onBindViewHolder(RestaurantHolder holder, int position, Restaurant model) {
+        holder.bind(getSnapshots().getSnapshot(position));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(getSnapshot(position), mListener);
+    public RestaurantHolder onCreateViewHolder(ViewGroup group, int viewType) {
+        View view = LayoutInflater.from(group.getContext()).inflate(R.layout.item_restaurant,
+                group, false);
+
+        return new RestaurantAdapter.RestaurantHolder(view);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * Created by Ahmed AlAskalany on 10/13/2017.
+     * Wasder AB
+     */
+    public static class RestaurantHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.restaurant_item_image)
         ImageView imageView;
@@ -86,15 +98,14 @@ public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHo
         @BindView(R.id.restaurant_item_city)
         TextView cityView;
 
-        public ViewHolder(View itemView) {
+        public RestaurantHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot, final OnRestaurantSelectedListener
-                listener) {
+        public void bind(final DocumentSnapshot snapshot) {
 
-            Restaurant restaurant = snapshot.toObject(Restaurant.class);
+            final Restaurant restaurant = snapshot.toObject(Restaurant.class);
             Resources resources = itemView.getResources();
 
             // Load image
@@ -112,9 +123,9 @@ public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (listener != null) {
-                        listener.onRestaurantSelected(snapshot);
-                    }
+                    Intent intent = new Intent(view.getContext(), RestaurantDetailActivity.class);
+                    intent.putExtra("key_restaurant_id", snapshot.getId());
+                    view.getContext().startActivity(intent);
                 }
             });
         }

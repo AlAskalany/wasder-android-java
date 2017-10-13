@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import com.google.firebase.firestore.Query;
 import com.wasder.wasder.R;
 import com.wasder.wasder.filter.EventsFilters;
+import com.wasder.wasder.filter.Filters;
 import com.wasder.wasder.model.Event;
 
 import java.util.Calendar;
@@ -225,7 +226,7 @@ public class EventsFilterDialogFragment extends DialogFragment implements DatePi
     }
 
     public EventsFilters getFilters() {
-        EventsFilters eventsFilters = new EventsFilters();
+        EventsFilters eventsFilters = Filters.EventsFilters();
 
         if (mRootView != null) {
             eventsFilters.setCategory(getSelectedCategory());

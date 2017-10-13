@@ -26,6 +26,7 @@ import android.widget.Spinner;
 
 import com.google.firebase.firestore.Query;
 import com.wasder.wasder.R;
+import com.wasder.wasder.filter.Filters;
 import com.wasder.wasder.filter.RestaurantsFilters;
 import com.wasder.wasder.model.Restaurant;
 
@@ -44,6 +45,13 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
 
         void onFilter(RestaurantsFilters restaurantsFilters);
 
+    }
+
+    public RestaurantsFilterDialogFragment() {
+    }
+
+    public static RestaurantsFilterDialogFragment newInstance() {
+        return new RestaurantsFilterDialogFragment();
     }
 
     private View mRootView;
@@ -177,7 +185,7 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
     }
 
     public RestaurantsFilters getFilters() {
-        RestaurantsFilters restaurantsFilters = new RestaurantsFilters();
+        RestaurantsFilters restaurantsFilters = Filters.RestaurantsFilters();
 
         if (mRootView != null) {
             restaurantsFilters.setCategory(getSelectedCategory());
