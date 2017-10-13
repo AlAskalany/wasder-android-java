@@ -120,13 +120,8 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
-        Appsee.start(getString(R.string.com_apsee_apikey));
-        logUserCrashlytics();
-        setupFirebaseRemoteConfig();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        fetchWelcomeMessage();
         setSupportActionBar(mToolbar);
 
         // View model
@@ -134,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
 
         // Enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true);
-
         // Initialize Firestore and the main RecyclerView
         initFirestore();
         initRecyclerView();
@@ -245,20 +239,27 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     @Override
     public void onStart() {
         super.onStart();
-
         // Start sign in if necessary
         if (shouldStartSignIn()) {
             startSignIn();
             return;
+        } else {
+
+            Fabric.with(this, new Crashlytics());
+            Appsee.start(getString(R.string.com_apsee_apikey));
+            logUserCrashlytics();
+            setupFirebaseRemoteConfig();
+            fetchWelcomeMessage();
+
+            // Apply filters
+            onFilter(mViewModel.getFilters());
+
+            // Start listening for Firestore updates
+            if (mAdapter != null) {
+                mAdapter.startListening();
+            }
         }
 
-        // Apply filters
-        onFilter(mViewModel.getFilters());
-
-        // Start listening for Firestore updates
-        if (mAdapter != null) {
-            mAdapter.startListening();
-        }
     }
 
     @Override
