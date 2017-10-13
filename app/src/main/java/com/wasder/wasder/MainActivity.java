@@ -220,27 +220,6 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         // Get the 50 highest rated restaurants
         mQuery = mFirestore.collection("restaurants").orderBy("avgRating", Query.Direction
                 .DESCENDING).limit(LIMIT);
-        mQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot querySnapshot, @Nullable
-                    FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen error", e);
-                    return;
-                }
-
-                for (DocumentChange change : querySnapshot.getDocumentChanges()) {
-                    if (change.getType() == DocumentChange.Type.ADDED) {
-                        Log.d(TAG, "New city:" + change.getDocument().getData());
-                    }
-
-                    String source = querySnapshot.getMetadata().isFromCache() ? "local cache" :
-                            "server";
-                    Log.d(TAG, "Data fetched from " + source);
-                }
-
-            }
-        });
     }
 
     private void initRecyclerView() {
