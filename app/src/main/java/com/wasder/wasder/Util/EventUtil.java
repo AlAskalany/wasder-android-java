@@ -25,7 +25,7 @@ public class EventUtil {
     private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit
             .SECONDS, new LinkedBlockingQueue<Runnable>());
 
-    private static final String EVENT_URL_FMT = "https://storage.googleapis" + "" +
+    private static final String EVENT_URL_FMT = "https://storage.googleapis" + "" + "" +
             ".com/firestorequickstarts.appspot.com/food_%d.png";
 
     private static final int MAX_IMAGE_NUM = 22;

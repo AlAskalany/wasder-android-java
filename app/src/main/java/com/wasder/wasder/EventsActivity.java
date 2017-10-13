@@ -18,7 +18,6 @@ package com.wasder.wasder;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,11 +38,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.wasder.wasder.dialog.EventsFilterDialogFragment;
 import com.wasder.wasder.Util.EventUtil;
 import com.wasder.wasder.adapter.EventAdapter;
 import com.wasder.wasder.detail.EventDetailActivity;
 import com.wasder.wasder.dialog.AddEventDialogFragment;
+import com.wasder.wasder.dialog.EventsFilterDialogFragment;
 import com.wasder.wasder.filter.EventsFilters;
 import com.wasder.wasder.model.Event;
 import com.wasder.wasder.viewmodel.EventsActivityViewModel;
@@ -54,29 +53,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EventsActivity extends AppCompatActivity implements EventsFilterDialogFragment.FilterListener, EventAdapter.OnEventSelectedListener {
+public class EventsActivity extends AppCompatActivity implements EventsFilterDialogFragment
+        .FilterListener, EventAdapter.OnEventSelectedListener {
 
     private static final String TAG = "MainActivity";
 
     private static final int RC_SIGN_IN = 9001;
 
     private static final int LIMIT = 50;
-
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-
-    @BindView(R.id.text_current_search)
-    TextView mCurrentSearchView;
-
-    @BindView(R.id.text_current_sort_by)
-    TextView mCurrentSortByView;
-
-    @BindView(R.id.recycler_events)
-    RecyclerView mEventsRecycler;
-
     @BindView(R.id.activity_events_coordinator_layout)
     public View mCoordinatorLayout;
-
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.text_current_search)
+    TextView mCurrentSearchView;
+    @BindView(R.id.text_current_sort_by)
+    TextView mCurrentSortByView;
+    @BindView(R.id.recycler_events)
+    RecyclerView mEventsRecycler;
     private FirebaseFirestore mFirestore;
     private Query mQuery;
 

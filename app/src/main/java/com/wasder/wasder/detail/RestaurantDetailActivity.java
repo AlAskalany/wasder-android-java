@@ -30,7 +30,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -42,6 +42,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.wasder.wasder.GlideApp;
 import com.wasder.wasder.R;
 import com.wasder.wasder.Util.RestaurantUtil;
 import com.wasder.wasder.adapter.RatingAdapter;
@@ -57,10 +60,8 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 public class RestaurantDetailActivity extends AppCompatActivity implements
         EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
 
-    private static final String TAG = "RestaurantDetail";
-
     public static final String KEY_RESTAURANT_ID = "key_restaurant_id";
-
+    private static final String TAG = "RestaurantDetail";
     @BindView(R.id.restaurant_image)
     ImageView mImageView;
 
@@ -215,7 +216,12 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
         mPriceView.setText(RestaurantUtil.getPriceString(restaurant));
 
         // Background image
-        Glide.with(mImageView.getContext()).load(restaurant.getPhoto()).into(mImageView);
+        String uuid = restaurant.getPhoto();
+        if (uuid != null) {
+            StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+            GlideApp.with(mImageView.getContext()).load(mImageRef).transition
+                    (DrawableTransitionOptions.withCrossFade()).into(mImageView);
+        }
     }
 
     @OnClick(R.id.restaurant_button_back)

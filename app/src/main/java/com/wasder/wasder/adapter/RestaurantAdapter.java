@@ -11,11 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.wasder.wasder.GlideApp;
 import com.wasder.wasder.R;
 import com.wasder.wasder.Util.RestaurantUtil;
 import com.wasder.wasder.detail.RestaurantDetailActivity;
@@ -109,8 +112,12 @@ public class RestaurantAdapter extends FirestoreRecyclerAdapter<Restaurant, Rest
             Resources resources = itemView.getResources();
 
             // Load image
-            Glide.with(imageView.getContext()).load(restaurant.getPhoto()).into(imageView);
-
+            String uuid = restaurant.getPhoto();
+            if (uuid != null) {
+                StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+                GlideApp.with(imageView.getContext()).load(mImageRef).transition
+                        (DrawableTransitionOptions.withCrossFade()).into(imageView);
+            }
             nameView.setText(restaurant.getName());
             ratingBar.setRating((float) restaurant.getAvgRating());
             cityView.setText(restaurant.getCity());
@@ -129,6 +136,5 @@ public class RestaurantAdapter extends FirestoreRecyclerAdapter<Restaurant, Rest
                 }
             });
         }
-
     }
 }

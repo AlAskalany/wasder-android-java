@@ -58,10 +58,8 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 public class EventDetailActivity extends AppCompatActivity implements
         EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
 
-    private static final String TAG = "EventDetail";
-
     public static final String KEY_EVENT_ID = "key_event_id";
-
+    private static final String TAG = "EventDetail";
     @BindView(R.id.event_user_user_name)
     TextView mUserName;
 
@@ -250,8 +248,8 @@ public class EventDetailActivity extends AppCompatActivity implements
                 // Hide keyboard and scroll to top
                 hideKeyboard();
                 mRatingsRecycler.smoothScrollToPosition(0);
-                Snackbar.make(mCoordinatorLayout, R.string
-                        .snackbar_rating_added, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(mCoordinatorLayout, R.string.snackbar_rating_added, Snackbar
+                        .LENGTH_SHORT).show();
             }
         }).addOnFailureListener(this, new OnFailureListener() {
             @Override
@@ -259,8 +257,8 @@ public class EventDetailActivity extends AppCompatActivity implements
 
                 // Show failure message and hide keyboard
                 hideKeyboard();
-                Snackbar.make(mCoordinatorLayout, "Failed to add rating",
-                        Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(mCoordinatorLayout, "Failed to add rating", Snackbar.LENGTH_SHORT)
+                        .show();
             }
         });
     }

@@ -20,6 +20,7 @@
         <activity android:name=".detail.RestaurantDetailActivity" />
         <activity android:name=".EventsActivity" />
         <activity android:name=".detail.EventDetailActivity" />
+
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
@@ -35,6 +36,7 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
         <meta-data xmlns:tools="http://schemas.android.com/tools"
             android:name="io.fabric.ApiKey"
             android:value="8df3619c6e081ddf78247924077b51d93acca7fb"
@@ -42,4 +44,5 @@
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 </manifest>

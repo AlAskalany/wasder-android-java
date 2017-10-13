@@ -28,20 +28,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appsee.Appsee;
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -63,15 +60,12 @@ import com.wasder.wasder.filter.RestaurantsFilters;
 import com.wasder.wasder.model.Restaurant;
 import com.wasder.wasder.viewmodel.MainActivityViewModel;
 
-import io.fabric.sdk.android.Fabric;
-
 import java.util.Collections;
-
-import com.appsee.Appsee;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements RestaurantsFilterDialogFragment
         .FilterListener, FirebaseAuth.AuthStateListener, LifecycleOwner {
@@ -370,8 +364,8 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
 
     @OnClick(R.id.floatingActionButton)
     public void submit(View view) {
-        //mAddRestaurantDialog.show(getSupportFragmentManager(), AddRestaurantDialogFragment.TAG);
-        startActivity(new Intent(this, EventsActivity.class));
+        mAddRestaurantDialog.show(getSupportFragmentManager(), AddRestaurantDialogFragment.TAG);
+        //startActivity(new Intent(this, EventsActivity.class));
     }
 
     @OnClick(R.id.button_clear_filter)

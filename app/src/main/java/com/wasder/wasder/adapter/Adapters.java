@@ -13,8 +13,9 @@ import com.wasder.wasder.model.Restaurant;
  */
 
 public class Adapters {
-    public static RestaurantAdapter RestaurantAdapter(@NonNull LifecycleOwner lifecycleOwner, Query
-            query) {
+
+    public static RestaurantAdapter RestaurantAdapter(@NonNull LifecycleOwner lifecycleOwner,
+                                                      Query query) {
         FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Restaurant>()
                 .setLifecycleOwner(lifecycleOwner).setQuery(query, Restaurant.class).build();
         return new RestaurantAdapter(options);
