@@ -36,6 +36,8 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ErrorCodes;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.appinvite.AppInvite;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.auth.api.Auth;
@@ -76,7 +78,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements RestaurantsFilterDialogFragment
-        .FilterListener, RestaurantAdapter.OnRestaurantSelectedListener {
+        .FilterListener, RestaurantAdapter.OnRestaurantSelectedListener, FirebaseAuth
+        .AuthStateListener {
 
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -218,26 +221,26 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         mQuery = mFirestore.collection("restaurants").orderBy("avgRating", Query.Direction
                 .DESCENDING).limit(LIMIT);
         mQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot querySnapshot,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen error", e);
-                            return;
-                        }
+            @Override
+            public void onEvent(@Nullable QuerySnapshot querySnapshot, @Nullable
+                    FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen error", e);
+                    return;
+                }
 
-                        for (DocumentChange change : querySnapshot.getDocumentChanges()) {
-                            if (change.getType() == DocumentChange.Type.ADDED) {
-                                Log.d(TAG, "New city:" + change.getDocument().getData());
-                            }
-
-                            String source = querySnapshot.getMetadata().isFromCache() ?
-                                    "local cache" : "server";
-                            Log.d(TAG, "Data fetched from " + source);
-                        }
-
+                for (DocumentChange change : querySnapshot.getDocumentChanges()) {
+                    if (change.getType() == DocumentChange.Type.ADDED) {
+                        Log.d(TAG, "New city:" + change.getDocument().getData());
                     }
-                });
+
+                    String source = querySnapshot.getMetadata().isFromCache() ? "local cache" :
+                            "server";
+                    Log.d(TAG, "Data fetched from " + source);
+                }
+
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -384,12 +387,35 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             mViewModel.setIsSigningIn(false);
+            IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode != RESULT_OK && shouldStartSignIn()) {
+                // Sign in failed
+                if (response == null) {
+                    // User pressed back button
+                    showSnackbar(R.string.sign_in_cancelled);
+                    return;
+                }
+
+                if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                    showSnackbar(R.string.no_internet_connection);
+                    return;
+                }
+
+                if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                    showSnackbar(R.string.unknown_error);
+                    return;
+                }
+                showSnackbar(R.string.unknown_sign_in_response);
                 startSignIn();
             }
         }
     }
+
+    private void showSnackbar(int message) {
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT);
+    }
+
 
     @OnClick(R.id.filter_bar)
     public void onFilterClicked() {
@@ -428,7 +454,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         // Sign in with FirebaseUI
         Intent intent = AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders
                 (Collections.singletonList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
-                        .build())).setIsSmartLockEnabled(false).build();
+                        .build())).setIsSmartLockEnabled(!BuildConfig.DEBUG).build();
 
         startActivityForResult(intent, RC_SIGN_IN);
         mViewModel.setIsSigningIn(true);
@@ -436,5 +462,9 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
 
     private void showTodoToast() {
         Toast.makeText(this, "TODO: Implement", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
     }
 }
