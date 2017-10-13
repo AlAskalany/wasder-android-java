@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -25,7 +26,9 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.wasder.wasder.viewmodel.WasderActivityViewModel;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,18 +103,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 (mOnNavigationItemSelectedListener);
 
         // Setup Tabs
-        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public int getCount() {
-                return 0;
-            }
-        };
-
+        TabsPagerAdapter pagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+        pagerAdapter.addFragment(new Fragment(), "Home");
+        pagerAdapter.addFragment(new Fragment(), "Other");
         mViewPager.setAdapter(pagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
@@ -217,6 +211,36 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             if (resultCode != RESULT_OK && shouldStartSignIn()) {
                 startSignIn();
             }
+        }
+    }
+
+    public class TabsPagerAdapter extends FragmentPagerAdapter {
+
+        List<Fragment> mFragmentList = new ArrayList<>();
+        List<String> mTitleList = new ArrayList<>();
+
+        public TabsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mTitleList.get(position);
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mTitleList.add(title);
         }
     }
 }
