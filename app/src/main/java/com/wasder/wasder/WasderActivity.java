@@ -65,19 +65,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             return false;
         }
     };
-    private final NavigationFragment homeNavigationFragment = new NavigationFragment();
-    private final NavigationFragment liveNavigationFragment = new NavigationFragment();
-    private final NavigationFragment groupsNavigationFragment = new NavigationFragment();
-    private final NavigationFragment messagesNavigationFragment = new NavigationFragment();
-    private final TabFragment feedTab = TabFragment.newInstance("restaurants", "Feed");
-    private final TabFragment twitchLiveTab = TabFragment.newInstance("restaurants", "Twitch Live");
-    private final TabFragment twitchStreamTab = TabFragment.newInstance("restaurants", "Twitch "
-            + "Stream");
-    private final TabFragment esportsTab = TabFragment.newInstance("restaurants", "Esports");
-    private final TabFragment allGroupsTab = TabFragment.newInstance("restaurants", "All");
-    private final TabFragment ownedGroupsTab = TabFragment.newInstance("restaurants", "Owned");
-    private final TabFragment mentionsTab = TabFragment.newInstance("restaurants", "Mentions");
-    private final TabFragment pmTab = TabFragment.newInstance("restaurants", "PM");
+
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
@@ -109,6 +97,21 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         mNavigationView.setNavigationItemSelectedListener(this);
 
+
+        NavigationFragment homeNavigationFragment = new NavigationFragment();
+        NavigationFragment liveNavigationFragment = new NavigationFragment();
+        NavigationFragment groupsNavigationFragment = new NavigationFragment();
+        NavigationFragment messagesNavigationFragment = new NavigationFragment();
+        TabFragment feedTab = TabFragment.newInstance("restaurants", "Feed");
+        TabFragment twitchLiveTab = TabFragment.newInstance("restaurants", "Twitch Live");
+        TabFragment twitchStreamTab = TabFragment.newInstance("restaurants", "Twitch " + "Stream");
+        TabFragment esportsTab = TabFragment.newInstance("restaurants", "Esports");
+        TabFragment allGroupsTab = TabFragment.newInstance("restaurants", "All");
+        TabFragment ownedGroupsTab = TabFragment.newInstance("restaurants", "Owned");
+        TabFragment mentionsTab = TabFragment.newInstance("restaurants", "Mentions");
+        TabFragment pmTab = TabFragment.newInstance("restaurants", "PM");
+
+
         homeNavigationFragment.mTabFragments.add(0, feedTab);
         homeNavigationFragment.mTabFragments.add(1, pmTab);
 
@@ -129,7 +132,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         mNavFragments.put(R.id.navigation_groups, groupsNavigationFragment);
         mNavFragments.put(R.id.navigation_messages, messagesNavigationFragment);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container, mNavFragments.get(R.id.navigation_home), "Home").addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, mNavFragments.get(R.id
+                .navigation_home), "Home").addToBackStack(null).commit();
 
 
         mBottomNavigationView.setOnNavigationItemSelectedListener
