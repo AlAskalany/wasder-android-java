@@ -23,11 +23,12 @@ import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.wasder.wasder.Util.EventUtil;
+import com.wasder.wasder.model.Event;
 import com.wasder.wasder.ui.NavigationFragment;
 import com.wasder.wasder.ui.TabFragment;
-import com.wasder.wasder.ui.home.HomeNavigationFragment;
-import com.wasder.wasder.ui.live.LiveNavigationFragment;
-import com.wasder.wasder.ui.messages.MessagesNavigationFragment;
 import com.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 import java.util.Collections;
@@ -44,18 +45,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
     private final SparseArrayCompat<NavigationFragment> mNavFragments = new SparseArrayCompat<>();
-    @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
-    @BindView(R.id.nav_view)
-    NavigationView mNavigationView;
-    @BindView(R.id.navigation2)
-    BottomNavigationView mBottomNavigationView;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.tabLayout)
-    TabLayout mTabLayout;
-    private WasderActivityViewModel mViewModel;
-    private BottomNavigationView.OnNavigationItemSelectedListener
+    private final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
 
@@ -75,6 +65,32 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             return false;
         }
     };
+    private final NavigationFragment homeNavigationFragment = new NavigationFragment();
+    private final NavigationFragment liveNavigationFragment = new NavigationFragment();
+    private final NavigationFragment groupsNavigationFragment = new NavigationFragment();
+    private final NavigationFragment messagesNavigationFragment = new NavigationFragment();
+    private final TabFragment feedTab = TabFragment.newInstance("restaurants", "Feed");
+    private final TabFragment twitchLiveTab = TabFragment.newInstance("restaurants", "Twitch Live");
+    private final TabFragment twitchStreamTab = TabFragment.newInstance("restaurants", "Twitch "
+            + "Stream");
+    private final TabFragment esportsTab = TabFragment.newInstance("restaurants", "Esports");
+    private final TabFragment allGroupsTab = TabFragment.newInstance("restaurants", "All");
+    private final TabFragment ownedGroupsTab = TabFragment.newInstance("restaurants", "Owned");
+    private final TabFragment mentionsTab = TabFragment.newInstance("restaurants", "Mentions");
+    private final TabFragment pmTab = TabFragment.newInstance("restaurants", "PM");
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view)
+    NavigationView mNavigationView;
+    @BindView(R.id.navigation2)
+    BottomNavigationView mBottomNavigationView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.tabLayout)
+    TabLayout mTabLayout;
+    private WasderActivityViewModel mViewModel;
+    private Fragment mCurrentFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,15 +109,31 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         mNavigationView.setNavigationItemSelectedListener(this);
 
-        mBottomNavigationView.setOnNavigationItemSelectedListener
-                (mOnNavigationItemSelectedListener);
+        homeNavigationFragment.mTabFragments.add(0, feedTab);
+        homeNavigationFragment.mTabFragments.add(1, pmTab);
+
+        liveNavigationFragment.mTabFragments.add(0, twitchLiveTab);
+        liveNavigationFragment.mTabFragments.add(1, twitchStreamTab);
+        liveNavigationFragment.mTabFragments.add(2, esportsTab);
+
+        groupsNavigationFragment.mTabFragments.add(0, allGroupsTab);
+        groupsNavigationFragment.mTabFragments.add(1, ownedGroupsTab);
+
+        messagesNavigationFragment.mTabFragments.add(0, mentionsTab);
+        messagesNavigationFragment.mTabFragments.add(1, pmTab);
+
 
         // Setup BottomNavigationView with NavigationFragments
-        mNavFragments.put(R.id.navigation_home, new HomeNavigationFragment());
-        mNavFragments.put(R.id.navigation_live, new LiveNavigationFragment());
-        mNavFragments.put(R.id.navigation_messages, new MessagesNavigationFragment());
-        getSupportFragmentManager().beginTransaction().add(R.id.container, mNavFragments.get(R.id
-                .navigation_home), "Home").commit();
+        mNavFragments.put(R.id.navigation_home, homeNavigationFragment);
+        mNavFragments.put(R.id.navigation_live, liveNavigationFragment);
+        mNavFragments.put(R.id.navigation_groups, groupsNavigationFragment);
+        mNavFragments.put(R.id.navigation_messages, messagesNavigationFragment);
+
+        getSupportFragmentManager().beginTransaction().add(R.id.container, mNavFragments.get(R.id.navigation_home), "Home").addToBackStack(null).commit();
+
+
+        mBottomNavigationView.setOnNavigationItemSelectedListener
+                (mOnNavigationItemSelectedListener);
     }
 
     private Fragment getCurrentNavigationFragment() {
@@ -152,24 +184,36 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.wasder, menu);
-        return true;
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.menu_add_events:
+                onAddItemsClicked();
+                break;
+            case R.id.menu_sign_out:
+                AuthUI.getInstance().signOut(this);
+                startSignIn();
+                break;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onAddItemsClicked() {
+        // Get a reference to the events collection
+        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        CollectionReference events = mFirestore.collection("events");
+
+        for (int i = 0; i < 10; i++) {
+            // Get a random events POJO
+            Event event = EventUtil.getRandom(this);
+
+            // Add a new document to the events collection
+            events.add(event);
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

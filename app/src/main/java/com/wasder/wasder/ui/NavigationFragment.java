@@ -5,17 +5,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.util.Pair;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.wasder.wasder.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +38,7 @@ public class NavigationFragment extends Fragment implements NavigationView
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private List<TabFragment> mTabFragments = new ArrayList<>();
+    public List<TabFragment> mTabFragments = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -73,9 +79,18 @@ public class NavigationFragment extends Fragment implements NavigationView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+        View view = inflater.inflate(R.layout.fragment_navigation, container, false);
+
+        TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getChildFragmentManager());
+        for (TabFragment tab : mTabFragments) {
+            tabsPagerAdapter.addFragment(tab, tab.getTitle());
+        }
+        ViewPager viewPager = view.findViewById(R.id.fragment_navigation_viewPager);
+        viewPager.setAdapter(tabsPagerAdapter);
+        TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+        // Inflate the layout for this fragment
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -121,5 +136,38 @@ public class NavigationFragment extends Fragment implements NavigationView
 
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    /**
+     * Created by Ahmed AlAskalany on 10/14/2017.
+     * Wasder AB
+     */
+    public static class TabsPagerAdapter extends FragmentStatePagerAdapter {
+
+        private final Map<Integer, Pair<String, TabFragment>> mFragmentsMap = new HashMap<>();
+
+        public TabsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public TabFragment getItem(int position) {
+            return mFragmentsMap.get(position).second;
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentsMap.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentsMap.get(position).first;
+        }
+
+        public void addFragment(TabFragment fragment, String title) {
+            int position = mFragmentsMap.size();
+            mFragmentsMap.put(position, new Pair<String, TabFragment>(title, fragment));
+        }
     }
 }

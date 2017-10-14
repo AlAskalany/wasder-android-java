@@ -9,11 +9,11 @@ import com.wasder.wasder.filter.RestaurantsFilters;
  * Wasder AB
  */
 
-public class FeedFragmentViewModel extends ViewModel {
+public class TabFragmentViewModel extends ViewModel {
 
     private RestaurantsFilters mRestaurantsFilters;
 
-    public FeedFragmentViewModel() {
+    public TabFragmentViewModel() {
         mRestaurantsFilters = RestaurantsFilters.getDefault();
     }
 
