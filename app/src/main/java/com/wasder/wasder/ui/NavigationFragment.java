@@ -1,36 +1,45 @@
-package com.wasder.wasder;
+package com.wasder.wasder.ui;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.wasder.wasder.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TabFragment.OnFragmentInteractionListener} interface
+ * {@link NavigationFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TabFragment#newInstance} factory method to
+ * Use the {@link NavigationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabFragment extends Fragment {
+public class NavigationFragment extends Fragment implements NavigationView
+        .OnNavigationItemSelectedListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private List<TabFragment> mTabFragments = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public TabFragment() {
+    public NavigationFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +49,11 @@ public class TabFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TabFragment.
+     * @return A new instance of fragment NavigationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabFragment newInstance(String param1, String param2) {
-        TabFragment fragment = new TabFragment();
+    public static NavigationFragment newInstance(String param1, String param2) {
+        NavigationFragment fragment = new NavigationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -91,6 +100,11 @@ public class TabFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 
     /**

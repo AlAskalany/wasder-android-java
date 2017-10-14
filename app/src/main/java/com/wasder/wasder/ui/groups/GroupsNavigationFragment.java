@@ -1,4 +1,4 @@
-package com.wasder.wasder;
+package com.wasder.wasder.ui.groups;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wasder.wasder.R;
+import com.wasder.wasder.ui.NavigationFragment;
+import com.wasder.wasder.ui.TabFragment;
+import com.wasder.wasder.ui.TabsPagerAdapter;
+import com.wasder.wasder.ui.home.FeedTabFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +22,7 @@ import java.util.List;
  * Wasder AB
  */
 
-public class LiveNavigationFragment extends NavigationFragment {
+public class GroupsNavigationFragment extends NavigationFragment {
 
     private List<TabFragment> mTabFragments = new ArrayList<>();
 
@@ -28,31 +34,30 @@ public class LiveNavigationFragment extends NavigationFragment {
         //mTabFragments.add(feedTabFragment);
         //mTabFragments.add(groupsTabFragment);
 
-        mTabFragments.add(new TabFragment());
-        mTabFragments.add(new TabFragment());
+        mTabFragments.add(new FeedTabFragment());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_blank, container, false);
+        View view = inflater.inflate(R.layout.fragment_navigation_groups, container, false);
 
-        LiveTabsPagerAdapter liveTabsPagerAdapter = new LiveTabsPagerAdapter
+        HomeTabsPagerAdapter homeTabsPagerAdapter = new HomeTabsPagerAdapter
                 (getChildFragmentManager());
         for (TabFragment tab : mTabFragments) {
-            liveTabsPagerAdapter.addFragment(tab, tab.getClass().getSimpleName());
+            homeTabsPagerAdapter.addFragment(tab, tab.getClass().getSimpleName());
         }
-        ViewPager viewPager = view.findViewById(R.id.viewPager);
-        viewPager.setAdapter(liveTabsPagerAdapter);
+        ViewPager viewPager = view.findViewById(R.id.groupsViewPager);
+        viewPager.setAdapter(homeTabsPagerAdapter);
         TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
         // Inflate the layout for this fragment
         return view;
     }
 
-    class LiveTabsPagerAdapter extends TabsPagerAdapter {
+    class HomeTabsPagerAdapter extends TabsPagerAdapter {
 
-        public LiveTabsPagerAdapter(FragmentManager fm) {
+        public HomeTabsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
     }

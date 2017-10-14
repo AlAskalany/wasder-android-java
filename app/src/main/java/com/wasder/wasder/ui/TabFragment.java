@@ -1,5 +1,6 @@
-package com.wasder.wasder;
+package com.wasder.wasder.ui;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,15 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.wasder.wasder.R;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NavigationFragment.OnFragmentInteractionListener} interface
+ * {@link TabFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NavigationFragment#newInstance} factory method to
+ * Use the {@link TabFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NavigationFragment extends Fragment {
+public class TabFragment extends Fragment implements LifecycleOwner {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +33,7 @@ public class NavigationFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public NavigationFragment() {
+    public TabFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +43,11 @@ public class NavigationFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NavigationFragment.
+     * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NavigationFragment newInstance(String param1, String param2) {
-        NavigationFragment fragment = new NavigationFragment();
+    public static TabFragment newInstance(String param1, String param2) {
+        TabFragment fragment = new TabFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

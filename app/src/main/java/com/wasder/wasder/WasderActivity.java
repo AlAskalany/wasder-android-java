@@ -23,6 +23,11 @@ import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
+import com.wasder.wasder.ui.NavigationFragment;
+import com.wasder.wasder.ui.TabFragment;
+import com.wasder.wasder.ui.home.HomeNavigationFragment;
+import com.wasder.wasder.ui.live.LiveNavigationFragment;
+import com.wasder.wasder.ui.messages.MessagesNavigationFragment;
 import com.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 import java.util.Collections;
@@ -31,7 +36,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView.OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment.OnFragmentInteractionListener, TabFragment.OnFragmentInteractionListener {
+public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
+        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment
+        .OnFragmentInteractionListener, TabFragment.OnFragmentInteractionListener {
 
     @SuppressWarnings("unused")
     private static final String TAG = "WasderActivity";
@@ -91,7 +98,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         // Setup BottomNavigationView with NavigationFragments
         mNavFragments.put(R.id.navigation_home, new HomeNavigationFragment());
-        mNavFragments.put(R.id.navigation_dashboard, new LiveNavigationFragment());
+        mNavFragments.put(R.id.navigation_live, new LiveNavigationFragment());
+        mNavFragments.put(R.id.navigation_messages, new MessagesNavigationFragment());
         getSupportFragmentManager().beginTransaction().add(R.id.container, mNavFragments.get(R.id
                 .navigation_home), "Home").commit();
     }

@@ -1,4 +1,4 @@
-package com.wasder.wasder;
+package com.wasder.wasder.ui.home;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -7,6 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.wasder.wasder.R;
+import com.wasder.wasder.ui.NavigationFragment;
+import com.wasder.wasder.ui.TabFragment;
+import com.wasder.wasder.ui.TabsPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,20 +33,20 @@ public class HomeNavigationFragment extends NavigationFragment {
         //mTabFragments.add(feedTabFragment);
         //mTabFragments.add(groupsTabFragment);
 
-        mTabFragments.add(new TabFragment());
+        mTabFragments.add(new FeedTabFragment());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_blank, container, false);
+        View view = inflater.inflate(R.layout.fragment_navigation_home, container, false);
 
         HomeTabsPagerAdapter homeTabsPagerAdapter = new HomeTabsPagerAdapter
                 (getChildFragmentManager());
         for (TabFragment tab : mTabFragments) {
             homeTabsPagerAdapter.addFragment(tab, tab.getClass().getSimpleName());
         }
-        ViewPager viewPager = view.findViewById(R.id.viewPager);
+        ViewPager viewPager = view.findViewById(R.id.homeViewPager);
         viewPager.setAdapter(homeTabsPagerAdapter);
         TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
