@@ -62,6 +62,7 @@ import com.wasder.wasder.viewmodel.MainActivityViewModel;
 
 import java.util.Collections;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     private static final String LOADING_PHRASE_CONFIG_KEY = "loading_phrase";
     private static final String WELCOME_MESSAGE_KEY = "welcome_message";
     private static final String WELCOME_MESSAGE_CAPS_KEY = "welcome_message_caps";
+    public static final int WELCOME_MESSAGE_EXPIRATION = 3600;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -94,13 +96,25 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     @BindView(R.id.welcome_text_view)
     TextView mWelcomeTextView;
 
+    @BindString(R.string.invitation_message)
+    String mInviteMessage;
+
+    @BindString(R.string.invitation_deep_link)
+    String mInviteDeepLink;
+
+    @BindString(R.string.invitation_custom_image)
+    String mInviteCustomImage;
+
+    @BindString(R.string.invitation_cta)
+    String mInviteCta;
+
     private FirebaseFirestore mFirestore;
     private Query mQuery;
 
     private RestaurantsFilterDialogFragment mFilterDialog;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private AddRestaurantDialogFragment mAddRestaurantDialog;
-    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private FirebaseRemoteConfig mRemoteConfig;
 
     private MainActivityViewModel mViewModel;
 
@@ -141,20 +155,20 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
 
     private void onInviteClicked() {
         Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string
-                .invitation_title)).setMessage(getString(R.string.invitation_message))
-                .setDeepLink(Uri.parse(getString(R.string.invitation_deep_link))).setCustomImage
-                        (Uri.parse(getString(R.string.invitation_custom_image)))
-                .setCallToActionText(getString(R.string.invitation_cta)).build();
+                .invitation_title)).setMessage(mInviteMessage).setDeepLink(Uri.parse
+                (mInviteDeepLink)).setCustomImage(Uri.parse(mInviteCustomImage))
+                .setCallToActionText(mInviteCta).build();
         startActivityForResult(intent, REQUEST_INVITE);
     }
 
     private void fetchWelcomeMessage() {
-        mWelcomeTextView.setText(mFirebaseRemoteConfig.getString(LOADING_PHRASE_CONFIG_KEY));
+        mWelcomeTextView.setText(mRemoteConfig.getString(LOADING_PHRASE_CONFIG_KEY));
 
-        long cacheExpiration = 3600; // 1 hour in seconds.
+        long cacheExpiration = WELCOME_MESSAGE_EXPIRATION; // 1 hour in
+        // seconds.
         // If your app is using developer mode, cacheExpiration is set to 0, so each fetch will
         // retrieve values from the service.
-        if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+        if (mRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
             cacheExpiration = 0;
         }
 
@@ -163,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         // will use fetch data from the Remote Config service, rather than cached parameter values,
         // if cached parameter values are more than cacheExpiration seconds old.
         // See Best Practices in the README for more information.
-        mFirebaseRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(this, new
+        mRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(this, new
                 OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -173,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
                     // After config data is successfully fetched, it must be activated before
                     // newly fetched
                     // values are returned.
-                    mFirebaseRemoteConfig.activateFetched();
+                    mRemoteConfig.activateFetched();
                 } else {
                     Toast.makeText(MainActivity.this, "Fetch Failed", Toast.LENGTH_SHORT).show();
                 }
@@ -184,8 +198,8 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     }
 
     private void displayWelcomeMessage() {
-        String welcomeMessage = mFirebaseRemoteConfig.getString(WELCOME_MESSAGE_KEY);
-        if (mFirebaseRemoteConfig.getBoolean(WELCOME_MESSAGE_CAPS_KEY)) {
+        String welcomeMessage = mRemoteConfig.getString(WELCOME_MESSAGE_KEY);
+        if (mRemoteConfig.getBoolean(WELCOME_MESSAGE_CAPS_KEY)) {
             mWelcomeTextView.setAllCaps(true);
         } else {
             mWelcomeTextView.setAllCaps(false);
@@ -193,11 +207,11 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         mWelcomeTextView.setText(welcomeMessage);
     }
 
-    private void setupFirebaseRemoteConfig() {
-        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+    private void setupRemoteConfig() {
+        mRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .setDeveloperModeEnabled(BuildConfig.DEBUG).build();
-        mFirebaseRemoteConfig.setConfigSettings(configSettings);
+        mRemoteConfig.setConfigSettings(configSettings);
     }
 
     private void initFirestore() {
@@ -232,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
             Fabric.with(this, new Crashlytics());
             Appsee.start(getString(R.string.com_apsee_apikey));
             logUserCrashlytics();
-            setupFirebaseRemoteConfig();
+            setupRemoteConfig();
             fetchWelcomeMessage();
 
             // Apply filters
