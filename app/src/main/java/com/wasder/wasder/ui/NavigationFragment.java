@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
@@ -36,11 +37,11 @@ public class NavigationFragment extends Fragment implements NavigationView
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_SECTION_NUMBER = "param1";
     private static final String ARG_PARAM2 = "param2";
     public List<TabFragment> mTabFragments = new ArrayList<>();
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private int mSectionNumber;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
@@ -53,15 +54,15 @@ public class NavigationFragment extends Fragment implements NavigationView
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param sectionNumber Section number.
+     * @param param2        Parameter 2.
      * @return A new instance of fragment NavigationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NavigationFragment newInstance(String param1, String param2) {
+    public static NavigationFragment newInstance(int sectionNumber, String param2) {
         NavigationFragment fragment = new NavigationFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -71,7 +72,7 @@ public class NavigationFragment extends Fragment implements NavigationView
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -82,9 +83,6 @@ public class NavigationFragment extends Fragment implements NavigationView
         View view = inflater.inflate(R.layout.fragment_navigation, container, false);
 
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getChildFragmentManager());
-        for (TabFragment tab : mTabFragments) {
-            tabsPagerAdapter.addFragment(tab, tab.getTitle());
-        }
         ViewPager viewPager = view.findViewById(R.id.fragment_navigation_viewPager);
         viewPager.setAdapter(tabsPagerAdapter);
         TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
@@ -142,7 +140,7 @@ public class NavigationFragment extends Fragment implements NavigationView
      * Created by Ahmed AlAskalany on 10/14/2017.
      * Wasder AB
      */
-    public static class TabsPagerAdapter extends FragmentStatePagerAdapter {
+    public static class TabsPagerAdapter extends FragmentPagerAdapter {
 
         private final Map<Integer, Pair<String, TabFragment>> mFragmentsMap = new HashMap<>();
 
@@ -152,22 +150,18 @@ public class NavigationFragment extends Fragment implements NavigationView
 
         @Override
         public TabFragment getItem(int position) {
-            return mFragmentsMap.get(position).second;
+            TabFragment tabFragment = TabFragment.newInstance(position+1);
+            return tabFragment;
         }
 
         @Override
         public int getCount() {
-            return mFragmentsMap.size();
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mFragmentsMap.get(position).first;
-        }
-
-        public void addFragment(TabFragment fragment, String title) {
-            int position = mFragmentsMap.size();
-            mFragmentsMap.put(position, new Pair<String, TabFragment>(title, fragment));
+            return "FeedX";
         }
     }
 }

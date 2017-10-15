@@ -221,4 +221,6 @@
     <string name="nav_drawer_notifications">Notifications</string>
     <string name="nav_header_title">User Name</string>
     <string name="nav_header_subtitle">User Details</string>
+    <string name="title_activity_tabbed">TabbedActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

@@ -45,6 +45,7 @@ public class TabFragment extends Fragment implements LifecycleOwner,
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_COLLECTION_REFERENCE_STRING = "collection_reference_string";
     private static final String ARG_TITLE = "title";
+    private static final String ARG_SECTION_NUMBER = "section_number";
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     private FirebaseFirestore mFirestore;
@@ -68,17 +69,19 @@ public class TabFragment extends Fragment implements LifecycleOwner,
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param collectionReferenceString Parameter 1.
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabFragment newInstance(String collectionReferenceString, String title) {
+    public static TabFragment newInstance(int sectionNumber) {
+
+        String collectionReferenceString = "restaurants";
+        String title = "Feed";
         TabFragment fragment = new TabFragment();
         Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         args.putString(ARG_COLLECTION_REFERENCE_STRING, collectionReferenceString);
         args.putString(ARG_TITLE, title);
         fragment.setArguments(args);
-        fragment.setTitle(title);
         return fragment;
     }
 

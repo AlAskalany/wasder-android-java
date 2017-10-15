@@ -11,8 +11,11 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -44,25 +47,30 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @SuppressWarnings("unused")
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
-    private final SparseArrayCompat<NavigationFragment> mNavFragments = new SparseArrayCompat<>();
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+
     private final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            if (getCurrentNavigationFragment() != null) {
-                getSupportFragmentManager().saveFragmentInstanceState
-                        (getCurrentNavigationFragment());
+            int id = item.getItemId();
+            switch (id) {
+                case R.id.navigation_home:
+                    mViewPager.setCurrentItem(0);
+                    return true;
+                case R.id.navigation_live:
+                    mViewPager.setCurrentItem(1);
+                    return true;
+                case R.id.navigation_groups:
+                    mViewPager.setCurrentItem(2);
+                    return true;
+                case R.id.navigation_messages:
+                    mViewPager.setCurrentItem(3);
+                    return true;
+                default:
+                    return false;
             }
-            NavigationFragment fragment = mNavFragments.get(item.getItemId());
-            if (fragment != getCurrentNavigationFragment()) {
-                //mActionBar.setTitle(fragment.getFragmentTitle());
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment)
-                        .addToBackStack(null).commit();
-                return true;
-            }
-            return false;
         }
     };
 
@@ -76,6 +84,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     Toolbar mToolbar;
     @BindView(R.id.tabLayout)
     TabLayout mTabLayout;
+    @BindView(R.id.container)
+    ViewPager mViewPager;
     private WasderActivityViewModel mViewModel;
     private Fragment mCurrentFragment;
 
@@ -86,62 +96,21 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         setContentView(R.layout.activity_wasder);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
         // View model
         mViewModel = ViewModelProviders.of(this).get(WasderActivityViewModel.class);
-
+        mNavigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R
                 .string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        mNavigationView.setNavigationItemSelectedListener(this);
-
-
-        NavigationFragment homeNavigationFragment = new NavigationFragment();
-        NavigationFragment liveNavigationFragment = new NavigationFragment();
-        NavigationFragment groupsNavigationFragment = new NavigationFragment();
-        NavigationFragment messagesNavigationFragment = new NavigationFragment();
-        TabFragment feedTab = TabFragment.newInstance("restaurants", "Feed");
-        TabFragment twitchLiveTab = TabFragment.newInstance("restaurants", "Twitch Live");
-        TabFragment twitchStreamTab = TabFragment.newInstance("restaurants", "Twitch " + "Stream");
-        TabFragment esportsTab = TabFragment.newInstance("restaurants", "Esports");
-        TabFragment allGroupsTab = TabFragment.newInstance("restaurants", "All");
-        TabFragment ownedGroupsTab = TabFragment.newInstance("restaurants", "Owned");
-        TabFragment mentionsTab = TabFragment.newInstance("restaurants", "Mentions");
-        TabFragment pmTab = TabFragment.newInstance("restaurants", "PM");
-
-
-        homeNavigationFragment.mTabFragments.add(0, feedTab);
-        homeNavigationFragment.mTabFragments.add(1, pmTab);
-
-        liveNavigationFragment.mTabFragments.add(0, twitchLiveTab);
-        liveNavigationFragment.mTabFragments.add(1, twitchStreamTab);
-        liveNavigationFragment.mTabFragments.add(2, esportsTab);
-
-        groupsNavigationFragment.mTabFragments.add(0, allGroupsTab);
-        groupsNavigationFragment.mTabFragments.add(1, ownedGroupsTab);
-
-        messagesNavigationFragment.mTabFragments.add(0, mentionsTab);
-        messagesNavigationFragment.mTabFragments.add(1, pmTab);
-
-
-        // Setup BottomNavigationView with NavigationFragments
-        mNavFragments.put(R.id.navigation_home, homeNavigationFragment);
-        mNavFragments.put(R.id.navigation_live, liveNavigationFragment);
-        mNavFragments.put(R.id.navigation_groups, groupsNavigationFragment);
-        mNavFragments.put(R.id.navigation_messages, messagesNavigationFragment);
-
-        getSupportFragmentManager().beginTransaction().add(R.id.container, mNavFragments.get(R.id
-                .navigation_home), "Home").addToBackStack(null).commit();
-
-
         mBottomNavigationView.setOnNavigationItemSelectedListener
                 (mOnNavigationItemSelectedListener);
-    }
-
-    private Fragment getCurrentNavigationFragment() {
-        return getSupportFragmentManager().findFragmentById(R.id.container);
     }
 
     @Override
@@ -228,6 +197,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         if (id == R.id.nav_profile) {
             // Handle the camera action
+            startActivity(new Intent(this, TabbedActivity.class));
         } else if (id == R.id.nav_friends) {
 
         } else if (id == R.id.nav_followers) {
@@ -263,5 +233,36 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        private final SparseArrayCompat<NavigationFragment> mNavFragments = new
+                SparseArrayCompat<>();
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            NavigationFragment navigationFragment = NavigationFragment.newInstance(position + 1,
+                    "Hello");
+            TabFragment tabFragment = TabFragment.newInstance(position + 1);
+            navigationFragment.mTabFragments.add(tabFragment);
+            return navigationFragment;
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 4;
+        }
     }
 }
