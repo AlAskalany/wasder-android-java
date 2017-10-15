@@ -15,7 +15,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -47,8 +46,18 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @SuppressWarnings("unused")
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view)
+    NavigationView mNavigationView;
+    @BindView(R.id.navigation2)
+    BottomNavigationView mBottomNavigationView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.tabLayout)
+    TabLayout mTabLayout;
+    @BindView(R.id.container)
+    NonSwipeableViewPager mViewPager;
     private final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
@@ -73,19 +82,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             }
         }
     };
-
-    @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
-    @BindView(R.id.nav_view)
-    NavigationView mNavigationView;
-    @BindView(R.id.navigation2)
-    BottomNavigationView mBottomNavigationView;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.tabLayout)
-    TabLayout mTabLayout;
-    @BindView(R.id.container)
-    ViewPager mViewPager;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
     private WasderActivityViewModel mViewModel;
     private Fragment mCurrentFragment;
 
@@ -98,8 +95,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         setSupportActionBar(mToolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         // View model
@@ -125,16 +123,20 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     }
 
     private boolean shouldStartSignIn() {
-        return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() ==
-                null);
+        return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance()
+                .getCurrentUser() == null);
     }
 
     private void startSignIn() {
         // Sign in with FirebaseUI
-        Intent intent = AuthUI.getInstance().createSignInIntentBuilder().setTheme(R.style
-                .GreenTheme).setAvailableProviders(Collections.singletonList(new AuthUI.IdpConfig
-                .Builder(AuthUI.EMAIL_PROVIDER).build())).setIsSmartLockEnabled(!BuildConfig
-                .DEBUG).build();
+        Intent intent = AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setTheme(R.style.GreenTheme)
+                .setAvailableProviders(Collections.singletonList(new AuthUI.IdpConfig.Builder
+                        (AuthUI.EMAIL_PROVIDER)
+                        .build()))
+                .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                .build();
 
         startActivityForResult(intent, RC_SIGN_IN);
         mViewModel.setIsSigningIn(true);
@@ -142,8 +144,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @OnClick(R.id.fab)
     public void submit(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction
-                ("Action", null).show();
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show();
     }
 
     @Override
@@ -246,23 +249,29 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            addSections();
         }
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            NavigationFragment navigationFragment = NavigationFragment.newInstance(position + 1,
-                    "Hello");
-            TabFragment tabFragment = TabFragment.newInstance(position + 1);
-            navigationFragment.mTabFragments.add(tabFragment);
-            return navigationFragment;
+            return mNavFragments.get(position);
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 4;
+            return mNavFragments.size();
+        }
+
+        public void addSections() {
+            mNavFragments.put(mNavFragments.size(), NavigationFragment.newInstance(mNavFragments
+                    .size(), NavigationFragment.SectionType.HOME));
+            mNavFragments.put(mNavFragments.size(), NavigationFragment.newInstance(mNavFragments
+                    .size(), NavigationFragment.SectionType.LIVE));
+            mNavFragments.put(mNavFragments.size(), NavigationFragment.newInstance(mNavFragments
+                    .size(), NavigationFragment.SectionType.GROUPS));
+            mNavFragments.put(mNavFragments.size(), NavigationFragment.newInstance(mNavFragments
+                    .size(), NavigationFragment.SectionType.MESSAGES));
         }
     }
 }

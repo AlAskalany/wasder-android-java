@@ -9,7 +9,7 @@
     tools:context="com.wasder.wasder.WasderActivity"
     tools:showIn="@layout/app_bar_wasder">
 
-    <android.support.v4.view.ViewPager
+    <com.wasder.wasder.NonSwipeableViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

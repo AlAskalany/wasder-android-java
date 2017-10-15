@@ -3,7 +3,7 @@
     android:id="@+id/fragment_navigation_frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wasder.wasder.BlankFragment">
+    tools:context="com.wasder.wasder.WasderActivity">
 
     <!-- TODO: Update blank fragment layout -->
 

@@ -39,13 +39,21 @@ import butterknife.ButterKnife;
 public class TabFragment extends Fragment implements LifecycleOwner,
         RestaurantsFilterDialogFragment.FilterListener {
 
+    private static final int FEED = 0;
+    private static final int TWITCHLIVE = 1;
+    private static final int TWITCHSTREAMS = 2;
+    private static final int ESPORTS = 3;
+    private static final int ALL = 4;
+    private static final int OWNED = 5;
+    private static final int MENTIONS = 6;
+    private static final int PM = 7;
     private static final long LIMIT = 50;
     private static final String TAG = "TabFragment";
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_COLLECTION_REFERENCE_STRING = "collection_reference_string";
     private static final String ARG_TITLE = "title";
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_TAB_TYPE = "tab_type";
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     private FirebaseFirestore mFirestore;
@@ -58,7 +66,6 @@ public class TabFragment extends Fragment implements LifecycleOwner,
     // TODO: Rename and change types of parameters
     private String mCollectionReferenceString;
     private String mTitle;
-
     private OnFragmentInteractionListener mListener;
 
     public TabFragment() {
@@ -72,26 +79,25 @@ public class TabFragment extends Fragment implements LifecycleOwner,
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabFragment newInstance(int sectionNumber) {
-
-        String collectionReferenceString = "restaurants";
-        String title = "Feed";
+    public static TabFragment newInstance(int sectionNumber, TabType tabType) {
         TabFragment fragment = new TabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        args.putString(ARG_COLLECTION_REFERENCE_STRING, collectionReferenceString);
-        args.putString(ARG_TITLE, title);
+        args.putInt(ARG_TAB_TYPE, tabType.getValue());
+        fragment.mTitle = tabType.getTitle();
+        args.putString(ARG_TITLE, tabType.getTitle());
+        args.putString(ARG_COLLECTION_REFERENCE_STRING, tabType.collectionReference);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mCollectionReferenceString = getArguments().getString(ARG_COLLECTION_REFERENCE_STRING);
             mTitle = getArguments().getString(ARG_TITLE);
+            mCollectionReferenceString = getArguments().getString(ARG_COLLECTION_REFERENCE_STRING);
         }
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -118,13 +124,14 @@ public class TabFragment extends Fragment implements LifecycleOwner,
 
     private void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true).build();
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true)
+                .build();
         mFirestore.setFirestoreSettings(settings);
 
         // Get the 50 highest rated restaurants
-        mQuery = mFirestore.collection(mCollectionReferenceString).orderBy("avgRating", Query
-                .Direction.DESCENDING).limit(LIMIT);
+        mQuery = mFirestore.collection(mCollectionReferenceString)
+                .orderBy("avgRating", Query.Direction.DESCENDING)
+                .limit(LIMIT);
     }
 
     private void initRecyclerView() {
@@ -203,8 +210,37 @@ public class TabFragment extends Fragment implements LifecycleOwner,
         return mTitle;
     }
 
-    public void setTitle(String title) {
-        this.mTitle = title;
+    public enum TabType {
+        FEED(0, "Feed", "restaurants"),
+        TWITCHLIVE(1, "Twitch Live", "restaurants"),
+        TWITCHSTREAMS(2, "Twitch Streams", "restaurants"),
+        ESPORTS(3, "Esports", "restaurants"),
+        ALL(4, "All", "restaurants"),
+        OWNED(5, "Owned", "restaurants"),
+        MENTIONS(6, "Mentions", "restaurants"),
+        PM(7, "PM", "restaurants");
+
+        private int value;
+        private String title;
+        private String collectionReference;
+
+        TabType(int value, String title, String collectionReference) {
+            this.value = value;
+            this.title = title;
+            this.collectionReference = collectionReference;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getCollectionReference() {
+            return collectionReference;
+        }
     }
 
     /**

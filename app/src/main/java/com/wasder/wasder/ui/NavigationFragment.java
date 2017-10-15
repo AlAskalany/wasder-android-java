@@ -9,8 +9,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,9 +18,7 @@ import android.view.ViewGroup;
 import com.wasder.wasder.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,17 +31,20 @@ import java.util.Map;
 public class NavigationFragment extends Fragment implements NavigationView
         .OnNavigationItemSelectedListener {
 
+    private static final int HOME = 0;
+    private static final int LIVE = 1;
+    private static final int GROUPS = 2;
+    private static final int MESSAGES = 3;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_SECTION_NUMBER = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    public List<TabFragment> mTabFragments = new ArrayList<>();
+    private static final String ARGY_SECTION_TYPE = "param2";
     // TODO: Rename and change types of parameters
     private int mSectionNumber;
-    private String mParam2;
-
+    private int mSectionType;
     private OnFragmentInteractionListener mListener;
-
+    private String asd;
+    private List<TabFragment> fragments = new ArrayList<>();
     public NavigationFragment() {
         // Required empty public constructor
     }
@@ -53,19 +52,24 @@ public class NavigationFragment extends Fragment implements NavigationView
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     * * @param sectionNumber Section number.
      *
-     * @param sectionNumber Section number.
-     * @param param2        Parameter 2.
+     * @param sectionType Section type.
      * @return A new instance of fragment NavigationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NavigationFragment newInstance(int sectionNumber, String param2) {
+    public static NavigationFragment newInstance(int sectionNumber, SectionType sectionType) {
         NavigationFragment fragment = new NavigationFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARGY_SECTION_TYPE, sectionType.getValue());
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public NavigationFragment addTab(TabFragment tab) {
+        fragments.add(tab);
+        return this;
     }
 
     @Override
@@ -73,7 +77,36 @@ public class NavigationFragment extends Fragment implements NavigationView
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mSectionType = getArguments().getInt(ARGY_SECTION_TYPE);
+
+
+            switch (mSectionType) {
+                case HOME:
+                    TabFragment feedTab = TabFragment.newInstance(0, TabFragment.TabType.FEED);
+                    this.addTab(feedTab);
+                    break;
+                case LIVE:
+                    TabFragment twitchLive = TabFragment.newInstance(0, TabFragment.TabType
+                            .TWITCHLIVE);
+                    TabFragment twitchStreams = TabFragment.newInstance(1, TabFragment.TabType
+                            .TWITCHSTREAMS);
+                    TabFragment esports = TabFragment.newInstance(2, TabFragment.TabType.ESPORTS);
+                    this.addTab(twitchLive).addTab(twitchStreams).addTab(esports);
+                    break;
+                case GROUPS:
+                    TabFragment all = TabFragment.newInstance(0, TabFragment.TabType.ALL);
+                    TabFragment owned = TabFragment.newInstance(1, TabFragment.TabType.OWNED);
+                    this.addTab(all).addTab(owned);
+                    break;
+                case MESSAGES:
+                    TabFragment mentions = TabFragment.newInstance(0, TabFragment.TabType.MENTIONS);
+                    TabFragment pm = TabFragment.newInstance(1, TabFragment.TabType.PM);
+                    this.addTab(mentions).addTab(pm);
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 
@@ -83,6 +116,9 @@ public class NavigationFragment extends Fragment implements NavigationView
         View view = inflater.inflate(R.layout.fragment_navigation, container, false);
 
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getChildFragmentManager());
+        for (TabFragment tab : fragments) {
+            tabsPagerAdapter.addFragment(tab);
+        }
         ViewPager viewPager = view.findViewById(R.id.fragment_navigation_viewPager);
         viewPager.setAdapter(tabsPagerAdapter);
         TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
@@ -120,6 +156,20 @@ public class NavigationFragment extends Fragment implements NavigationView
         return false;
     }
 
+    public enum SectionType {
+        HOME(0), LIVE(1), GROUPS(2), MESSAGES(3);
+
+        private int value;
+
+        SectionType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -142,7 +192,8 @@ public class NavigationFragment extends Fragment implements NavigationView
      */
     public static class TabsPagerAdapter extends FragmentPagerAdapter {
 
-        private final Map<Integer, Pair<String, TabFragment>> mFragmentsMap = new HashMap<>();
+        private List<TabFragment> fragments = new ArrayList<>();
+        private List<String> titles = new ArrayList<>();
 
         public TabsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -150,18 +201,22 @@ public class NavigationFragment extends Fragment implements NavigationView
 
         @Override
         public TabFragment getItem(int position) {
-            TabFragment tabFragment = TabFragment.newInstance(position+1);
-            return tabFragment;
+            return fragments.get(position);
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return fragments.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "FeedX";
+            return titles.get(position);
+        }
+
+        public void addFragment(TabFragment fragment) {
+            fragments.add(fragment);
+            titles.add(fragment.getTitle());
         }
     }
 }

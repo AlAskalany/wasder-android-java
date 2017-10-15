@@ -70,7 +70,9 @@
           <option name="KEEP_FIRST_COLUMN_COMMENT" value="false" />
           <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false" />
           <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />
+          <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
           <option name="WRAP_LONG_LINES" value="true" />
+          <option name="ENUM_CONSTANTS_WRAP" value="5" />
         </codeStyleSettings>
         <codeStyleSettings language="XML">
           <option name="FORCE_REARRANGE_MODE" value="1" />
