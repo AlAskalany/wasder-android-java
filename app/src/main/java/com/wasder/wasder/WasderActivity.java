@@ -13,7 +13,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,7 +32,9 @@ import com.wasder.wasder.ui.NavigationFragment;
 import com.wasder.wasder.ui.TabFragment;
 import com.wasder.wasder.viewmodel.WasderActivityViewModel;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,7 +86,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private WasderActivityViewModel mViewModel;
     private Fragment mCurrentFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,34 +244,44 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final SparseArrayCompat<NavigationFragment> mNavFragments = new
-                SparseArrayCompat<>();
+        private final List<NavigationFragment> mNavFragments = new ArrayList<>();
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-            addSections();
         }
 
         @Override
-        public Fragment getItem(int position) {
-            return mNavFragments.get(position);
+        public NavigationFragment getItem(int position) {
+            NavigationFragment fragment;
+            switch (position) {
+                case 0:
+                    fragment = NavigationFragment.newInstance(0, NavigationFragment.SectionType
+                            .HOME);
+                    break;
+                case 1:
+                    fragment = NavigationFragment.newInstance(1, NavigationFragment.SectionType
+                            .LIVE);
+                    break;
+                case 2:
+                    fragment = NavigationFragment.newInstance(2, NavigationFragment.SectionType
+                            .GROUPS);
+                    break;
+                case 3:
+                    fragment = NavigationFragment.newInstance(3, NavigationFragment.SectionType
+                            .MESSAGES);
+                    break;
+                default:
+                    fragment = NavigationFragment.newInstance(0, NavigationFragment.SectionType
+                            .HOME);
+                    break;
+            }
+            return fragment;
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return mNavFragments.size();
-        }
-
-        public void addSections() {
-            mNavFragments.put(mNavFragments.size(), NavigationFragment.newInstance(mNavFragments
-                    .size(), NavigationFragment.SectionType.HOME));
-            mNavFragments.put(mNavFragments.size(), NavigationFragment.newInstance(mNavFragments
-                    .size(), NavigationFragment.SectionType.LIVE));
-            mNavFragments.put(mNavFragments.size(), NavigationFragment.newInstance(mNavFragments
-                    .size(), NavigationFragment.SectionType.GROUPS));
-            mNavFragments.put(mNavFragments.size(), NavigationFragment.newInstance(mNavFragments
-                    .size(), NavigationFragment.SectionType.MESSAGES));
+            return 4;
         }
     }
 }

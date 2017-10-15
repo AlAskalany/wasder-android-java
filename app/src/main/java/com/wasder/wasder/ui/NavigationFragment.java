@@ -31,6 +31,7 @@ import java.util.List;
 public class NavigationFragment extends Fragment implements NavigationView
         .OnNavigationItemSelectedListener {
 
+    private static final String ARG_TAG = "tag";
     private static final int HOME = 0;
     private static final int LIVE = 1;
     private static final int GROUPS = 2;
@@ -39,12 +40,15 @@ public class NavigationFragment extends Fragment implements NavigationView
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_SECTION_NUMBER = "param1";
     private static final String ARGY_SECTION_TYPE = "param2";
+    public String TAG;
+    public ViewPager viewPager;
     // TODO: Rename and change types of parameters
     private int mSectionNumber;
     private int mSectionType;
     private OnFragmentInteractionListener mListener;
     private String asd;
     private List<TabFragment> fragments = new ArrayList<>();
+
     public NavigationFragment() {
         // Required empty public constructor
     }
@@ -63,6 +67,8 @@ public class NavigationFragment extends Fragment implements NavigationView
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         args.putInt(ARGY_SECTION_TYPE, sectionType.getValue());
+        fragment.TAG = sectionType.getTitle();
+        args.putString(ARG_TAG, sectionType.name());
         fragment.setArguments(args);
         return fragment;
     }
@@ -78,6 +84,7 @@ public class NavigationFragment extends Fragment implements NavigationView
         if (getArguments() != null) {
             mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
             mSectionType = getArguments().getInt(ARGY_SECTION_TYPE);
+            TAG = getArguments().getString(ARG_TAG);
 
 
             switch (mSectionType) {
@@ -119,7 +126,7 @@ public class NavigationFragment extends Fragment implements NavigationView
         for (TabFragment tab : fragments) {
             tabsPagerAdapter.addFragment(tab);
         }
-        ViewPager viewPager = view.findViewById(R.id.fragment_navigation_viewPager);
+        viewPager = view.findViewById(R.id.fragment_navigation_viewPager);
         viewPager.setAdapter(tabsPagerAdapter);
         TabLayout tabLayout = getActivity().findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -157,16 +164,22 @@ public class NavigationFragment extends Fragment implements NavigationView
     }
 
     public enum SectionType {
-        HOME(0), LIVE(1), GROUPS(2), MESSAGES(3);
+        HOME(0, "Home"), LIVE(1, "Live"), GROUPS(2, "Groups"), MESSAGES(3, "Messages");
 
         private int value;
+        private String title;
 
-        SectionType(int value) {
+        SectionType(int value, String title) {
             this.value = value;
+            this.title = title;
         }
 
         public int getValue() {
             return value;
+        }
+
+        public String getTitle() {
+            return title;
         }
     }
 
