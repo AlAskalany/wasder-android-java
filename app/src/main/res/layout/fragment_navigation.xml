@@ -4,6 +4,7 @@
     android:id="@+id/fragment_navigation_frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/AppTheme"
     tools:context="com.wasder.wasder.WasderActivity">
 
     <!-- TODO: Update blank fragment layout -->
@@ -23,7 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:tabMode="scrollable">
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="@color/md_blue_grey_100">
 
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
