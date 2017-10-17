@@ -8,19 +8,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +33,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
         .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment
@@ -53,10 +47,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     NavigationView mNavigationView;
     @BindView(R.id.navigation2)
     BottomNavigationView mBottomNavigationView;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.tabLayout)
-    TabLayout mTabLayout;
     @BindView(R.id.container)
     NonSwipeableViewPager mViewPager;
     private final BottomNavigationView.OnNavigationItemSelectedListener
@@ -92,7 +82,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wasder);
         ButterKnife.bind(this);
-        setSupportActionBar(mToolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 
@@ -102,11 +91,11 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         // View model
         mViewModel = ViewModelProviders.of(this).get(WasderActivityViewModel.class);
-        mNavigationView.setNavigationItemSelectedListener(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R
+        //mNavigationView.setNavigationItemSelectedListener(this);
+        /*ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R
                 .string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        toggle.syncState();*/
         mBottomNavigationView.setOnNavigationItemSelectedListener
                 (mOnNavigationItemSelectedListener);
     }
@@ -142,25 +131,18 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         mViewModel.setIsSigningIn(true);
     }
 
-    @OnClick(R.id.fab)
-    public void submit(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show();
-    }
-
-    @Override
+    /*@Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
