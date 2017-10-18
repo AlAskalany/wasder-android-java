@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:statusBarBackground="@android:color/transparent"
     tools:context="com.wasder.wasder.WasderActivity">
 
-    <include layout="@layout/content_wasder" />
+    <include
+        android:id="@+id/include2"
+        layout="@layout/content_wasder" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

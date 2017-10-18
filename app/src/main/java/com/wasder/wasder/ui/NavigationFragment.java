@@ -1,9 +1,13 @@
 package com.wasder.wasder.ui;
 
+import android.animation.Animator;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -14,7 +18,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.wasder.wasder.R;
 
@@ -51,6 +57,28 @@ public class NavigationFragment extends Fragment implements NavigationView
     private OnFragmentInteractionListener mListener;
     private String asd;
     private List<TabFragment> fragments = new ArrayList<>();
+    private View appBarLayout;
+    private Animator.AnimatorListener mAnimationListener = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            appBarLayout.setBackgroundColor(Color.RED);
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+
+        }
+    };
 
     public NavigationFragment() {
         // Required empty public constructor
@@ -89,7 +117,6 @@ public class NavigationFragment extends Fragment implements NavigationView
             mSectionType = getArguments().getInt(ARGY_SECTION_TYPE);
             TAG = getArguments().getString(ARG_TAG);
 
-
             switch (mSectionType) {
                 case HOME:
                     TabFragment feedTab = TabFragment.newInstance(0, TabFragment.TabType.FEED);
@@ -120,6 +147,18 @@ public class NavigationFragment extends Fragment implements NavigationView
         }
     }
 
+    private Runnable createRunnable() {
+        return new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void run() {
+                appBarLayout.setVisibility(View.INVISIBLE);
+                appBarLayout.setBackgroundColor(Color.RED);
+                AnimateAppBarColor(appBarLayout, mAnimationListener);
+            }
+        };
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -134,7 +173,24 @@ public class NavigationFragment extends Fragment implements NavigationView
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
         // Inflate the layout for this fragment
+
+        // Change Tabs color
+        appBarLayout = view.findViewById(R.id.appbar);
+        appBarLayout.post(createRunnable());
         return view;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void AnimateAppBarColor(View view, Animator.AnimatorListener listener) {
+        int cx = view.getWidth() / 2;
+        int cy = view.getHeight() / 2;
+        float finalRadius = Math.max(view.getWidth(), view.getHeight());
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setDuration(1000);
+        view.setVisibility(View.VISIBLE);
+        anim.addListener(listener);
+        anim.start();
     }
 
     @OnClick(R.id.fab)
