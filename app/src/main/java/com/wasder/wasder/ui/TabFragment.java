@@ -67,6 +67,7 @@ public class TabFragment extends Fragment implements LifecycleOwner,
     private String mCollectionReferenceString;
     private String mTitle;
     private OnFragmentInteractionListener mListener;
+    private int mSectionNumber;
 
     public TabFragment() {
         // Required empty public constructor
@@ -95,6 +96,7 @@ public class TabFragment extends Fragment implements LifecycleOwner,
     public void onCreate(Bundle savedInstanceState) {
         if (getArguments() != null) {
             mTitle = getArguments().getString(ARG_TITLE);
+            mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
             mCollectionReferenceString = getArguments().getString(ARG_COLLECTION_REFERENCE_STRING);
         }
         super.onCreate(savedInstanceState);
@@ -122,9 +124,20 @@ public class TabFragment extends Fragment implements LifecycleOwner,
         onFilter(mViewModel.getFilters());
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true)
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
                 .build();
         mFirestore.setFirestoreSettings(settings);
 

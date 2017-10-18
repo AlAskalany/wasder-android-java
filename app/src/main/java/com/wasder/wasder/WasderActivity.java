@@ -1,8 +1,10 @@
 package com.wasder.wasder;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,11 +14,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,43 +57,62 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
+
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             int id = item.getItemId();
             switch (id) {
                 case R.id.navigation_home:
-                    mViewPager.setCurrentItem(0);
+                    mViewPager.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_live:
-                    mViewPager.setCurrentItem(1);
+                    mViewPager.setCurrentItem(1, false);
                     return true;
                 case R.id.navigation_groups:
-                    mViewPager.setCurrentItem(2);
+                    mViewPager.setCurrentItem(2, false);
                     return true;
                 case R.id.navigation_messages:
-                    mViewPager.setCurrentItem(3);
+                    mViewPager.setCurrentItem(3, false);
                     return true;
                 default:
                     return false;
             }
         }
     };
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private WasderActivityViewModel mViewModel;
     private Fragment mCurrentFragment;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setContentView(R.layout.activity_wasder);
         ButterKnife.bind(this);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-
+        Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
+        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
+            }
+
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onPageSelected(int position) {
+                Log.d(TAG, "onPageSelected: Nav" + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         // View model
         mViewModel = ViewModelProviders.of(this).get(WasderActivityViewModel.class);
@@ -103,6 +126,22 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     }
 
     @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        if (toggle != null) {
+            toggle.syncState();
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (toggle != null) {
+            toggle.onConfigurationChanged(newConfig);
+        }
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         // Start sign in if necessary
@@ -111,6 +150,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             //noinspection UnnecessaryReturnStatement
             return;
         }
+        Log.d(TAG, "onStart: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
     }
 
     private boolean shouldStartSignIn() {
@@ -165,7 +205,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private void onAddItemsClicked() {
         // Get a reference to the events collection
         FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
-        CollectionReference events = mFirestore.collection("events");
+        CollectionReference events = mFirestore.collection("feed");
 
         for (int i = 0; i < 10; i++) {
             // Get a random events POJO

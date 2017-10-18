@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,13 +52,13 @@ public class NavigationFragment extends Fragment implements NavigationView
     private static final String ARGY_SECTION_TYPE = "param2";
     public String TAG;
     public ViewPager viewPager;
+    public View appBarLayout;
     // TODO: Rename and change types of parameters
     private int mSectionNumber;
     private int mSectionType;
     private OnFragmentInteractionListener mListener;
     private String asd;
     private List<TabFragment> fragments = new ArrayList<>();
-    private View appBarLayout;
     private Animator.AnimatorListener mAnimationListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animation) {
@@ -145,16 +146,18 @@ public class NavigationFragment extends Fragment implements NavigationView
             }
 
         }
+        Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
     }
 
-    private Runnable createRunnable() {
+    public Runnable createRunnable(final View appbar, final Animator.AnimatorListener
+            animatorListener) {
         return new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void run() {
-                appBarLayout.setVisibility(View.INVISIBLE);
-                appBarLayout.setBackgroundColor(Color.RED);
-                AnimateAppBarColor(appBarLayout, mAnimationListener);
+                appbar.setVisibility(View.INVISIBLE);
+                appbar.setBackgroundColor(Color.RED);
+                AnimateAppBarColor(appbar, animatorListener);
             }
         };
     }
@@ -162,22 +165,74 @@ public class NavigationFragment extends Fragment implements NavigationView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
+        Log.d(TAG, "Navigation Fragment onCreateView: " + mSectionNumber);
         View view = inflater.inflate(R.layout.fragment_navigation, container, false);
 
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getChildFragmentManager());
         for (TabFragment tab : fragments) {
             tabsPagerAdapter.addFragment(tab);
         }
+
         viewPager = view.findViewById(R.id.fragment_navigation_viewPager);
         viewPager.setAdapter(tabsPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.d(TAG, "onPageSelected: Tab" + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
         // Inflate the layout for this fragment
 
         // Change Tabs color
         appBarLayout = view.findViewById(R.id.appbar);
-        appBarLayout.post(createRunnable());
+        //appBarLayout.post(createRunnable(appBarLayout, mAnimationListener));
         return view;
+    }
+
+    @Override
+    public void onStart() {
+
+        super.onStart();
+        Log.d(TAG, "Navigation Fragment onStart: " + this.mSectionNumber);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "Navigation Fragment onPause: " + mSectionNumber);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "Navigation Fragment onResume: " + mSectionNumber);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "Navigation Fragment onStop: " + mSectionNumber);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "Navigation Fragment onActivityCreated: " + mSectionNumber);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -210,6 +265,7 @@ public class NavigationFragment extends Fragment implements NavigationView
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.d(TAG, "Navigation Fragment onAttach: " + mSectionNumber);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -221,7 +277,15 @@ public class NavigationFragment extends Fragment implements NavigationView
     @Override
     public void onDetach() {
         super.onDetach();
+        Log.d(TAG, "Navigation Fragment onDetach: " + mSectionNumber);
         mListener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+
+        super.onDestroyView();
+        Log.d(TAG, "Navigation Fragment onDestroyView: " + mSectionNumber);
     }
 
     @Override
