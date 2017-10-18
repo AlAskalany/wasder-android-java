@@ -12,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.firebase.ui.auth.AuthUI;
@@ -45,27 +47,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @SuppressWarnings("unused")
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
-    private final BottomNavigationView.OnNavigationItemSelectedListener
-            mOnNavigationItemSelectedListener = new BottomNavigationView
-            .OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            int id = item.getItemId();
-            switch (id) {
-                case R.id.navigation_home:
-                    return true;
-                case R.id.navigation_live:
-                    return true;
-                case R.id.navigation_groups:
-                    return true;
-                case R.id.navigation_messages:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-    };
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
@@ -75,6 +56,75 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @BindView(R.id.container_navigation_fragment)
     FrameLayout mNavigationFragmentContainer;
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private final BottomNavigationView.OnNavigationItemSelectedListener
+            mOnNavigationItemSelectedListener = new BottomNavigationView
+            .OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            NavigationFragment currentFragment = (NavigationFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.container_navigation_fragment);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            int id = item.getItemId();
+            switch (id) {
+                case R.id.navigation_home:
+                    if (currentFragment != null && currentFragment.getTag() != "Home") {
+                        fragmentManager.saveFragmentInstanceState(currentFragment);
+                        // Create new fragment and transaction
+                        Fragment home = mSectionsPagerAdapter.getItem(0);
+                        // Replace whatever is in the fragment_container view with this fragment,
+                        // and add the transaction to the back stack
+                        transaction.replace(R.id.container_navigation_fragment, home);
+                        transaction.addToBackStack(null);
+                        // Commit the transaction
+                        transaction.commit();
+                    }
+                    return true;
+                case R.id.navigation_live:
+                    if (currentFragment != null && currentFragment.getTag() != "Live") {
+                        fragmentManager.saveFragmentInstanceState(currentFragment);
+                        // Create new fragment and transaction
+                        Fragment live = mSectionsPagerAdapter.getItem(1);
+                        // Replace whatever is in the fragment_container view with this fragment,
+                        // and add the transaction to the back stack
+                        transaction.replace(R.id.container_navigation_fragment, live);
+                        transaction.addToBackStack(null);
+                        // Commit the transaction
+                        transaction.commit();
+                    }
+                    return true;
+                case R.id.navigation_groups:
+                    if (currentFragment != null && currentFragment.getTag() != "Live") {
+                        fragmentManager.saveFragmentInstanceState(currentFragment);
+                        // Create new fragment and transaction
+                        Fragment groups = mSectionsPagerAdapter.getItem(1);
+                        // Replace whatever is in the fragment_container view with this fragment,
+                        // and add the transaction to the back stack
+                        transaction.replace(R.id.container_navigation_fragment, groups);
+                        transaction.addToBackStack(null);
+                        // Commit the transaction
+                        transaction.commit();
+                    }
+                    return true;
+                case R.id.navigation_messages:
+                    if (currentFragment != null && currentFragment.getTag() != "Live") {
+                        fragmentManager.saveFragmentInstanceState(currentFragment);
+                        // Create new fragment and transaction
+                        Fragment messages = mSectionsPagerAdapter.getItem(1);
+                        // Replace whatever is in the fragment_container view with this fragment,
+                        // and add the transaction to the back stack
+                        transaction.replace(R.id.container_navigation_fragment, messages);
+                        transaction.addToBackStack(null);
+                        // Commit the transaction
+                        transaction.commit();
+                    }
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    };
     private WasderActivityViewModel mViewModel;
     private Fragment mCurrentFragment;
     private ActionBarDrawerToggle toggle;
@@ -85,6 +135,12 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         setContentView(R.layout.activity_wasder);
         ButterKnife.bind(this);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        NavigationFragment home = mSectionsPagerAdapter.getItem(0);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction t = fm.beginTransaction();
+        ViewGroup viewGroup = findViewById(R.id.container_navigation_fragment);
+        t.add(R.id.container_navigation_fragment, home, "Home");
+        t.commit();
         Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
 
 

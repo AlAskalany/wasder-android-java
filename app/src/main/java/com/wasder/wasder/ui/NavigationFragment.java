@@ -113,6 +113,7 @@ public class NavigationFragment extends Fragment implements NavigationView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: SavedInstanceState" + savedInstanceState);
         if (getArguments() != null) {
             mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
             mSectionType = getArguments().getInt(ARGY_SECTION_TYPE);
@@ -147,6 +148,11 @@ public class NavigationFragment extends Fragment implements NavigationView
 
         }
         Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     public Runnable createRunnable(final View appbar, final Animator.AnimatorListener
