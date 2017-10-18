@@ -173,7 +173,11 @@ public class NavigationFragment extends Fragment implements NavigationView
             savedInstanceState) {
         Log.d(TAG, "Navigation Fragment onCreateView: " + mSectionNumber);
         View view = inflater.inflate(R.layout.fragment_navigation, container, false);
+        return view;
+    }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getChildFragmentManager());
         for (TabFragment tab : fragments) {
             tabsPagerAdapter.addFragment(tab);
@@ -205,7 +209,6 @@ public class NavigationFragment extends Fragment implements NavigationView
         // Change Tabs color
         appBarLayout = view.findViewById(R.id.appbar);
         //appBarLayout.post(createRunnable(appBarLayout, mAnimationListener));
-        return view;
     }
 
     @Override
