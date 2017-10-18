@@ -50,6 +50,8 @@ dependencies {
     implementation 'com.android.support:support-vector-drawable:26.1.0'
     implementation 'com.android.support:support-v4:26.1.0'
     compile 'com.android.support:multidex:1.0.2'
+    //Firebase Job Dispatcher
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.3'
     // Firestore
     compile 'com.google.firebase:firebase-firestore:11.4.2'
 
@@ -83,6 +85,7 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:palette-v7:26.1.0'
+    compile 'com.android.support:support-annotations:26.1.0'
 
     // Android architecture components
     compile 'android.arch.lifecycle:runtime:1.0.0'

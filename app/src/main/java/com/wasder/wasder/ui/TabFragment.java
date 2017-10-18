@@ -13,6 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
@@ -23,6 +30,7 @@ import com.wasder.wasder.dialog.AddRestaurantDialogFragment;
 import com.wasder.wasder.dialog.Dialogs;
 import com.wasder.wasder.dialog.RestaurantsFilterDialogFragment;
 import com.wasder.wasder.filter.RestaurantsFilters;
+import com.wasder.wasder.jobservices.FirestoreQueryJobService;
 import com.wasder.wasder.viewmodel.TabFragmentViewModel;
 
 import butterknife.BindView;
@@ -92,6 +100,33 @@ public class TabFragment extends Fragment implements LifecycleOwner,
         return fragment;
     }
 
+    public static Job createJob(FirebaseJobDispatcher dispatcher) {
+        Job job = dispatcher.newJobBuilder()
+                // persist the task across boots
+                .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
+                // Call this service when the criteria are met.
+                .setService(FirestoreQueryJobService.class)
+                // unique id of the task
+                .setTag("OneTimeJob")
+                // We are mentioning that the job is not periodic.
+                .setRecurring(false)
+                // Run between 30 - 60 seconds from now.
+                .setTrigger(Trigger.executionWindow(0, 60))
+                // don't overwrite an existing job with the same tag
+                .setReplaceCurrent(false)
+                // retry with exponential backoff
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                //Run this job only when the network is available.
+                .setConstraints(Constraint.ON_ANY_NETWORK).build();
+        return job;
+    }
+
+    public static void scheduleJob(Context context) {
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
+        Job job = createJob(dispatcher);
+        dispatcher.schedule(job);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         if (getArguments() != null) {
@@ -158,6 +193,9 @@ public class TabFragment extends Fragment implements LifecycleOwner,
 
     @Override
     public void onFilter(RestaurantsFilters filters) {
+        // Create a new dispatcher using the Google Play driver.
+        scheduleJob(getContext());
+
         // Construct query basic query
         Query query = mFirestore.collection(mCollectionReferenceString);
 
