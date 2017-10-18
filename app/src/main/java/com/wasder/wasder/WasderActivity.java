@@ -1,6 +1,5 @@
 package com.wasder.wasder;
 
-import android.annotation.SuppressLint;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -14,13 +13,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,14 +45,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @SuppressWarnings("unused")
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
-    @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
-    @BindView(R.id.nav_view)
-    NavigationView mNavigationView;
-    @BindView(R.id.navigation2)
-    BottomNavigationView mBottomNavigationView;
-    @BindView(R.id.container)
-    NonSwipeableViewPager mViewPager;
     private final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
@@ -63,23 +54,26 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             int id = item.getItemId();
             switch (id) {
                 case R.id.navigation_home:
-                    mViewPager.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_live:
-                    mViewPager.setCurrentItem(1, false);
                     return true;
                 case R.id.navigation_groups:
-                    mViewPager.setCurrentItem(2, false);
                     return true;
                 case R.id.navigation_messages:
-                    mViewPager.setCurrentItem(3, false);
                     return true;
                 default:
                     return false;
             }
         }
     };
-
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view)
+    NavigationView mNavigationView;
+    @BindView(R.id.navigation2)
+    BottomNavigationView mBottomNavigationView;
+    @BindView(R.id.container_navigation_fragment)
+    FrameLayout mNavigationFragmentContainer;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private WasderActivityViewModel mViewModel;
     private Fragment mCurrentFragment;
@@ -92,27 +86,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         ButterKnife.bind(this);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
-        mViewPager.setOffscreenPageLimit(3);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int
-                    positionOffsetPixels) {
-            }
 
-            @SuppressLint("RestrictedApi")
-            @Override
-            public void onPageSelected(int position) {
-                Log.d(TAG, "onPageSelected: Nav" + position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
         // View model
         mViewModel = ViewModelProviders.of(this).get(WasderActivityViewModel.class);
