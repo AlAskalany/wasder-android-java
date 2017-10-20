@@ -10,7 +10,6 @@
         android:id="@+id/activity_event_detail_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/eventDetailBackgroundColor"
         tools:context="com.wasder.wasder.detail.EventDetailActivity">
 
         <RelativeLayout
@@ -190,8 +189,7 @@
                 style="@style/AppTheme.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/message_no_reviews"
-                android:textColor="@color/greyDisabled" />
+                android:text="@string/message_no_reviews" />
 
         </LinearLayout>
 

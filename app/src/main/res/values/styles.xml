@@ -1,6 +1,25 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat" />
+
+
+    <style name="GreenTheme" parent="FirebaseUI">
+        <!-- Required for sign-in flow styling -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -9,29 +28,7 @@
         <!--<item name="colorControlActivated">@color/material_lime_a700</item>-->
         <!--<item name="colorControlHighlight">@color/material_green_a200</item>-->
         <!--<item name="android:windowBackground">@color/material_green_50</item>-->
-
-        <item name="android:textColorPrimary">@color/greyPrimary</item>
-        <item name="android:textColorSecondary">@color/greySecondary</item>
-
-        <item name="android:actionOverflowButtonStyle">@style/AppTheme.Overflow</item>
-        <item name="android:colorBackground">@android:color/background_light</item>
     </style>
-
-    <style name="GreenTheme" parent="FirebaseUI">
-        <!-- Required for sign-in flow styling -->
-        <item name="colorPrimary">@color/greyPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
-        <!--<item name="colorControlNormal">@color/material_green_500</item>-->
-        <!--<item name="colorControlActivated">@color/material_lime_a700</item>-->
-        <!--<item name="colorControlHighlight">@color/material_green_a200</item>-->
-        <!--<item name="android:windowBackground">@color/material_green_50</item>-->
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.Activity" parent="AppTheme" />
 
@@ -110,7 +107,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">4dp</item>
         <item name="android:layout_marginRight">4dp</item>
-        <item name="android:textColor">@color/greySecondary</item>
     </style>
 
     <style name="AppTheme.PizzaGuy">

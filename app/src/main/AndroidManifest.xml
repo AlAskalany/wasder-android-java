@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".WasderActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,10 +62,6 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".ui.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

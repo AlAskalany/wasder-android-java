@@ -49,8 +49,7 @@
                     android:id="@+id/filter_bar_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/toolbar"
-                    android:layout_marginStart="50dp">
+                    android:layout_below="@+id/toolbar">
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/filter_bar"
@@ -71,7 +70,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:padding="8dp"
-                                android:tint="@color/greySecondary"
                                 app:srcCompat="@drawable/ic_filter_list_white_24px" />
 
                             <LinearLayout
@@ -91,7 +89,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/all_events"
-                                    android:textColor="@color/greySecondary"
                                     tools:text="Filter" />
 
                                 <TextView
@@ -99,8 +96,7 @@
                                     style="@style/AppTheme.Caption"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/events_sorted_by_rating"
-                                    android:textColor="@color/greyDisabled" />
+                                    android:text="@string/events_sorted_by_rating" />
 
                             </LinearLayout>
 
@@ -111,7 +107,6 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:padding="8dp"
-                                android:tint="@color/greySecondary"
                                 app:srcCompat="@drawable/ic_close_white_24px" />
 
                         </RelativeLayout>

@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="1dp"
-    android:background="@color/cardview_light_background"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
     android:padding="8dp">
@@ -51,7 +50,6 @@
         android:layout_marginLeft="4dp"
         android:layout_toRightOf="@+id/restaurant_item_rating"
         android:gravity="center_vertical"
-        android:textColor="@color/greyDisabled"
         tools:text="(10)" />
 
     <TextView
@@ -61,7 +59,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/restaurant_item_name"
         android:layout_below="@+id/restaurant_item_rating"
-        android:textColor="@color/greySecondary"
         tools:text="Italian" />
 
     <TextView
@@ -78,7 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/restaurant_item_category"
         android:layout_toRightOf="@+id/restaurant_item_city_divider"
-        android:textColor="@color/greySecondary"
         tools:text="San Francisco" />
 
     <TextView
@@ -87,7 +83,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:textColor="@color/greySecondary"
         tools:text="$$$" />
 
 </RelativeLayout>
