@@ -50,15 +50,16 @@ public class RestaurantAdapter extends FirestoreRecyclerAdapter<Restaurant, Rest
     @SuppressWarnings("unused")
     public static RestaurantAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query
             query) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Restaurant>()
-                .setLifecycleOwner(lifecycleOwner).setQuery(query, Restaurant.class).build();
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Restaurant>().setLifecycleOwner(lifecycleOwner)
+                .setQuery(query, Restaurant.class)
+                .build();
         return new RestaurantAdapter(options);
     }
 
     @SuppressWarnings("unused")
     public static RestaurantAdapter newInstance(Query query) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Restaurant>()
-                .setQuery(query, Restaurant.class).build();
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Restaurant>().setQuery(query, Restaurant.class)
+                .build();
         return new RestaurantAdapter(options);
     }
 
@@ -69,8 +70,8 @@ public class RestaurantAdapter extends FirestoreRecyclerAdapter<Restaurant, Rest
 
     @Override
     public RestaurantHolder onCreateViewHolder(ViewGroup group, int viewType) {
-        View view = LayoutInflater.from(group.getContext()).inflate(R.layout.item_restaurant,
-                group, false);
+        View view = LayoutInflater.from(group.getContext())
+                .inflate(R.layout.item_restaurant, group, false);
 
         return new RestaurantAdapter.RestaurantHolder(view);
     }
@@ -116,8 +117,10 @@ public class RestaurantAdapter extends FirestoreRecyclerAdapter<Restaurant, Rest
             String uuid = restaurant.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
                 StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-                GlideApp.with(imageView.getContext()).load(mImageRef).transition
-                        (DrawableTransitionOptions.withCrossFade()).into(imageView);
+                GlideApp.with(imageView.getContext())
+                        .load(mImageRef)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(imageView);
             }
             nameView.setText(restaurant.getName());
             ratingBar.setRating((float) restaurant.getAvgRating());
@@ -133,7 +136,19 @@ public class RestaurantAdapter extends FirestoreRecyclerAdapter<Restaurant, Rest
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), RestaurantDetailActivity.class);
                     intent.putExtra("key_restaurant_id", snapshot.getId());
-                    view.getContext().startActivity(intent);
+                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        view.getContext()
+                                .startActivity(intent, ActivityOptions
+                                        .makeSceneTransitionAnimation((AppCompatActivity) view
+                                        .getContext()).toBundle());
+                    } else {*/
+                    //ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation
+                    // (view.getContext(), android.R.anim.fade_in, android.R.anim.fade_out);
+                    //ActivityOptionsCompat myOptions = ActivityOptionsCompat
+                    // .makeSceneTransitionAnimation(((AppCompatActivity)view.getContext()),
+                    // imageView, "restaurant_image");
+                    view.getContext().startActivity(intent/*, options.toBundle()*/);
+                    /*}*/
                 }
             });
         }

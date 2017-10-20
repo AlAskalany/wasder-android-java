@@ -103,6 +103,14 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setAllowEnterTransitionOverlap(true);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(new AutoTransition());
+            getWindow().setExitTransition(new Explode());
+        }*/
         setContentView(R.layout.activity_restaurant_detail);
         ButterKnife.bind(this);
 
@@ -119,8 +127,9 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
         mRestaurantRef = mFirestore.collection("restaurants").document(restaurantId);
 
         // Get ratings
-        Query ratingsQuery = mRestaurantRef.collection("ratings").orderBy("timestamp", Query
-                .Direction.DESCENDING).limit(50);
+        Query ratingsQuery = mRestaurantRef.collection("ratings")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .limit(50);
 
         // RecyclerView
         mRatingAdapter = new RatingAdapter(ratingsQuery) {
@@ -219,8 +228,10 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
         String uuid = restaurant.getPhoto();
         if (uuid != null) {
             StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-            GlideApp.with(mImageView.getContext()).load(mImageRef).transition
-                    (DrawableTransitionOptions.withCrossFade()).into(mImageView);
+            GlideApp.with(mImageView.getContext())
+                    .load(mImageRef)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(mImageView);
         }
     }
 
@@ -245,8 +256,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
                 // Hide keyboard and scroll to top
                 hideKeyboard();
                 mRatingsRecycler.smoothScrollToPosition(0);
-                Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_rating_added,
-                        Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_rating_added, Snackbar.LENGTH_SHORT)
+                        .show();
             }
         }).addOnFailureListener(this, new OnFailureListener() {
             @Override
@@ -255,8 +266,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
 
                 // Show failure message and hide keyboard
                 hideKeyboard();
-                Snackbar.make(findViewById(android.R.id.content), R.string
-                        .snackbar_rating_add_failed, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_rating_add_failed, Snackbar.LENGTH_SHORT)
+                        .show();
             }
         });
     }
@@ -264,8 +275,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
     private void hideKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view
+                    .getWindowToken(), 0);
         }
     }
 }
