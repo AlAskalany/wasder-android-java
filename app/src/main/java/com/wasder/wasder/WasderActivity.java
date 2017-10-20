@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -149,6 +150,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         toggle.syncState();*/
         mBottomNavigationView.setOnNavigationItemSelectedListener
                 (mOnNavigationItemSelectedListener);
+
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        //tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override

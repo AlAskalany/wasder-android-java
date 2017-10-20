@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -212,8 +211,7 @@ public class NavigationFragment extends Fragment implements NavigationView
 
             }
         });
-        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager);
+
         // Inflate the layout for this fragment
 
         // Change Tabs color
@@ -221,12 +219,10 @@ public class NavigationFragment extends Fragment implements NavigationView
         //appBarLayout.post(createRunnable(appBarLayout, mAnimationListener));
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
+        //ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        //actionBar.setDisplayShowHomeEnabled(true);
         mDrawerLayout = getActivity().findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
-                toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -237,6 +233,19 @@ public class NavigationFragment extends Fragment implements NavigationView
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser) {
+            Log.d(TAG, "setUserVisibleHint: " + this.mSectionNumber);
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            if (activity != null) {
+                TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
+                tabLayout.setupWithViewPager(this.viewPager);
+            }
+        } else {
+        }
     }
 
     @Override
