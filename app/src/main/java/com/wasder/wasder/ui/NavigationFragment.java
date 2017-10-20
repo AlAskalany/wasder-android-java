@@ -2,6 +2,7 @@ package com.wasder.wasder.ui;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -14,17 +15,29 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.wasder.wasder.R;
+import com.wasder.wasder.TabbedActivity;
+import com.wasder.wasder.Util.RestaurantUtil;
+import com.wasder.wasder.model.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +94,7 @@ public class NavigationFragment extends Fragment implements NavigationView
 
         }
     };
+    private DrawerLayout mDrawerLayout;
 
     public NavigationFragment() {
         // Required empty public constructor
@@ -114,7 +128,7 @@ public class NavigationFragment extends Fragment implements NavigationView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: SavedInstanceState" + savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
             mSectionType = getArguments().getInt(ARGY_SECTION_TYPE);
@@ -149,11 +163,6 @@ public class NavigationFragment extends Fragment implements NavigationView
 
         }
         Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     public Runnable createRunnable(final View appbar, final Animator.AnimatorListener
@@ -211,19 +220,23 @@ public class NavigationFragment extends Fragment implements NavigationView
         appBarLayout = view.findViewById(R.id.appbar);
         //appBarLayout.post(createRunnable(appBarLayout, mAnimationListener));
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        //ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        //actionBar.setDisplayShowHomeEnabled(true);
-
-        //DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
-        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), drawer, toolbar,
-        //R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //drawer.addDrawerListener(toggle);
-        //toggle.syncState();
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        mDrawerLayout = getActivity().findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
+                toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
     }
 
     @Override
@@ -257,6 +270,20 @@ public class NavigationFragment extends Fragment implements NavigationView
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, "Navigation Fragment onActivityCreated: " + mSectionNumber);
 
+    }
+
+    private void onAddItemsClicked() {
+        // Get a reference to the events collection
+        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        CollectionReference events = mFirestore.collection("feed");
+
+        for (int i = 0; i < 10; i++) {
+            // Get a random events POJO
+            Restaurant event = RestaurantUtil.getRandom(getContext());
+
+            // Add a new document to the events collection
+            events.add(event);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -314,7 +341,26 @@ public class NavigationFragment extends Fragment implements NavigationView
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_profile) {
+            // Handle the camera action
+            startActivity(new Intent(getActivity(), TabbedActivity.class));
+        } else if (id == R.id.nav_friends) {
+
+        } else if (id == R.id.nav_followers) {
+
+        } else if (id == R.id.nav_achievements) {
+
+        } else if (id == R.id.nav_settings_account) {
+
+        } else if (id == R.id.nav_settings_notifications) {
+
+        }
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     public enum SectionType {

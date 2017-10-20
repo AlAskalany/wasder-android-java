@@ -25,10 +25,6 @@ import android.widget.FrameLayout;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.wasder.wasder.Util.EventUtil;
-import com.wasder.wasder.model.Event;
 import com.wasder.wasder.ui.NavigationFragment;
 import com.wasder.wasder.ui.TabFragment;
 import com.wasder.wasder.viewmodel.WasderActivityViewModel;
@@ -214,37 +210,25 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add_events:
-                onAddItemsClicked();
-                break;
+                //onAddItemsClicked();
+                return true;
             case R.id.menu_sign_out:
                 AuthUI.getInstance().signOut(this);
                 startSignIn();
-                break;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void onAddItemsClicked() {
-        // Get a reference to the events collection
-        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
-        CollectionReference events = mFirestore.collection("feed");
 
-        for (int i = 0; i < 10; i++) {
-            // Get a random events POJO
-            Event event = EventUtil.getRandom(this);
-
-            // Add a new document to the events collection
-            events.add(event);
-        }
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

@@ -24,10 +24,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".detail.RestaurantDetailActivity" />
-        <activity android:name=".EventsActivity" />
-        <activity android:name=".detail.EventDetailActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".detail.RestaurantDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EventsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".detail.EventDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".MyFirebaseMessagingService"
@@ -52,7 +60,7 @@
         <activity
             android:name=".TabbedActivity"
             android:label="@string/title_activity_tabbed"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".jobservices.FirestoreQueryJobService"
