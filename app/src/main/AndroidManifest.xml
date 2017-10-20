@@ -53,6 +53,7 @@
             android:name=".TabbedActivity"
             android:label="@string/title_activity_tabbed"
             android:theme="@style/AppTheme" />
+
         <service
             android:name=".jobservices.FirestoreQueryJobService"
             android:exported="false">
@@ -60,6 +61,11 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".ui.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
