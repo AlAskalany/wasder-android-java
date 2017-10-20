@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -125,6 +127,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private WasderActivityViewModel mViewModel;
     private Fragment mCurrentFragment;
     private ActionBarDrawerToggle toggle;
+    private AppBarLayout appBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +153,22 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         toggle.syncState();*/
         mBottomNavigationView.setOnNavigationItemSelectedListener
                 (mOnNavigationItemSelectedListener);
+
+        // Change Tabs color
+        appBarLayout = findViewById(R.id.appbar);
+        //appBarLayout.post(createRunnable(appBarLayout, mAnimationListener));
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        //actionBar.setDisplayShowHomeEnabled(true);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R
+                .string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         //tabLayout.setupWithViewPager(viewPager);
@@ -231,7 +250,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
     @SuppressWarnings("StatementWithEmptyBody")
