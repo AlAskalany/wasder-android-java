@@ -29,12 +29,8 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.wasder.wasder.R;
 import com.wasder.wasder.TabbedActivity;
-import com.wasder.wasder.Util.RestaurantUtil;
-import com.wasder.wasder.model.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -260,20 +256,6 @@ public class NavigationFragment extends Fragment implements NavigationView
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, "Navigation Fragment onActivityCreated: " + mSectionNumber);
 
-    }
-
-    private void onAddItemsClicked() {
-        // Get a reference to the events collection
-        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
-        CollectionReference events = mFirestore.collection("feed");
-
-        for (int i = 0; i < 10; i++) {
-            // Get a random events POJO
-            Restaurant event = RestaurantUtil.getRandom(getContext());
-
-            // Add a new document to the events collection
-            events.add(event);
-        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

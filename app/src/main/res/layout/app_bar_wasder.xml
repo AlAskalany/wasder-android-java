@@ -11,8 +11,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -33,21 +32,14 @@
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tab1" />
+                android:text="Feed" />
 
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tab2" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tab3" />
         </android.support.design.widget.TabLayout>
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginBottom="0dp"
@@ -57,7 +49,9 @@
         <com.wasder.wasder.NonSwipeableViewPager
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+        </com.wasder.wasder.NonSwipeableViewPager>
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.BottomNavigationView

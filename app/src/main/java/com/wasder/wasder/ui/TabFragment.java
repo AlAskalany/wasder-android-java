@@ -262,8 +262,7 @@ public class TabFragment extends Fragment implements LifecycleOwner,
     }
 
     public enum TabType {
-        FEED(0, "Feed", "restaurants"),
-        TWITCHLIVE(1, "Twitch Live", "restaurants"),
+        FEED(0, "Feed", "restaurants"), TWITCHLIVE(1, "Twitch Live", "events"),
         TWITCHSTREAMS(2, "Twitch Streams", "restaurants"),
         ESPORTS(3, "Esports", "restaurants"),
         ALL(4, "All", "restaurants"),

@@ -1,5 +1,6 @@
 package com.wasder.wasder;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -14,8 +15,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,11 +24,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.wasder.wasder.Util.RestaurantUtil;
+import com.wasder.wasder.model.Restaurant;
 import com.wasder.wasder.ui.NavigationFragment;
 import com.wasder.wasder.ui.TabFragment;
 import com.wasder.wasder.viewmodel.WasderActivityViewModel;
@@ -52,78 +55,35 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     NavigationView mNavigationView;
     @BindView(R.id.navigation2)
     BottomNavigationView mBottomNavigationView;
-    @BindView(R.id.container_navigation_fragment)
-    FrameLayout mNavigationFragmentContainer;
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    @BindView(R.id.container)
+    NonSwipeableViewPager mViewPager;
     private final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            NavigationFragment currentFragment = (NavigationFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.container_navigation_fragment);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
             int id = item.getItemId();
             switch (id) {
                 case R.id.navigation_home:
-                    if (currentFragment != null && currentFragment.getTag() != "Home") {
-                        fragmentManager.saveFragmentInstanceState(currentFragment);
-                        // Create new fragment and transaction
-                        Fragment home = mSectionsPagerAdapter.getItem(0);
-                        // Replace whatever is in the fragment_container view with this fragment,
-                        // and add the transaction to the back stack
-                        transaction.replace(R.id.container_navigation_fragment, home);
-                        transaction.addToBackStack(null);
-                        // Commit the transaction
-                        transaction.commit();
-                    }
+                    mViewPager.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_live:
-                    if (currentFragment != null && currentFragment.getTag() != "Live") {
-                        fragmentManager.saveFragmentInstanceState(currentFragment);
-                        // Create new fragment and transaction
-                        Fragment live = mSectionsPagerAdapter.getItem(1);
-                        // Replace whatever is in the fragment_container view with this fragment,
-                        // and add the transaction to the back stack
-                        transaction.replace(R.id.container_navigation_fragment, live);
-                        transaction.addToBackStack(null);
-                        // Commit the transaction
-                        transaction.commit();
-                    }
+                    mViewPager.setCurrentItem(1, false);
                     return true;
                 case R.id.navigation_groups:
-                    if (currentFragment != null && currentFragment.getTag() != "Live") {
-                        fragmentManager.saveFragmentInstanceState(currentFragment);
-                        // Create new fragment and transaction
-                        Fragment groups = mSectionsPagerAdapter.getItem(1);
-                        // Replace whatever is in the fragment_container view with this fragment,
-                        // and add the transaction to the back stack
-                        transaction.replace(R.id.container_navigation_fragment, groups);
-                        transaction.addToBackStack(null);
-                        // Commit the transaction
-                        transaction.commit();
-                    }
+                    mViewPager.setCurrentItem(2, false);
                     return true;
                 case R.id.navigation_messages:
-                    if (currentFragment != null && currentFragment.getTag() != "Live") {
-                        fragmentManager.saveFragmentInstanceState(currentFragment);
-                        // Create new fragment and transaction
-                        Fragment messages = mSectionsPagerAdapter.getItem(1);
-                        // Replace whatever is in the fragment_container view with this fragment,
-                        // and add the transaction to the back stack
-                        transaction.replace(R.id.container_navigation_fragment, messages);
-                        transaction.addToBackStack(null);
-                        // Commit the transaction
-                        transaction.commit();
-                    }
+                    mViewPager.setCurrentItem(3, false);
                     return true;
                 default:
                     return false;
             }
         }
     };
+
+    private SectionsPagerAdapter mSectionsPagerAdapter;
     private WasderActivityViewModel mViewModel;
     private Fragment mCurrentFragment;
     private ActionBarDrawerToggle toggle;
@@ -132,23 +92,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setEnterTransition(new Explode());
-            getWindow().setExitTransition(new AutoTransition());
-        }*/
         setContentView(R.layout.activity_wasder);
         ButterKnife.bind(this);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        NavigationFragment home = mSectionsPagerAdapter.getItem(0);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction t = fm.beginTransaction();
-        ViewGroup viewGroup = findViewById(R.id.container_navigation_fragment);
-        t.add(R.id.container_navigation_fragment, home, "Home");
-        t.commit();
-        Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
 
 
         // View model
@@ -179,6 +124,29 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         //tabLayout.setupWithViewPager(viewPager);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = findViewById(R.id.container);
+        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
+            }
+
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onPageSelected(int position) {
+                Log.d(TAG, "onPageSelected: Nav" + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -248,7 +216,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add_events:
-                //onAddItemsClicked();
+                onAddItemsClicked();
                 return true;
             case R.id.menu_sign_out:
                 AuthUI.getInstance().signOut(this);
@@ -256,6 +224,20 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onAddItemsClicked() {
+        // Get a reference to the events collection
+        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        CollectionReference events = mFirestore.collection("events");
+
+        for (int i = 0; i < 10; i++) {
+            // Get a random events POJO
+            Restaurant event = RestaurantUtil.getRandom(this);
+
+            // Add a new document to the events collection
+            events.add(event);
+        }
     }
 
 
