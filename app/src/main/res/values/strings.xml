@@ -4,6 +4,10 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="facebook_app_id">1909212625762516</string>
+    <string name="fb_login_protocol_scheme">fb1909212625762516</string>
+
+
     <string name="value_any_category_posts">All Channels</string>
     <string name="value_any_city">Anywhere</string>
     <string name="value_any_price">Any price</string>

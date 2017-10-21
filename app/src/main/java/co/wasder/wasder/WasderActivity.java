@@ -29,6 +29,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.CallbackManager;
+import com.facebook.login.widget.LoginButton;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +38,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,8 +54,8 @@ import co.wasder.wasder.ui.NavigationFragment;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.WasderActivityViewModel;
 
-public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
-        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment.OnFragmentInteractionListener, TabFragment.OnFragmentInteractionListener, PostsFilterDialogFragment.FilterListener {
+
+public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView.OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment.OnFragmentInteractionListener, TabFragment.OnFragmentInteractionListener, PostsFilterDialogFragment.FilterListener {
 
     @SuppressWarnings("unused")
     private static final String TAG = "WasderActivity";
@@ -99,6 +101,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private ActionBarDrawerToggle toggle;
     private AppBarLayout appBarLayout;
     private PostsFilterDialogFragment mFilterDialog;
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +116,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 .string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();*/
-        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mBottomNavigationView.setOnNavigationItemSelectedListener
+                (mOnNavigationItemSelectedListener);
 
         // Change Tabs color
         appBarLayout = findViewById(R.id.appbar);
@@ -128,7 +133,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         });
         //actionBar.setDisplayShowHomeEnabled(true);
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R
+                .string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -145,7 +151,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
             }
 
             @SuppressLint("RestrictedApi")
@@ -160,11 +167,64 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             }
         });
 
-        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mBottomNavigationView
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)
+                mBottomNavigationView
                 .getLayoutParams();
         layoutParams.setBehavior(new BottomNavigationViewBehavior());
         mFilterDialog = Dialogs.PostsFilterDialogFragment();
         mAddPostDialog = Dialogs.AddPostDialogFragment();
+
+        /*FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);*/
+
+        //logger.logPurchase(BigDecimal.valueOf(4.32), Currency.getInstance("USD"));
+
+        /*loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email");
+        // If using in a fragment
+        //loginButton.setFragment(this);
+        // Other app specific specialization
+
+        // Callback registration
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance()
+                .registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
+
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+
+                    }
+                });
+
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });*/
     }
 
     @OnClick(R.id.filter_bar)
@@ -216,9 +276,15 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         Intent intent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setTheme(R.style.GreenTheme)
-                .setAvailableProviders(Collections.singletonList(new AuthUI.IdpConfig.Builder
-                        (AuthUI.EMAIL_PROVIDER)
-                        .build()))
+                .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
+                                .EMAIL_PROVIDER)
+                                .build(), /*new AuthUI.IdpConfig.Builder(AuthUI
+                        .PHONE_VERIFICATION_PROVIDER).build(),*/ new AuthUI.IdpConfig.Builder
+                                (AuthUI.GOOGLE_PROVIDER)
+                                .build()/*, new AuthUI.IdpConfig.Builder(AuthUI
+                                .FACEBOOK_PROVIDER).build()*//*,*/
+                        /*new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER)
+                        .build()*/))
                 .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                 .build();
 
@@ -302,6 +368,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        /*callbackManager.onActivityResult(requestCode, resultCode, data);*/
         if (requestCode == RC_SIGN_IN) {
             mViewModel.setIsSigningIn(false);
             if (resultCode != RESULT_OK && shouldStartSignIn()) {
@@ -333,18 +400,23 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         private int height;
 
         @Override
-        public boolean onLayoutChild(CoordinatorLayout parent, BottomNavigationView child, int layoutDirection) {
+        public boolean onLayoutChild(CoordinatorLayout parent, BottomNavigationView child, int
+                layoutDirection) {
             height = child.getHeight();
             return super.onLayoutChild(parent, child, layoutDirection);
         }
 
         @Override
-        public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView child, View directTargetChild, View target, int nestedScrollAxes, int type) {
+        public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout,
+                                           BottomNavigationView child, View directTargetChild,
+                                           View target, int nestedScrollAxes, int type) {
             return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
         }
 
         @Override
-        public void onNestedScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
+        public void onNestedScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView
+                child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int
+                dyUnconsumed, int type) {
             if (dyConsumed > 0) {
                 slideDown(child);
             } else if (dyConsumed < 0) {
