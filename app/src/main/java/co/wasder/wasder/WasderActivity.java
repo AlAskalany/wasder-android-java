@@ -1,6 +1,5 @@
 package co.wasder.wasder;
 
-import android.annotation.SuppressLint;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -11,12 +10,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -54,7 +51,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         .OnFragmentInteractionListener, TabFragment.OnFragmentInteractionListener,
         PostsFilterDialogFragment.FilterListener {
 
-    @SuppressWarnings("unused")
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
     public AddPostDialogFragment mAddPostDialog;
@@ -131,31 +127,12 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        //tabLayout.setupWithViewPager(viewPager);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int
-                    positionOffsetPixels) {
-            }
-
-            @SuppressLint("RestrictedApi")
-            @Override
-            public void onPageSelected(int position) {
-                Log.d(TAG, "onPageSelected: Nav" + position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)
                 mBottomNavigationView
@@ -214,7 +191,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         Intent intent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setTheme(R.style.GreenTheme)
-                .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
+                        .EMAIL_PROVIDER)
                         .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
                 .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                 .build();
