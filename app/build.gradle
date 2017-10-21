@@ -24,9 +24,9 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName '1.0'
-
         vectorDrawables.useSupportLibrary true
         multiDexEnabled true
+        applicationId 'co.wasder.wasder'
     }
     signingConfigs {
         release {
@@ -43,6 +43,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -54,7 +56,6 @@ dependencies {
     implementation 'com.firebase:firebase-jobdispatcher:0.8.3'
     // Firestore
     compile 'com.google.firebase:firebase-firestore:11.4.2'
-
     // Other Firebase/Play services deps
     compile 'com.google.firebase:firebase-auth:11.4.2'
     compile 'com.google.android.gms:play-services-auth:11.4.2'
@@ -63,7 +64,6 @@ dependencies {
     compile 'com.google.firebase:firebase-invites:11.4.2'
     compile 'com.google.firebase:firebase-messaging:11.4.2'
     compile 'com.google.firebase:firebase-appindexing:11.4.2'
-
     // FirebaseUI (for authentication)
     compile 'com.firebaseui:firebase-ui-auth:3.0.0'
     // FirebaseUI for Cloud Firestore
@@ -72,11 +72,9 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-storage:3.0.0'
     // FirebaseUI for Firebase Realtime Database
     compile 'com.firebaseui:firebase-ui-database:3.0.0'
-
     // ButterKnife (for sample code brevity)
     compile 'com.jakewharton:butterknife:8.7.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
-
     // Support Libs
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:animated-vector-drawable:26.1.0'
@@ -86,12 +84,10 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:palette-v7:26.1.0'
     compile 'com.android.support:support-annotations:26.1.0'
-
     // Android architecture components
     compile 'android.arch.lifecycle:runtime:1.0.0'
     compile 'android.arch.lifecycle:extensions:1.0.0-alpha9-1'
     annotationProcessor 'android.arch.lifecycle:compiler:1.0.0-alpha9-1'
-
     // Third-party libraries
     compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
     compile 'com.github.bumptech.glide:glide:4.2.0'

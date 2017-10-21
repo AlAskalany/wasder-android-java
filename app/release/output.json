@@ -10,7 +10,7 @@
     },
     "path": "app-release.apk",
     "properties": {
-      "packageId": "com.wasder.wasder",
+      "packageId": "co.wasder.wasder",
       "split": "",
       "minSdkVersion": "16"
     }
