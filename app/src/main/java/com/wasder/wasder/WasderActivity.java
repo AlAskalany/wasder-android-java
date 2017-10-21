@@ -24,12 +24,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.wasder.wasder.Util.RestaurantUtil;
+import com.wasder.wasder.dialog.AddRestaurantDialogFragment;
 import com.wasder.wasder.model.Restaurant;
 import com.wasder.wasder.ui.NavigationFragment;
 import com.wasder.wasder.ui.TabFragment;
@@ -41,6 +43,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
         .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment
@@ -147,6 +150,12 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
             }
         });
+    }
+
+    @OnClick(R.id.fab)
+    public void submit(View view) {
+        new AddRestaurantDialogFragment().show(getSupportFragmentManager(),
+                AddRestaurantDialogFragment.TAG);
     }
 
     @Override
