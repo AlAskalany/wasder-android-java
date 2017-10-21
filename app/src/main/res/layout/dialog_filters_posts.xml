@@ -12,23 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dialog_filers_title_margin_bottom"
-        android:text="@string/add_restaurant" />
+        android:text="@string/header_filters" />
 
     <!-- Food Type -->
-    <Button
-        android:id="@+id/selected_restaurant_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
-    <EditText
-        android:id="@+id/restaurantNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="RestaurantName"
-        android:inputType="text" />
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -44,7 +30,7 @@
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_category"
-            android:entries="@array/categories_restaurants" />
+            android:entries="@array/categories_posts" />
 
     </RelativeLayout>
 
@@ -84,11 +70,28 @@
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_price"
-            android:entries="@array/prices_restaurants" />
+            android:entries="@array/prices_posts" />
 
     </RelativeLayout>
 
     <!-- Sort by -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_sort"
+            style="@style/AppTheme.FilterIcon"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_sort_white_24px" />
+
+        <Spinner
+            android:id="@+id/spinner_sort"
+            style="@style/AppTheme.FilterSpinner"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/icon_sort"
+            android:entries="@array/sort_by_posts" />
+    </RelativeLayout>
 
     <!-- Cancel and apply buttons -->
     <LinearLayout
@@ -112,11 +115,11 @@
 
 
         <Button
-            android:id="@+id/button_add_restaurant"
+            android:id="@+id/button_search"
             android:layout_width="@dimen/dialog_filters_search_button_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/add"
+            android:text="@string/apply"
             android:theme="@style/ThemeOverlay.FilterButton" />
 
     </LinearLayout>

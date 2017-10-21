@@ -31,13 +31,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.filter.Filters;
-import co.wasder.wasder.filter.RestaurantsFilters;
-import co.wasder.wasder.model.Restaurant;
+import co.wasder.wasder.filter.PostsFilters;
+import co.wasder.wasder.model.Post;
 
 /**
  * Dialog Fragment containing filter form.
  */
-public class RestaurantsFilterDialogFragment extends DialogFragment {
+public class PostsFilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "FilterDialog";
     @BindView(R.id.spinner_category)
@@ -51,18 +51,18 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
     private View mRootView;
     private FilterListener mFilterListener;
 
-    public RestaurantsFilterDialogFragment() {
+    public PostsFilterDialogFragment() {
     }
 
-    public static RestaurantsFilterDialogFragment newInstance() {
-        return new RestaurantsFilterDialogFragment();
+    public static PostsFilterDialogFragment newInstance() {
+        return new PostsFilterDialogFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.dialog_filters_restaurants, container, false);
+        mRootView = inflater.inflate(R.layout.dialog_filters_posts, container, false);
         ButterKnife.bind(this, mRootView);
 
         return mRootView;
@@ -74,14 +74,17 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
 
         if (context instanceof FilterListener) {
             mFilterListener = (FilterListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement " + "FilterListener");
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
-                .LayoutParams.WRAP_CONTENT);
+        getDialog().getWindow()
+                .setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+                        .WRAP_CONTENT);
     }
 
     @OnClick(R.id.button_search)
@@ -101,7 +104,7 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
     @Nullable
     private String getSelectedCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
-        if (getString(R.string.value_any_category_restaurants).equals(selected)) {
+        if (getString(R.string.value_any_category_posts).equals(selected)) {
             return null;
         } else {
             return selected;
@@ -134,14 +137,14 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
     @Nullable
     private String getSelectedSortBy() {
         String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_restaurants_by_rating).equals(selected)) {
-            return Restaurant.FIELD_AVG_RATING;
+        if (getString(R.string.sort_posts_by_rating).equals(selected)) {
+            return Post.FIELD_AVG_RATING;
         }
-        if (getString(R.string.sort_restaurants_by_price).equals(selected)) {
-            return Restaurant.FIELD_PRICE;
+        if (getString(R.string.sort_posts_by_price).equals(selected)) {
+            return Post.FIELD_PRICE;
         }
-        if (getString(R.string.sort_restaurants_by_popularity).equals(selected)) {
-            return Restaurant.FIELD_POPULARITY;
+        if (getString(R.string.sort_posts_by_popularity).equals(selected)) {
+            return Post.FIELD_POPULARITY;
         }
 
         return null;
@@ -150,13 +153,13 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
     @Nullable
     private Query.Direction getSortDirection() {
         String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_restaurants_by_rating).equals(selected)) {
+        if (getString(R.string.sort_posts_by_rating).equals(selected)) {
             return Query.Direction.DESCENDING;
         }
-        if (getString(R.string.sort_restaurants_by_price).equals(selected)) {
+        if (getString(R.string.sort_posts_by_price).equals(selected)) {
             return Query.Direction.ASCENDING;
         }
-        if (getString(R.string.sort_restaurants_by_popularity).equals(selected)) {
+        if (getString(R.string.sort_posts_by_popularity).equals(selected)) {
             return Query.Direction.DESCENDING;
         }
 
@@ -172,23 +175,23 @@ public class RestaurantsFilterDialogFragment extends DialogFragment {
         }
     }
 
-    public RestaurantsFilters getFilters() {
-        RestaurantsFilters restaurantsFilters = Filters.RestaurantsFilters();
+    public PostsFilters getFilters() {
+        PostsFilters postsFilters = Filters.PostsFilters();
 
         if (mRootView != null) {
-            restaurantsFilters.setCategory(getSelectedCategory());
-            restaurantsFilters.setCity(getSelectedCity());
-            restaurantsFilters.setPrice(getSelectedPrice());
-            restaurantsFilters.setSortBy(getSelectedSortBy());
-            restaurantsFilters.setSortDirection(getSortDirection());
+            postsFilters.setCategory(getSelectedCategory());
+            postsFilters.setCity(getSelectedCity());
+            postsFilters.setPrice(getSelectedPrice());
+            postsFilters.setSortBy(getSelectedSortBy());
+            postsFilters.setSortDirection(getSortDirection());
         }
 
-        return restaurantsFilters;
+        return postsFilters;
     }
 
     public interface FilterListener {
 
-        void onFilter(RestaurantsFilters restaurantsFilters);
+        void onFilter(PostsFilters postsFilters);
 
     }
 }

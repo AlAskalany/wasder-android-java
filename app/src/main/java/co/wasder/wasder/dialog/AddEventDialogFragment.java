@@ -42,11 +42,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.filter.RestaurantsFilters;
+import co.wasder.wasder.filter.PostsFilters;
 import co.wasder.wasder.model.Event;
 import co.wasder.wasder.model.Model;
 
-import static co.wasder.wasder.Util.RestaurantUtil.getRandomImageUrl;
+import static co.wasder.wasder.Util.PostUtil.getRandomImageUrl;
 
 /**
  * Dialog Fragment containing filter form.
@@ -147,7 +147,7 @@ public class AddEventDialogFragment extends DialogFragment implements
     @Nullable
     private String getEventCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
-        if (getString(R.string.value_any_category_restaurants).equals(selected)) {
+        if (getString(R.string.value_any_category_posts).equals(selected)) {
             return null;
         } else {
             return selected;
@@ -188,7 +188,7 @@ public class AddEventDialogFragment extends DialogFragment implements
 
     interface FilterListener {
 
-        void onFilter(RestaurantsFilters restaurantsFilters);
+        void onFilter(PostsFilters postsFilters);
 
     }
 }

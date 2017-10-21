@@ -11,7 +11,7 @@ public class Filters {
         return new EventsFilters();
     }
 
-    public static RestaurantsFilters RestaurantsFilters() {
-        return new RestaurantsFilters();
+    public static PostsFilters PostsFilters() {
+        return new PostsFilters();
     }
 }

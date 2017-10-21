@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="value_any_category_restaurants">All food</string>
+    <string name="value_any_category_posts">All Channels</string>
     <string name="value_any_city">Anywhere</string>
     <string name="value_any_price">Any price</string>
 
@@ -18,20 +18,20 @@
     <string name="label_sort_by">Sort By</string>
 
     <string name="fmt_num_ratings" translatable="false">(%d)</string>
-    <string name="all_restaurants">All Restaurants</string>
+    <string name="all_posts">All Posts</string>
     <string name="all_events">All Events</string>
     <string name="header_filters">Filter</string>
     <string name="search">Search</string>
-    <!-- Restaurants Sorting Methods -->
-    <string name="sort_restaurants_by_rating">Sort by Rating</string>
-    <string name="sort_restaurants_by_popularity">Sort by Popularity</string>
-    <string name="sort_restaurants_by_price">Sort by Price</string>
-    <!-- Restaurants Sorted By -->
-    <string name="restaurants_sorted_by_rating">sorted by rating</string>
-    <string name="restaurants_sorted_by_price">sorted by price</string>
-    <string name="restaurants_sorted_by_popularity">sorted by popularity</string>
+    <!-- Posts Sorting Methods -->
+    <string name="sort_posts_by_rating">Sort by Rating</string>
+    <string name="sort_posts_by_popularity">Sort by Popularity</string>
+    <string name="sort_posts_by_price">Sort by Price</string>
+    <!-- Posts Sorted By -->
+    <string name="posts_sorted_by_rating">sorted by rating</string>
+    <string name="posts_sorted_by_price">sorted by price</string>
+    <string name="posts_sorted_by_popularity">sorted by popularity</string>
 
-    <string name="add_random_restaurants">Add Random Restaurants</string>
+    <string name="add_random_posts">Add Random Posts</string>
     <string name="add_random_events">Add Random Events</string>
     <string name="sign_out">Sign Out</string>
     <string name="delete_all">Delete All</string>
@@ -46,27 +46,18 @@
     <string name="image_description">image description</string>
     <string name="text_view">text view</string>
     <string name="delete_feed">delete feed</string>
-    <string name="add_restaurant">Add Restaurant</string>
+    <string name="add_post">Add Post</string>
     <string name="name">Name</string>
     <string name="add">Add</string>
     <string name="add_event">Add Event</string>
 
     <!-- Types of food I could think of in 5 minutes -->
-    <string-array name="categories_restaurants">
-        <item>@string/value_any_category_restaurants</item>
+    <string-array name="categories_posts">
+        <item>@string/value_any_category_posts</item>
 
-        <item>Brunch</item>
-        <item>Burgers</item>
-        <item>Coffee</item>
-        <item>Deli</item>
-        <item>Dim Sum</item>
-        <item>Indian</item>
-        <item>Italian</item>
-        <item>Mediterranean</item>
-        <item>Mexican</item>
-        <item>Pizza</item>
-        <item>Ramen</item>
-        <item>Sushi</item>
+        <item>Twitter</item>
+        <item>Twitch</item>
+        <item>Instagram</item>
     </string-array>
     ite
 
@@ -123,8 +114,8 @@
         <item>Washington</item>
     </string-array>
 
-    <!-- PrrestaurantsFiltersters -->
-    <string-array name="prices_restaurants">
+    <!-- Posts Filtersters -->
+    <string-array name="prices_posts">
         <item>@string/value_any_price</item>
 
         <item>@string/price_1</item>
@@ -132,11 +123,11 @@
         <item>@string/price_3</item>
     </string-array>
 
-    <!-- Ways you can sort restaurants -->
-    <string-array name="sort_by_restaurants">
-        <item>@string/sort_restaurants_by_rating</item>
-        <item>@string/sort_restaurants_by_popularity</item>
-        <item>@string/sort_restaurants_by_price</item>
+    <!-- Ways you can sort posts -->
+    <string-array name="sort_by_posts">
+        <item>@string/sort_posts_by_rating</item>
+        <item>@string/sort_posts_by_popularity</item>
+        <item>@string/sort_posts_by_price</item>
     </string-array>
 
 

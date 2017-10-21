@@ -57,18 +57,18 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.wasder.Util.RestaurantUtil;
+import co.wasder.wasder.Util.PostUtil;
 import co.wasder.wasder.adapter.Adapters;
-import co.wasder.wasder.adapter.RestaurantAdapter;
-import co.wasder.wasder.dialog.AddRestaurantDialogFragment;
+import co.wasder.wasder.adapter.PostAdapter;
+import co.wasder.wasder.dialog.AddPostDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.RestaurantsFilterDialogFragment;
-import co.wasder.wasder.filter.RestaurantsFilters;
-import co.wasder.wasder.model.Restaurant;
+import co.wasder.wasder.dialog.PostsFilterDialogFragment;
+import co.wasder.wasder.filter.PostsFilters;
+import co.wasder.wasder.model.Post;
 import co.wasder.wasder.viewmodel.MainActivityViewModel;
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity implements RestaurantsFilterDialogFragment
+public class MainActivity extends AppCompatActivity implements PostsFilterDialogFragment
         .FilterListener, FirebaseAuth.AuthStateListener, LifecycleOwner {
 
     public static final int WELCOME_MESSAGE_EXPIRATION = 3600;
@@ -110,9 +110,9 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     private FirebaseFirestore mFirestore;
     private Query mQuery;
 
-    private RestaurantsFilterDialogFragment mFilterDialog;
+    private PostsFilterDialogFragment mFilterDialog;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private AddRestaurantDialogFragment mAddRestaurantDialog;
+    private AddPostDialogFragment mAddRestaurantDialog;
     private FirebaseRemoteConfig mRemoteConfig;
 
     private MainActivityViewModel mViewModel;
@@ -148,8 +148,8 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         initRecyclerView();
 
         // Filter Dialog
-        mFilterDialog = Dialogs.RestaurantsFilterDialogFragment();
-        mAddRestaurantDialog = Dialogs.AddRestaurantDialogFragment();
+        mFilterDialog = Dialogs.PostsFilterDialogFragment();
+        mAddRestaurantDialog = Dialogs.AddPostDialogFragment();
     }
 
     private void onInviteClicked() {
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        RestaurantAdapter adapter = Adapters.RestaurantAdapter(this, mQuery);
+        PostAdapter adapter = Adapters.PostAdapter(this, mQuery);
         mRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this));
         mRestaurantsRecycler.setAdapter(adapter);
     }
@@ -264,16 +264,16 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
         CollectionReference restaurants = mFirestore.collection("restaurants");
 
         for (int i = 0; i < 10; i++) {
-            // Get a random Restaurant POJO
-            Restaurant restaurant = RestaurantUtil.getRandom(this);
+            // Get a random Post POJO
+            Post post = PostUtil.getRandom(this);
 
             // Add a new document to the restaurants collection
-            restaurants.add(restaurant);
+            restaurants.add(post);
         }
     }
 
     @Override
-    public void onFilter(RestaurantsFilters filters) {
+    public void onFilter(PostsFilters filters) {
         // Construct query basic query
         Query query = mFirestore.collection("restaurants");
 
@@ -372,12 +372,12 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     @OnClick(R.id.filter_bar)
     public void onFilterClicked() {
         // Show the dialog containing filter options
-        mFilterDialog.show(getSupportFragmentManager(), RestaurantsFilterDialogFragment.TAG);
+        mFilterDialog.show(getSupportFragmentManager(), PostsFilterDialogFragment.TAG);
     }
 
     @OnClick(R.id.floatingActionButton)
     public void submit(View view) {
-        mAddRestaurantDialog.show(getSupportFragmentManager(), AddRestaurantDialogFragment.TAG);
+        mAddRestaurantDialog.show(getSupportFragmentManager(), AddPostDialogFragment.TAG);
         //startActivity(new Intent(this, EventsActivity.class));
     }
 
@@ -385,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantsFilter
     public void onClearFilterClicked() {
         mFilterDialog.resetFilters();
 
-        onFilter(RestaurantsFilters.getDefault());
+        onFilter(PostsFilters.getDefault());
     }
 
     private boolean shouldStartSignIn() {

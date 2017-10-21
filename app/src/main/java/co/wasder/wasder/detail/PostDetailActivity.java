@@ -50,37 +50,37 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.GlideApp;
 import co.wasder.wasder.R;
-import co.wasder.wasder.Util.RestaurantUtil;
+import co.wasder.wasder.Util.PostUtil;
 import co.wasder.wasder.adapter.RatingAdapter;
 import co.wasder.wasder.dialog.AddRatingDialogFragment;
+import co.wasder.wasder.model.Post;
 import co.wasder.wasder.model.Rating;
-import co.wasder.wasder.model.Restaurant;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-public class RestaurantDetailActivity extends AppCompatActivity implements
+public class PostDetailActivity extends AppCompatActivity implements
         EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
 
-    public static final String KEY_RESTAURANT_ID = "key_restaurant_id";
-    private static final String TAG = "RestaurantDetail";
-    @BindView(R.id.restaurant_image)
+    public static final String KEY_POST_ID = "key_post_id";
+    private static final String TAG = "PostDetail";
+    @BindView(R.id.post_image)
     ImageView mImageView;
 
-    @BindView(R.id.restaurant_name)
+    @BindView(R.id.post_name)
     TextView mNameView;
 
-    @BindView(R.id.restaurant_rating)
+    @BindView(R.id.post_rating)
     MaterialRatingBar mRatingIndicator;
 
-    @BindView(R.id.restaurant_num_ratings)
+    @BindView(R.id.post_num_ratings)
     TextView mNumRatingsView;
 
-    @BindView(R.id.restaurant_city)
+    @BindView(R.id.post_city)
     TextView mCityView;
 
-    @BindView(R.id.restaurant_category)
+    @BindView(R.id.post_category)
     TextView mCategoryView;
 
-    @BindView(R.id.restaurant_price)
+    @BindView(R.id.post_price)
     TextView mPriceView;
 
     @BindView(R.id.view_empty_ratings)
@@ -95,8 +95,8 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
     private AddRatingDialogFragment mRatingDialog;
 
     private FirebaseFirestore mFirestore;
-    private DocumentReference mRestaurantRef;
-    private ListenerRegistration mRestaurantRegistration;
+    private DocumentReference mPostRef;
+    private ListenerRegistration mPostRegistration;
 
     private RatingAdapter mRatingAdapter;
 
@@ -111,23 +111,23 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
             getWindow().setEnterTransition(new AutoTransition());
             getWindow().setExitTransition(new Explode());
         }*/
-        setContentView(R.layout.activity_restaurant_detail);
+        setContentView(R.layout.activity_post_detail);
         ButterKnife.bind(this);
 
-        // Get restaurant ID from extras
-        String restaurantId = getIntent().getExtras().getString(KEY_RESTAURANT_ID);
-        if (restaurantId == null) {
-            throw new IllegalArgumentException("Must pass extra " + KEY_RESTAURANT_ID);
+        // Get post ID from extras
+        String postId = getIntent().getExtras().getString(KEY_POST_ID);
+        if (postId == null) {
+            throw new IllegalArgumentException("Must pass extra " + KEY_POST_ID);
         }
 
         // Initialize Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
-        // Get reference to the restaurant
-        mRestaurantRef = mFirestore.collection("restaurants").document(restaurantId);
+        // Get reference to the post
+        mPostRef = mFirestore.collection("restaurants").document(postId);
 
         // Get ratings
-        Query ratingsQuery = mRestaurantRef.collection("ratings")
+        Query ratingsQuery = mPostRef.collection("ratings")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .limit(50);
 
@@ -157,7 +157,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
         super.onStart();
 
         mRatingAdapter.startListening();
-        mRestaurantRegistration = mRestaurantRef.addSnapshotListener(this);
+        mPostRegistration = mPostRef.addSnapshotListener(this);
     }
 
     @Override
@@ -166,36 +166,36 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
 
         mRatingAdapter.stopListening();
 
-        if (mRestaurantRegistration != null) {
-            mRestaurantRegistration.remove();
-            mRestaurantRegistration = null;
+        if (mPostRegistration != null) {
+            mPostRegistration.remove();
+            mPostRegistration = null;
         }
     }
 
-    private Task<Void> addRating(final DocumentReference restaurantRef, final Rating rating) {
+    private Task<Void> addRating(final DocumentReference postRef, final Rating rating) {
         // Create reference for new rating, for use inside the transaction
-        final DocumentReference ratingRef = restaurantRef.collection("ratings").document();
+        final DocumentReference ratingRef = postRef.collection("ratings").document();
 
         // In a transaction, add the new rating and update the aggregate totals
         return mFirestore.runTransaction(new Transaction.Function<Void>() {
             @Override
             public Void apply(Transaction transaction) throws FirebaseFirestoreException {
 
-                Restaurant restaurant = transaction.get(restaurantRef).toObject(Restaurant.class);
+                Post post = transaction.get(postRef).toObject(Post.class);
 
                 // Compute new number of ratings
-                int newNumRatings = restaurant.getNumRatings() + 1;
+                int newNumRatings = post.getNumRatings() + 1;
 
                 // Compute new average rating
-                double oldRatingTotal = restaurant.getAvgRating() * restaurant.getNumRatings();
+                double oldRatingTotal = post.getAvgRating() * post.getNumRatings();
                 double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRatings;
 
-                // Set new restaurant info
-                restaurant.setNumRatings(newNumRatings);
-                restaurant.setAvgRating(newAvgRating);
+                // Set new post info
+                post.setNumRatings(newNumRatings);
+                post.setAvgRating(newAvgRating);
 
                 // Commit to Firestore
-                transaction.set(restaurantRef, restaurant);
+                transaction.set(postRef, post);
                 transaction.set(ratingRef, rating);
 
                 return null;
@@ -204,7 +204,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
     }
 
     /**
-     * Listener for the Restaurant document ({@link #mRestaurantRef}).
+     * Listener for the Post document ({@link #mPostRef}).
      */
     @Override
     public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
@@ -213,19 +213,19 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
             return;
         }
 
-        onRestaurantLoaded(snapshot.toObject(Restaurant.class));
+        onPostLoaded(snapshot.toObject(Post.class));
     }
 
-    private void onRestaurantLoaded(Restaurant restaurant) {
-        mNameView.setText(restaurant.getName());
-        mRatingIndicator.setRating((float) restaurant.getAvgRating());
-        mNumRatingsView.setText(getString(R.string.fmt_num_ratings, restaurant.getNumRatings()));
-        mCityView.setText(restaurant.getCity());
-        mCategoryView.setText(restaurant.getCategory());
-        mPriceView.setText(RestaurantUtil.getPriceString(restaurant));
+    private void onPostLoaded(Post post) {
+        mNameView.setText(post.getName());
+        mRatingIndicator.setRating((float) post.getAvgRating());
+        mNumRatingsView.setText(getString(R.string.fmt_num_ratings, post.getNumRatings()));
+        mCityView.setText(post.getCity());
+        mCategoryView.setText(post.getCategory());
+        mPriceView.setText(PostUtil.getPriceString(post));
 
         // Background image
-        String uuid = restaurant.getPhoto();
+        String uuid = post.getPhoto();
         if (uuid != null) {
             StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
             GlideApp.with(mImageView.getContext())
@@ -235,7 +235,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
         }
     }
 
-    @OnClick(R.id.restaurant_button_back)
+    @OnClick(R.id.post_button_back)
     public void onBackArrowClicked(View view) {
         onBackPressed();
     }
@@ -248,7 +248,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
     @Override
     public void onRating(Rating rating) {
         // In a transaction, add the new rating and update the aggregate totals
-        addRating(mRestaurantRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+        addRating(mPostRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "Rating added");

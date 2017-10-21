@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +34,7 @@ import java.util.List;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.TabbedActivity;
+import co.wasder.wasder.WasderActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -215,10 +215,23 @@ public class NavigationFragment extends Fragment implements NavigationView
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser) {
             Log.d(TAG, "setUserVisibleHint: " + this.mSectionNumber);
-            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            WasderActivity activity = (WasderActivity) getActivity();
             if (activity != null) {
-                TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
-                tabLayout.setupWithViewPager(this.viewPager);
+                if (mSectionNumber == 0) {
+                    View view = activity.findViewById(R.id.filter_bar_container);
+                    view.setVisibility(View.VISIBLE);
+                    TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
+                    tabLayout.removeAllTabs();
+                    //tabLayout.setVisibility(View.GONE);
+                } else {
+                    TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
+                    if (tabLayout.getVisibility() != View.VISIBLE) {
+                        tabLayout.setVisibility(View.VISIBLE);
+                    }
+                    View view = activity.findViewById(R.id.filter_bar_container);
+                    view.setVisibility(View.GONE);
+                    tabLayout.setupWithViewPager(this.viewPager);
+                }
             }
         } else {
         }

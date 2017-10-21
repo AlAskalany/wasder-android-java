@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,20 +42,23 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.wasder.Util.RestaurantUtil;
-import co.wasder.wasder.dialog.AddRestaurantDialogFragment;
-import co.wasder.wasder.model.Restaurant;
+import co.wasder.wasder.Util.PostUtil;
+import co.wasder.wasder.dialog.AddPostDialogFragment;
+import co.wasder.wasder.dialog.Dialogs;
+import co.wasder.wasder.dialog.PostsFilterDialogFragment;
+import co.wasder.wasder.filter.PostsFilters;
+import co.wasder.wasder.model.Post;
 import co.wasder.wasder.ui.NavigationFragment;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
-        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment
-        .OnFragmentInteractionListener, TabFragment.OnFragmentInteractionListener {
+        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment.OnFragmentInteractionListener, TabFragment.OnFragmentInteractionListener, PostsFilterDialogFragment.FilterListener {
 
     @SuppressWarnings("unused")
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
+    public AddPostDialogFragment mAddPostDialog;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
@@ -88,19 +92,18 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             }
         }
     };
-
+    private GoogleApiClient mGoogleApiClient;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private WasderActivityViewModel mViewModel;
     private Fragment mCurrentFragment;
     private ActionBarDrawerToggle toggle;
     private AppBarLayout appBarLayout;
+    private PostsFilterDialogFragment mFilterDialog;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wasder);
         ButterKnife.bind(this);
-
 
         // View model
         mViewModel = ViewModelProviders.of(this).get(WasderActivityViewModel.class);
@@ -109,8 +112,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 .string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();*/
-        mBottomNavigationView.setOnNavigationItemSelectedListener
-                (mOnNavigationItemSelectedListener);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // Change Tabs color
         appBarLayout = findViewById(R.id.appbar);
@@ -126,8 +128,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         });
         //actionBar.setDisplayShowHomeEnabled(true);
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R
-                .string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -144,8 +145,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int
-                    positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
 
             @SuppressLint("RestrictedApi")
@@ -160,16 +160,22 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             }
         });
 
-        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)
-                mBottomNavigationView
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mBottomNavigationView
                 .getLayoutParams();
         layoutParams.setBehavior(new BottomNavigationViewBehavior());
+        mFilterDialog = Dialogs.PostsFilterDialogFragment();
+        mAddPostDialog = Dialogs.AddPostDialogFragment();
+    }
+
+    @OnClick(R.id.filter_bar)
+    public void onFilterClicked() {
+        // Show the dialog containing filter options
+        mFilterDialog.show(getSupportFragmentManager(), PostsFilterDialogFragment.TAG);
     }
 
     @OnClick(R.id.fab)
     public void submit(View view) {
-        new AddRestaurantDialogFragment().show(getSupportFragmentManager(),
-                AddRestaurantDialogFragment.TAG);
+        new AddPostDialogFragment().show(getSupportFragmentManager(), AddPostDialogFragment.TAG);
     }
 
     @Override
@@ -252,11 +258,11 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private void onAddItemsClicked() {
         // Get a reference to the events collection
         FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
-        CollectionReference events = mFirestore.collection("events");
+        CollectionReference events = mFirestore.collection("restaurants");
 
         for (int i = 0; i < 10; i++) {
             // Get a random events POJO
-            Restaurant event = RestaurantUtil.getRandom(this);
+            Post event = PostUtil.getRandom(this);
 
             // Add a new document to the events collection
             events.add(event);
@@ -307,6 +313,15 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onFilter(PostsFilters postsFilters) {
+        TabFragment fragment = (TabFragment) getSupportFragmentManager().findFragmentById(R.id
+                .nestedSctollView_appbar);
+        if (fragment != null) {
+            fragment.onFilter(postsFilters);
+        }
     }
 
     /**

@@ -2,7 +2,7 @@ package co.wasder.wasder.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 
-import co.wasder.wasder.filter.RestaurantsFilters;
+import co.wasder.wasder.filter.PostsFilters;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
@@ -12,11 +12,11 @@ import co.wasder.wasder.filter.RestaurantsFilters;
 public class MainActivityViewModel extends ViewModel {
 
     private boolean mIsSigningIn;
-    private RestaurantsFilters mRestaurantsFilters;
+    private PostsFilters mPostsFilters;
 
     public MainActivityViewModel() {
         mIsSigningIn = false;
-        mRestaurantsFilters = RestaurantsFilters.getDefault();
+        mPostsFilters = PostsFilters.getDefault();
     }
 
     public boolean getIsSigningIn() {
@@ -27,11 +27,11 @@ public class MainActivityViewModel extends ViewModel {
         this.mIsSigningIn = mIsSigningIn;
     }
 
-    public RestaurantsFilters getFilters() {
-        return mRestaurantsFilters;
+    public PostsFilters getFilters() {
+        return mPostsFilters;
     }
 
-    public void setFilters(RestaurantsFilters mRestaurantsFilters) {
-        this.mRestaurantsFilters = mRestaurantsFilters;
+    public void setFilters(PostsFilters mPostsFilters) {
+        this.mPostsFilters = mPostsFilters;
     }
 }

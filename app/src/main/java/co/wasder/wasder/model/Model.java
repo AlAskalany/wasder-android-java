@@ -15,9 +15,9 @@ public class Model {
                 avgRating);
     }
 
-    public static Restaurant Restaurant(String name, String city, String category, String photo,
-                                        int price, int numRatings, double avgRating) {
-        return new Restaurant(name, city, category, photo, price, numRatings, avgRating);
+    public static Post Post(String name, String city, String category, String photo, int price,
+                            int numRatings, double avgRating) {
+        return new Post(name, city, category, photo, price, numRatings, avgRating);
     }
 
     public static Rating Rating(FirebaseUser user, double rating, String text) {

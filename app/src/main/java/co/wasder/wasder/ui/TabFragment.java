@@ -28,11 +28,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.adapter.Adapters;
-import co.wasder.wasder.adapter.RestaurantAdapter;
-import co.wasder.wasder.dialog.AddRestaurantDialogFragment;
+import co.wasder.wasder.adapter.PostAdapter;
+import co.wasder.wasder.dialog.AddPostDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.RestaurantsFilterDialogFragment;
-import co.wasder.wasder.filter.RestaurantsFilters;
+import co.wasder.wasder.dialog.PostsFilterDialogFragment;
+import co.wasder.wasder.filter.PostsFilters;
 import co.wasder.wasder.jobservices.FirestoreQueryJobService;
 import co.wasder.wasder.viewmodel.TabFragmentViewModel;
 
@@ -44,8 +44,8 @@ import co.wasder.wasder.viewmodel.TabFragmentViewModel;
  * Use the {@link TabFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabFragment extends Fragment implements LifecycleOwner,
-        RestaurantsFilterDialogFragment.FilterListener {
+public class TabFragment extends Fragment implements LifecycleOwner, PostsFilterDialogFragment
+        .FilterListener {
 
     private static final int FEED = 0;
     private static final int TWITCHLIVE = 1;
@@ -67,9 +67,9 @@ public class TabFragment extends Fragment implements LifecycleOwner,
     private FirebaseFirestore mFirestore;
     private Query mQuery;
     @SuppressWarnings("FieldCanBeLocal")
-    private RestaurantsFilterDialogFragment mFilterDialog;
+    private PostsFilterDialogFragment mFilterDialog;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private AddRestaurantDialogFragment mAddRestaurantDialog;
+    private AddPostDialogFragment mAddPostDialog;
     private TabFragmentViewModel mViewModel;
     // TODO: Rename and change types of parameters
     private String mCollectionReferenceString;
@@ -129,6 +129,7 @@ public class TabFragment extends Fragment implements LifecycleOwner,
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setUserVisibleHint(true);
         if (getArguments() != null) {
             mTitle = getArguments().getString(ARG_TITLE);
             mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
@@ -148,8 +149,8 @@ public class TabFragment extends Fragment implements LifecycleOwner,
         initFirestore();
         initRecyclerView();
         // Filter Dialog
-        mFilterDialog = Dialogs.RestaurantsFilterDialogFragment();
-        mAddRestaurantDialog = Dialogs.AddRestaurantDialogFragment();
+        mFilterDialog = Dialogs.PostsFilterDialogFragment();
+        mAddPostDialog = Dialogs.AddPostDialogFragment();
         return view;
     }
 
@@ -176,7 +177,7 @@ public class TabFragment extends Fragment implements LifecycleOwner,
                 .build();
         mFirestore.setFirestoreSettings(settings);
 
-        // Get the 50 highest rated restaurants
+        // Get the 50 highest rated posts
         mQuery = mFirestore.collection(mCollectionReferenceString)
                 .orderBy("avgRating", Query.Direction.DESCENDING)
                 .limit(LIMIT);
@@ -186,13 +187,13 @@ public class TabFragment extends Fragment implements LifecycleOwner,
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        RestaurantAdapter adapter = Adapters.RestaurantAdapter(this, mQuery);
+        PostAdapter adapter = Adapters.PostAdapter(this, mQuery);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void onFilter(RestaurantsFilters filters) {
+    public void onFilter(PostsFilters filters) {
         // Create a new dispatcher using the Google Play driver.
         scheduleJob(getContext());
 

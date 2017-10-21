@@ -6,15 +6,15 @@ import android.text.TextUtils;
 import com.google.firebase.firestore.Query;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.Util.RestaurantUtil;
-import co.wasder.wasder.model.Restaurant;
+import co.wasder.wasder.Util.PostUtil;
+import co.wasder.wasder.model.Post;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
  * Wasder AB
  */
 
-public class RestaurantsFilters {
+public class PostsFilters {
 
     private String category = null;
     private String city = null;
@@ -22,15 +22,15 @@ public class RestaurantsFilters {
     private String sortBy = null;
     private Query.Direction sortDirection = null;
 
-    public RestaurantsFilters() {
+    public PostsFilters() {
     }
 
-    public static RestaurantsFilters getDefault() {
-        RestaurantsFilters restaurantsFilters = new RestaurantsFilters();
-        restaurantsFilters.setSortBy(Restaurant.FIELD_AVG_RATING);
-        restaurantsFilters.setSortDirection(Query.Direction.DESCENDING);
+    public static PostsFilters getDefault() {
+        PostsFilters postsFilters = new PostsFilters();
+        postsFilters.setSortBy(Post.FIELD_AVG_RATING);
+        postsFilters.setSortDirection(Query.Direction.DESCENDING);
 
-        return restaurantsFilters;
+        return postsFilters;
     }
 
     public boolean hasCategory() {
@@ -94,7 +94,7 @@ public class RestaurantsFilters {
 
         if (category == null && city == null) {
             desc.append("<b>");
-            desc.append(context.getString(R.string.all_restaurants));
+            desc.append(context.getString(R.string.all_posts));
             desc.append("</b>");
         }
 
@@ -117,7 +117,7 @@ public class RestaurantsFilters {
         if (price > 0) {
             desc.append(" for ");
             desc.append("<b>");
-            desc.append(RestaurantUtil.getPriceString(price));
+            desc.append(PostUtil.getPriceString(price));
             desc.append("</b>");
         }
 
@@ -125,12 +125,12 @@ public class RestaurantsFilters {
     }
 
     public String getOrderDescription(Context context) {
-        if (Restaurant.FIELD_PRICE.equals(sortBy)) {
-            return context.getString(R.string.restaurants_sorted_by_price);
-        } else if (Restaurant.FIELD_POPULARITY.equals(sortBy)) {
-            return context.getString(R.string.restaurants_sorted_by_popularity);
+        if (Post.FIELD_PRICE.equals(sortBy)) {
+            return context.getString(R.string.posts_sorted_by_price);
+        } else if (Post.FIELD_POPULARITY.equals(sortBy)) {
+            return context.getString(R.string.posts_sorted_by_popularity);
         } else {
-            return context.getString(R.string.restaurants_sorted_by_rating);
+            return context.getString(R.string.posts_sorted_by_rating);
         }
     }
 }

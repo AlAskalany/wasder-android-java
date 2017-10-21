@@ -13,13 +13,22 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll"></android.support.v7.widget.Toolbar>
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll">
+
+            <include
+                layout="@layout/filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1" />
+        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:tabMode="scrollable">
 
@@ -32,7 +41,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nestedSctollView"
+        android:id="@+id/nestedSctollView_appbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"

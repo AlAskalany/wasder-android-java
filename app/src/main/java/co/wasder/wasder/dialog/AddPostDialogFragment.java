@@ -47,18 +47,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.filter.RestaurantsFilters;
+import co.wasder.wasder.filter.PostsFilters;
 import co.wasder.wasder.model.Model;
-import co.wasder.wasder.model.Restaurant;
+import co.wasder.wasder.model.Post;
 
 import static android.app.Activity.RESULT_OK;
 
 /**
  * Dialog Fragment containing filter form.
  */
-public class AddRestaurantDialogFragment extends DialogFragment {
+public class AddPostDialogFragment extends DialogFragment {
 
-    public static final String TAG = "AddRestaurantDialog";
+    public static final String TAG = "AddPostDialog";
     private static final int INITIAL_AVG_RATING = 0;
     private static final int INITIAL_NUM_RATINGS = 0;
     private static final int RC_CHOOSE_PHOTO = 101;
@@ -67,8 +67,8 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     private final int INITIAL_CITY_SELECTION = 0;
     private final int INITIAL_PRICE_SELECTION = 0;
     private final String INITIAL_NAME = "";
-    @BindView(R.id.restaurantNameEditText)
-    EditText mRestaurantNameEditText;
+    @BindView(R.id.postNameEditText)
+    EditText mPostNameEditText;
     @BindView(R.id.spinner_category)
     Spinner mCategorySpinner;
     @BindView(R.id.spinner_city)
@@ -83,7 +83,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.dialog_add_restaurant, container, false);
+        mRootView = inflater.inflate(R.layout.dialog_add_post, container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
     }
@@ -105,29 +105,29 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     }
 
     private void resetFields() {
-        mRestaurantNameEditText.setText(INITIAL_NAME);
+        mPostNameEditText.setText(INITIAL_NAME);
         mCategorySpinner.setSelection(INITIAL_CATEGORY_SELECTION);
         mCitySpinner.setSelection(INITIAL_CITY_SELECTION);
         mPriceSpinner.setSelection(INITIAL_PRICE_SELECTION);
     }
 
-    @OnClick(R.id.button_add_restaurant)
-    public void onAddRestaurantClicked() {
-        addRestaurantToDatabase(createRestaurantFromFields());
+    @OnClick(R.id.button_add_post)
+    public void onAddPostClicked() {
+        addPostToDatabase(createPostFromFields());
         dismiss();
     }
 
     @NonNull
-    private Restaurant createRestaurantFromFields() {
+    private Post createPostFromFields() {
         Random random = new Random();
 
-        return Model.Restaurant(getRestaurantName(), getRestaurantCity(), getRestaurantCategory()
-                , uuid, getRestaurantPrice(), INITIAL_AVG_RATING, INITIAL_NUM_RATINGS);
+        return Model.Post(getPostName(), getPostCity(), getPostCategory(), uuid, getPostPrice(),
+                INITIAL_AVG_RATING, INITIAL_NUM_RATINGS);
     }
 
-    private void addRestaurantToDatabase(@NonNull Restaurant restaurant) {
-        CollectionReference restaurants = FirebaseFirestore.getInstance().collection("restaurants");
-        restaurants.add(restaurant);
+    private void addPostToDatabase(@NonNull Post post) {
+        CollectionReference posts = FirebaseFirestore.getInstance().collection("restaurants");
+        posts.add(post);
     }
 
     @OnClick(R.id.button_cancel)
@@ -136,17 +136,17 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     }
 
     @Nullable
-    private String getRestaurantCategory() {
+    private String getPostCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
-        if (getString(R.string.value_any_category_restaurants).equals(selected)) {
+        if (getString(R.string.value_any_category_posts).equals(selected)) {
             return null;
         } else {
             return selected;
         }
     }
 
-    private String getRestaurantName() {
-        String name = mRestaurantNameEditText.getText().toString();
+    private String getPostName() {
+        String name = mPostNameEditText.getText().toString();
         if (!TextUtils.isEmpty(name)) {
             return name;
         } else {
@@ -155,7 +155,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
     }
 
     @Nullable
-    private String getRestaurantCity() {
+    private String getPostCity() {
         String selected = (String) mCitySpinner.getSelectedItem();
         if (getString(R.string.value_any_city).equals(selected)) {
             return null;
@@ -164,7 +164,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
         }
     }
 
-    private int getRestaurantPrice() {
+    private int getPostPrice() {
         String selected = (String) mPriceSpinner.getSelectedItem();
         if (selected.equals(getString(R.string.price_1))) {
             return 1;
@@ -194,7 +194,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
         }*/
     }
 
-    @OnClick(R.id.selected_restaurant_image)
+    @OnClick(R.id.selected_post_image)
     protected void choosePhoto() {
         /*if (!EasyPermissions.hasPermissions(this, PERMS)) {
             EasyPermissions.requestPermissions(this, getString(R.string.rational_image_perm),
@@ -236,7 +236,7 @@ public class AddRestaurantDialogFragment extends DialogFragment {
 
     interface FilterListener {
 
-        void onFilter(RestaurantsFilters restaurantsFilters);
+        void onFilter(PostsFilters postsFilters);
 
     }
 }

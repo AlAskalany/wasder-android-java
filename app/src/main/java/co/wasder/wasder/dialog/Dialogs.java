@@ -7,16 +7,16 @@ package co.wasder.wasder.dialog;
 
 public class Dialogs {
 
-    public static RestaurantsFilterDialogFragment RestaurantsFilterDialogFragment() {
-        return new RestaurantsFilterDialogFragment();
+    public static PostsFilterDialogFragment PostsFilterDialogFragment() {
+        return new PostsFilterDialogFragment();
     }
 
     public static AddEventDialogFragment AddEventDialogFragment() {
         return new AddEventDialogFragment();
     }
 
-    public static AddRestaurantDialogFragment AddRestaurantDialogFragment() {
-        return new AddRestaurantDialogFragment();
+    public static AddPostDialogFragment AddPostDialogFragment() {
+        return new AddPostDialogFragment();
     }
 
 }

@@ -28,7 +28,7 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".detail.RestaurantDetailActivity"
+            android:name=".detail.PostDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EventsActivity"

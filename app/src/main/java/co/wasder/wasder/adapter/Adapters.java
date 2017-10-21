@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 
-import co.wasder.wasder.model.Restaurant;
+import co.wasder.wasder.model.Post;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
@@ -15,10 +15,11 @@ import co.wasder.wasder.model.Restaurant;
 
 public class Adapters {
 
-    public static RestaurantAdapter RestaurantAdapter(@NonNull LifecycleOwner lifecycleOwner,
-                                                      Query query) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Restaurant>()
-                .setLifecycleOwner(lifecycleOwner).setQuery(query, Restaurant.class).build();
-        return new RestaurantAdapter(options);
+    public static PostAdapter PostAdapter(@NonNull LifecycleOwner lifecycleOwner, Query query) {
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>()
+                .setLifecycleOwner(lifecycleOwner)
+                .setQuery(query, Post.class)
+                .build();
+        return new PostAdapter(options);
     }
 }

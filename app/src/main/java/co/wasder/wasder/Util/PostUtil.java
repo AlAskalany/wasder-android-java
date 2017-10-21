@@ -9,16 +9,16 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.model.Restaurant;
+import co.wasder.wasder.model.Post;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
  * Wasder AB
  */
 
-public class RestaurantUtil {
+public class PostUtil {
 
-    private static final String TAG = "RestaurantUtil";
+    private static final String TAG = "PostUtil";
 
     private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit
             .SECONDS, new LinkedBlockingQueue<Runnable>());
@@ -28,18 +28,18 @@ public class RestaurantUtil {
 
     private static final int MAX_IMAGE_NUM = 22;
 
-    private static final String[] NAME_FIRST_WORDS = {"Foo", "Bar", "Baz", "Qux", "Fire",
+    private static final String[] NAME_FIRST_WORDS = {"John", "David", "Buz", "Laura", "Mike",
             "Sam's", "World Famous", "Google", "The Best",};
 
-    private static final String[] NAME_SECOND_WORDS = {"Restaurant", "Cafe", "Spot", "Eatin' " +
-            "Place", "Eatery", "Drive Thru", "Diner",};
+    private static final String[] NAME_SECOND_WORDS = {"Norman", "Kelley", "Lauren", "Al' " +
+            "Mark", "Mendley", "Gamer", "Alex",};
 
 
     /**
-     * Create a random Restaurant POJO.
+     * Create a random Post POJO.
      */
-    public static Restaurant getRandom(Context context) {
-        Restaurant restaurant = new Restaurant();
+    public static Post getRandom(Context context) {
+        Post post = new Post();
         Random random = new Random();
 
         // Cities (first elemnt is 'Any')
@@ -47,20 +47,20 @@ public class RestaurantUtil {
         cities = Arrays.copyOfRange(cities, 1, cities.length);
 
         // Categories (first element is 'Any')
-        String[] categories = context.getResources().getStringArray(R.array.categories_restaurants);
+        String[] categories = context.getResources().getStringArray(R.array.categories_posts);
         categories = Arrays.copyOfRange(categories, 1, categories.length);
 
         int[] prices = new int[]{1, 2, 3};
 
-        restaurant.setName(getRandomName(random));
-        restaurant.setCity(getRandomString(cities, random));
-        restaurant.setCategory(getRandomString(categories, random));
-        restaurant.setPhoto(getRandomImageUrl(random));
-        restaurant.setPrice(getRandomInt(prices, random));
-        restaurant.setAvgRating(getRandomRating(random));
-        restaurant.setNumRatings(random.nextInt(20));
+        post.setName(getRandomName(random));
+        post.setCity(getRandomString(cities, random));
+        post.setCategory(getRandomString(categories, random));
+        post.setPhoto(getRandomImageUrl(random));
+        post.setPrice(getRandomInt(prices, random));
+        post.setAvgRating(getRandomRating(random));
+        post.setNumRatings(random.nextInt(20));
 
-        return restaurant;
+        return post;
     }
 
 
@@ -78,8 +78,8 @@ public class RestaurantUtil {
     /**
      * Get price represented as dollar signs.
      */
-    public static String getPriceString(Restaurant restaurant) {
-        return getPriceString(restaurant.getPrice());
+    public static String getPriceString(Post post) {
+        return getPriceString(post.getPrice());
     }
 
     /**

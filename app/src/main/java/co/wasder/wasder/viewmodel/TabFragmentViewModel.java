@@ -2,7 +2,7 @@ package co.wasder.wasder.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 
-import co.wasder.wasder.filter.RestaurantsFilters;
+import co.wasder.wasder.filter.PostsFilters;
 
 /**
  * Created by Ahmed AlAskalany on 10/14/2017.
@@ -11,17 +11,17 @@ import co.wasder.wasder.filter.RestaurantsFilters;
 
 public class TabFragmentViewModel extends ViewModel {
 
-    private RestaurantsFilters mRestaurantsFilters;
+    private PostsFilters mPostsFilters;
 
     public TabFragmentViewModel() {
-        mRestaurantsFilters = RestaurantsFilters.getDefault();
+        mPostsFilters = PostsFilters.getDefault();
     }
 
-    public RestaurantsFilters getFilters() {
-        return mRestaurantsFilters;
+    public PostsFilters getFilters() {
+        return mPostsFilters;
     }
 
-    public void setFilters(RestaurantsFilters mRestaurantsFilters) {
-        this.mRestaurantsFilters = mRestaurantsFilters;
+    public void setFilters(PostsFilters mPostsFilters) {
+        this.mPostsFilters = mPostsFilters;
     }
 }
