@@ -8,12 +8,10 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
@@ -29,17 +27,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.facebook.CallbackManager;
-import com.facebook.login.widget.LoginButton;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +49,10 @@ import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 
-public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView.OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment.OnFragmentInteractionListener, TabFragment.OnFragmentInteractionListener, PostsFilterDialogFragment.FilterListener {
+public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
+        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment
+        .OnFragmentInteractionListener, TabFragment.OnFragmentInteractionListener,
+        PostsFilterDialogFragment.FilterListener {
 
     @SuppressWarnings("unused")
     private static final String TAG = "WasderActivity";
@@ -97,12 +94,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private GoogleApiClient mGoogleApiClient;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private WasderActivityViewModel mViewModel;
-    private Fragment mCurrentFragment;
     private ActionBarDrawerToggle toggle;
-    private AppBarLayout appBarLayout;
     private PostsFilterDialogFragment mFilterDialog;
-    private LoginButton loginButton;
-    private CallbackManager callbackManager;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,8 +112,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         mBottomNavigationView.setOnNavigationItemSelectedListener
                 (mOnNavigationItemSelectedListener);
 
-        // Change Tabs color
-        appBarLayout = findViewById(R.id.appbar);
         //appBarLayout.post(createRunnable(appBarLayout, mAnimationListener));
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -131,7 +122,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 Log.d(TAG, "onMenuVisibilityChanged: " + isVisible);
             }
         });
-        //actionBar.setDisplayShowHomeEnabled(true);
         mDrawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R
                 .string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -173,58 +163,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         layoutParams.setBehavior(new BottomNavigationViewBehavior());
         mFilterDialog = Dialogs.PostsFilterDialogFragment();
         mAddPostDialog = Dialogs.AddPostDialogFragment();
-
-        /*FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);*/
-
-        //logger.logPurchase(BigDecimal.valueOf(4.32), Currency.getInstance("USD"));
-
-        /*loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
-        // If using in a fragment
-        //loginButton.setFragment(this);
-        // Other app specific specialization
-
-        // Callback registration
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance()
-                .registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-
-
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-
-                    @Override
-                    public void onError(FacebookException error) {
-
-                    }
-                });
-
-
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-            }
-        });*/
     }
 
     @OnClick(R.id.filter_bar)
@@ -276,15 +214,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         Intent intent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setTheme(R.style.GreenTheme)
-                .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
-                                .EMAIL_PROVIDER)
-                                .build(), /*new AuthUI.IdpConfig.Builder(AuthUI
-                        .PHONE_VERIFICATION_PROVIDER).build(),*/ new AuthUI.IdpConfig.Builder
-                                (AuthUI.GOOGLE_PROVIDER)
-                                .build()/*, new AuthUI.IdpConfig.Builder(AuthUI
-                                .FACEBOOK_PROVIDER).build()*//*,*/
-                        /*new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER)
-                        .build()*/))
+                .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                        .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
                 .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                 .build();
 
@@ -395,7 +326,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
      * https://github.com/sjthn/BottomNavigationViewBehavior/blob/master/app/src/main/java/com
      * /example/srijith/bottomnavigationviewbehavior/MainActivity.java
      */
-    public class BottomNavigationViewBehavior extends CoordinatorLayout.Behavior<BottomNavigationView> {
+    public class BottomNavigationViewBehavior extends CoordinatorLayout
+            .Behavior<BottomNavigationView> {
 
         private int height;
 
@@ -441,8 +373,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        private final List<NavigationFragment> mNavFragments = new ArrayList<>();
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
