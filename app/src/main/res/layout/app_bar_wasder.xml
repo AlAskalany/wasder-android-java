@@ -50,7 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
         app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|end" />
+        app:layout_anchorGravity="bottom|end"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/ic_create_white_24dp" />
 </android.support.design.widget.CoordinatorLayout>
