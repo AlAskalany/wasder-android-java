@@ -10,12 +10,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -157,6 +159,11 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
             }
         });
+
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)
+                mBottomNavigationView
+                .getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigationViewBehavior());
     }
 
     @OnClick(R.id.fab)
@@ -213,6 +220,12 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         mViewModel.setIsSigningIn(true);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
     /*@Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -221,12 +234,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             super.onBackPressed();
         }
     }*/
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -255,7 +262,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             events.add(event);
         }
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -300,6 +306,46 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    /**
+     * https://github.com/sjthn/BottomNavigationViewBehavior/blob/master/app/src/main/java/com
+     * /example/srijith/bottomnavigationviewbehavior/MainActivity.java
+     */
+    public class BottomNavigationViewBehavior extends CoordinatorLayout.Behavior<BottomNavigationView> {
+
+        private int height;
+
+        @Override
+        public boolean onLayoutChild(CoordinatorLayout parent, BottomNavigationView child, int layoutDirection) {
+            height = child.getHeight();
+            return super.onLayoutChild(parent, child, layoutDirection);
+        }
+
+        @Override
+        public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView child, View directTargetChild, View target, int nestedScrollAxes, int type) {
+            return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
+        }
+
+        @Override
+        public void onNestedScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
+            if (dyConsumed > 0) {
+                slideDown(child);
+            } else if (dyConsumed < 0) {
+                slideUp(child);
+            }
+        }
+
+        private void slideUp(BottomNavigationView child) {
+            child.clearAnimation();
+            child.animate().translationY(0).setDuration(200);
+        }
+
+        private void slideDown(BottomNavigationView child) {
+            child.clearAnimation();
+            child.animate().translationY(height).setDuration(200);
+        }
 
     }
 
