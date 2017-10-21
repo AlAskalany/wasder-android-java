@@ -10,10 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,20 +24,18 @@ import android.view.View;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.wasder.Util.FirebaseUtil;
 import co.wasder.wasder.Util.PostUtil;
+import co.wasder.wasder.behavior.BottomNavigationViewBehavior;
 import co.wasder.wasder.dialog.AddPostDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
 import co.wasder.wasder.dialog.PostsFilterDialogFragment;
 import co.wasder.wasder.filter.PostsFilters;
-import co.wasder.wasder.model.Post;
+import co.wasder.wasder.pageradapter.SectionsPagerAdapter;
 import co.wasder.wasder.ui.NavigationFragment;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.WasderActivityViewModel;
@@ -127,7 +122,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
@@ -173,32 +168,12 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public void onStart() {
         super.onStart();
         // Start sign in if necessary
-        if (shouldStartSignIn()) {
-            startSignIn();
+        if (FirebaseUtil.shouldStartSignIn(this, mViewModel)) {
+            FirebaseUtil.startSignIn(this, mViewModel, RC_SIGN_IN);
             //noinspection UnnecessaryReturnStatement
             return;
         }
         Log.d(TAG, "onStart: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
-    }
-
-    private boolean shouldStartSignIn() {
-        return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance()
-                .getCurrentUser() == null);
-    }
-
-    private void startSignIn() {
-        // Sign in with FirebaseUI
-        Intent intent = AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setTheme(R.style.GreenTheme)
-                .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
-                        .EMAIL_PROVIDER)
-                        .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
-                .setIsSmartLockEnabled(!BuildConfig.DEBUG)
-                .build();
-
-        startActivityForResult(intent, RC_SIGN_IN);
-        mViewModel.setIsSigningIn(true);
     }
 
     @Override
@@ -220,28 +195,14 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add_events:
-                onAddItemsClicked();
+                PostUtil.onAddItemsClicked(this);
                 return true;
             case R.id.menu_sign_out:
                 AuthUI.getInstance().signOut(this);
-                startSignIn();
+                FirebaseUtil.startSignIn(this, mViewModel, RC_SIGN_IN);
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void onAddItemsClicked() {
-        // Get a reference to the events collection
-        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
-        CollectionReference events = mFirestore.collection("restaurants");
-
-        for (int i = 0; i < 10; i++) {
-            // Get a random events POJO
-            Post event = PostUtil.getRandom(this);
-
-            // Add a new document to the events collection
-            events.add(event);
-        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -280,8 +241,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         /*callbackManager.onActivityResult(requestCode, resultCode, data);*/
         if (requestCode == RC_SIGN_IN) {
             mViewModel.setIsSigningIn(false);
-            if (resultCode != RESULT_OK && shouldStartSignIn()) {
-                startSignIn();
+            if (resultCode != RESULT_OK && FirebaseUtil.shouldStartSignIn(this, mViewModel)) {
+                FirebaseUtil.startSignIn(this, mViewModel, RC_SIGN_IN);
             }
         }
     }
@@ -300,94 +261,4 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         }
     }
 
-    /**
-     * https://github.com/sjthn/BottomNavigationViewBehavior/blob/master/app/src/main/java/com
-     * /example/srijith/bottomnavigationviewbehavior/MainActivity.java
-     */
-    public class BottomNavigationViewBehavior extends CoordinatorLayout
-            .Behavior<BottomNavigationView> {
-
-        private int height;
-
-        @Override
-        public boolean onLayoutChild(CoordinatorLayout parent, BottomNavigationView child, int
-                layoutDirection) {
-            height = child.getHeight();
-            return super.onLayoutChild(parent, child, layoutDirection);
-        }
-
-        @Override
-        public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout,
-                                           BottomNavigationView child, View directTargetChild,
-                                           View target, int nestedScrollAxes, int type) {
-            return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
-        }
-
-        @Override
-        public void onNestedScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView
-                child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int
-                dyUnconsumed, int type) {
-            if (dyConsumed > 0) {
-                slideDown(child);
-            } else if (dyConsumed < 0) {
-                slideUp(child);
-            }
-        }
-
-        private void slideUp(BottomNavigationView child) {
-            child.clearAnimation();
-            child.animate().translationY(0).setDuration(200);
-        }
-
-        private void slideDown(BottomNavigationView child) {
-            child.clearAnimation();
-            child.animate().translationY(height).setDuration(200);
-        }
-
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public NavigationFragment getItem(int position) {
-            NavigationFragment fragment;
-            switch (position) {
-                case 0:
-                    fragment = NavigationFragment.newInstance(0, NavigationFragment.SectionType
-                            .HOME);
-                    break;
-                case 1:
-                    fragment = NavigationFragment.newInstance(1, NavigationFragment.SectionType
-                            .LIVE);
-                    break;
-                case 2:
-                    fragment = NavigationFragment.newInstance(2, NavigationFragment.SectionType
-                            .GROUPS);
-                    break;
-                case 3:
-                    fragment = NavigationFragment.newInstance(3, NavigationFragment.SectionType
-                            .MESSAGES);
-                    break;
-                default:
-                    fragment = NavigationFragment.newInstance(0, NavigationFragment.SectionType
-                            .HOME);
-                    break;
-            }
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 4;
-        }
-    }
 }

@@ -2,6 +2,9 @@ package co.wasder.wasder.Util;
 
 import android.content.Context;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -9,6 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import co.wasder.wasder.R;
+import co.wasder.wasder.WasderActivity;
 import co.wasder.wasder.model.Post;
 
 /**
@@ -115,5 +119,19 @@ public class PostUtil {
     public static int getRandomInt(int[] array, Random random) {
         int ind = random.nextInt(array.length);
         return array[ind];
+    }
+
+    public static void onAddItemsClicked(WasderActivity activity) {
+        // Get a reference to the events collection
+        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        CollectionReference events = mFirestore.collection("restaurants");
+
+        for (int i = 0; i < 10; i++) {
+            // Get a random events POJO
+            Post event = getRandom(activity);
+
+            // Add a new document to the events collection
+            events.add(event);
+        }
     }
 }
