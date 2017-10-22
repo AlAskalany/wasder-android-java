@@ -2,7 +2,6 @@ package co.wasder.wasder.ui;
 
 import android.animation.Animator;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -33,7 +32,6 @@ import java.util.List;
 
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.TabbedActivity;
 import co.wasder.wasder.WasderActivity;
 
 /**
@@ -330,7 +328,6 @@ public class NavigationFragment extends Fragment implements NavigationView
 
         if (id == R.id.nav_profile) {
             // Handle the camera action
-            startActivity(new Intent(getActivity(), TabbedActivity.class));
         } else if (id == R.id.nav_friends) {
 
         } else if (id == R.id.nav_followers) {

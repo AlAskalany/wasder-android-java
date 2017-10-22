@@ -213,7 +213,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         if (id == R.id.nav_profile) {
             // Handle the camera action
-            startActivity(new Intent(this, TabbedActivity.class));
         } else if (id == R.id.nav_friends) {
 
         } else if (id == R.id.nav_followers) {
