@@ -15,18 +15,15 @@
  */
 package co.wasder.wasder.detail;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,10 +33,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 
@@ -55,8 +50,7 @@ import co.wasder.wasder.model.Event;
 import co.wasder.wasder.model.Rating;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-public class EventDetailActivity extends AppCompatActivity implements
-        EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
+public class EventDetailActivity extends BaseDetailActivity {
 
     public static final String KEY_EVENT_ID = "key_event_id";
     private static final String TAG = "EventDetail";
@@ -101,12 +95,6 @@ public class EventDetailActivity extends AppCompatActivity implements
 
     private AddEventDialogFragment mEventDialog;
 
-    private FirebaseFirestore mFirestore;
-    private DocumentReference mEventRef;
-    private ListenerRegistration mEventRegistration;
-
-    private RatingAdapter mRatingAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,11 +111,12 @@ public class EventDetailActivity extends AppCompatActivity implements
         mFirestore = FirebaseFirestore.getInstance();
 
         // Get reference to the event
-        mEventRef = mFirestore.collection("events").document(eventId);
+        mDocumentRef = mFirestore.collection("events").document(eventId);
 
         // Get ratings
-        Query ratingsQuery = mEventRef.collection("ratings").orderBy("timestamp", Query.Direction
-                .DESCENDING).limit(50);
+        ratingsQuery = mDocumentRef.collection("ratings")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .limit(50);
 
         // RecyclerView
         mRatingAdapter = new RatingAdapter(ratingsQuery) {
@@ -151,35 +140,16 @@ public class EventDetailActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        mRatingAdapter.startListening();
-        mEventRegistration = mEventRef.addSnapshotListener(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        mRatingAdapter.stopListening();
-
-        if (mEventRegistration != null) {
-            mEventRegistration.remove();
-            mEventRegistration = null;
-        }
-    }
-
-    private Task<Void> addRating(final DocumentReference eventRef, final Rating rating) {
+    protected Task<Void> addRating(final DocumentReference documentRef, final Rating rating) {
         // Create reference for new rating, for use inside the transaction
-        final DocumentReference ratingRef = eventRef.collection("ratings").document();
+        final DocumentReference ratingRef = documentRef.collection("ratings").document();
 
         // In a transaction, add the new rating and update the aggregate totals
         return mFirestore.runTransaction(new Transaction.Function<Void>() {
             @Override
             public Void apply(Transaction transaction) throws FirebaseFirestoreException {
 
-                Event event = transaction.get(eventRef).toObject(Event.class);
+                Event event = transaction.get(documentRef).toObject(Event.class);
 
                 // Compute new number of ratings
                 int newNumRatings = event.getNumRatings() + 1;
@@ -193,7 +163,7 @@ public class EventDetailActivity extends AppCompatActivity implements
                 event.setAvgRating(newAvgRating);
 
                 // Commit to Firestore
-                transaction.set(eventRef, event);
+                transaction.set(documentRef, event);
                 transaction.set(ratingRef, rating);
 
                 return null;
@@ -202,7 +172,7 @@ public class EventDetailActivity extends AppCompatActivity implements
     }
 
     /**
-     * Listener for the Event document ({@link #mEventRef}).
+     * Listener for the Event document ({@link #mDocumentRef}).
      */
     @Override
     public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
@@ -211,10 +181,10 @@ public class EventDetailActivity extends AppCompatActivity implements
             return;
         }
 
-        onEventLoaded(snapshot.toObject(Event.class));
+        onModelLoaded(snapshot.toObject(Event.class));
     }
 
-    private void onEventLoaded(Event event) {
+    private void onModelLoaded(Event event) {
         mUserName.setText(event.getUserName());
         mNameView.setText(event.getEventName());
         mRatingIndicator.setRating((float) event.getAvgRating());
@@ -241,15 +211,15 @@ public class EventDetailActivity extends AppCompatActivity implements
     @Override
     public void onRating(Rating rating) {
         // In a transaction, add the new rating and update the aggregate totals
-        addRating(mEventRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+        addRating(mDocumentRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
 
                 // Hide keyboard and scroll to top
                 hideKeyboard();
-                mRatingsRecycler.smoothScrollToPosition(0);
-                Snackbar.make(mCoordinatorLayout, R.string.snackbar_rating_added, Snackbar
-                        .LENGTH_SHORT).show();
+                //mRatingsRecycler.smoothScrollToPosition(0);
+                Snackbar.make(mCoordinatorLayout, R.string.snackbar_rating_added, Snackbar.LENGTH_SHORT)
+                        .show();
             }
         }).addOnFailureListener(this, new OnFailureListener() {
             @Override
@@ -261,13 +231,5 @@ public class EventDetailActivity extends AppCompatActivity implements
                         .show();
             }
         });
-    }
-
-    private void hideKeyboard() {
-        View view = getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 }

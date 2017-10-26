@@ -15,18 +15,15 @@
  */
 package co.wasder.wasder.detail;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,10 +33,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
@@ -57,8 +52,7 @@ import co.wasder.wasder.model.Post;
 import co.wasder.wasder.model.Rating;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-public class PostDetailActivity extends AppCompatActivity implements
-        EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
+public class PostDetailActivity extends BaseDetailActivity {
 
     public static final String KEY_POST_ID = "key_post_id";
     private static final String TAG = "PostDetail";
@@ -94,23 +88,9 @@ public class PostDetailActivity extends AppCompatActivity implements
 
     private AddRatingDialogFragment mRatingDialog;
 
-    private FirebaseFirestore mFirestore;
-    private DocumentReference mPostRef;
-    private ListenerRegistration mPostRegistration;
-
-    private RatingAdapter mRatingAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setAllowEnterTransitionOverlap(true);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setEnterTransition(new AutoTransition());
-            getWindow().setExitTransition(new Explode());
-        }*/
         setContentView(R.layout.activity_post_detail);
         ButterKnife.bind(this);
 
@@ -124,10 +104,10 @@ public class PostDetailActivity extends AppCompatActivity implements
         mFirestore = FirebaseFirestore.getInstance();
 
         // Get reference to the post
-        mPostRef = mFirestore.collection("restaurants").document(postId);
+        mDocumentRef = mFirestore.collection("restaurants").document(postId);
 
         // Get ratings
-        Query ratingsQuery = mPostRef.collection("ratings")
+        ratingsQuery = mDocumentRef.collection("ratings")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .limit(50);
 
@@ -152,36 +132,16 @@ public class PostDetailActivity extends AppCompatActivity implements
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        mRatingAdapter.startListening();
-        mPostRegistration = mPostRef.addSnapshotListener(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        mRatingAdapter.stopListening();
-
-        if (mPostRegistration != null) {
-            mPostRegistration.remove();
-            mPostRegistration = null;
-        }
-    }
-
-    private Task<Void> addRating(final DocumentReference postRef, final Rating rating) {
+    protected Task<Void> addRating(final DocumentReference documentRef, final Rating rating) {
         // Create reference for new rating, for use inside the transaction
-        final DocumentReference ratingRef = postRef.collection("ratings").document();
+        final DocumentReference ratingRef = documentRef.collection("ratings").document();
 
         // In a transaction, add the new rating and update the aggregate totals
         return mFirestore.runTransaction(new Transaction.Function<Void>() {
             @Override
             public Void apply(Transaction transaction) throws FirebaseFirestoreException {
 
-                Post post = transaction.get(postRef).toObject(Post.class);
+                Post post = transaction.get(documentRef).toObject(Post.class);
 
                 // Compute new number of ratings
                 int newNumRatings = post.getNumRatings() + 1;
@@ -195,7 +155,7 @@ public class PostDetailActivity extends AppCompatActivity implements
                 post.setAvgRating(newAvgRating);
 
                 // Commit to Firestore
-                transaction.set(postRef, post);
+                transaction.set(documentRef, post);
                 transaction.set(ratingRef, rating);
 
                 return null;
@@ -204,7 +164,7 @@ public class PostDetailActivity extends AppCompatActivity implements
     }
 
     /**
-     * Listener for the Post document ({@link #mPostRef}).
+     * Listener for the Post document ({@link #mDocumentRef}).
      */
     @Override
     public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
@@ -213,10 +173,10 @@ public class PostDetailActivity extends AppCompatActivity implements
             return;
         }
 
-        onPostLoaded(snapshot.toObject(Post.class));
+        onModelLoaded(snapshot.toObject(Post.class));
     }
 
-    private void onPostLoaded(Post post) {
+    private void onModelLoaded(Post post) {
         mNameView.setText(post.getName());
         mRatingIndicator.setRating((float) post.getAvgRating());
         mNumRatingsView.setText(getString(R.string.fmt_num_ratings, post.getNumRatings()));
@@ -248,7 +208,7 @@ public class PostDetailActivity extends AppCompatActivity implements
     @Override
     public void onRating(Rating rating) {
         // In a transaction, add the new rating and update the aggregate totals
-        addRating(mPostRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+        addRating(mDocumentRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "Rating added");
@@ -256,7 +216,8 @@ public class PostDetailActivity extends AppCompatActivity implements
                 // Hide keyboard and scroll to top
                 hideKeyboard();
                 mRatingsRecycler.smoothScrollToPosition(0);
-                Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_rating_added, Snackbar.LENGTH_SHORT)
+                Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_rating_added,
+                        Snackbar.LENGTH_SHORT)
                         .show();
             }
         }).addOnFailureListener(this, new OnFailureListener() {
@@ -266,17 +227,11 @@ public class PostDetailActivity extends AppCompatActivity implements
 
                 // Show failure message and hide keyboard
                 hideKeyboard();
-                Snackbar.make(findViewById(android.R.id.content), R.string.snackbar_rating_add_failed, Snackbar.LENGTH_SHORT)
+                Snackbar.make(findViewById(android.R.id.content), R.string
+                        .snackbar_rating_add_failed, Snackbar.LENGTH_SHORT)
                         .show();
             }
         });
     }
 
-    private void hideKeyboard() {
-        View view = getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view
-                    .getWindowToken(), 0);
-        }
-    }
 }
