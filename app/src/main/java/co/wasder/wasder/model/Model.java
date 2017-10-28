@@ -12,7 +12,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Model {
 
+    @SuppressWarnings("unused")
     private static double rating;
+    @SuppressWarnings("unused")
     private static String text;
 
     @SuppressWarnings("unused")

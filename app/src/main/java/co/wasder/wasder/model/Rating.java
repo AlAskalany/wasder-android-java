@@ -21,6 +21,7 @@ public class Rating {
     private @ServerTimestamp
     Date timestamp;
 
+    @SuppressWarnings("unused")
     public Rating() {
     }
 

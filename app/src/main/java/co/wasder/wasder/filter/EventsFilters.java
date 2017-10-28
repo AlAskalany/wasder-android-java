@@ -23,6 +23,7 @@ public class EventsFilters {
     private String sortBy = null;
     private Query.Direction sortDirection = null;
 
+    @SuppressWarnings("WeakerAccess")
     public EventsFilters() {
     }
 

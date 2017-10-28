@@ -47,14 +47,19 @@ public class EventsFilterDialogFragment extends DialogFragment implements DatePi
         .OnDateSetListener {
 
     public static final String TAG = "EventsFilterDialog";
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_category)
     public Spinner mCategorySpinner;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_city)
     public Spinner mCitySpinner;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_sort)
     public Spinner mSortSpinner;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_price)
     public Spinner mPriceSpinner;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_date)
     public Spinner mDateSpinner;
     private View mRootView;
