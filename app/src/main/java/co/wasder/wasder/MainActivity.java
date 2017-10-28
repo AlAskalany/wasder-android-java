@@ -57,15 +57,15 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.wasder.Util.PostUtil;
-import co.wasder.wasder.adapter.Adapters;
-import co.wasder.wasder.adapter.PostAdapter;
-import co.wasder.wasder.dialog.AddPostDialogFragment;
-import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.PostsFilterDialogFragment;
-import co.wasder.wasder.filter.PostsFilters;
-import co.wasder.wasder.model.Post;
-import co.wasder.wasder.viewmodel.MainActivityViewModel;
+import co.wasder.Util.PostUtil;
+import co.wasder.adapter.Adapters;
+import co.wasder.adapter.PostAdapter;
+import co.wasder.dialog.AddPostDialogFragment;
+import co.wasder.dialog.Dialogs;
+import co.wasder.dialog.PostsFilterDialogFragment;
+import co.wasder.filter.PostsFilters;
+import co.wasder.model.Post;
+import co.wasder.viewmodel.MainActivityViewModel;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements PostsFilterDialogFragment

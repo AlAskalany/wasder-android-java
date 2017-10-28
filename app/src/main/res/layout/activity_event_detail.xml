@@ -10,7 +10,7 @@
         android:id="@+id/activity_event_detail_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="co.wasder.wasder.detail.EventDetailActivity">
+        tools:context="co.wasder.wasder.co.wasder.detail.EventDetailActivity">
 
         <RelativeLayout
             android:id="@+id/event_top_card"

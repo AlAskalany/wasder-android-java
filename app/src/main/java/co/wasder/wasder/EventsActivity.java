@@ -44,14 +44,14 @@ import java.util.Collections;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.wasder.Util.EventUtil;
-import co.wasder.wasder.adapter.EventAdapter;
-import co.wasder.wasder.detail.EventDetailActivity;
-import co.wasder.wasder.dialog.AddEventDialogFragment;
-import co.wasder.wasder.dialog.EventsFilterDialogFragment;
-import co.wasder.wasder.filter.EventsFilters;
-import co.wasder.wasder.model.Event;
-import co.wasder.wasder.viewmodel.EventsActivityViewModel;
+import co.wasder.Util.EventUtil;
+import co.wasder.adapter.EventAdapter;
+import co.wasder.detail.EventDetailActivity;
+import co.wasder.dialog.AddEventDialogFragment;
+import co.wasder.dialog.EventsFilterDialogFragment;
+import co.wasder.filter.EventsFilters;
+import co.wasder.model.Event;
+import co.wasder.viewmodel.EventsActivityViewModel;
 
 public class EventsActivity extends AppCompatActivity implements EventsFilterDialogFragment
         .FilterListener, EventAdapter.OnEventSelectedListener {
