@@ -1,8 +1,8 @@
 package co.wasder.wasder.adapter;
 
-/**
- * Created by Ahmed AlAskalany on 10/11/2017.
- * Wasder AB
+/*
+  Created by Ahmed AlAskalany on 10/11/2017.
+  Wasder AB
  */
 
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +24,7 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
  */
 public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
 
-    public RatingAdapter(Query query) {
+    protected RatingAdapter(Query query) {
         super(query);
     }
 
@@ -50,7 +50,7 @@ public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
         @BindView(R.id.rating_item_text)
         TextView textView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

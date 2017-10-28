@@ -16,6 +16,7 @@ import java.io.InputStream;
  * Wasder AB
  */
 
+@SuppressWarnings("WeakerAccess")
 @GlideModule
 public class MyAppGlideModule extends AppGlideModule {
 

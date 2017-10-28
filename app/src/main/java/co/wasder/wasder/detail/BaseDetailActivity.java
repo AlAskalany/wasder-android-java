@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -17,7 +16,6 @@ import com.google.firebase.firestore.Query;
 
 import co.wasder.wasder.adapter.RatingAdapter;
 import co.wasder.wasder.dialog.AddRatingDialogFragment;
-import co.wasder.wasder.model.Rating;
 
 /**
  * Created by Ahmed AlAskalany on 10/22/2017.
@@ -27,18 +25,20 @@ import co.wasder.wasder.model.Rating;
 abstract class BaseDetailActivity extends AppCompatActivity implements
         EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
 
-    protected FirebaseFirestore mFirestore;
-    protected RatingAdapter mRatingAdapter;
-    protected ListenerRegistration mModelRegisteration;
-    protected DocumentReference mDocumentRef;
-    protected Query ratingsQuery;
+    FirebaseFirestore mFirestore;
+    RatingAdapter mRatingAdapter;
+    DocumentReference mDocumentRef;
+    Query ratingsQuery;
+    private ListenerRegistration mModelRegistration;
 
-    protected void hideKeyboard() {
+    void hideKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(view
-                    .getWindowToken(), 0);
+            InputMethodManager inputMethodManager = ((InputMethodManager) getSystemService
+                    (Context.INPUT_METHOD_SERVICE));
+            if (inputMethodManager != null) {
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         }
     }
 
@@ -47,7 +47,7 @@ abstract class BaseDetailActivity extends AppCompatActivity implements
         super.onStart();
 
         mRatingAdapter.startListening();
-        mModelRegisteration = mDocumentRef.addSnapshotListener(this);
+        mModelRegistration = mDocumentRef.addSnapshotListener(this);
     }
 
     @Override
@@ -56,18 +56,17 @@ abstract class BaseDetailActivity extends AppCompatActivity implements
 
         mRatingAdapter.stopListening();
 
-        if (mModelRegisteration != null) {
-            mModelRegisteration.remove();
-            mModelRegisteration = null;
+        if (mModelRegistration != null) {
+            mModelRegistration.remove();
+            mModelRegistration = null;
         }
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-    protected abstract Task<Void> addRating(DocumentReference eventRef, Rating rating);
 
     @Override
     public abstract void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e);

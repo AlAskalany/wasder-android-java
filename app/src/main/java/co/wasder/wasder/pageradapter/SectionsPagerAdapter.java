@@ -12,11 +12,9 @@ import co.wasder.wasder.ui.NavigationFragment;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    private WasderActivity activity;
-
-    public SectionsPagerAdapter(WasderActivity activity, FragmentManager fm) {
+    public SectionsPagerAdapter(@SuppressWarnings("unused") WasderActivity activity,
+                                FragmentManager fm) {
         super(fm);
-        this.activity = activity;
     }
 
     @Override

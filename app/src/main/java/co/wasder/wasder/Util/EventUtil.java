@@ -3,6 +3,7 @@ package co.wasder.wasder.Util;
 import android.content.Context;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -21,10 +22,11 @@ import co.wasder.wasder.model.Event;
 
 public class EventUtil {
 
+    @SuppressWarnings("unused")
     private static final String TAG = "EventUtil";
 
-    private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit
-            .SECONDS, new LinkedBlockingQueue<Runnable>());
+    @SuppressWarnings("unused")
+    private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
     private static final String EVENT_URL_FMT = "https://storage.googleapis" + "" + "" +
             ".com/firestorequickstarts.appspot.com/food_%d.png";
@@ -45,7 +47,7 @@ public class EventUtil {
         Event event = new Event();
         Random random = new Random();
 
-        // Cities (first elemnt is 'Any')
+        // Cities (first element is 'Any')
         String[] cities = context.getResources().getStringArray(R.array.cities);
         cities = Arrays.copyOfRange(cities, 1, cities.length);
 
@@ -54,8 +56,13 @@ public class EventUtil {
         categories = Arrays.copyOfRange(categories, 1, categories.length);
 
         int[] prices = new int[]{1, 2, 3};
-        event.setUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        event.setUserName(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            event.setUid(firebaseUser.getUid());
+        }
+        if (firebaseUser != null) {
+            event.setUserName(firebaseUser.getDisplayName());
+        }
         event.setEventName(getRandomName(random));
         event.setCity(getRandomString(cities, random));
         event.setCategory(getRandomString(categories, random));
@@ -72,7 +79,7 @@ public class EventUtil {
     /**
      * Get a random image.
      */
-    public static String getRandomImageUrl(Random random) {
+    private static String getRandomImageUrl(Random random) {
         // Integer between 1 and MAX_IMAGE_NUM (inclusive)
         int id = random.nextInt(MAX_IMAGE_NUM) + 1;
 
@@ -101,22 +108,22 @@ public class EventUtil {
         }
     }
 
-    public static double getRandomRating(Random random) {
+    private static double getRandomRating(Random random) {
         double min = 1.0;
         return min + (random.nextDouble() * 4.0);
     }
 
-    public static String getRandomName(Random random) {
+    private static String getRandomName(Random random) {
         return getRandomString(NAME_FIRST_WORDS, random) + " " + getRandomString
                 (NAME_SECOND_WORDS, random);
     }
 
-    public static String getRandomString(String[] array, Random random) {
+    private static String getRandomString(String[] array, Random random) {
         int ind = random.nextInt(array.length);
         return array[ind];
     }
 
-    public static int getRandomInt(int[] array, Random random) {
+    private static int getRandomInt(int[] array, Random random) {
         int ind = random.nextInt(array.length);
         return array[ind];
     }

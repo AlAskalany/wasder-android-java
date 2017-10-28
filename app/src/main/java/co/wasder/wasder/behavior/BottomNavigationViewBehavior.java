@@ -1,5 +1,6 @@
 package co.wasder.wasder.behavior;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
@@ -21,14 +22,16 @@ public class BottomNavigationViewBehavior extends CoordinatorLayout.Behavior<Bot
     }
 
     @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView
-            child, View directTargetChild, View target, int nestedScrollAxes, int type) {
+    public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull
+            BottomNavigationView child, @NonNull View directTargetChild, @NonNull View target,
+                                       int nestedScrollAxes, int type) {
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
     }
 
     @Override
-    public void onNestedScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView child,
-                               View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int
+    public void onNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull
+            BottomNavigationView child, @NonNull View target, int dxConsumed, int dyConsumed, int
+            dxUnconsumed, int
                                            dyUnconsumed, int type) {
         if (dyConsumed > 0) {
             slideDown(child);

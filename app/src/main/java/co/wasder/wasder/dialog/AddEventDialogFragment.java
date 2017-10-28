@@ -1,17 +1,17 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+  Copyright 2017 Google Inc. All Rights Reserved.
+  <p>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
  */
 package co.wasder.wasder.dialog;
 
@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -57,20 +58,18 @@ public class AddEventDialogFragment extends DialogFragment implements
     public static final String TAG = "AddEventDialog";
     private static final int INITIAL_AVG_RATING = 0;
     private static final int INITIAL_NUM_RATINGS = 0;
-    private final int INITIAL_CATEGORY_SELECTION = 0;
-    private final int INITIAL_CITY_SELECTION = 0;
-    private final int INITIAL_PRICE_SELECTION = 0;
-    private final String INITIAL_NAME = "";
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.eventNameEditText)
     EditText mEventNameEditText;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_category)
     Spinner mCategorySpinner;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_city)
     Spinner mCitySpinner;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_price)
     Spinner mPriceSpinner;
-    private View mRootView;
-    private FilterListener mFilterListener;
 
     @Override
     public void onComplete(@NonNull Task<DocumentReference> task) {
@@ -89,7 +88,7 @@ public class AddEventDialogFragment extends DialogFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.dialog_add_event, container, false);
+        View mRootView = inflater.inflate(R.layout.dialog_add_event, container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
     }
@@ -98,7 +97,7 @@ public class AddEventDialogFragment extends DialogFragment implements
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof FilterListener) {
-            mFilterListener = (FilterListener) context;
+            @SuppressWarnings("unused") FilterListener mFilterListener = (FilterListener) context;
         }
     }
 
@@ -106,17 +105,27 @@ public class AddEventDialogFragment extends DialogFragment implements
     public void onResume() {
         super.onResume();
         resetFields();
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
-                .LayoutParams.WRAP_CONTENT);
+        Window window = getDialog().getWindow();
+        if (window != null) {
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+                    .WRAP_CONTENT);
+        }
     }
 
     private void resetFields() {
+        String INITIAL_NAME = "";
         mEventNameEditText.setText(INITIAL_NAME);
+        int INITIAL_CATEGORY_SELECTION = 0;
         mCategorySpinner.setSelection(INITIAL_CATEGORY_SELECTION);
+        int INITIAL_CITY_SELECTION = 0;
         mCitySpinner.setSelection(INITIAL_CITY_SELECTION);
+        int INITIAL_PRICE_SELECTION = 0;
         mPriceSpinner.setSelection(INITIAL_PRICE_SELECTION);
     }
 
+    /**
+     *
+     */
     @OnClick(R.id.button_add_event)
     public void onAddEventClicked() {
         addEventToDatabase(createEventFromFields());
@@ -127,8 +136,14 @@ public class AddEventDialogFragment extends DialogFragment implements
         Random random = new Random();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
-        String uId = user.getUid();
-        String name = user.getDisplayName();
+        String uId = null;
+        if (user != null) {
+            uId = user.getUid();
+        }
+        String name = null;
+        if (user != null) {
+            name = user.getDisplayName();
+        }
         return Model.Event(uId, name, getEventName(), getEventCity(), getEventCategory(),
                 getRandomImageUrl(random), getEventPrice(), INITIAL_AVG_RATING,
                 INITIAL_NUM_RATINGS);
@@ -186,8 +201,10 @@ public class AddEventDialogFragment extends DialogFragment implements
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     interface FilterListener {
 
+        @SuppressWarnings("unused")
         void onFilter(PostsFilters postsFilters);
 
     }

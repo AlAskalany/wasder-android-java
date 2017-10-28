@@ -10,7 +10,9 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Event {
 
+    @SuppressWarnings("unused")
     public static final String FIELD_CITY = "city";
+    @SuppressWarnings("unused")
     public static final String FIELD_CATEGORY = "category";
     public static final String FIELD_PRICE = "price";
     public static final String FIELD_POPULARITY = "numRatings";
@@ -52,6 +54,7 @@ public class Event {
         this.userName = userName;
     }
 
+    @SuppressWarnings("unused")
     public String getUid() {
         return uId;
     }
@@ -120,6 +123,7 @@ public class Event {
         return date;
     }
 
+    @SuppressWarnings("SameParameterValue")
     public void setDate(String date) {
         this.date = date;
     }

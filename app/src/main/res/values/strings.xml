@@ -91,9 +91,9 @@
         <item>Indianapolis</item>
         <item>Jacksonville</item>
         <item>Kansas City</item>
-        <item>Las Vagas</item>
+        <item>Las Vegas</item>
         <item>Long Beach</item>
-        <item>Los Angeles</item>
+        <item>Los Angles</item>
         <item>Louisville</item>
         <item>Memphis</item>
         <item>Mesa</item>
@@ -119,7 +119,7 @@
         <item>Washington</item>
     </string-array>
 
-    <!-- Posts Filtersters -->
+    <!-- Posts Filters -->
     <string-array name="prices_posts">
         <item>@string/value_any_price</item>
 
@@ -223,4 +223,7 @@
     <string name="textview">TextView</string>
     <string name="todo">TODO</string>
     <string name="feed">Feed</string>
+    <string name="description">TODO</string>
+    <string name="desc">TODO</string>
+    <string name="event_name">EventName</string>
 </resources>

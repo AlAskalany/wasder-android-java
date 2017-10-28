@@ -22,12 +22,14 @@ import co.wasder.wasder.model.Post;
 
 public class PostUtil {
 
+    @SuppressWarnings("unused")
     private static final String TAG = "PostUtil";
 
-    private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit
-            .SECONDS, new LinkedBlockingQueue<Runnable>());
+    @SuppressWarnings("unused")
+    private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
-    private static final String RESTAURANT_URL_FMT = "https://storage.googleapis" + "" +
+    @SuppressWarnings("unused")
+    private static final String RESTAURANT_URL_FMT = "https://storage.googleapis" + "" + "" +
             ".com/firestorequickstarts.appspot.com/food_%d.png";
 
     private static final int MAX_IMAGE_NUM = 22;
@@ -46,7 +48,7 @@ public class PostUtil {
         Post post = new Post();
         Random random = new Random();
 
-        // Cities (first elemnt is 'Any')
+        // Cities (first element is 'Any')
         String[] cities = context.getResources().getStringArray(R.array.cities);
         cities = Arrays.copyOfRange(cities, 1, cities.length);
 
@@ -71,9 +73,10 @@ public class PostUtil {
     /**
      * Get a random image.
      */
+    @SuppressWarnings("SameReturnValue")
     public static String getRandomImageUrl(Random random) {
         // Integer between 1 and MAX_IMAGE_NUM (inclusive)
-        int id = random.nextInt(MAX_IMAGE_NUM) + 1;
+        @SuppressWarnings("unused") int id = random.nextInt(MAX_IMAGE_NUM) + 1;
 
         //return String.format(Locale.getDefault(), RESTAURANT_URL_FMT, id);
         return "f07fafef-219a-4d10-90b5-bcabc1c82348";
@@ -101,21 +104,25 @@ public class PostUtil {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static double getRandomRating(Random random) {
         double min = 1.0;
         return min + (random.nextDouble() * 4.0);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static String getRandomName(Random random) {
         return getRandomString(NAME_FIRST_WORDS, random) + " " + getRandomString
                 (NAME_SECOND_WORDS, random);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static String getRandomString(String[] array, Random random) {
         int ind = random.nextInt(array.length);
         return array[ind];
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static int getRandomInt(int[] array, Random random) {
         int ind = random.nextInt(array.length);
         return array[ind];

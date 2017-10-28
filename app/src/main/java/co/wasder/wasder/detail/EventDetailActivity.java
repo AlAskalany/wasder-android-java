@@ -1,23 +1,22 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+  Copyright 2017 Google Inc. All Rights Reserved.
+  <p>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
  */
 package co.wasder.wasder.detail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -54,42 +53,51 @@ public class EventDetailActivity extends BaseDetailActivity {
 
     public static final String KEY_EVENT_ID = "key_event_id";
     private static final String TAG = "EventDetail";
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.event_user_user_name)
     TextView mUserName;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.event_image)
     ImageView mImageView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.event_name)
     TextView mNameView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.event_rating)
     MaterialRatingBar mRatingIndicator;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.event_num_ratings)
     TextView mNumRatingsView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.event_city)
     TextView mCityView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.event_category)
     TextView mCategoryView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.event_price)
     TextView mPriceView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.event_date)
     TextView mDateView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.view_empty_ratings)
     ViewGroup mEmptyView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recycler_ratings)
     RecyclerView mRatingsRecycler;
 
-    @BindView(R.id.fab_show_rating_dialog)
-    FloatingActionButton floatingActionButton;
-
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.activity_event_detail_coordinator_layout)
     View mCoordinatorLayout;
 
@@ -102,7 +110,11 @@ public class EventDetailActivity extends BaseDetailActivity {
         ButterKnife.bind(this);
 
         // Get event ID from extras
-        String eventId = getIntent().getExtras().getString(KEY_EVENT_ID);
+        Bundle extras = getIntent().getExtras();
+        String eventId = null;
+        if (extras != null) {
+            eventId = extras.getString(KEY_EVENT_ID);
+        }
         if (eventId == null) {
             throw new IllegalArgumentException("Must pass extra " + KEY_EVENT_ID);
         }
@@ -139,7 +151,7 @@ public class EventDetailActivity extends BaseDetailActivity {
 
     }
 
-    @Override
+    @SuppressWarnings("WeakerAccess")
     protected Task<Void> addRating(final DocumentReference documentRef, final Rating rating) {
         // Create reference for new rating, for use inside the transaction
         final DocumentReference ratingRef = documentRef.collection("ratings").document();
@@ -147,7 +159,7 @@ public class EventDetailActivity extends BaseDetailActivity {
         // In a transaction, add the new rating and update the aggregate totals
         return mFirestore.runTransaction(new Transaction.Function<Void>() {
             @Override
-            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+            public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
 
                 Event event = transaction.get(documentRef).toObject(Event.class);
 
@@ -199,12 +211,12 @@ public class EventDetailActivity extends BaseDetailActivity {
     }
 
     @OnClick(R.id.event_button_back)
-    public void onBackArrowClicked(View view) {
+    public void onBackArrowClicked(@SuppressWarnings("unused") View view) {
         onBackPressed();
     }
 
     @OnClick(R.id.fab_show_rating_dialog)
-    public void onAddRatingClicked(View view) {
+    public void onAddRatingClicked(@SuppressWarnings("unused") View view) {
         mEventDialog.show(getSupportFragmentManager(), AddRatingDialogFragment.TAG);
     }
 
@@ -218,7 +230,8 @@ public class EventDetailActivity extends BaseDetailActivity {
                 // Hide keyboard and scroll to top
                 hideKeyboard();
                 //mRatingsRecycler.smoothScrollToPosition(0);
-                Snackbar.make(mCoordinatorLayout, R.string.snackbar_rating_added, Snackbar.LENGTH_SHORT)
+                Snackbar.make(mCoordinatorLayout, R.string.snackbar_rating_added, Snackbar
+                        .LENGTH_SHORT)
                         .show();
             }
         }).addOnFailureListener(this, new OnFailureListener() {

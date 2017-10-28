@@ -14,6 +14,7 @@ import android.widget.DatePicker;
  * Created by Ahmed AlAskalany on 10/12/2017.
  * Wasder AB
  */
+@SuppressWarnings("unused")
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog
         .OnDateSetListener {
 

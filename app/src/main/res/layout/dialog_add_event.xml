@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="EventName"
+        android:hint="@string/event_name"
         android:inputType="text" />
 
     <RelativeLayout
@@ -31,12 +31,14 @@
             android:id="@+id/icon_category"
             style="@style/AppTheme.FilterIcon"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_fastfood_white_24dp" />
+            android:contentDescription="@string/description"
+            app:srcCompat="@drawable/ic_fast_food_white_24dp" />
 
         <Spinner
             android:id="@+id/spinner_category"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon_category"
             android:layout_toRightOf="@+id/icon_category"
             android:entries="@array/categories_events" />
 
@@ -51,12 +53,14 @@
             android:id="@+id/icon_city"
             style="@style/AppTheme.FilterIcon"
             android:layout_centerVertical="true"
+            android:contentDescription="@string/description"
             app:srcCompat="@drawable/ic_place_white_24px" />
 
         <Spinner
             android:id="@+id/spinner_city"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon_city"
             android:layout_toRightOf="@+id/icon_city"
             android:entries="@array/cities" />
 
@@ -71,12 +75,14 @@
             android:id="@+id/icon_price"
             style="@style/AppTheme.FilterIcon"
             android:layout_centerVertical="true"
+            android:contentDescription="@string/description"
             app:srcCompat="@drawable/ic_monetization_on_white_24px" />
 
         <Spinner
             android:id="@+id/spinner_price"
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon_price"
             android:layout_toRightOf="@+id/icon_price"
             android:entries="@array/prices_events" />
 

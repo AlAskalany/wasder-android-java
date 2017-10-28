@@ -10,7 +10,9 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Post {
 
+    @SuppressWarnings("unused")
     public static final String FIELD_CITY = "city";
+    @SuppressWarnings("unused")
     public static final String FIELD_CATEGORY = "category";
     public static final String FIELD_PRICE = "price";
     public static final String FIELD_POPULARITY = "numRatings";

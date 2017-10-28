@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -22,7 +23,6 @@ import com.google.firebase.storage.StorageReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import co.wasder.wasder.GlideApp;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.PostUtil;
 import co.wasder.wasder.detail.PostDetailActivity;
@@ -40,15 +40,15 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See
      * {@link FirestoreRecyclerOptions} for configuration options.
      *
-     * @param options
+     * @param options FirestoreRecyclerOptions
      */
     PostAdapter(FirestoreRecyclerOptions options) {
+        //noinspection unchecked
         super(options);
     }
 
     @SuppressWarnings("unused")
-    public static PostAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query
-            query) {
+    public static PostAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query query) {
         FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, Post.class)
@@ -58,7 +58,8 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
 
     @SuppressWarnings("unused")
     public static PostAdapter newInstance(Query query) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post.class)
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>().setQuery
+                (query, Post.class)
                 .build();
         return new PostAdapter(options);
     }
@@ -103,7 +104,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
         @BindView(R.id.post_item_city)
         TextView cityView;
 
-        public PostHolder(View itemView) {
+        PostHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -117,7 +118,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
             String uuid = post.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
                 StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-                GlideApp.with(imageView.getContext())
+                Glide.with(imageView.getContext())
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(imageView);
@@ -136,19 +137,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), PostDetailActivity.class);
                     intent.putExtra("key_post_id", snapshot.getId());
-                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        view.getContext()
-                                .startActivity(intent, ActivityOptions
-                                        .makeSceneTransitionAnimation((AppCompatActivity) view
-                                        .getContext()).toBundle());
-                    } else {*/
-                    //ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation
-                    // (view.getContext(), android.R.anim.fade_in, android.R.anim.fade_out);
-                    //ActivityOptionsCompat myOptions = ActivityOptionsCompat
-                    // .makeSceneTransitionAnimation(((AppCompatActivity)view.getContext()),
-                    // imageView, "restaurant_image");
-                    view.getContext().startActivity(intent/*, options.toBundle()*/);
-                    /*}*/
+                    view.getContext().startActivity(intent);
                 }
             });
         }

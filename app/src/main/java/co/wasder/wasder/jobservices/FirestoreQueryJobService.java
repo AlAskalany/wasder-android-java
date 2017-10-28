@@ -17,15 +17,15 @@ public class FirestoreQueryJobService extends JobService {
 
     @Override
     public boolean onStartJob(final JobParameters jobParameters) {
-        Runnable mRunnable = mThread = new Thread(new Runnable() {
+        @SuppressWarnings("unused") Runnable mRunnable = mThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-                    String collectionName = null;
-                    Query query = firestore.collection("restaurants");
+                    @SuppressWarnings("unused") String collectionName = null;
+                    @SuppressWarnings("unused") Query query = firestore.collection("restaurants");
                 } finally {
-                    //Tell the framework that the job has completed and doesnot needs to be
+                    //Tell the framework that the job has completed and doesn't needs to be
                     // reschedule
                     jobFinished(jobParameters, false);
                 }

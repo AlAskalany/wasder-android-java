@@ -48,13 +48,15 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
-    public AddPostDialogFragment mAddPostDialog;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.navigation2)
     BottomNavigationView mBottomNavigationView;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.container)
     NonSwipeableViewPager mViewPager;
     private final BottomNavigationView.OnNavigationItemSelectedListener
@@ -82,9 +84,11 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             }
         }
     };
+    @SuppressWarnings("unused")
     private GoogleApiClient mGoogleApiClient;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private WasderActivityViewModel mViewModel;
+    @SuppressWarnings("unused")
     private ActionBarDrawerToggle toggle;
     private PostsFilterDialogFragment mFilterDialog;
 
@@ -107,12 +111,14 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.addOnMenuVisibilityListener(new ActionBar.OnMenuVisibilityListener() {
-            @Override
-            public void onMenuVisibilityChanged(boolean isVisible) {
-                Log.d(TAG, "onMenuVisibilityChanged: " + isVisible);
-            }
-        });
+        if (actionBar != null) {
+            actionBar.addOnMenuVisibilityListener(new ActionBar.OnMenuVisibilityListener() {
+                @Override
+                public void onMenuVisibilityChanged(boolean isVisible) {
+                    Log.d(TAG, "onMenuVisibilityChanged: " + isVisible);
+                }
+            });
+        }
         mDrawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R
                 .string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -134,7 +140,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 .getLayoutParams();
         layoutParams.setBehavior(new BottomNavigationViewBehavior());
         mFilterDialog = Dialogs.PostsFilterDialogFragment();
-        mAddPostDialog = Dialogs.AddPostDialogFragment();
+        @SuppressWarnings("unused") AddPostDialogFragment mAddPostDialog = Dialogs
+                .AddPostDialogFragment();
     }
 
     @OnClick(R.id.filter_bar)
@@ -144,7 +151,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     }
 
     @OnClick(R.id.fab)
-    public void submit(View view) {
+    public void submit(@SuppressWarnings("unused") View view) {
         new AddPostDialogFragment().show(getSupportFragmentManager(), AddPostDialogFragment.TAG);
     }
 

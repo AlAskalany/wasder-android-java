@@ -11,6 +11,7 @@ public class Dialogs {
         return new PostsFilterDialogFragment();
     }
 
+    @SuppressWarnings("unused")
     public static AddEventDialogFragment AddEventDialogFragment() {
         return new AddEventDialogFragment();
     }

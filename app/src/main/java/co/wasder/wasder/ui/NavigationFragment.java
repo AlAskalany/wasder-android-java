@@ -53,16 +53,16 @@ public class NavigationFragment extends Fragment implements NavigationView
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_SECTION_NUMBER = "param1";
-    private static final String ARGY_SECTION_TYPE = "param2";
-    public String TAG;
-    public ViewPager viewPager;
-    public View appBarLayout;
+    private static final String ARG_SECTION_TYPE = "param2";
+    private final List<TabFragment> fragments = new ArrayList<>();
+    private String TAG;
+    private ViewPager viewPager;
+    @SuppressWarnings("unused")
+    private View appBarLayout;
     // TODO: Rename and change types of parameters
     private int mSectionNumber;
-    private int mSectionType;
     private OnFragmentInteractionListener mListener;
-    private String asd;
-    private List<TabFragment> fragments = new ArrayList<>();
+    @SuppressWarnings("unused")
     private Animator.AnimatorListener mAnimationListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animation) {
@@ -84,6 +84,7 @@ public class NavigationFragment extends Fragment implements NavigationView
 
         }
     };
+    @SuppressWarnings("unused")
     private DrawerLayout mDrawerLayout;
 
     public NavigationFragment() {
@@ -103,14 +104,14 @@ public class NavigationFragment extends Fragment implements NavigationView
         NavigationFragment fragment = new NavigationFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        args.putInt(ARGY_SECTION_TYPE, sectionType.getValue());
+        args.putInt(ARG_SECTION_TYPE, sectionType.getValue());
         fragment.TAG = sectionType.getTitle();
         args.putString(ARG_TAG, sectionType.name());
         fragment.setArguments(args);
         return fragment;
     }
 
-    public NavigationFragment addTab(TabFragment tab) {
+    private NavigationFragment addTab(TabFragment tab) {
         fragments.add(tab);
         return this;
     }
@@ -121,7 +122,7 @@ public class NavigationFragment extends Fragment implements NavigationView
         setHasOptionsMenu(true);
         if (getArguments() != null) {
             mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
-            mSectionType = getArguments().getInt(ARGY_SECTION_TYPE);
+            int mSectionType = getArguments().getInt(ARG_SECTION_TYPE);
             TAG = getArguments().getString(ARG_TAG);
 
             switch (mSectionType) {
@@ -155,8 +156,8 @@ public class NavigationFragment extends Fragment implements NavigationView
         Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
     }
 
-    public Runnable createRunnable(final View appbar, final Animator.AnimatorListener
-            animatorListener) {
+    @SuppressWarnings("unused")
+    public Runnable createRunnable(final View appbar, final Animator.AnimatorListener animatorListener) {
         return new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -172,8 +173,7 @@ public class NavigationFragment extends Fragment implements NavigationView
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         Log.d(TAG, "Navigation Fragment onCreateView: " + mSectionNumber);
-        View view = inflater.inflate(R.layout.fragment_navigation, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_navigation, container, false);
     }
 
     @Override
@@ -231,8 +231,8 @@ public class NavigationFragment extends Fragment implements NavigationView
                     tabLayout.setupWithViewPager(this.viewPager);
                 }
             }
-        } else {
         }
+
     }
 
     @Override
@@ -289,6 +289,7 @@ public class NavigationFragment extends Fragment implements NavigationView
     }
 
     // TODO: Rename method, update argument and hook method into UI event
+    @SuppressWarnings("unused")
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -321,6 +322,7 @@ public class NavigationFragment extends Fragment implements NavigationView
         Log.d(TAG, "Navigation Fragment onDestroyView: " + mSectionNumber);
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -347,8 +349,8 @@ public class NavigationFragment extends Fragment implements NavigationView
     public enum SectionType {
         HOME(0, "Home"), LIVE(1, "Live"), GROUPS(2, "Groups"), MESSAGES(3, "Messages");
 
-        private int value;
-        private String title;
+        private final int value;
+        private final String title;
 
         SectionType(int value, String title) {
             this.value = value;
@@ -377,7 +379,8 @@ public class NavigationFragment extends Fragment implements NavigationView
     public interface OnFragmentInteractionListener {
 
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        @SuppressWarnings("EmptyMethod")
+        void onFragmentInteraction(@SuppressWarnings("unused") Uri uri);
     }
 
     /**
@@ -386,10 +389,10 @@ public class NavigationFragment extends Fragment implements NavigationView
      */
     public static class TabsPagerAdapter extends FragmentPagerAdapter {
 
-        private List<TabFragment> fragments = new ArrayList<>();
-        private List<String> titles = new ArrayList<>();
+        private final List<TabFragment> fragments = new ArrayList<>();
+        private final List<String> titles = new ArrayList<>();
 
-        public TabsPagerAdapter(FragmentManager fm) {
+        TabsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -408,7 +411,7 @@ public class NavigationFragment extends Fragment implements NavigationView
             return titles.get(position);
         }
 
-        public void addFragment(TabFragment fragment) {
+        void addFragment(TabFragment fragment) {
             fragments.add(fragment);
             titles.add(fragment.getTitle());
         }

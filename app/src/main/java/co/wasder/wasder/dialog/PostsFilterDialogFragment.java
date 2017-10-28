@@ -1,17 +1,17 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+  Copyright 2017 Google Inc. All Rights Reserved.
+  <p>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
  */
 package co.wasder.wasder.dialog;
 
@@ -22,6 +22,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Spinner;
 
 import com.google.firebase.firestore.Query;
@@ -40,12 +41,16 @@ import co.wasder.wasder.model.Post;
 public class PostsFilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "FilterDialog";
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_category)
     Spinner mCategorySpinner;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_city)
     Spinner mCitySpinner;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_sort)
     Spinner mSortSpinner;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_price)
     Spinner mPriceSpinner;
     private View mRootView;
@@ -54,6 +59,7 @@ public class PostsFilterDialogFragment extends DialogFragment {
     public PostsFilterDialogFragment() {
     }
 
+    @SuppressWarnings("unused")
     public static PostsFilterDialogFragment newInstance() {
         return new PostsFilterDialogFragment();
     }
@@ -82,9 +88,11 @@ public class PostsFilterDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getDialog().getWindow()
-                .setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
-                        .WRAP_CONTENT);
+        Window window = getDialog().getWindow();
+        if (window != null) {
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+                    .WRAP_CONTENT);
+        }
     }
 
     @OnClick(R.id.button_search)
@@ -175,6 +183,7 @@ public class PostsFilterDialogFragment extends DialogFragment {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     public PostsFilters getFilters() {
         PostsFilters postsFilters = Filters.PostsFilters();
 

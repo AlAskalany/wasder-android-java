@@ -35,10 +35,12 @@ public class Rating {
         this.text = text;
     }
 
+    @SuppressWarnings("unused")
     public String getUserId() {
         return userId;
     }
 
+    @SuppressWarnings("unused")
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -47,6 +49,7 @@ public class Rating {
         return userName;
     }
 
+    @SuppressWarnings("unused")
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -55,6 +58,7 @@ public class Rating {
         return rating;
     }
 
+    @SuppressWarnings("unused")
     public void setRating(double rating) {
         this.rating = rating;
     }
@@ -63,14 +67,17 @@ public class Rating {
         return text;
     }
 
+    @SuppressWarnings("unused")
     public void setText(String text) {
         this.text = text;
     }
 
+    @SuppressWarnings("unused")
     public Date getTimestamp() {
         return timestamp;
     }
 
+    @SuppressWarnings("unused")
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }

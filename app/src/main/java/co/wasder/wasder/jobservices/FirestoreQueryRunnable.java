@@ -8,11 +8,13 @@ import com.google.firebase.firestore.Query;
  * Navigator
  */
 
-public class FirestoreQueryRunnable implements Runnable {
+class FirestoreQueryRunnable implements Runnable {
 
+    private final String collectionName;
+    @SuppressWarnings("unused")
     private Query query;
-    private String collectionName;
 
+    @SuppressWarnings("unused")
     public FirestoreQueryRunnable(Query query, String collectionName) {
         this.query = query;
         this.collectionName = collectionName;

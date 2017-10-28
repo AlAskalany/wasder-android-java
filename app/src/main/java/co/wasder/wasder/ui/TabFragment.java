@@ -47,13 +47,21 @@ import co.wasder.wasder.viewmodel.TabFragmentViewModel;
 public class TabFragment extends Fragment implements LifecycleOwner, PostsFilterDialogFragment
         .FilterListener {
 
+    @SuppressWarnings("unused")
     private static final int FEED = 0;
+    @SuppressWarnings("unused")
     private static final int TWITCHLIVE = 1;
+    @SuppressWarnings("unused")
     private static final int TWITCHSTREAMS = 2;
+    @SuppressWarnings("unused")
     private static final int ESPORTS = 3;
+    @SuppressWarnings("unused")
     private static final int ALL = 4;
+    @SuppressWarnings("unused")
     private static final int OWNED = 5;
+    @SuppressWarnings("unused")
     private static final int MENTIONS = 6;
+    @SuppressWarnings("unused")
     private static final int PM = 7;
     private static final long LIMIT = 50;
     private static final String TAG = "TabFragment";
@@ -62,11 +70,12 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
     private static final String ARG_TITLE = "title";
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_TAB_TYPE = "tab_type";
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     private FirebaseFirestore mFirestore;
     private Query mQuery;
-    @SuppressWarnings("FieldCanBeLocal")
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private PostsFilterDialogFragment mFilterDialog;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private AddPostDialogFragment mAddPostDialog;
@@ -75,7 +84,6 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
     private String mCollectionReferenceString;
     private String mTitle;
     private OnFragmentInteractionListener mListener;
-    private int mSectionNumber;
 
     public TabFragment() {
         // Required empty public constructor
@@ -100,8 +108,8 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
         return fragment;
     }
 
-    public static Job createJob(FirebaseJobDispatcher dispatcher) {
-        Job job = dispatcher.newJobBuilder()
+    private static Job createJob(FirebaseJobDispatcher dispatcher) {
+        return dispatcher.newJobBuilder()
                 // persist the task across boots
                 .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
                 // Call this service when the criteria are met.
@@ -118,21 +126,21 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                 //Run this job only when the network is available.
                 .setConstraints(Constraint.ON_ANY_NETWORK).build();
-        return job;
     }
 
-    public static void scheduleJob(Context context) {
+    private static void scheduleJob(Context context) {
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
         Job job = createJob(dispatcher);
         dispatcher.schedule(job);
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setUserVisibleHint(true);
         if (getArguments() != null) {
             mTitle = getArguments().getString(ARG_TITLE);
-            mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+            int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
             mCollectionReferenceString = getArguments().getString(ARG_COLLECTION_REFERENCE_STRING);
         }
         super.onCreate(savedInstanceState);
@@ -160,11 +168,13 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
         onFilter(mViewModel.getFilters());
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     public void onPause() {
         super.onPause();
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     public void onResume() {
         super.onResume();
@@ -235,6 +245,7 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
     }
 
     // TODO: Rename method, update argument and hook method into UI event
+    @SuppressWarnings("unused")
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -271,9 +282,9 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
         MENTIONS(6, "Mentions", "restaurants"),
         PM(7, "PM", "restaurants");
 
-        private int value;
-        private String title;
-        private String collectionReference;
+        private final int value;
+        private final String title;
+        private final String collectionReference;
 
         TabType(int value, String title, String collectionReference) {
             this.value = value;
@@ -289,6 +300,7 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
             return title;
         }
 
+        @SuppressWarnings("unused")
         public String getCollectionReference() {
             return collectionReference;
         }
@@ -307,6 +319,7 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
     public interface OnFragmentInteractionListener {
 
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        @SuppressWarnings({"EmptyMethod", "unused"})
+        void onFragmentInteraction(@SuppressWarnings("unused") Uri uri);
     }
 }

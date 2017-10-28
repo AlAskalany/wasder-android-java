@@ -1,17 +1,17 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+  Copyright 2017 Google Inc. All Rights Reserved.
+  <p>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
  */
 package co.wasder.wasder.detail;
 
@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,7 +44,6 @@ import com.google.firebase.storage.StorageReference;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.wasder.GlideApp;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.PostUtil;
 import co.wasder.wasder.adapter.RatingAdapter;
@@ -54,32 +54,41 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class PostDetailActivity extends BaseDetailActivity {
 
-    public static final String KEY_POST_ID = "key_post_id";
+    private static final String KEY_POST_ID = "key_post_id";
     private static final String TAG = "PostDetail";
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_image)
     ImageView mImageView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_name)
     TextView mNameView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_rating)
     MaterialRatingBar mRatingIndicator;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_num_ratings)
     TextView mNumRatingsView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_city)
     TextView mCityView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_category)
     TextView mCategoryView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_price)
     TextView mPriceView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.view_empty_ratings)
     ViewGroup mEmptyView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recycler_ratings)
     RecyclerView mRatingsRecycler;
 
@@ -95,7 +104,11 @@ public class PostDetailActivity extends BaseDetailActivity {
         ButterKnife.bind(this);
 
         // Get post ID from extras
-        String postId = getIntent().getExtras().getString(KEY_POST_ID);
+        Bundle extras = getIntent().getExtras();
+        String postId = null;
+        if (extras != null) {
+            postId = extras.getString(KEY_POST_ID);
+        }
         if (postId == null) {
             throw new IllegalArgumentException("Must pass extra " + KEY_POST_ID);
         }
@@ -132,14 +145,14 @@ public class PostDetailActivity extends BaseDetailActivity {
 
     }
 
-    protected Task<Void> addRating(final DocumentReference documentRef, final Rating rating) {
+    private Task<Void> addRating(final DocumentReference documentRef, final Rating rating) {
         // Create reference for new rating, for use inside the transaction
         final DocumentReference ratingRef = documentRef.collection("ratings").document();
 
         // In a transaction, add the new rating and update the aggregate totals
         return mFirestore.runTransaction(new Transaction.Function<Void>() {
             @Override
-            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+            public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
 
                 Post post = transaction.get(documentRef).toObject(Post.class);
 
@@ -188,7 +201,7 @@ public class PostDetailActivity extends BaseDetailActivity {
         String uuid = post.getPhoto();
         if (uuid != null) {
             StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-            GlideApp.with(mImageView.getContext())
+            Glide.with(mImageView.getContext())
                     .load(mImageRef)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(mImageView);
@@ -196,12 +209,12 @@ public class PostDetailActivity extends BaseDetailActivity {
     }
 
     @OnClick(R.id.post_button_back)
-    public void onBackArrowClicked(View view) {
+    public void onBackArrowClicked(@SuppressWarnings("unused") View view) {
         onBackPressed();
     }
 
     @OnClick(R.id.fab_show_rating_dialog)
-    public void onAddRatingClicked(View view) {
+    public void onAddRatingClicked(@SuppressWarnings("unused") View view) {
         mRatingDialog.show(getSupportFragmentManager(), AddRatingDialogFragment.TAG);
     }
 

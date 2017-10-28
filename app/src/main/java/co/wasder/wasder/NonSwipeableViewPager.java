@@ -1,5 +1,6 @@
 package co.wasder.wasder;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -11,6 +12,7 @@ import java.lang.reflect.Field;
 
 /**
  * Created by Ahmed AlAskalany on 10/15/2017.
+ * Navigator
  */
 
 public class NonSwipeableViewPager extends ViewPager {
@@ -31,6 +33,7 @@ public class NonSwipeableViewPager extends ViewPager {
         return false;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // Never allow swiping to switch between pages
@@ -52,7 +55,7 @@ public class NonSwipeableViewPager extends ViewPager {
 
     public class MyScroller extends Scroller {
 
-        public MyScroller(Context context) {
+        MyScroller(Context context) {
             super(context, new DecelerateInterpolator());
         }
 

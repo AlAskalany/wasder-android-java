@@ -1,17 +1,17 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+  Copyright 2017 Google Inc. All Rights Reserved.
+  <p>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
  */
 package co.wasder.wasder.dialog;
 
@@ -23,6 +23,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.Spinner;
@@ -47,15 +48,15 @@ public class EventsFilterDialogFragment extends DialogFragment implements DatePi
 
     public static final String TAG = "EventsFilterDialog";
     @BindView(R.id.spinner_category)
-    Spinner mCategorySpinner;
+    public Spinner mCategorySpinner;
     @BindView(R.id.spinner_city)
-    Spinner mCitySpinner;
+    public Spinner mCitySpinner;
     @BindView(R.id.spinner_sort)
-    Spinner mSortSpinner;
+    public Spinner mSortSpinner;
     @BindView(R.id.spinner_price)
-    Spinner mPriceSpinner;
+    public Spinner mPriceSpinner;
     @BindView(R.id.spinner_date)
-    Spinner mDateSpinner;
+    public Spinner mDateSpinner;
     private View mRootView;
     private String mSelectedDate;
     private FilterListener mFilterListener;
@@ -102,8 +103,11 @@ public class EventsFilterDialogFragment extends DialogFragment implements DatePi
     @Override
     public void onResume() {
         super.onResume();
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
-                .LayoutParams.WRAP_CONTENT);
+        Window window = getDialog().getWindow();
+        if (window != null) {
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+                    .WRAP_CONTENT);
+        }
     }
 
     @OnClick(R.id.button_search)
@@ -211,7 +215,7 @@ public class EventsFilterDialogFragment extends DialogFragment implements DatePi
         }
     }
 
-    public EventsFilters getFilters() {
+    private EventsFilters getFilters() {
         EventsFilters eventsFilters = Filters.EventsFilters();
 
         if (mRootView != null) {
@@ -228,8 +232,7 @@ public class EventsFilterDialogFragment extends DialogFragment implements DatePi
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = year + "/" + (month + 1) + "/" + dayOfMonth;
-        mSelectedDate = date;
+        mSelectedDate = year + "/" + (month + 1) + "/" + dayOfMonth;
     }
 
     public interface FilterListener {

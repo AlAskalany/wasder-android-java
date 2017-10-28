@@ -1,17 +1,17 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+  Copyright 2017 Google Inc. All Rights Reserved.
+  <p>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
  */
 package co.wasder.wasder;
 
@@ -63,12 +63,16 @@ public class EventsActivity extends AppCompatActivity implements EventsFilterDia
     private static final int LIMIT = 50;
     @BindView(R.id.activity_events_coordinator_layout)
     public View mCoordinatorLayout;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.text_current_search)
     TextView mCurrentSearchView;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.text_current_sort_by)
     TextView mCurrentSortByView;
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recycler_events)
     RecyclerView mEventsRecycler;
     private FirebaseFirestore mFirestore;
@@ -262,7 +266,7 @@ public class EventsActivity extends AppCompatActivity implements EventsFilterDia
     }
 
     @OnClick(R.id.floatingActionButton)
-    public void submit(View view) {
+    public void submit(@SuppressWarnings("unused") View view) {
         mAddEventDialog.show(getSupportFragmentManager(), AddEventDialogFragment.TAG);
     }
 
@@ -297,6 +301,7 @@ public class EventsActivity extends AppCompatActivity implements EventsFilterDia
         mViewModel.setIsSigningIn(true);
     }
 
+    @SuppressWarnings("unused")
     private void showTodoToast() {
         Toast.makeText(this, "TODO: Implement", Toast.LENGTH_SHORT).show();
     }

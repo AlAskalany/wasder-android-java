@@ -75,7 +75,7 @@ public class WasderActivityTest {
 
         ViewInteraction textInputEditText2 = onView(allOf(withId(R.id.email), childAtPosition
                 (childAtPosition(withId(R.id.email_layout), 0), 0), isDisplayed()));
-        textInputEditText2.perform(replaceText("ahme"), closeSoftKeyboard());
+        textInputEditText2.perform(replaceText("ahmed"), closeSoftKeyboard());
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
@@ -87,7 +87,7 @@ public class WasderActivityTest {
             e.printStackTrace();
         }
 
-        ViewInteraction textInputEditText3 = onView(allOf(withId(R.id.email), withText("ahme"),
+        ViewInteraction textInputEditText3 = onView(allOf(withId(R.id.email), withText("ahmed"),
                 childAtPosition(childAtPosition(withId(R.id.email_layout), 0), 0), isDisplayed()));
         textInputEditText3.perform(replaceText("ahmed.alaskalany@gmail.com"));
 

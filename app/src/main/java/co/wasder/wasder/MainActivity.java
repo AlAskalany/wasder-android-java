@@ -1,17 +1,17 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+  Copyright 2017 Google Inc. All Rights Reserved.
+  <p>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
  */
 package co.wasder.wasder;
 
@@ -71,7 +71,7 @@ import io.fabric.sdk.android.Fabric;
 public class MainActivity extends AppCompatActivity implements PostsFilterDialogFragment
         .FilterListener, FirebaseAuth.AuthStateListener, LifecycleOwner {
 
-    public static final int WELCOME_MESSAGE_EXPIRATION = 3600;
+    private static final int WELCOME_MESSAGE_EXPIRATION = 3600;
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final int LIMIT = 50;
@@ -80,30 +80,39 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
     private static final String LOADING_PHRASE_CONFIG_KEY = "loading_phrase";
     private static final String WELCOME_MESSAGE_KEY = "welcome_message";
     private static final String WELCOME_MESSAGE_CAPS_KEY = "welcome_message_caps";
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.text_current_search)
     TextView mCurrentSearchView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.text_current_sort_by)
     TextView mCurrentSortByView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recycler_restaurants)
     RecyclerView mRestaurantsRecycler;
 
+    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.welcome_text_view)
     TextView mWelcomeTextView;
 
+    @SuppressWarnings("WeakerAccess")
     @BindString(R.string.invitation_message)
     String mInviteMessage;
 
+    @SuppressWarnings("WeakerAccess")
     @BindString(R.string.invitation_deep_link)
     String mInviteDeepLink;
 
+    @SuppressWarnings("WeakerAccess")
     @BindString(R.string.invitation_custom_image)
     String mInviteCustomImage;
 
+    @SuppressWarnings("WeakerAccess")
     @BindString(R.string.invitation_cta)
     String mInviteCta;
 
@@ -122,9 +131,18 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
         // You can call any combination of these three methods
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
-        String uId = user.getUid();
-        String userEmail = user.getEmail();
-        String userName = user.getDisplayName();
+        String uId = null;
+        if (user != null) {
+            uId = user.getUid();
+        }
+        String userEmail = null;
+        if (user != null) {
+            userEmail = user.getEmail();
+        }
+        String userName = null;
+        if (user != null) {
+            userName = user.getDisplayName();
+        }
         Crashlytics.setUserIdentifier(uId);
         Crashlytics.setUserEmail(userEmail);
         Crashlytics.setUserName(userName);
@@ -239,7 +257,6 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
         // Start sign in if necessary
         if (shouldStartSignIn()) {
             startSignIn();
-            return;
         } else {
 
             Fabric.with(this, new Crashlytics());
@@ -376,7 +393,7 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
     }
 
     @OnClick(R.id.floatingActionButton)
-    public void submit(View view) {
+    public void submit(@SuppressWarnings("unused") View view) {
         mAddRestaurantDialog.show(getSupportFragmentManager(), AddPostDialogFragment.TAG);
         //startActivity(new Intent(this, EventsActivity.class));
     }
