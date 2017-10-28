@@ -9,6 +9,7 @@
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher_wasder"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_wasder_round"
@@ -76,7 +77,7 @@
 
         <meta-data xmlns:tools="http://schemas.android.com/tools"
             android:name="io.fabric.ApiKey"
-            android:value="8df3619c6e081ddf78247924077b51d93acca7fb"
+            android:value="@string/fabric_api_key"
             tools:replace="android:value" />
 
         <service

@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
         } else {
 
             Fabric.with(this, new Crashlytics());
-            Appsee.start(getString(R.string.com_apsee_apikey));
+            Appsee.start(getString(R.string.com_apsee_api_key));
             logUserCrashlytics();
             setupRemoteConfig();
             fetchWelcomeMessage();

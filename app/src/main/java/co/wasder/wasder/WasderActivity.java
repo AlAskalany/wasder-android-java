@@ -253,8 +253,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public void onFilter(PostsFilters postsFilters) {
-        TabFragment fragment = (TabFragment) getSupportFragmentManager().findFragmentById(R.id
-                .nestedSctollView_appbar);
+        TabFragment fragment = (TabFragment) getSupportFragmentManager().findFragmentById(R.id.nestedScrollView_appbar);
         if (fragment != null) {
             fragment.onFilter(postsFilters);
         }

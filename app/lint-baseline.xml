@@ -1,0 +1,2122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues by="lint 3.0" format="4">
+
+    <issue id="NewApi"
+        message="`android:windowActivityTransitions` requires API level 21 (current min is 16)">
+        <location file="src\main\res\values\styles.xml" line="9" />
+    </issue>
+
+    <issue id="UnusedAttribute"
+        message="Attribute `elevation` is only used in API level 21 and higher (current min is 16)">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="19" />
+    </issue>
+
+    <issue id="UnusedAttribute"
+        message="Attribute `elevation` is only used in API level 21 and higher (current min is 16)">
+        <location file="src\main\res\layout\activity_events.xml" line="59" />
+    </issue>
+
+    <issue id="UnusedAttribute"
+        message="Attribute `elevation` is only used in API level 21 and higher (current min is 16)">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="13" />
+    </issue>
+
+    <issue id="UnusedAttribute"
+        message="Attribute `elevation` is only used in API level 21 and higher (current min is 16)">
+        <location file="src\main\res\layout\filter.xml" line="16" />
+    </issue>
+
+    <issue id="UnusedAttribute"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)">
+        <location file="src\main\res\drawable\ic_create_white_24dp.xml" line="4" />
+    </issue>
+
+    <issue id="UnusedAttribute"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)">
+        <location file="src\main\res\drawable\ic_event_white_24dp.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedAttribute"
+        message="Attribute `autoMirrored` is only used in API level 19 and higher (current min is 16)">
+        <location file="src\main\res\drawable\ic_games_white_24dp.xml" line="1" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of android.arch.lifecycle:extensions than 1.0.0-beta1 is available: 1.0.0-rc1">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of android.arch.lifecycle:runtime than 1.0.0 is available: 1.0.3">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.android.support.constraint:constraint-layout than 1.1.0-beta1 is available: 1.1.0-beta3">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.android.support:appcompat-v7 than 26.1.0 is available: 27.0.0">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.android.support:cardview-v7 than 26.1.0 is available: 27.0.0">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.android.support:customtabs than 26.1.0 is available: 27.0.0">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.android.support:design than 26.1.0 is available: 27.0.0">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.android.support:mediarouter-v7 than 26.1.0 is available: 27.0.0">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.android.support:palette-v7 than 26.1.0 is available: 27.0.0">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.android.support:recyclerview-v7 than 26.1.0 is available: 27.0.0">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.android.support:support-v4 than 26.1.0 is available: 27.0.0">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.android.support:support-vector-drawable than 26.1.0 is available: 27.0.0">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="GradleDependency"
+        message="A newer version of com.jakewharton:butterknife than 8.7.0 is available: 8.8.1">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="Typos"
+        message="&quot;Unkown&quot; is a common misspelling; did you mean &quot;Unknown&quot; ?">
+        <location file="src\main\res\values\strings.xml" line="197" />
+    </issue>
+
+    <issue id="Typos"
+        message="&quot;Unkown&quot; is a common misspelling; did you mean &quot;Unknown&quot; ?">
+        <location file="src\main\res\values\strings.xml" line="198" />
+    </issue>
+
+    <issue id="AllowBackup"
+        message="On SDK version 23 and up, your app data will be automatically backed up, and restored on app install. Your GCM regid will not work across restores, so you must ensure that it is excluded from the back-up set. Use the attribute `android:fullBackupContent` to specify an `@xml` resource which configures which files to backup. More info: https://developer.android.com/training/backup/autosyncapi.html">
+        <location file="src\main\AndroidManifest.xml" line="9" />
+    </issue>
+
+    <issue id="UseCompoundDrawables"
+        message="This tag and its children can be replaced by one `&lt;TextView/>` and a compound drawable">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="172" />
+    </issue>
+
+    <issue id="UseCompoundDrawables"
+        message="This tag and its children can be replaced by one `&lt;TextView/>` and a compound drawable">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="143" />
+    </issue>
+
+    <issue id="MergeRootFrame"
+        message="This `&lt;FrameLayout>` can be replaced with a `&lt;merge>` tag">
+        <location file="src\main\res\layout\filter.xml" line="2" />
+    </issue>
+
+    <issue id="UseOfBundledGooglePlayServices"
+        message="Avoid using bundled version of Google Play services SDK.">
+        <location file="build.gradle" />
+    </issue>
+
+    <issue id="Overdraw"
+        message="Possible overdraw: Root element paints background `@android:color/darker_gray` with a theme that also paints a background (inferred theme is `@style/AppTheme_NoActionBar`)">
+        <location file="src\main\res\layout\activity_events.xml" line="8" />
+    </issue>
+
+    <issue id="Overdraw"
+        message="Possible overdraw: Root element paints background `@android:color/darker_gray` with a theme that also paints a background (inferred theme is `@style/GreenTheme`)">
+        <location file="src\main\res\layout\activity_main.xml" line="7" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.menu.activity_main_drawer` appears to be unused">
+        <location file="src\main\res\menu\activity_main_drawer.xml" line="2" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.layout.activity_tabbed` appears to be unused">
+        <location file="src\main\res\layout\activity_tabbed.xml" line="2" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.drawable.bg_shadow` appears to be unused">
+        <location file="src\main\res\drawable\bg_shadow.xml" line="2" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="10" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="11" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="12" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="13" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="14" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="15" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="16" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="17" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="18" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="19" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="20" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="21" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="22" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_red_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="23" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="26" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="27" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="28" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="29" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="30" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="31" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="32" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="33" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="34" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="35" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="36" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="37" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="38" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_pink_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="39" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_purple_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="42" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_purple_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="43" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_purple_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="44" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_purple_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="45" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_purple_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="46" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_purple_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="47" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_purple_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="48" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_purple_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="49" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_purple_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="50" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_purple_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="51" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_purple_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="52" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_purple_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="53" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_purple_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="54" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_purple_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="55" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="58" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="59" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="60" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="61" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="62" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="63" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="64" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="65" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="66" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="67" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="68" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="69" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="70" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_purple_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="71" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_indigo_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="74" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_indigo_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="75" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_indigo_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="76" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_indigo_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="77" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_indigo_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="78" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_indigo_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="79" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_indigo_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="80" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_indigo_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="81" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_indigo_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="82" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_indigo_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="83" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_indigo_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="84" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_indigo_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="85" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_indigo_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="86" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_indigo_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="87" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="90" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="91" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="92" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="93" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="94" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="95" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="96" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="97" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="98" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="99" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="100" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="101" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="102" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_blue_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="103" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="106" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="107" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="108" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="109" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="110" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="111" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="112" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="113" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="114" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="115" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="116" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="117" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="118" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_blue_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="119" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="122" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="123" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="124" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="125" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="126" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="127" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="128" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="129" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="130" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="131" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="132" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="133" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="134" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_cyan_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="135" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="138" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="139" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="140" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="141" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="142" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="143" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="144" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="145" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="146" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="147" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="148" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="149" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="150" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_teal_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="151" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="154" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="155" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="156" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="157" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="158" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="159" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="160" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="161" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="162" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="163" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="164" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="165" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="166" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_green_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="167" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="170" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="171" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="172" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="173" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="174" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="175" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="176" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="177" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="178" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="179" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="180" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="181" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="182" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_light_green_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="183" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="186" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="187" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="188" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="189" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="190" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="191" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="192" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="193" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="194" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="195" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="196" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="197" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="198" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_lime_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="199" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_yellow_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="202" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_yellow_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="203" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_yellow_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="204" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_yellow_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="205" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_yellow_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="206" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_yellow_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="207" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_yellow_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="208" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_yellow_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="209" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_yellow_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="210" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_yellow_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="211" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_yellow_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="212" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_yellow_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="213" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_yellow_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="214" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_yellow_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="215" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="218" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="219" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="220" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="221" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="222" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="223" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="224" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="225" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="226" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="227" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="228" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="229" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="230" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_amber_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="231" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_orange_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="234" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_orange_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="235" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_orange_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="236" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_orange_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="237" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_orange_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="238" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_orange_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="239" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_orange_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="240" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_orange_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="241" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_orange_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="242" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_orange_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="243" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_orange_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="244" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_orange_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="245" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_orange_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="246" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_orange_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="247" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="250" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="251" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="252" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="253" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="254" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="255" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="256" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="257" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="258" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="259" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_A100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="260" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_A200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="261" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_A400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="262" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_deep_orange_A700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="263" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_brown_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="266" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_brown_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="267" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_brown_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="268" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_brown_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="269" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_brown_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="270" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_brown_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="271" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_brown_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="272" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_brown_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="273" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_brown_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="274" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_brown_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="275" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_grey_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="278" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_grey_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="279" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_grey_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="280" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_grey_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="281" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_grey_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="282" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_grey_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="283" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_grey_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="284" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_grey_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="285" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_grey_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="286" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_grey_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="287" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_black_1000` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="288" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.color.md_white_1000` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="289" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_blue_grey_50` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="292" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_blue_grey_100` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="293" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_blue_grey_200` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="294" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_blue_grey_300` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="295" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_blue_grey_400` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="296" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_blue_grey_500` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="297" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_blue_grey_600` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="298" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_blue_grey_700` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="299" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_blue_grey_800` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="300" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.md_blue_grey_900` appears to be unused">
+        <location file="src\main\res\values\colors.xml" line="301" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.layout.content_wasder` appears to be unused">
+        <location file="src\main\res\layout\content_wasder.xml" line="2" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.dimen.fab_margin` appears to be unused">
+        <location file="src\main\res\values\dimens.xml" line="7" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.dimen.appbar_padding_top` appears to be unused">
+        <location file="src\main\res\values\dimens.xml" line="22" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.layout.facebook_elements` appears to be unused">
+        <location file="src\main\res\layout\facebook_elements.xml" line="2" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_arrow_back_white_24px` appears to be unused">
+        <location file="src\main\res\drawable\ic_arrow_back_white_24px.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_dashboard_black_24dp` appears to be unused">
+        <location file="src\main\res\drawable\ic_dashboard_black_24dp.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_launcher_background` appears to be unused">
+        <location file="src\main\res\drawable\ic_launcher_background.xml" line="2" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.color.ic_launcher_background` appears to be unused">
+        <location file="src\main\res\values\ic_launcher_background.xml" line="3" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_local_dining_white_24px` appears to be unused">
+        <location file="src\main\res\drawable\ic_local_dining_white_24px.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_menu_camera` appears to be unused">
+        <location file="src\main\res\drawable\ic_menu_camera.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_menu_gallery` appears to be unused">
+        <location file="src\main\res\drawable\ic_menu_gallery.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_menu_manage` appears to be unused">
+        <location file="src\main\res\drawable\ic_menu_manage.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_menu_send` appears to be unused">
+        <location file="src\main\res\drawable\ic_menu_send.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_menu_share` appears to be unused">
+        <location file="src\main\res\drawable\ic_menu_share.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_menu_slideshow` appears to be unused">
+        <location file="src\main\res\drawable\ic_menu_slideshow.xml" line="1" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_shortcut_wasder` appears to be unused">
+        <location file="src\main\res\drawable-hdpi\ic_shortcut_wasder.png" />
+        <location file="src\main\res\drawable-mdpi\ic_shortcut_wasder.png" />
+        <location file="src\main\res\drawable-xhdpi\ic_shortcut_wasder.png" />
+        <location file="src\main\res\drawable-xxhdpi\ic_shortcut_wasder.png" />
+        <location file="src\main\res\drawable-xxxhdpi\ic_shortcut_wasder.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.drawable.ic_stat_wasder` appears to be unused">
+        <location file="src\main\res\drawable-hdpi\ic_stat_wasder.png" />
+        <location file="src\main\res\drawable-mdpi\ic_stat_wasder.png" />
+        <location file="src\main\res\drawable-xhdpi\ic_stat_wasder.png" />
+        <location file="src\main\res\drawable-xxhdpi\ic_stat_wasder.png" />
+        <location file="src\main\res\drawable-xxxhdpi\ic_stat_wasder.png" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.drawable.ic_wasder` appears to be unused">
+        <location file="src\main\res\drawable-hdpi\ic_wasder.png" />
+        <location file="src\main\res\drawable-mdpi\ic_wasder.png" />
+        <location file="src\main\res\drawable-xhdpi\ic_wasder.png" />
+        <location file="src\main\res\drawable-xxhdpi\ic_wasder.png" />
+        <location file="src\main\res\drawable-xxxhdpi\ic_wasder.png" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.layout.nav_header_main` appears to be unused">
+        <location file="src\main\res\layout\nav_header_main.xml" line="2" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.xml.remote_config_defaults` appears to be unused">
+        <location file="src\main\res\xml\remote_config_defaults.xml" line="2" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.label_category` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="19" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.string.label_city` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="20" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.string.label_price` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="21" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.label_sort_by` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="22" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.string.search` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="28" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.string.delete_all` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="41" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.message_no_results` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="45" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.image_description` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="50" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.string.text_view` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="51" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.string.delete_feed` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="52" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.string.name` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="54" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.title_activity_wasder` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="199" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.action_settings` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="201" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.title_activity_bottom_nav` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="202" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.hello_blank_fragment` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="208" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.title_activity_tabbed` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="219" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.section_format` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="220" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.string.title_activity_main2` appears to be unused">
+        <location file="src\main\res\values\strings.xml" line="221" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.style.AppTheme.AppBarOverlay` appears to be unused">
+        <location file="src\main\res\values\styles.xml" line="17" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.style.AppTheme.PopupOverlay` appears to be unused">
+        <location file="src\main\res\values\styles.xml" line="19" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.style.AppTheme_Activity` appears to be unused">
+        <location file="src\main\res\values\styles.xml" line="34" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.style.AppTheme_Overflow` appears to be unused">
+        <location file="src\main\res\values\styles.xml" line="36" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.style.AppTheme_FormLabel` appears to be unused">
+        <location file="src\main\res\values\styles.xml" line="41" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.style.AppTheme_Headline` appears to be unused">
+        <location file="src\main\res\values\styles.xml" line="76" />
+    </issue>
+
+    <issue id="UnusedResources"
+        message="The resource `R.style.AppTheme_Body2` appears to be unused">
+        <location file="src\main\res\values\styles.xml" line="96" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.drawable.wasder` appears to be unused">
+        <location file="src\main\res\drawable-hdpi\wasder.9.png" />
+        <location file="src\main\res\drawable-mdpi\wasder.9.png" />
+        <location file="src\main\res\drawable-xhdpi\wasder.9.png" />
+        <location file="src\main\res\drawable-xxhdpi\wasder.9.png" />
+        <location file="src\main\res\drawable-xxxhdpi\wasder.9.png" />
+    </issue>
+
+    <issue id="UnusedResources" message="The resource `R.menu.wasder` appears to be unused">
+        <location file="src\main\res\menu\wasder.xml" line="2" />
+    </issue>
+
+    <issue id="IconDuplicatesConfig"
+        message="The `food_1.png` icon has identical contents in the following configuration folders: drawable-nodpi, drawable">
+        <location file="src\main\res\drawable\food_1.png" />
+        <location file="src\main\res\drawable-nodpi\food_1.png" />
+    </issue>
+
+    <issue id="IconDuplicatesConfig"
+        message="The `pizza_monster.png` icon has identical contents in the following configuration folders: drawable-hdpi, drawable">
+        <location file="src\main\res\drawable\pizza_monster.png" />
+        <location file="src\main\res\drawable-hdpi\pizza_monster.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/food_1.png` in densityless folder">
+        <location file="src\main\res\drawable\food_1.png" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/pizza_monster.png` in densityless folder">
+        <location file="src\main\res\drawable\pizza_monster.png" />
+    </issue>
+
+    <issue id="ButtonOrder"
+        message="Cancel button should be on the left (was &quot;Cancel | Add&quot;, should be &quot;Cancel | Add&quot;)">
+        <location file="src\main\res\layout\dialog_add_event.xml" line="98" />
+    </issue>
+
+    <issue id="ButtonOrder"
+        message="Cancel button should be on the left (was &quot;Cancel | Add&quot;, should be &quot;Cancel | Add&quot;)">
+        <location file="src\main\res\layout\dialog_add_post.xml" line="106" />
+    </issue>
+
+    <issue id="ButtonOrder"
+        message="Cancel button should be on the left (was &quot;Cancel | Apply&quot;, should be &quot;Cancel | Apply&quot;)">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="128" />
+    </issue>
+
+    <issue id="ButtonOrder"
+        message="Cancel button should be on the left (was &quot;Cancel | Apply&quot;, should be &quot;Cancel | Apply&quot;)">
+        <location file="src\main\res\layout\dialog_filters_posts.xml" line="107" />
+    </issue>
+
+    <issue id="ButtonOrder"
+        message="Cancel button should be on the left (was &quot;Cancel | Submit&quot;, should be &quot;Cancel | Submit&quot;)">
+        <location file="src\main\res\layout\dialog_rating.xml" line="43" />
+    </issue>
+
+    <issue id="ClickableViewAccessibility"
+        message="Custom view `NonSwipeableViewPager` overrides `onTouchEvent` but not `performClick`">
+        <location file="src\main\java\co\wasder\wasder\NonSwipeableViewPager.java" line="35" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="21" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="35" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="184" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\activity_events.xml" line="67" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\activity_events.xml" line="103" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="15" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="29" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="155" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_add_event.xml" line="30" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_add_event.xml" line="50" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_add_event.xml" line="70" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_add_post.xml" line="31" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_add_post.xml" line="51" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_add_post.xml" line="71" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="22" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="42" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="62" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="83" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="102" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_filters_posts.xml" line="22" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_filters_posts.xml" line="42" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_filters_posts.xml" line="62" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\dialog_filters_posts.xml" line="82" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\filter.xml" line="24" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\filter.xml" line="59" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\item_event.xml" line="11" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\item_post.xml" line="11" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\nav_header_main.xml" line="15" />
+    </issue>
+
+    <issue id="ContentDescription" message="Missing `contentDescription` attribute on image">
+        <location file="src\main\res\layout\nav_header_wasder.xml" line="15" />
+    </issue>
+
+    <issue id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;">
+        <location file="src\main\res\layout\activity_events.xml" line="15" />
+    </issue>
+
+    <issue id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;">
+        <location file="src\main\res\layout\activity_events.xml" line="58" />
+    </issue>
+
+    <issue id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;">
+        <location file="src\main\res\layout\activity_main.xml" line="15" />
+    </issue>
+
+    <issue id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;">
+        <location file="src\main\res\layout\app_bar_wasder.xml" line="78" />
+    </issue>
+
+    <issue id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;">
+        <location file="src\main\res\layout\filter.xml" line="15" />
+    </issue>
+
+    <issue id="HardcodedText"
+        message="Hardcoded string &quot;TextView&quot;, should use `@string` resource">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="144" />
+    </issue>
+
+    <issue id="HardcodedText"
+        message="Hardcoded string &quot;Feed&quot;, should use `@string` resource">
+        <location file="src\main\res\layout\app_bar_wasder.xml" line="38" />
+    </issue>
+
+    <issue id="HardcodedText"
+        message="Hardcoded string &quot;EventName&quot;, should use `@string` resource">
+        <location file="src\main\res\layout\dialog_add_event.xml" line="23" />
+    </issue>
+
+    <issue id="HardcodedText"
+        message="Hardcoded string &quot;Title&quot;, should use `@string` resource">
+        <location file="src\main\res\layout\dialog_add_post.xml" line="24" />
+    </issue>
+
+    <issue id="HardcodedText"
+        message="Hardcoded string &quot;Image&quot;, should use `@string` resource">
+        <location file="src\main\res\layout\dialog_add_post.xml" line="94" />
+    </issue>
+
+    <issue id="HardcodedText"
+        message="Hardcoded string &quot;TextView&quot;, should use `@string` resource">
+        <location file="src\main\res\layout\item_event.xml" line="95" />
+    </issue>
+
+    <issue id="HardcodedText"
+        message="Hardcoded string &quot;TextView&quot;, should use `@string` resource">
+        <location file="src\main\res\layout\item_event.xml" line="106" />
+    </issue>
+
+    <issue id="HardcodedText"
+        message="Hardcoded string &quot;Android Studio&quot;, should use `@string` resource">
+        <location file="src\main\res\layout\nav_header_main.xml" line="26" />
+    </issue>
+
+    <issue id="HardcodedText"
+        message="Hardcoded string &quot;android.studio@android.com&quot;, should use `@string` resource">
+        <location file="src\main\res\layout\nav_header_main.xml" line="33" />
+    </issue>
+
+    <issue id="RelativeOverlap"
+        message="`@id/fab_show_rating_dialog` can overlap `@id/event_top_card` if @id/fab_show_rating_dialog grows due to localized text expansion">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="148" />
+    </issue>
+
+    <issue id="RelativeOverlap"
+        message="`@id/text_current_search_container` can overlap `@id/button_clear_filter` if @id/text_current_search_container grows due to localized text expansion">
+        <location file="src\main\res\layout\activity_events.xml" line="75" />
+    </issue>
+
+    <issue id="RelativeOverlap"
+        message="`@id/fab_show_rating_dialog` can overlap `@id/post_top_card` if @id/fab_show_rating_dialog grows due to localized text expansion">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="119" />
+    </issue>
+
+    <issue id="RelativeOverlap"
+        message="`@id/text_current_search_container` can overlap `@id/button_clear_filter` if @id/text_current_search_container grows due to localized text expansion">
+        <location file="src\main\res\layout\filter.xml" line="33" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/event_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="39" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginStart=&quot;8dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="50" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/event_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="62" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginStart=&quot;@dimen/event_num_rating_margin_left&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="73" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/event_rating&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="74" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/event_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="85" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/event_category&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="95" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/event_city_divider&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="106" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="115" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginEnd=&quot;8dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="117" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="153" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginEnd=&quot;16dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_event_detail.xml" line="155" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginStart=&quot;8dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_events.xml" line="80" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/button_filter&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_events.xml" line="81" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_events.xml" line="107" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/post_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="33" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginStart=&quot;8dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="44" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/post_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="56" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginStart=&quot;@dimen/post_num_rating_margin_left&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="67" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/post_rating&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="68" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/post_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="79" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/post_category&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="89" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/post_city_divider&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="100" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="109" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginEnd=&quot;8dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="111" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="124" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginEnd=&quot;16dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\activity_post_detail.xml" line="126" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_category&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_add_event.xml" line="40" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_city&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_add_event.xml" line="60" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_price&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_add_event.xml" line="80" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_category&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_add_post.xml" line="41" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_city&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_add_post.xml" line="61" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_price&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_add_post.xml" line="81" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_category&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="32" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_city&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="52" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_price&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="72" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_date&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="93" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_sort&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_filters_events.xml" line="112" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_category&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_filters_posts.xml" line="32" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_city&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_filters_posts.xml" line="52" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_price&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_filters_posts.xml" line="72" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/icon_sort&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\dialog_filters_posts.xml" line="92" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginStart=&quot;8dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\filter.xml" line="38" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/button_filter&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\filter.xml" line="39" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\filter.xml" line="63" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginStart=&quot;8dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_event.xml" line="26" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toStartOf=&quot;@+id/event_item_price&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_event.xml" line="28" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/event_item_image&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_event.xml" line="29" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/event_item_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_event.xml" line="39" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginStart=&quot;4dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_event.xml" line="50" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/event_item_rating&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_event.xml" line="51" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/event_item_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_event.xml" line="60" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/event_item_category&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_event.xml" line="68" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/event_item_city_divider&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_event.xml" line="77" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_event.xml" line="85" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginStart=&quot;8dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_post.xml" line="26" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toStartOf=&quot;@+id/post_item_price&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_post.xml" line="28" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/post_item_image&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_post.xml" line="29" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/post_item_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_post.xml" line="39" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_marginStart=&quot;4dp&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_post.xml" line="50" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/post_item_rating&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_post.xml" line="51" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignStart=&quot;@+id/post_item_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_post.xml" line="60" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/post_item_category&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_post.xml" line="68" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/post_item_city_divider&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_post.xml" line="77" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_post.xml" line="85" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignParentStart=&quot;true&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_rating.xml" line="15" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/rating_item_name&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_rating.xml" line="26" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toStartOf=&quot;@+id/rating_item_rating&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_rating.xml" line="34" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_toEndOf=&quot;@+id/rating_item_divider&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_rating.xml" line="35" />
+    </issue>
+
+    <issue id="RtlHardcoded"
+        message="Consider adding `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts">
+        <location file="src\main\res\layout\item_rating.xml" line="43" />
+    </issue>
+
+</issues>

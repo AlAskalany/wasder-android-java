@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Wasder</string>
-    <string name="com_apsee_apikey">29e9a300c73d4dc1bf56f20335ea4479</string>
+    <string name="fabric_api_key">8df3619c6e081ddf78247924077b51d93acca7fb</string>
+    <string name="com_apsee_api_key">29e9a300c73d4dc1bf56f20335ea4479</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -194,8 +195,8 @@
     <string name="snackbar_rating_add_failed">Adding Rating Failed</string>
     <string name="sign_in_cancelled">Sign-in cancelled</string>
     <string name="no_internet_connection">No internet connection</string>
-    <string name="unknown_error">Unkown error</string>
-    <string name="unknown_sign_in_response">Unkown response</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="unknown_sign_in_response">Unknown response</string>
     <string name="title_activity_wasder">WasderActivity</string>
 
     <string name="action_settings">Settings</string>
@@ -219,4 +220,7 @@
     <string name="title_activity_tabbed">TabbedActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="textview">TextView</string>
+    <string name="todo">TODO</string>
+    <string name="feed">Feed</string>
 </resources>

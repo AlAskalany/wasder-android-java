@@ -48,10 +48,11 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/event_rating"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
-                tools:text="Some eventt" />
+                tools:text="Some event" />
 
             <me.zhanghai.android.materialratingbar.MaterialRatingBar
                 android:id="@+id/event_rating"
@@ -60,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/event_category"
                 android:layout_alignLeft="@+id/event_name"
+                android:layout_alignStart="@+id/event_name"
                 app:mrb_progressTint="@android:color/white"
                 app:mrb_secondaryProgressTint="@android:color/white" />
 
@@ -71,6 +73,8 @@
                 android:layout_alignBottom="@+id/event_rating"
                 android:layout_alignTop="@+id/event_rating"
                 android:layout_marginLeft="@dimen/event_num_rating_margin_left"
+                android:layout_marginStart="@dimen/event_num_rating_margin_left"
+                android:layout_toEndOf="@+id/event_rating"
                 android:layout_toRightOf="@+id/event_rating"
                 android:gravity="center"
                 android:textColor="@android:color/white"
@@ -83,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/event_image"
                 android:layout_alignLeft="@+id/event_name"
+                android:layout_alignStart="@+id/event_name"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="@dimen/event_category_text_view_margin_top"
                 android:textColor="@android:color/white"
@@ -92,6 +97,7 @@
                 android:id="@+id/event_city_divider"
                 style="@style/AppTheme.TextDivider"
                 android:layout_alignTop="@+id/event_category"
+                android:layout_toEndOf="@+id/event_category"
                 android:layout_toRightOf="@+id/event_category"
                 android:text="@string/divider_bullet"
                 android:textColor="@android:color/white" />
@@ -103,6 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/event_category"
                 android:layout_below="@+id/event_category"
+                android:layout_toEndOf="@+id/event_city_divider"
                 android:layout_toRightOf="@+id/event_city_divider"
                 android:textColor="@android:color/white"
                 tools:text="San Francisco" />
@@ -112,8 +119,10 @@
                 style="@style/AppTheme.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/event_name"
+                android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="@dimen/event_price_text_view_margin_top"
                 android:textColor="@android:color/white"
@@ -141,7 +150,7 @@
                 android:layout_alignLeft="@+id/event_date"
                 android:layout_alignStart="@+id/event_date"
                 android:layout_alignTop="@+id/event_name"
-                android:text="TextView" />
+                android:text="@string/textview" />
 
         </RelativeLayout>
 
@@ -150,8 +159,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/event_top_card"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="-28dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             app:srcCompat="@drawable/ic_add_white_24px" />
 
@@ -183,6 +194,7 @@
 
             <ImageView
                 style="@style/AppTheme.PizzaGuy"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/pizza_monster" />
 
             <TextView
