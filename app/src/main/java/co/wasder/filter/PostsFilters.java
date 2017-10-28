@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.google.firebase.firestore.Query;
 
 import co.wasder.Util.PostUtil;
-import co.wasder.model.Post;
+import co.wasder.data.model.Post;
 import co.wasder.wasder.R;
 
 /**

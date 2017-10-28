@@ -6,10 +6,10 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 20
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -31,4 +31,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation "com.google.firebase:firebase-auth:${rootProject.ext.GMS}"
+    implementation "com.google.firebase:firebase-database:${rootProject.ext.GMS}"
+    implementation "com.google.firebase:firebase-firestore:${rootProject.ext.GMS}"
 }

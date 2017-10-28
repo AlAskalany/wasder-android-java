@@ -42,9 +42,9 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.data.model.Event;
+import co.wasder.data.model.Model;
 import co.wasder.filter.PostsFilters;
-import co.wasder.model.Event;
-import co.wasder.model.Model;
 import co.wasder.wasder.R;
 
 import static co.wasder.Util.PostUtil.getRandomImageUrl;

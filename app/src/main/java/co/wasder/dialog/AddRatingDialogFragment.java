@@ -30,7 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.model.Rating;
+import co.wasder.data.model.Rating;
 import co.wasder.wasder.R;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 

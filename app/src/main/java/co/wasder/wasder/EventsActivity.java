@@ -46,11 +46,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.Util.EventUtil;
 import co.wasder.adapter.EventAdapter;
+import co.wasder.data.model.Event;
 import co.wasder.detail.EventDetailActivity;
 import co.wasder.dialog.AddEventDialogFragment;
 import co.wasder.dialog.EventsFilterDialogFragment;
 import co.wasder.filter.EventsFilters;
-import co.wasder.model.Event;
 import co.wasder.viewmodel.EventsActivityViewModel;
 
 public class EventsActivity extends AppCompatActivity implements EventsFilterDialogFragment

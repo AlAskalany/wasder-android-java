@@ -11,7 +11,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import co.wasder.model.Post;
+import co.wasder.data.model.Post;
 import co.wasder.wasder.R;
 import co.wasder.wasder.WasderActivity;
 

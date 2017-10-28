@@ -48,9 +48,9 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.data.model.Model;
+import co.wasder.data.model.Post;
 import co.wasder.filter.PostsFilters;
-import co.wasder.model.Model;
-import co.wasder.model.Post;
 import co.wasder.wasder.R;
 
 import static android.app.Activity.RESULT_OK;

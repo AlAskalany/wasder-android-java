@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import co.wasder.model.Event;
+import co.wasder.data.model.Event;
 import co.wasder.wasder.R;
 
 /**

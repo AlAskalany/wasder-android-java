@@ -46,9 +46,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.Util.PostUtil;
 import co.wasder.adapter.RatingAdapter;
+import co.wasder.data.model.Post;
+import co.wasder.data.model.Rating;
 import co.wasder.dialog.AddRatingDialogFragment;
-import co.wasder.model.Post;
-import co.wasder.model.Rating;
 import co.wasder.wasder.R;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 

@@ -30,9 +30,9 @@ import com.google.firebase.firestore.Query;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.data.model.Post;
 import co.wasder.filter.Filters;
 import co.wasder.filter.PostsFilters;
-import co.wasder.model.Post;
 import co.wasder.wasder.R;
 
 /**

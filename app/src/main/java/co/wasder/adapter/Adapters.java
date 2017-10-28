@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 
-import co.wasder.model.Post;
+import co.wasder.data.model.Post;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.

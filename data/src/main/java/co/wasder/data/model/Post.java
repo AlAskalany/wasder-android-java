@@ -1,4 +1,4 @@
-package co.wasder.model;
+package co.wasder.data.model;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
@@ -8,7 +8,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
  */
 
 @IgnoreExtraProperties
-public class Event {
+public class Post {
 
     @SuppressWarnings("unused")
     public static final String FIELD_CITY = "city";
@@ -17,27 +17,21 @@ public class Event {
     public static final String FIELD_PRICE = "price";
     public static final String FIELD_POPULARITY = "numRatings";
     public static final String FIELD_AVG_RATING = "avgRating";
-    public static final String FIELD_DATE = "date";
 
-    private String uId;
-    private String userName;
-    private String eventName;
+    private String name;
     private String city;
     private String category;
     private String photo;
     private int price;
     private int numRatings;
     private double avgRating;
-    private String date;
 
-    public Event() {
+    public Post() {
     }
 
-    public Event(String uId, String userName, String eventName, String city, String category,
-                 String photo, int price, int numRatings, double avgRating) {
-        this.uId = uId;
-        this.userName = userName;
-        this.eventName = eventName;
+    public Post(String name, String city, String category, String photo, int price, int
+            numRatings, double avgRating) {
+        this.name = name;
         this.city = city;
         this.category = category;
         this.photo = photo;
@@ -46,29 +40,12 @@ public class Event {
         this.avgRating = avgRating;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    @SuppressWarnings("unused")
-    public String getUid() {
-        return uId;
-    }
-
-    public void setUid(String uId) {
-        this.uId = uId;
-    }
-
-    public String getEventName() {
-        return eventName;
-    }
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCity() {
@@ -117,14 +94,5 @@ public class Event {
 
     public void setAvgRating(double avgRating) {
         this.avgRating = avgRating;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    public void setDate(String date) {
-        this.date = date;
     }
 }

@@ -1,4 +1,4 @@
-package co.wasder.model;
+package co.wasder.data.model;
 
 import android.support.annotation.NonNull;
 

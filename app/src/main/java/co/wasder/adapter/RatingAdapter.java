@@ -15,7 +15,7 @@ import com.google.firebase.firestore.Query;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import co.wasder.model.Rating;
+import co.wasder.data.model.Rating;
 import co.wasder.wasder.R;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 

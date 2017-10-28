@@ -60,11 +60,11 @@ import butterknife.OnClick;
 import co.wasder.Util.PostUtil;
 import co.wasder.adapter.Adapters;
 import co.wasder.adapter.PostAdapter;
+import co.wasder.data.model.Post;
 import co.wasder.dialog.AddPostDialogFragment;
 import co.wasder.dialog.Dialogs;
 import co.wasder.dialog.PostsFilterDialogFragment;
 import co.wasder.filter.PostsFilters;
-import co.wasder.model.Post;
 import co.wasder.viewmodel.MainActivityViewModel;
 import io.fabric.sdk.android.Fabric;
 

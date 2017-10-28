@@ -35,9 +35,9 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.data.model.Event;
 import co.wasder.filter.EventsFilters;
 import co.wasder.filter.Filters;
-import co.wasder.model.Event;
 import co.wasder.wasder.R;
 
 /**
