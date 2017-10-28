@@ -47,7 +47,7 @@ import co.wasder.data.model.Model;
 import co.wasder.filter.PostsFilters;
 import co.wasder.wasder.R;
 
-import static co.wasder.Util.PostUtil.getRandomImageUrl;
+import static co.wasder.data.Util.PostUtil.getRandomImageUrl;
 
 /**
  * Dialog Fragment containing filter form.

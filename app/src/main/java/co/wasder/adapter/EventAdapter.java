@@ -29,7 +29,7 @@ import com.google.firebase.firestore.Query;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import co.wasder.Util.EventUtil;
+import co.wasder.data.Util.EventUtil;
 import co.wasder.data.model.Event;
 import co.wasder.wasder.R;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;

@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
 
-import co.wasder.Util.EventUtil;
+import co.wasder.data.Util.EventUtil;
 import co.wasder.data.model.Event;
 import co.wasder.wasder.R;
 

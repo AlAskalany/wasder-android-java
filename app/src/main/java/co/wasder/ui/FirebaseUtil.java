@@ -1,4 +1,4 @@
-package co.wasder.Util;
+package co.wasder.ui;
 
 import android.content.Intent;
 

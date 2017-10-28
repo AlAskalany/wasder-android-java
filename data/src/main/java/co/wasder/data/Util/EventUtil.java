@@ -1,4 +1,4 @@
-package co.wasder.Util;
+package co.wasder.data.Util;
 
 import android.content.Context;
 
@@ -12,8 +12,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import co.wasder.data.R;
 import co.wasder.data.model.Event;
-import co.wasder.wasder.R;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.

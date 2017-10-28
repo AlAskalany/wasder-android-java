@@ -1,4 +1,4 @@
-package co.wasder.Util;
+package co.wasder.data.Util;
 
 import android.content.Context;
 
@@ -11,9 +11,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import co.wasder.data.R;
 import co.wasder.data.model.Post;
-import co.wasder.wasder.R;
-import co.wasder.wasder.WasderActivity;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
@@ -128,14 +127,14 @@ public class PostUtil {
         return array[ind];
     }
 
-    public static void onAddItemsClicked(WasderActivity activity) {
+    public static void onAddItemsClicked(Context context) {
         // Get a reference to the events collection
         FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
         CollectionReference events = mFirestore.collection("restaurants");
 
         for (int i = 0; i < 10; i++) {
             // Get a random events POJO
-            Post event = getRandom(activity);
+            Post event = getRandom(context);
 
             // Add a new document to the events collection
             events.add(event);

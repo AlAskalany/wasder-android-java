@@ -23,7 +23,7 @@ import com.google.firebase.storage.StorageReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import co.wasder.Util.PostUtil;
+import co.wasder.data.Util.PostUtil;
 import co.wasder.data.model.Post;
 import co.wasder.detail.PostDetailActivity;
 import co.wasder.wasder.R;
