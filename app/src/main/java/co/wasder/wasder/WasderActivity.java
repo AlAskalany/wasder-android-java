@@ -12,6 +12,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -83,6 +84,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             }
         }
     };
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @SuppressWarnings("unused")
     private GoogleApiClient mGoogleApiClient;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -141,6 +144,14 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         mFilterDialog = Dialogs.PostsFilterDialogFragment();
         @SuppressWarnings("unused") AddPostDialogFragment mAddPostDialog = Dialogs
                 .AddPostDialogFragment();
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d(TAG, "onRefresh: ");
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @OnClick(R.id.fab)
