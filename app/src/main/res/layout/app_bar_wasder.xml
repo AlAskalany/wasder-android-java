@@ -13,8 +13,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
+            android:layout_height="wrap_content">
 
             <SearchView
                 android:id="@+id/searchView"
@@ -27,7 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
             app:tabMode="scrollable">
 
             <android.support.design.widget.TabItem
