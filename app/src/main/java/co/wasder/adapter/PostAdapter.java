@@ -121,7 +121,8 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot, final OnPostSelectedListener onPostSelectedListener) {
+        public void bind(final DocumentSnapshot snapshot, final OnPostSelectedListener
+                onPostSelectedListener) {
 
             final Post post = snapshot.toObject(Post.class);
             Resources resources = itemView.getResources();
