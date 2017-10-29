@@ -16,12 +16,10 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll">
 
-            <include
-                layout="@layout/filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_weight="1" />
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout

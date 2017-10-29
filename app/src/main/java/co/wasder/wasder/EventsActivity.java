@@ -23,12 +23,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -66,12 +64,7 @@ public class EventsActivity extends AppCompatActivity implements EventsFilterDia
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.text_current_search)
-    TextView mCurrentSearchView;
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.text_current_sort_by)
-    TextView mCurrentSortByView;
+
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recycler_events)
     RecyclerView mEventsRecycler;
@@ -219,10 +212,6 @@ public class EventsActivity extends AppCompatActivity implements EventsFilterDia
         mQuery = query;
         mAdapter.setQuery(query);
 
-        // Set header
-        mCurrentSearchView.setText(Html.fromHtml(filters.getSearchDescription(this)));
-        mCurrentSortByView.setText(filters.getOrderDescription(this));
-
         // Save filters
         mViewModel.setFilters(filters);
     }
@@ -259,22 +248,9 @@ public class EventsActivity extends AppCompatActivity implements EventsFilterDia
         }
     }
 
-    @OnClick(R.id.filter_bar)
-    public void onFilterClicked() {
-        // Show the dialog containing filter options
-        mEventsFilterDialog.show(getSupportFragmentManager(), EventsFilterDialogFragment.TAG);
-    }
-
     @OnClick(R.id.floatingActionButton)
     public void submit(@SuppressWarnings("unused") View view) {
         mAddEventDialog.show(getSupportFragmentManager(), AddEventDialogFragment.TAG);
-    }
-
-    @OnClick(R.id.button_clear_filter)
-    public void onClearFilterClicked() {
-        mEventsFilterDialog.resetFilters();
-
-        onFilter(EventsFilters.getDefault());
     }
 
     @Override

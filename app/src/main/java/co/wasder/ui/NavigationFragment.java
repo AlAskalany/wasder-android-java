@@ -216,7 +216,7 @@ public class NavigationFragment extends Fragment implements NavigationView
             WasderActivity activity = (WasderActivity) getActivity();
             if (activity != null) {
                 if (mSectionNumber == 0) {
-                    View view = activity.findViewById(R.id.filter_bar_container);
+                    View view = activity.findViewById(R.id.searchView);
                     view.setVisibility(View.VISIBLE);
                     TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
                     tabLayout.removeAllTabs();
@@ -226,7 +226,7 @@ public class NavigationFragment extends Fragment implements NavigationView
                     if (tabLayout.getVisibility() != View.VISIBLE) {
                         tabLayout.setVisibility(View.VISIBLE);
                     }
-                    View view = activity.findViewById(R.id.filter_bar_container);
+                    View view = activity.findViewById(R.id.searchView);
                     view.setVisibility(View.GONE);
                     tabLayout.setupWithViewPager(this.viewPager);
                 }

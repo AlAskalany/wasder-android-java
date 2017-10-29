@@ -143,12 +143,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 .AddPostDialogFragment();
     }
 
-    @OnClick(R.id.filter_bar)
-    public void onFilterClicked() {
-        // Show the dialog containing filter options
-        mFilterDialog.show(getSupportFragmentManager(), PostsFilterDialogFragment.TAG);
-    }
-
     @OnClick(R.id.fab)
     public void submit(@SuppressWarnings("unused") View view) {
         new AddPostDialogFragment().show(getSupportFragmentManager(), AddPostDialogFragment.TAG);

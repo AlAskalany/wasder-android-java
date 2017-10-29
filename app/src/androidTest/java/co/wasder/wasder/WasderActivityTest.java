@@ -159,10 +159,10 @@ public class WasderActivityTest {
             e.printStackTrace();
         }
 
-        ViewInteraction cardView = onView(allOf(withId(R.id.filter_bar), childAtPosition(allOf
+        /*ViewInteraction cardView = onView(allOf(withId(R.id.filter_bar), childAtPosition(allOf
                 (withId(R.id.filter_bar_container), childAtPosition(withId(R.id.toolbar), 0)), 0)
                 , isDisplayed()));
-        cardView.perform(click());
+        cardView.perform(click());*/
 
         ViewInteraction appCompatButton3 = onView(allOf(withId(R.id.button_cancel), withText
                 ("Cancel"), childAtPosition(childAtPosition(withId(R.id.filters_form), 5), 1),
