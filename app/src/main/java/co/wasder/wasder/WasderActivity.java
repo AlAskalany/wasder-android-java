@@ -28,7 +28,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.behavior.BottomNavigationViewBehavior;
 import co.wasder.data.Util.PostUtil;
 import co.wasder.dialog.AddPostDialogFragment;
 import co.wasder.dialog.Dialogs;
@@ -138,7 +137,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)
                 mBottomNavigationView
                 .getLayoutParams();
-        layoutParams.setBehavior(new BottomNavigationViewBehavior());
+
         mFilterDialog = Dialogs.PostsFilterDialogFragment();
         @SuppressWarnings("unused") AddPostDialogFragment mAddPostDialog = Dialogs
                 .AddPostDialogFragment();
