@@ -1,9 +1,9 @@
 package co.wasder.adapter;
 
 import android.arch.lifecycle.LifecycleOwner;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -25,7 +25,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.data.Util.PostUtil;
 import co.wasder.data.model.Post;
-import co.wasder.detail.PostDetailActivity;
 import co.wasder.wasder.R;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
@@ -36,37 +35,41 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.PostHolder> {
 
+    private OnPostSelectedListener mListener;
+
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See
      * {@link FirestoreRecyclerOptions} for configuration options.
      *
      * @param options FirestoreRecyclerOptions
      */
-    PostAdapter(FirestoreRecyclerOptions options) {
+    PostAdapter(FirestoreRecyclerOptions options, OnPostSelectedListener listener) {
         //noinspection unchecked
         super(options);
+        mListener = listener;
     }
 
     @SuppressWarnings("unused")
-    public static PostAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query query) {
+    public static PostAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query query,
+                                          OnPostSelectedListener listener) {
         FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, Post.class)
                 .build();
-        return new PostAdapter(options);
+        return new PostAdapter(options, listener);
     }
 
     @SuppressWarnings("unused")
-    public static PostAdapter newInstance(Query query) {
+    public static PostAdapter newInstance(Query query, OnPostSelectedListener listener) {
         FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>().setQuery
                 (query, Post.class)
                 .build();
-        return new PostAdapter(options);
+        return new PostAdapter(options, listener);
     }
 
     @Override
     protected void onBindViewHolder(PostHolder holder, int position, Post model) {
-        holder.bind(getSnapshots().getSnapshot(position));
+        holder.bind(getSnapshots().getSnapshot(position), mListener);
     }
 
     @Override
@@ -75,6 +78,12 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
                 .inflate(R.layout.item_post, group, false);
 
         return new PostHolder(view);
+    }
+
+    public interface OnPostSelectedListener {
+
+        void onPostSelectedListener(DocumentSnapshot event, View itemView);
+
     }
 
     /**
@@ -104,12 +113,15 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
         @BindView(R.id.post_item_city)
         TextView cityView;
 
+        @BindView(R.id.postItemCardView)
+        CardView postItemCardView;
+
         PostHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot) {
+        public void bind(final DocumentSnapshot snapshot, final OnPostSelectedListener onPostSelectedListener) {
 
             final Post post = snapshot.toObject(Post.class);
             Resources resources = itemView.getResources();
@@ -135,9 +147,11 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), PostDetailActivity.class);
-                    intent.putExtra("key_post_id", snapshot.getId());
-                    view.getContext().startActivity(intent);
+                    //Intent intent = new Intent(view.getContext(), PostDetailActivity.class);
+                    //intent.putExtra("key_post_id", snapshot.getId());
+                    //view.getContext().startActivity(intent);
+                    //postItemCardView.setBackgroundColor(Color.GREEN);
+                    onPostSelectedListener.onPostSelectedListener(snapshot, itemView);
                 }
             });
         }

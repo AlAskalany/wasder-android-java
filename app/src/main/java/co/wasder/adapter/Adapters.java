@@ -15,11 +15,12 @@ import co.wasder.data.model.Post;
 
 public class Adapters {
 
-    public static PostAdapter PostAdapter(@NonNull LifecycleOwner lifecycleOwner, Query query) {
+    public static PostAdapter PostAdapter(@NonNull LifecycleOwner lifecycleOwner, Query query,
+                                          PostAdapter.OnPostSelectedListener listener) {
         FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, Post.class)
                 .build();
-        return new PostAdapter(options);
+        return new PostAdapter(options, listener);
     }
 }

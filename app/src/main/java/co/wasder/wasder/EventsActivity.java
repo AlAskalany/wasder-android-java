@@ -45,7 +45,6 @@ import butterknife.OnClick;
 import co.wasder.adapter.EventAdapter;
 import co.wasder.data.Util.EventUtil;
 import co.wasder.data.model.Event;
-import co.wasder.detail.EventDetailActivity;
 import co.wasder.dialog.AddEventDialogFragment;
 import co.wasder.dialog.EventsFilterDialogFragment;
 import co.wasder.filter.EventsFilters;
@@ -256,10 +255,10 @@ public class EventsActivity extends AppCompatActivity implements EventsFilterDia
     @Override
     public void onEventSelected(DocumentSnapshot event) {
         // Go to the details page for the selected event
-        Intent intent = new Intent(this, EventDetailActivity.class);
-        intent.putExtra(EventDetailActivity.KEY_EVENT_ID, event.getId());
+        //Intent intent = new Intent(this, EventDetailActivity.class);
+        //intent.putExtra(EventDetailActivity.KEY_EVENT_ID, event.getId());
 
-        startActivity(intent);
+        //startActivity(intent);
     }
 
     private boolean shouldStartSignIn() {

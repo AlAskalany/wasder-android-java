@@ -1,95 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/postItemCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="2dp"
     tools:context=".WasderActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:foreground="?attr/selectableItemBackground"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/post_item_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="#757575"
-            android:scaleType="centerCrop"
-            android:src="@drawable/food_1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/post_item_name"
-            style="@style/AppTheme.Subheader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/post_item_image"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="-2dp"
-            android:layout_toLeftOf="@+id/post_item_price"
-            android:layout_toRightOf="@+id/post_item_image"
-            android:ellipsize="end"
-            android:maxLines="1"
-            tools:text="Foo's Bar" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/com_facebook_profile_picture_blank_portrait" />
 
-        <me.zhanghai.android.materialratingbar.MaterialRatingBar
-            android:id="@+id/post_item_rating"
-            style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/post_item_name"
-            android:layout_below="@+id/post_item_name"
-            android:layout_marginBottom="4dp" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView"
+                tools:text="Name" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/post_item_num_ratings"
-            style="@style/AppTheme.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/post_item_rating"
-            android:layout_alignTop="@+id/post_item_rating"
-            android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/post_item_rating"
-            android:gravity="center_vertical"
-            tools:text="(10)" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-        <TextView
-            android:id="@+id/post_item_category"
-            style="@style/AppTheme.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/post_item_name"
-            android:layout_below="@+id/post_item_rating"
-            tools:text="Italian" />
+            <ImageView
+                android:id="@+id/post_item_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="#757575"
+                android:scaleType="centerCrop"
+                android:src="@drawable/food_1" />
 
-        <TextView
-            android:id="@+id/post_item_city_divider"
-            style="@style/AppTheme.TextDivider"
-            android:layout_alignTop="@+id/post_item_category"
-            android:layout_toRightOf="@+id/post_item_category"
-            android:text="@string/divider_bullet" />
+            <TextView
+                android:id="@+id/post_item_name"
+                style="@style/AppTheme.Subheader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/post_item_image"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="-2dp"
+                android:layout_toLeftOf="@+id/post_item_price"
+                android:layout_toRightOf="@+id/post_item_image"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="Foo's Bar" />
 
-        <TextView
-            android:id="@+id/post_item_city"
-            style="@style/AppTheme.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/post_item_category"
-            android:layout_toRightOf="@+id/post_item_city_divider"
-            tools:text="San Francisco" />
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/post_item_rating"
+                style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_item_name"
+                android:layout_below="@+id/post_item_name"
+                android:layout_marginBottom="4dp" />
 
-        <TextView
-            android:id="@+id/post_item_price"
-            style="@style/AppTheme.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            tools:text="$$$" />
+            <TextView
+                android:id="@+id/post_item_num_ratings"
+                style="@style/AppTheme.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/post_item_rating"
+                android:layout_alignTop="@+id/post_item_rating"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@+id/post_item_rating"
+                android:gravity="center_vertical"
+                tools:text="(10)" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/post_item_category"
+                style="@style/AppTheme.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_item_name"
+                android:layout_below="@+id/post_item_rating"
+                tools:text="Italian" />
+
+            <TextView
+                android:id="@+id/post_item_city_divider"
+                style="@style/AppTheme.TextDivider"
+                android:layout_alignTop="@+id/post_item_category"
+                android:layout_toRightOf="@+id/post_item_category"
+                android:text="@string/divider_bullet" />
+
+            <TextView
+                android:id="@+id/post_item_city"
+                style="@style/AppTheme.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/post_item_category"
+                android:layout_toRightOf="@+id/post_item_city_divider"
+                tools:text="San Francisco" />
+
+            <TextView
+                android:id="@+id/post_item_price"
+                style="@style/AppTheme.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                tools:text="$$$" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
 </android.support.v7.widget.CardView>

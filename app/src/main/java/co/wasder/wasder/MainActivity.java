@@ -45,6 +45,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
@@ -125,6 +126,14 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
     private FirebaseRemoteConfig mRemoteConfig;
 
     private MainActivityViewModel mViewModel;
+    private PostAdapter.OnPostSelectedListener mPostSelectedListener = new PostAdapter
+            .OnPostSelectedListener() {
+
+        @Override
+        public void onPostSelectedListener(DocumentSnapshot event, View itemView) {
+
+        }
+    };
 
     private void logUserCrashlytics() {
         // TODO: Use the current user's information
@@ -246,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        PostAdapter adapter = Adapters.PostAdapter(this, mQuery);
+        PostAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
         mRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this));
         mRestaurantsRecycler.setAdapter(adapter);
     }

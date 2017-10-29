@@ -20,6 +20,7 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
@@ -84,6 +85,14 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
     private String mCollectionReferenceString;
     private String mTitle;
     private OnFragmentInteractionListener mListener;
+    private PostAdapter.OnPostSelectedListener mPostSelectedListener = new PostAdapter
+            .OnPostSelectedListener() {
+
+        @Override
+        public void onPostSelectedListener(DocumentSnapshot event, View itemView) {
+            Log.d(TAG, "onPostSelectedListener: " + itemView);
+        }
+    };
 
     public TabFragment() {
         // Required empty public constructor
@@ -197,7 +206,7 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        PostAdapter adapter = Adapters.PostAdapter(this, mQuery);
+        PostAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
     }
