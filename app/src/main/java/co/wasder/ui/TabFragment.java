@@ -50,11 +50,11 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
     @SuppressWarnings("unused")
     private static final int FEED = 0;
     @SuppressWarnings("unused")
-    private static final int TWITCHLIVE = 1;
+    private static final int Following = 1;
     @SuppressWarnings("unused")
-    private static final int TWITCHSTREAMS = 2;
+    private static final int Discovery = 2;
     @SuppressWarnings("unused")
-    private static final int ESPORTS = 3;
+    private static final int Favorites = 3;
     @SuppressWarnings("unused")
     private static final int ALL = 4;
     @SuppressWarnings("unused")
@@ -274,9 +274,10 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
     }
 
     public enum TabType {
-        FEED(0, "Feed", "restaurants"), TWITCHLIVE(1, "Twitch Live", "events"),
-        TWITCHSTREAMS(2, "Twitch Streams", "restaurants"),
-        ESPORTS(3, "Esports", "restaurants"),
+        FEED(0, "Feed", "restaurants"),
+        Following(1, "following", "events"),
+        Discovery(2, "discovery", "restaurants"),
+        Favorites(3, "favorites", "restaurants"),
         ALL(4, "All", "restaurants"),
         OWNED(5, "Owned", "restaurants"),
         MENTIONS(6, "Mentions", "restaurants"),

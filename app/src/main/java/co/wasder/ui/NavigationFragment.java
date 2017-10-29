@@ -131,11 +131,9 @@ public class NavigationFragment extends Fragment implements NavigationView
                     this.addTab(feedTab);
                     break;
                 case LIVE:
-                    TabFragment twitchLive = TabFragment.newInstance(0, TabFragment.TabType
-                            .TWITCHLIVE);
-                    TabFragment twitchStreams = TabFragment.newInstance(1, TabFragment.TabType
-                            .TWITCHSTREAMS);
-                    TabFragment esports = TabFragment.newInstance(2, TabFragment.TabType.ESPORTS);
+                    TabFragment twitchLive = TabFragment.newInstance(0, TabFragment.TabType.Following);
+                    TabFragment twitchStreams = TabFragment.newInstance(1, TabFragment.TabType.Discovery);
+                    TabFragment esports = TabFragment.newInstance(2, TabFragment.TabType.Favorites);
                     this.addTab(twitchLive).addTab(twitchStreams).addTab(esports);
                     break;
                 case GROUPS:
