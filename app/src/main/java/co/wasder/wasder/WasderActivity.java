@@ -36,20 +36,35 @@ import co.wasder.wasder.dialog.PostsFilterDialogFragment;
 import co.wasder.wasder.filter.PostsFilters;
 import co.wasder.wasder.pageradapter.SectionsPagerAdapter;
 import co.wasder.wasder.ui.FirebaseUtil;
-import co.wasder.wasder.ui.NavigationFragment;
 import co.wasder.wasder.ui.TabFragment;
-import co.wasder.wasder.ui.tabs.feed.FeedTabFragment;
-import co.wasder.wasder.ui.tabs.groups.AllTabFragment;
-import co.wasder.wasder.ui.tabs.groups.OwnedTabFragment;
-import co.wasder.wasder.ui.tabs.live.DiscoveryTabFragment;
-import co.wasder.wasder.ui.tabs.live.FavoritesTabFragment;
-import co.wasder.wasder.ui.tabs.live.FollowingTabFragment;
-import co.wasder.wasder.ui.tabs.messages.MentionsTabFragment;
-import co.wasder.wasder.ui.tabs.messages.PmTabFragment;
+import co.wasder.wasder.ui.feed.FeedNavigationFragment;
+import co.wasder.wasder.ui.feed.FeedTabFragment;
+import co.wasder.wasder.ui.groups.GroupsNavigationFragment;
+import co.wasder.wasder.ui.groups.tabs.AllTabFragment;
+import co.wasder.wasder.ui.groups.tabs.OwnedTabFragment;
+import co.wasder.wasder.ui.live.LiveNavigationFragment;
+import co.wasder.wasder.ui.live.tabs.DiscoveryTabFragment;
+import co.wasder.wasder.ui.live.tabs.FavoritesTabFragment;
+import co.wasder.wasder.ui.live.tabs.FollowingTabFragment;
+import co.wasder.wasder.ui.messages.MessagesNavigationFragment;
+import co.wasder.wasder.ui.messages.tabs.MentionsTabFragment;
+import co.wasder.wasder.ui.messages.tabs.PmTabFragment;
 import co.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 
-public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView.OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment.OnFragmentInteractionListener, PostsFilterDialogFragment.FilterListener, FeedTabFragment.OnFragmentInteractionListener, AllTabFragment.OnFragmentInteractionListener, OwnedTabFragment.OnFragmentInteractionListener, DiscoveryTabFragment.OnFragmentInteractionListener, FavoritesTabFragment.OnFragmentInteractionListener, FollowingTabFragment.OnFragmentInteractionListener, MentionsTabFragment.OnFragmentInteractionListener, PmTabFragment.OnFragmentInteractionListener {
+public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
+        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener,
+        PostsFilterDialogFragment.FilterListener, FeedNavigationFragment
+                .OnFragmentInteractionListener, GroupsNavigationFragment
+                .OnFragmentInteractionListener, LiveNavigationFragment
+                .OnFragmentInteractionListener, MessagesNavigationFragment
+                .OnFragmentInteractionListener, FeedTabFragment.OnFragmentInteractionListener,
+        AllTabFragment.OnFragmentInteractionListener, OwnedTabFragment
+                .OnFragmentInteractionListener, DiscoveryTabFragment
+                .OnFragmentInteractionListener, FavoritesTabFragment
+                .OnFragmentInteractionListener, FollowingTabFragment
+                .OnFragmentInteractionListener, MentionsTabFragment
+                .OnFragmentInteractionListener, PmTabFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -270,7 +285,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public void onFilter(PostsFilters postsFilters) {
-        TabFragment fragment = (TabFragment) getSupportFragmentManager().findFragmentById(R.id.nestedScrollView_appbar);
+        TabFragment fragment = (TabFragment) getSupportFragmentManager().findFragmentById(R.id
+                .nestedScrollView_appbar);
         if (fragment != null) {
             //fragment.onFilter(postsFilters);
         }

@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.tabs.messages;
+package co.wasder.wasder.ui.messages.tabs;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
@@ -41,7 +41,7 @@ import co.wasder.wasder.viewmodel.TabFragmentViewModel;
  * Navigator
  */
 
-public class PmTabFragment extends TabFragment implements LifecycleOwner {
+public class MentionsTabFragment extends TabFragment implements LifecycleOwner {
 
     @SuppressWarnings("unused")
     private static final int FEED = 0;
@@ -95,11 +95,11 @@ public class PmTabFragment extends TabFragment implements LifecycleOwner {
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PmTabFragment newInstance(int sectionNumber) {
-        PmTabFragment fragment = new PmTabFragment();
+    public static MentionsTabFragment newInstance(int sectionNumber) {
+        MentionsTabFragment fragment = new MentionsTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.mTitle = "PM";
+        fragment.mTitle = "Mentions";
         fragment.setArguments(args);
         return fragment;
     }

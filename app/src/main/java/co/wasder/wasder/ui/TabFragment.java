@@ -2,7 +2,7 @@ package co.wasder.wasder.ui;
 
 import android.support.v4.app.Fragment;
 
-import co.wasder.wasder.ui.tabs.messages.MentionsTabFragment;
+import co.wasder.wasder.ui.messages.tabs.MentionsTabFragment;
 
 /**
  * A simple {@link Fragment} subclass.

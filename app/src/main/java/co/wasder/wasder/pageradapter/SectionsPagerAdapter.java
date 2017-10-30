@@ -1,10 +1,15 @@
 package co.wasder.wasder.pageradapter;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import co.wasder.wasder.WasderActivity;
 import co.wasder.wasder.ui.NavigationFragment;
+import co.wasder.wasder.ui.feed.FeedNavigationFragment;
+import co.wasder.wasder.ui.groups.GroupsNavigationFragment;
+import co.wasder.wasder.ui.live.LiveNavigationFragment;
+import co.wasder.wasder.ui.messages.MessagesNavigationFragment;
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -18,27 +23,26 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public NavigationFragment getItem(int position) {
+    public Fragment getItem(int position) {
         NavigationFragment fragment;
         switch (position) {
             case 0:
-                fragment = NavigationFragment.newInstance(0, NavigationFragment.SectionType.HOME);
+                fragment = FeedNavigationFragment.newInstance(0);
                 break;
             case 1:
-                fragment = NavigationFragment.newInstance(1, NavigationFragment.SectionType.LIVE);
+                fragment = LiveNavigationFragment.newInstance(1);
                 break;
             case 2:
-                fragment = NavigationFragment.newInstance(2, NavigationFragment.SectionType.GROUPS);
+                fragment = GroupsNavigationFragment.newInstance(2);
                 break;
             case 3:
-                fragment = NavigationFragment.newInstance(3, NavigationFragment.SectionType
-                        .MESSAGES);
+                fragment = MessagesNavigationFragment.newInstance(3);
                 break;
             default:
-                fragment = NavigationFragment.newInstance(0, NavigationFragment.SectionType.HOME);
+                fragment = null;
                 break;
         }
-        return fragment;
+        return (Fragment) fragment;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.tabs.groups;
+package co.wasder.wasder.ui.groups.tabs;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
@@ -41,7 +41,7 @@ import co.wasder.wasder.viewmodel.TabFragmentViewModel;
  * Navigator
  */
 
-public class OwnedTabFragment extends TabFragment implements LifecycleOwner {
+public class AllTabFragment extends TabFragment implements LifecycleOwner {
 
     @SuppressWarnings("unused")
     private static final int FEED = 0;
@@ -95,11 +95,11 @@ public class OwnedTabFragment extends TabFragment implements LifecycleOwner {
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static OwnedTabFragment newInstance(int sectionNumber) {
-        OwnedTabFragment fragment = new OwnedTabFragment();
+    public static AllTabFragment newInstance(int sectionNumber) {
+        AllTabFragment fragment = new AllTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.mTitle = "Owned";
+        fragment.mTitle = "All";
         fragment.setArguments(args);
         return fragment;
     }

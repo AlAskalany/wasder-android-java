@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.tabs.feed;
+package co.wasder.wasder.ui.live.tabs;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
@@ -41,7 +41,7 @@ import co.wasder.wasder.viewmodel.TabFragmentViewModel;
  * Navigator
  */
 
-public class FeedTabFragment extends TabFragment implements LifecycleOwner {
+public class FollowingTabFragment extends TabFragment implements LifecycleOwner {
 
     @SuppressWarnings("unused")
     private static final int FEED = 0;
@@ -95,12 +95,12 @@ public class FeedTabFragment extends TabFragment implements LifecycleOwner {
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FeedTabFragment newInstance(int sectionNumber) {
-        FeedTabFragment fragment = new FeedTabFragment();
+    public static FollowingTabFragment newInstance(int sectionNumber) {
+        FollowingTabFragment fragment = new FollowingTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.mTitle = "Following";
         fragment.setArguments(args);
-        fragment.mTitle = "Feed";
         return fragment;
     }
 

@@ -19,7 +19,8 @@ import co.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 public class FirebaseUtil {
 
-    public static void startSignIn(WasderActivity activity, WasderActivityViewModel mViewModel, @SuppressWarnings("SameParameterValue") int rcSignIn) {
+    public static void startSignIn(WasderActivity activity, WasderActivityViewModel mViewModel,
+                                   @SuppressWarnings("SameParameterValue") int rcSignIn) {
         // Sign in with FirebaseUI
         Intent intent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
@@ -35,8 +36,7 @@ public class FirebaseUtil {
     }
 
     public static boolean shouldStartSignIn(@SuppressWarnings("unused") WasderActivity activity,
-                                            WasderActivityViewModel
-            viewModel) {
+                                            WasderActivityViewModel viewModel) {
         return (!viewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() == null);
     }
 }
