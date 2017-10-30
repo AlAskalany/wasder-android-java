@@ -31,9 +31,10 @@ import co.wasder.wasder.R;
  * Wasder AB
  */
 
-public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.PostHolder> {
+public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.PostHolder>
+        implements FirestoreItemsAdapter {
 
-    private OnPostSelectedListener mListener;
+    private OnFirestoreItemSelected mListener;
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See
@@ -41,15 +42,15 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
      *
      * @param options FirestoreRecyclerOptions
      */
-    PostAdapter(FirestoreRecyclerOptions options, OnPostSelectedListener listener) {
+    PostAdapter(FirestoreRecyclerOptions options, OnFirestoreItemSelected listener) {
         //noinspection unchecked
         super(options);
         mListener = listener;
     }
 
     @SuppressWarnings("unused")
-    public static PostAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query query,
-                                          OnPostSelectedListener listener) {
+    public static FirestoreItemsAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query
+            query, OnFirestoreItemSelected listener) {
         FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, Post.class)
@@ -58,7 +59,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
     }
 
     @SuppressWarnings("unused")
-    public static PostAdapter newInstance(Query query, OnPostSelectedListener listener) {
+    public static FirestoreItemsAdapter newInstance(Query query, OnFirestoreItemSelected listener) {
         FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>().setQuery
                 (query, Post.class)
                 .build();
@@ -76,12 +77,6 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
                 .inflate(R.layout.item_post, group, false);
 
         return new PostHolder(view);
-    }
-
-    public interface OnPostSelectedListener {
-
-        void onPostSelectedListener(DocumentSnapshot event, View itemView);
-
     }
 
     /**
@@ -107,8 +102,8 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot, final OnPostSelectedListener
-                onPostSelectedListener) {
+        public void bind(final DocumentSnapshot snapshot, final OnFirestoreItemSelected
+                onFirestoreItemSelected) {
 
             final Post post = snapshot.toObject(Post.class);
             Resources resources = itemView.getResources();
@@ -131,7 +126,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
                     //intent.putExtra("key_post_id", snapshot.getId());
                     //view.getContext().startActivity(intent);
                     //postItemCardView.setBackgroundColor(Color.GREEN);
-                    onPostSelectedListener.onPostSelectedListener(snapshot, itemView);
+                    onFirestoreItemSelected.onFirestoreItemSelected(snapshot, itemView);
                 }
             });
         }

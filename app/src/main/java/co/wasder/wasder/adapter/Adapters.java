@@ -15,8 +15,7 @@ import co.wasder.data.model.Post;
 
 public class Adapters {
 
-    public static PostAdapter PostAdapter(@NonNull LifecycleOwner lifecycleOwner, Query query,
-                                          PostAdapter.OnPostSelectedListener listener) {
+    public static PostAdapter PostAdapter(@NonNull LifecycleOwner lifecycleOwner, Query query, FirestoreItemsAdapter.OnFirestoreItemSelected listener) {
         FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, Post.class)

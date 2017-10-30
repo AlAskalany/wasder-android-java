@@ -211,39 +211,6 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
 
     }
 
-    @Override
-    public void onStart() {
-
-        super.onStart();
-        Log.d(TAG, "Navigation Fragment onStart: " + this.mSectionNumber);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "Navigation Fragment onPause: " + mSectionNumber);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "Navigation Fragment onResume: " + mSectionNumber);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "Navigation Fragment onStop: " + mSectionNumber);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-
-        super.onActivityCreated(savedInstanceState);
-        Log.d(TAG, "Navigation Fragment onActivityCreated: " + mSectionNumber);
-
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void AnimateAppBarColor(View view, Animator.AnimatorListener listener) {
         int cx = view.getWidth() / 2;

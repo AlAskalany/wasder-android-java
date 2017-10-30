@@ -7,10 +7,6 @@ package co.wasder.wasder.filter;
 
 public class Filters {
 
-    public static EventsFilters EventsFilters() {
-        return new EventsFilters();
-    }
-
     public static PostsFilters PostsFilters() {
         return new PostsFilters();
     }

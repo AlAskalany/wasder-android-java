@@ -53,12 +53,6 @@
         <activity
             android:name=".detail.PostDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".EventsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".detail.EventDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".MyFirebaseMessagingService"

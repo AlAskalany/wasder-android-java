@@ -61,6 +61,7 @@ import butterknife.OnClick;
 import co.wasder.data.Util.PostUtil;
 import co.wasder.data.model.Post;
 import co.wasder.wasder.adapter.Adapters;
+import co.wasder.wasder.adapter.FirestoreItemsAdapter;
 import co.wasder.wasder.adapter.PostAdapter;
 import co.wasder.wasder.dialog.AddPostDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
@@ -126,12 +127,12 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
     private FirebaseRemoteConfig mRemoteConfig;
 
     private MainActivityViewModel mViewModel;
-    private PostAdapter.OnPostSelectedListener mPostSelectedListener = new PostAdapter
-            .OnPostSelectedListener() {
+    private FirestoreItemsAdapter.OnFirestoreItemSelected mPostSelectedListener = new
+            FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
-        public void onPostSelectedListener(DocumentSnapshot event, View itemView) {
-
+        public void onFirestoreItemSelected(DocumentSnapshot event, View itemView) {
+            Log.d(TAG, "onFirestoreItemSelected: " + itemView);
         }
     };
 

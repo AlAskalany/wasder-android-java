@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.adapter.Adapters;
-import co.wasder.wasder.adapter.PostAdapter;
+import co.wasder.wasder.adapter.FirestoreItemsAdapter;
 import co.wasder.wasder.dialog.AddPostDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
 import co.wasder.wasder.dialog.PostsFilterDialogFragment;
@@ -49,12 +49,12 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
     // TODO: Rename and change types of parameters
     private String mCollectionReferenceString;
     private OnFragmentInteractionListener mListener;
-    private PostAdapter.OnPostSelectedListener mPostSelectedListener = new PostAdapter
-            .OnPostSelectedListener() {
+    private FirestoreItemsAdapter.OnFirestoreItemSelected mPostSelectedListener = new
+            FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
-        public void onPostSelectedListener(DocumentSnapshot event, View itemView) {
-            Log.d(TAG, "onPostSelectedListener: " + itemView);
+        public void onFirestoreItemSelected(DocumentSnapshot event, View itemView) {
+            Log.d(TAG, "onFirestoreItemSelected: " + itemView);
         }
     };
     private String mTitle;
@@ -123,9 +123,9 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        PostAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
+        FirestoreItemsAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter((RecyclerView.Adapter) adapter);
     }
 
     @Override
