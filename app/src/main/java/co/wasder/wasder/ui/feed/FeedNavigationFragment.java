@@ -39,7 +39,7 @@ import co.wasder.wasder.ui.TabsPagerAdapter;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FeedNavigationFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link FeedNavigationFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -48,10 +48,6 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
         NavigationView.OnNavigationItemSelectedListener {
 
     private static final String ARG_TAG = "tag";
-    private static final int HOME = 0;
-    private static final int LIVE = 1;
-    private static final int GROUPS = 2;
-    private static final int MESSAGES = 3;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_SECTION_NUMBER = "param1";
@@ -321,25 +317,5 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public enum SectionType {
-        HOME(0, "Home"), LIVE(1, "Live"), GROUPS(2, "Groups"), MESSAGES(3, "Messages");
-
-        private final int value;
-        private final String title;
-
-        SectionType(int value, String title) {
-            this.value = value;
-            this.title = title;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public String getTitle() {
-            return title;
-        }
     }
 }
