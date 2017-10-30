@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
 
 import butterknife.BindView;
@@ -25,6 +24,7 @@ import co.wasder.wasder.adapter.PostAdapter;
 import co.wasder.wasder.dialog.AddPostDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
 import co.wasder.wasder.dialog.PostsFilterDialogFragment;
+import co.wasder.wasder.ui.FirebaseUtil;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.TabFragmentViewModel;
@@ -94,7 +94,7 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
 
         mViewModel = ViewModelProviders.of(this).get(TabFragmentViewModel.class);
 
-        initFirestore();
+        FirebaseUtil.initFirestore(this, "restaurants", LIMIT);
         initRecyclerView();
         // Filter Dialog
         mFilterDialog = Dialogs.PostsFilterDialogFragment();
@@ -117,19 +117,6 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
     @Override
     public void onResume() {
         super.onResume();
-    }
-
-    private void initFirestore() {
-        mFirestore = FirebaseFirestore.getInstance();
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .build();
-        mFirestore.setFirestoreSettings(settings);
-
-        // Get the 50 highest rated posts
-        mQuery = mFirestore.collection(mCollectionReferenceString)
-                .orderBy("avgRating", Query.Direction.DESCENDING)
-                .limit(LIMIT);
     }
 
     private void initRecyclerView() {
@@ -156,6 +143,26 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public FirebaseFirestore getFirestore() {
+        return mFirestore;
+    }
+
+    @Override
+    public void setFirestore(FirebaseFirestore firestore) {
+        mFirestore = firestore;
+    }
+
+    @Override
+    public Query getQuery() {
+        return mQuery;
+    }
+
+    @Override
+    public void setQuery(Query query) {
+        mQuery = query;
     }
 
     @Override

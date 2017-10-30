@@ -159,6 +159,26 @@ public class FollowingTabFragment extends Fragment implements TabFragment, Lifec
     }
 
     @Override
+    public FirebaseFirestore getFirestore() {
+        return mFirestore;
+    }
+
+    @Override
+    public void setFirestore(FirebaseFirestore firestore) {
+        mFirestore = firestore;
+    }
+
+    @Override
+    public Query getQuery() {
+        return null;
+    }
+
+    @Override
+    public void setQuery(Query query) {
+        mQuery = query;
+    }
+
+    @Override
     public String getTitle() {
         return mTitle;
     }

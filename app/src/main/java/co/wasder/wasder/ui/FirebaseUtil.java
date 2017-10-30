@@ -12,6 +12,9 @@ import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.Query;
 
 import java.util.Arrays;
 
@@ -73,5 +76,20 @@ public class FirebaseUtil {
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
         Job job = createJob(dispatcher);
         dispatcher.schedule(job);
+    }
+
+    public static void initFirestore(TabFragment tabFragment, String mCollectionReferenceString,
+                                     long limit) {
+        tabFragment.setFirestore(FirebaseFirestore.getInstance());
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
+        tabFragment.getFirestore().setFirestoreSettings(settings);
+
+        // Get the 50 highest rated posts
+        tabFragment.setQuery(tabFragment.getFirestore()
+                .collection(mCollectionReferenceString)
+                .orderBy("avgRating", Query.Direction.DESCENDING)
+                .limit(limit));
     }
 }
