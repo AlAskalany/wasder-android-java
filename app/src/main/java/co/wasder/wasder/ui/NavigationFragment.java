@@ -135,8 +135,7 @@ public class NavigationFragment extends Fragment implements NavigationView
 
             switch (mSectionType) {
                 case HOME:
-                    FeedTabFragment feedTab = FeedTabFragment.newInstance(0, FeedTabFragment
-                            .TabType.FEED);
+                    FeedTabFragment feedTab = FeedTabFragment.newInstance(0);
                     this.addTab(feedTab);
                     break;
                 case LIVE:
