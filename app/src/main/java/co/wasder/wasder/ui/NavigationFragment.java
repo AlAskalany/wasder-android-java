@@ -139,24 +139,19 @@ public class NavigationFragment extends Fragment implements NavigationView
                     this.addTab(feedTab);
                     break;
                 case LIVE:
-                    FollowingTabFragment twitchLive = FollowingTabFragment.newInstance(0,
-                            FollowingTabFragment.TabType.Following);
-                    DiscoveryTabFragment twitchStreams = DiscoveryTabFragment.newInstance(1,
-                            DiscoveryTabFragment.TabType.Discovery);
-                    FavoritesTabFragment esports = FavoritesTabFragment.newInstance(2,
-                            FavoritesTabFragment.TabType.Favorites);
+                    FollowingTabFragment twitchLive = FollowingTabFragment.newInstance(0);
+                    DiscoveryTabFragment twitchStreams = DiscoveryTabFragment.newInstance(1);
+                    FavoritesTabFragment esports = FavoritesTabFragment.newInstance(2);
                     this.addTab(twitchLive).addTab(twitchStreams).addTab(esports);
                     break;
                 case GROUPS:
-                    AllTabFragment all = AllTabFragment.newInstance(0, AllTabFragment.TabType.ALL);
-                    OwnedTabFragment owned = OwnedTabFragment.newInstance(1, OwnedTabFragment
-                            .TabType.OWNED);
+                    AllTabFragment all = AllTabFragment.newInstance(0);
+                    OwnedTabFragment owned = OwnedTabFragment.newInstance(1);
                     this.addTab(all).addTab(owned);
                     break;
                 case MESSAGES:
-                    MentionsTabFragment mentions = MentionsTabFragment.newInstance(0,
-                            MentionsTabFragment.TabType.MENTIONS);
-                    PmTabFragment pm = PmTabFragment.newInstance(1, PmTabFragment.TabType.PM);
+                    MentionsTabFragment mentions = MentionsTabFragment.newInstance(0);
+                    PmTabFragment pm = PmTabFragment.newInstance(1);
                     this.addTab(mentions).addTab(pm);
                     break;
                 default:

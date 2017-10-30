@@ -100,6 +100,7 @@ public class FeedTabFragment extends TabFragment implements LifecycleOwner {
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
+        fragment.mTitle = "Feed";
         return fragment;
     }
 
@@ -136,7 +137,6 @@ public class FeedTabFragment extends TabFragment implements LifecycleOwner {
         if (getArguments() != null) {
             int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-        mTitle = "Feed";
         mCollectionReferenceString = "restaurants";
         super.onCreate(savedInstanceState);
     }

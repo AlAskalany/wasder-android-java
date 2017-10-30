@@ -95,14 +95,11 @@ public class MentionsTabFragment extends TabFragment implements LifecycleOwner {
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MentionsTabFragment newInstance(int sectionNumber, TabType tabType) {
+    public static MentionsTabFragment newInstance(int sectionNumber) {
         MentionsTabFragment fragment = new MentionsTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        args.putInt(ARG_TAB_TYPE, tabType.getValue());
-        fragment.mTitle = tabType.getTitle();
-        args.putString(ARG_TITLE, tabType.getTitle());
-        args.putString(ARG_COLLECTION_REFERENCE_STRING, tabType.collectionReference);
+        fragment.mTitle = "Mentions";
         fragment.setArguments(args);
         return fragment;
     }
@@ -138,10 +135,9 @@ public class MentionsTabFragment extends TabFragment implements LifecycleOwner {
     public void onCreate(Bundle savedInstanceState) {
         setUserVisibleHint(true);
         if (getArguments() != null) {
-            mTitle = getArguments().getString(ARG_TITLE);
             int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
-            mCollectionReferenceString = getArguments().getString(ARG_COLLECTION_REFERENCE_STRING);
         }
+        mCollectionReferenceString = "restaurants";
         super.onCreate(savedInstanceState);
     }
 
@@ -223,41 +219,6 @@ public class MentionsTabFragment extends TabFragment implements LifecycleOwner {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-
-    public enum TabType {
-        FEED(0, "Feed", "restaurants"),
-        Following(1, "following", "events"),
-        Discovery(2, "discovery", "restaurants"),
-        Favorites(3, "favorites", "restaurants"),
-        ALL(4, "All", "restaurants"),
-        OWNED(5, "Owned", "restaurants"),
-        MENTIONS(6, "Mentions", "restaurants"),
-        PM(7, "PM", "restaurants");
-
-        private final int value;
-        private final String title;
-        private final String collectionReference;
-
-        TabType(int value, String title, String collectionReference) {
-            this.value = value;
-            this.title = title;
-            this.collectionReference = collectionReference;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        @SuppressWarnings("unused")
-        public String getCollectionReference() {
-            return collectionReference;
-        }
     }
 
     /**
