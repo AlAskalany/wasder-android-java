@@ -13,13 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.firebase.jobdispatcher.Constraint;
-import com.firebase.jobdispatcher.FirebaseJobDispatcher;
-import com.firebase.jobdispatcher.GooglePlayDriver;
-import com.firebase.jobdispatcher.Job;
-import com.firebase.jobdispatcher.Lifetime;
-import com.firebase.jobdispatcher.RetryStrategy;
-import com.firebase.jobdispatcher.Trigger;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
@@ -33,7 +26,6 @@ import co.wasder.wasder.adapter.PostAdapter;
 import co.wasder.wasder.dialog.AddPostDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
 import co.wasder.wasder.dialog.PostsFilterDialogFragment;
-import co.wasder.wasder.jobservices.FirestoreQueryJobService;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.TabFragmentViewModel;
@@ -82,32 +74,6 @@ public class FollowingTabFragment extends Fragment implements TabFragment, Lifec
         fragment.mTitle = "Following";
         fragment.setArguments(args);
         return fragment;
-    }
-
-    private static Job createJob(FirebaseJobDispatcher dispatcher) {
-        return dispatcher.newJobBuilder()
-                // persist the task across boots
-                .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
-                // Call this service when the criteria are met.
-                .setService(FirestoreQueryJobService.class)
-                // unique id of the task
-                .setTag("OneTimeJob")
-                // We are mentioning that the job is not periodic.
-                .setRecurring(false)
-                // Run between 30 - 60 seconds from now.
-                .setTrigger(Trigger.executionWindow(0, 60))
-                // don't overwrite an existing job with the same tag
-                .setReplaceCurrent(false)
-                // retry with exponential backoff
-                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
-                //Run this job only when the network is available.
-                .setConstraints(Constraint.ON_ANY_NETWORK).build();
-    }
-
-    private static void scheduleJob(Context context) {
-        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
-        Job job = createJob(dispatcher);
-        dispatcher.schedule(job);
     }
 
     @SuppressWarnings("unused")
