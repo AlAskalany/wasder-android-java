@@ -30,15 +30,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.data.Util.PostUtil;
-import co.wasder.dialog.AddPostDialogFragment;
-import co.wasder.dialog.Dialogs;
-import co.wasder.dialog.PostsFilterDialogFragment;
-import co.wasder.filter.PostsFilters;
-import co.wasder.pageradapter.SectionsPagerAdapter;
-import co.wasder.ui.FirebaseUtil;
-import co.wasder.ui.NavigationFragment;
-import co.wasder.ui.TabFragment;
-import co.wasder.viewmodel.WasderActivityViewModel;
+import co.wasder.wasder.dialog.AddPostDialogFragment;
+import co.wasder.wasder.dialog.Dialogs;
+import co.wasder.wasder.dialog.PostsFilterDialogFragment;
+import co.wasder.wasder.filter.PostsFilters;
+import co.wasder.wasder.pageradapter.SectionsPagerAdapter;
+import co.wasder.wasder.ui.FirebaseUtil;
+import co.wasder.wasder.ui.NavigationFragment;
+import co.wasder.wasder.ui.TabFragment;
+import co.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 
 public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
