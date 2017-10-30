@@ -34,6 +34,7 @@ import co.wasder.wasder.dialog.AddPostDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
 import co.wasder.wasder.dialog.PostsFilterDialogFragment;
 import co.wasder.wasder.jobservices.FirestoreQueryJobService;
+import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.TabFragmentViewModel;
 
@@ -202,7 +203,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
     @SuppressWarnings("unused")
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteractionListener(uri);
         }
     }
 
@@ -228,20 +229,4 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         return mTitle;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-
-        // TODO: Update argument type and name
-        @SuppressWarnings({"EmptyMethod", "unused"})
-        void onFragmentInteraction(@SuppressWarnings("unused") Uri uri);
-    }
 }

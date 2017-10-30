@@ -32,6 +32,7 @@ import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.WasderActivity;
 import co.wasder.wasder.ui.NavigationFragment;
+import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.ui.TabsPagerAdapter;
 import co.wasder.wasder.ui.messages.tabs.MentionsTabFragment;
@@ -271,7 +272,7 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
     @SuppressWarnings("unused")
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteractionListener(uri);
         }
     }
 
@@ -344,22 +345,4 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
             return title;
         }
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-
-        // TODO: Update argument type and name
-        @SuppressWarnings("EmptyMethod")
-        void onFragmentInteraction(@SuppressWarnings("unused") Uri uri);
-    }
-
 }

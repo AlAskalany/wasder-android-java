@@ -7,7 +7,7 @@ import co.wasder.wasder.ui.messages.tabs.MentionsTabFragment;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MentionsTabFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link MentionsTabFragment#newInstance} factory method to
  * create an instance of this fragment.
