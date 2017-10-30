@@ -33,7 +33,6 @@ import co.wasder.wasder.adapter.PostAdapter;
 import co.wasder.wasder.dialog.AddPostDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
 import co.wasder.wasder.dialog.PostsFilterDialogFragment;
-import co.wasder.wasder.filter.PostsFilters;
 import co.wasder.wasder.jobservices.FirestoreQueryJobService;
 import co.wasder.wasder.viewmodel.TabFragmentViewModel;
 
@@ -45,8 +44,7 @@ import co.wasder.wasder.viewmodel.TabFragmentViewModel;
  * Use the {@link TabFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabFragment extends Fragment implements LifecycleOwner, PostsFilterDialogFragment
-        .FilterListener {
+public class TabFragment extends Fragment implements LifecycleOwner {
 
     @SuppressWarnings("unused")
     private static final int FEED = 0;
@@ -174,7 +172,6 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
     @Override
     public void onStart() {
         super.onStart();
-        onFilter(mViewModel.getFilters());
     }
 
     @SuppressWarnings("EmptyMethod")
@@ -211,47 +208,7 @@ public class TabFragment extends Fragment implements LifecycleOwner, PostsFilter
         mRecyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void onFilter(PostsFilters filters) {
-        // Create a new dispatcher using the Google Play driver.
-        scheduleJob(getContext());
 
-        // Construct query basic query
-        Query query = mFirestore.collection(mCollectionReferenceString);
-
-        // Category (equality filter)
-        if (filters.hasCategory()) {
-            query = query.whereEqualTo("category", filters.getCategory());
-        }
-
-        // City (equality filter)
-        if (filters.hasCity()) {
-            query = query.whereEqualTo("city", filters.getCity());
-        }
-
-        // Price (equality filter)
-        if (filters.hasPrice()) {
-            query = query.whereEqualTo("price", filters.getPrice());
-        }
-
-        // Sort by (orderBy with direction)
-        if (filters.hasSortBy()) {
-            query = query.orderBy(filters.getSortBy(), filters.getSortDirection());
-        }
-
-        // Limit items
-        query = query.limit(LIMIT);
-
-        // Update the query
-        mQuery = query;
-
-        // Set header
-        //mCurrentSearchView.setText(Html.fromHtml(filters.getSearchDescription(this)));
-        //mCurrentSortByView.setText(filters.getOrderDescription(this));
-
-        // Save filters
-        mViewModel.setFilters(filters);
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     @SuppressWarnings("unused")
