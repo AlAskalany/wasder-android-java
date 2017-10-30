@@ -59,6 +59,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.container)
     NonSwipeableViewPager mViewPager;
+
     private final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
@@ -142,7 +143,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 .getLayoutParams();
 
         mFilterDialog = Dialogs.PostsFilterDialogFragment();
-        @SuppressWarnings("unused") AddPostDialogFragment mAddPostDialog = Dialogs
+        @SuppressWarnings("unused") final AddPostDialogFragment mAddPostDialog = Dialogs
                 .AddPostDialogFragment();
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

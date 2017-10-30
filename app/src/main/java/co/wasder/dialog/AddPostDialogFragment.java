@@ -69,6 +69,8 @@ public class AddPostDialogFragment extends DialogFragment {
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.postNameEditText)
     EditText mPostNameEditText;
+    @BindView(R.id.feedEditText)
+    EditText mFeedEditText;
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_category)
     Spinner mCategorySpinner;
@@ -79,6 +81,7 @@ public class AddPostDialogFragment extends DialogFragment {
     @BindView(R.id.spinner_price)
     Spinner mPriceSpinner;
     private String uuid;
+    private String feedText;
 
     @Nullable
     @Override
@@ -128,8 +131,7 @@ public class AddPostDialogFragment extends DialogFragment {
     @NonNull
     private Post createPostFromFields() {
 
-        return Model.Post(getPostName(), getPostCity(), getPostCategory(), uuid, getPostPrice(),
-                INITIAL_AVG_RATING, INITIAL_NUM_RATINGS);
+        return Model.Post(getPostName(), getPostCity(), getPostCategory(), uuid, getPostPrice(), INITIAL_AVG_RATING, INITIAL_NUM_RATINGS, getFeedText());
     }
 
     private void addPostToDatabase(@NonNull Post post) {
@@ -250,6 +252,15 @@ public class AddPostDialogFragment extends DialogFragment {
                         Toast.makeText(getContext(), "Upload failed", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    public String getFeedText() {
+        String feedText = mFeedEditText.getText().toString();
+        if (!TextUtils.isEmpty(feedText)) {
+            return feedText;
+        } else {
+            return null;
+        }
     }
 
     @SuppressWarnings("WeakerAccess")

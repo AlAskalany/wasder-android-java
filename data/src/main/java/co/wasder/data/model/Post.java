@@ -25,12 +25,12 @@ public class Post {
     private int price;
     private int numRatings;
     private double avgRating;
+    private String feedText;
 
     public Post() {
     }
 
-    public Post(String name, String city, String category, String photo, int price, int
-            numRatings, double avgRating) {
+    public Post(String name, String city, String category, String photo, int price, int numRatings, double avgRating, String feedText) {
         this.name = name;
         this.city = city;
         this.category = category;
@@ -38,6 +38,7 @@ public class Post {
         this.price = price;
         this.numRatings = numRatings;
         this.avgRating = avgRating;
+        this.feedText = feedText;
     }
 
     public String getName() {
@@ -94,5 +95,13 @@ public class Post {
 
     public void setAvgRating(double avgRating) {
         this.avgRating = avgRating;
+    }
+
+    public String getFeedText() {
+        return feedText;
+    }
+
+    public void setFeedText(String feedText) {
+        this.feedText = feedText;
     }
 }

@@ -30,12 +30,11 @@ public class Model {
 
     @SuppressWarnings("unused")
     public static Post Post() {
-        return Post("Anonymous", "Cairo", "Brunch", "AD", 2, 2, 2);
+        return Post("Anonymous", "Cairo", "Brunch", "AD", 2, 2, 2, "Feed text");
     }
 
-    public static Post Post(String name, String city, String category, String photo, int price,
-                            int numRatings, double avgRating) {
-        return new Post(name, city, category, photo, price, numRatings, avgRating);
+    public static Post Post(String name, String city, String category, String photo, int price, int numRatings, double avgRating, String feedText) {
+        return new Post(name, city, category, photo, price, numRatings, avgRating, feedText);
     }
 
     @SuppressWarnings("unused")
