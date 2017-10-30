@@ -45,37 +45,14 @@ import co.wasder.wasder.viewmodel.TabFragmentViewModel;
 
 public class AllTabFragment extends Fragment implements TabFragment, LifecycleOwner {
 
-    @SuppressWarnings("unused")
-    private static final int FEED = 0;
-    @SuppressWarnings("unused")
-    private static final int Following = 1;
-    @SuppressWarnings("unused")
-    private static final int Discovery = 2;
-    @SuppressWarnings("unused")
-    private static final int Favorites = 3;
-    @SuppressWarnings("unused")
-    private static final int ALL = 4;
-    @SuppressWarnings("unused")
-    private static final int OWNED = 5;
-    @SuppressWarnings("unused")
-    private static final int MENTIONS = 6;
-    @SuppressWarnings("unused")
-    private static final int PM = 7;
     private static final long LIMIT = 50;
     private static final String TAG = "TabFragment";
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_COLLECTION_REFERENCE_STRING = "collection_reference_string";
-    private static final String ARG_TITLE = "title";
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private static final String ARG_TAB_TYPE = "tab_type";
-    @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     private FirebaseFirestore mFirestore;
     private Query mQuery;
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private PostsFilterDialogFragment mFilterDialog;
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private AddPostDialogFragment mAddPostDialog;
     private TabFragmentViewModel mViewModel;
     // TODO: Rename and change types of parameters
