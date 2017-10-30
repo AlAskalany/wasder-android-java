@@ -2,7 +2,7 @@ package co.wasder.wasder.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 
-import co.wasder.wasder.filter.PostsFilters;
+import co.wasder.wasder.filter.FirestoreItemFilters;
 
 /**
  * Created by Ahmed AlAskalany on 10/14/2017.
@@ -11,17 +11,17 @@ import co.wasder.wasder.filter.PostsFilters;
 
 public class TabFragmentViewModel extends ViewModel {
 
-    private PostsFilters mPostsFilters;
+    private FirestoreItemFilters mFirestoreItemFilters;
 
     public TabFragmentViewModel() {
-        mPostsFilters = PostsFilters.getDefault();
+        mFirestoreItemFilters = FirestoreItemFilters.getDefault();
     }
 
-    public PostsFilters getFilters() {
-        return mPostsFilters;
+    public FirestoreItemFilters getFilters() {
+        return mFirestoreItemFilters;
     }
 
-    public void setFilters(PostsFilters mPostsFilters) {
-        this.mPostsFilters = mPostsFilters;
+    public void setFilters(FirestoreItemFilters mFirestoreItemFilters) {
+        this.mFirestoreItemFilters = mFirestoreItemFilters;
     }
 }

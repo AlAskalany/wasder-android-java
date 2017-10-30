@@ -2,7 +2,7 @@ package co.wasder.wasder.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 
-import co.wasder.wasder.filter.PostsFilters;
+import co.wasder.wasder.filter.FirestoreItemFilters;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
@@ -12,11 +12,11 @@ import co.wasder.wasder.filter.PostsFilters;
 public class MainActivityViewModel extends ViewModel {
 
     private boolean mIsSigningIn;
-    private PostsFilters mPostsFilters;
+    private FirestoreItemFilters mFirestoreItemFilters;
 
     public MainActivityViewModel() {
         mIsSigningIn = false;
-        mPostsFilters = PostsFilters.getDefault();
+        mFirestoreItemFilters = FirestoreItemFilters.getDefault();
     }
 
     public boolean getIsSigningIn() {
@@ -27,11 +27,11 @@ public class MainActivityViewModel extends ViewModel {
         this.mIsSigningIn = mIsSigningIn;
     }
 
-    public PostsFilters getFilters() {
-        return mPostsFilters;
+    public FirestoreItemFilters getFilters() {
+        return mFirestoreItemFilters;
     }
 
-    public void setFilters(PostsFilters mPostsFilters) {
-        this.mPostsFilters = mPostsFilters;
+    public void setFilters(FirestoreItemFilters mFirestoreItemFilters) {
+        this.mFirestoreItemFilters = mFirestoreItemFilters;
     }
 }

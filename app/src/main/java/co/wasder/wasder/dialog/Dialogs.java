@@ -7,12 +7,12 @@ package co.wasder.wasder.dialog;
 
 public class Dialogs {
 
-    public static PostsFilterDialogFragment PostsFilterDialogFragment() {
-        return new PostsFilterDialogFragment();
+    public static FIrestoreItemFilterDialogFragment PostsFilterDialogFragment() {
+        return new FIrestoreItemFilterDialogFragment();
     }
 
-    public static AddPostDialogFragment AddPostDialogFragment() {
-        return new AddPostDialogFragment();
+    public static AddFirestoreItemDialogFragment AddPostDialogFragment() {
+        return new AddFirestoreItemDialogFragment();
     }
 
 }

@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/menu_add_restaurants"
-        android:title="@string/add_random_posts" />
+        android:title="@string/add_random_items" />
 
     <item
         android:id="@+id/menu_add_events"

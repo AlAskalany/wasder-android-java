@@ -23,7 +23,7 @@ import com.google.firebase.storage.StorageReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import co.wasder.data.model.Post;
+import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.R;
 
 /**
@@ -31,7 +31,8 @@ import co.wasder.wasder.R;
  * Wasder AB
  */
 
-public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.PostHolder>
+public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem,
+        FirestoreItemAdapter.FirestoreItemHolder>
         implements FirestoreItemsAdapter {
 
     private OnFirestoreItemSelected mListener;
@@ -42,7 +43,7 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
      *
      * @param options FirestoreRecyclerOptions
      */
-    PostAdapter(FirestoreRecyclerOptions options, OnFirestoreItemSelected listener) {
+    FirestoreItemAdapter(FirestoreRecyclerOptions options, OnFirestoreItemSelected listener) {
         //noinspection unchecked
         super(options);
         mListener = listener;
@@ -51,53 +52,52 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
     @SuppressWarnings("unused")
     public static FirestoreItemsAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query
             query, OnFirestoreItemSelected listener) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>()
-                .setLifecycleOwner(lifecycleOwner)
-                .setQuery(query, Post.class)
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
+                .setLifecycleOwner(lifecycleOwner).setQuery(query, FirestoreItem.class)
                 .build();
-        return new PostAdapter(options, listener);
+        return new FirestoreItemAdapter(options, listener);
     }
 
     @SuppressWarnings("unused")
     public static FirestoreItemsAdapter newInstance(Query query, OnFirestoreItemSelected listener) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>().setQuery
-                (query, Post.class)
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
+                .setQuery(query, FirestoreItem.class)
                 .build();
-        return new PostAdapter(options, listener);
+        return new FirestoreItemAdapter(options, listener);
     }
 
     @Override
-    protected void onBindViewHolder(PostHolder holder, int position, Post model) {
+    protected void onBindViewHolder(FirestoreItemHolder holder, int position, FirestoreItem model) {
         holder.bind(getSnapshots().getSnapshot(position), mListener);
     }
 
     @Override
-    public PostHolder onCreateViewHolder(ViewGroup group, int viewType) {
+    public FirestoreItemHolder onCreateViewHolder(ViewGroup group, int viewType) {
         View view = LayoutInflater.from(group.getContext())
-                .inflate(R.layout.item_post, group, false);
+                .inflate(R.layout.item_firestore_item, group, false);
 
-        return new PostHolder(view);
+        return new FirestoreItemHolder(view);
     }
 
     /**
      * Created by Ahmed AlAskalany on 10/13/2017.
      * Wasder AB
      */
-    public static class PostHolder extends RecyclerView.ViewHolder {
+    public static class FirestoreItemHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.post_item_name)
+        @BindView(R.id.item_name)
         TextView nameView;
 
         @BindView(R.id.postItemCardView)
         CardView postItemCardView;
 
-        @BindView(R.id.feedText)
+        @BindView(R.id.itemText)
         TextView feedText;
 
         @BindView(R.id.imageView)
         ImageView imageView;
 
-        PostHolder(View itemView) {
+        FirestoreItemHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -105,10 +105,10 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
         public void bind(final DocumentSnapshot snapshot, final OnFirestoreItemSelected
                 onFirestoreItemSelected) {
 
-            final Post post = snapshot.toObject(Post.class);
+            final FirestoreItem firestoreItem = snapshot.toObject(FirestoreItem.class);
             Resources resources = itemView.getResources();
             // Load image
-            String uuid = post.getPhoto();
+            String uuid = firestoreItem.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
                 StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
                 Glide.with(imageView.getContext())
@@ -116,13 +116,14 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(imageView);
             }
-            nameView.setText(post.getName());
-            feedText.setText(post.getFeedText());
+            nameView.setText(firestoreItem.getName());
+            feedText.setText(firestoreItem.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Intent intent = new Intent(view.getContext(), PostDetailActivity.class);
+                    //Intent intent = new Intent(view.getContext(), FirestoreItemDetailActivity
+                    // .class);
                     //intent.putExtra("key_post_id", snapshot.getId());
                     //view.getContext().startActivity(intent);
                     //postItemCardView.setBackgroundColor(Color.GREEN);

@@ -8,7 +8,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
  */
 
 @IgnoreExtraProperties
-public class Post {
+public class FirestoreItem {
 
     @SuppressWarnings("unused")
     public static final String FIELD_CITY = "city";
@@ -27,10 +27,11 @@ public class Post {
     private double avgRating;
     private String feedText;
 
-    public Post() {
+    public FirestoreItem() {
     }
 
-    public Post(String name, String city, String category, String photo, int price, int numRatings, double avgRating, String feedText) {
+    public FirestoreItem(String name, String city, String category, String photo, int price, int
+            numRatings, double avgRating, String feedText) {
         this.name = name;
         this.city = city;
         this.category = category;

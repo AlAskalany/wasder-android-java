@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/filter_bar_container"
-            tools:listitem="@layout/item_post" />
+            tools:listitem="@layout/item_firestore_item" />
 
     </android.support.v4.widget.NestedScrollView>
 

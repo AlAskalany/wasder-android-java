@@ -51,7 +51,7 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".detail.PostDetailActivity"
+            android:name=".detail.FirestoreItemDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service

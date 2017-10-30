@@ -1,7 +1,5 @@
 package co.wasder.data.model;
 
-import android.support.annotation.NonNull;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -18,23 +16,14 @@ public class Model {
     private static String text;
 
     @SuppressWarnings("unused")
-    @NonNull
-    public static Event Event() {
-        return Event("ASD", "Anonymous", "Event", "Cairo", "Brunch", "AD", 2, 2, 2);
+    public static FirestoreItem FirestoreItem() {
+        return FirestoreItem("Anonymous", "Cairo", "Brunch", "AD", 2, 2, 2, "Feed text");
     }
 
-    @NonNull
-    public static Event Event(String uId, String userName, String eventName, String city, String category, String photo, int price, int numRatings, double avgRating) {
-        return new Event(uId, userName, eventName, city, category, photo, price, numRatings, avgRating);
-    }
-
-    @SuppressWarnings("unused")
-    public static Post Post() {
-        return Post("Anonymous", "Cairo", "Brunch", "AD", 2, 2, 2, "Feed text");
-    }
-
-    public static Post Post(String name, String city, String category, String photo, int price, int numRatings, double avgRating, String feedText) {
-        return new Post(name, city, category, photo, price, numRatings, avgRating, feedText);
+    public static FirestoreItem FirestoreItem(String name, String city, String category, String
+            photo, int price, int numRatings, double avgRating, String feedText) {
+        return new FirestoreItem(name, city, category, photo, price, numRatings, avgRating,
+                feedText);
     }
 
     @SuppressWarnings("unused")

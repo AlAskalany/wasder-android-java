@@ -21,9 +21,9 @@ import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.adapter.Adapters;
 import co.wasder.wasder.adapter.FirestoreItemsAdapter;
-import co.wasder.wasder.dialog.AddPostDialogFragment;
+import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.PostsFilterDialogFragment;
+import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
 import co.wasder.wasder.ui.FirebaseUtil;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
@@ -43,8 +43,8 @@ public class OwnedTabFragment extends Fragment implements TabFragment, Lifecycle
     RecyclerView mRecyclerView;
     private FirebaseFirestore mFirestore;
     private Query mQuery;
-    private PostsFilterDialogFragment mFilterDialog;
-    private AddPostDialogFragment mAddPostDialog;
+    private FIrestoreItemFilterDialogFragment mFilterDialog;
+    private AddFirestoreItemDialogFragment mAddPostDialog;
     private TabFragmentViewModel mViewModel;
     // TODO: Rename and change types of parameters
     private String mCollectionReferenceString;

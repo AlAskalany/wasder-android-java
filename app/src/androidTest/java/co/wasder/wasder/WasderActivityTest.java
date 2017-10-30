@@ -144,8 +144,7 @@ public class WasderActivityTest {
             e.printStackTrace();
         }
 
-        ViewInteraction appCompatImageView = onView(allOf(withId(R.id.post_button_back),
-                childAtPosition(allOf(withId(R.id.post_top_card), childAtPosition(withClassName
+        ViewInteraction appCompatImageView = onView(allOf(withId(R.id.post_button_back), childAtPosition(allOf(withId(R.id.item_top_card), childAtPosition(withClassName
                         (is("android.widget.RelativeLayout")), 0)), 2), isDisplayed()));
         appCompatImageView.perform(click());
 

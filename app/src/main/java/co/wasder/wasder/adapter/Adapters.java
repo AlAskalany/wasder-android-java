@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 
-import co.wasder.data.model.Post;
+import co.wasder.data.model.FirestoreItem;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
@@ -15,11 +15,11 @@ import co.wasder.data.model.Post;
 
 public class Adapters {
 
-    public static PostAdapter PostAdapter(@NonNull LifecycleOwner lifecycleOwner, Query query, FirestoreItemsAdapter.OnFirestoreItemSelected listener) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Post>()
-                .setLifecycleOwner(lifecycleOwner)
-                .setQuery(query, Post.class)
+    public static FirestoreItemAdapter PostAdapter(@NonNull LifecycleOwner lifecycleOwner, Query
+            query, FirestoreItemsAdapter.OnFirestoreItemSelected listener) {
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
+                .setLifecycleOwner(lifecycleOwner).setQuery(query, FirestoreItem.class)
                 .build();
-        return new PostAdapter(options, listener);
+        return new FirestoreItemAdapter(options, listener);
     }
 }

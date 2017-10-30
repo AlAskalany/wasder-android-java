@@ -30,15 +30,15 @@ import com.google.firebase.firestore.Query;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.data.model.Post;
+import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.R;
 import co.wasder.wasder.filter.Filters;
-import co.wasder.wasder.filter.PostsFilters;
+import co.wasder.wasder.filter.FirestoreItemFilters;
 
 /**
  * Dialog Fragment containing filter form.
  */
-public class PostsFilterDialogFragment extends DialogFragment {
+public class FIrestoreItemFilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "FilterDialog";
     @SuppressWarnings("WeakerAccess")
@@ -56,19 +56,19 @@ public class PostsFilterDialogFragment extends DialogFragment {
     private View mRootView;
     private FilterListener mFilterListener;
 
-    public PostsFilterDialogFragment() {
+    public FIrestoreItemFilterDialogFragment() {
     }
 
     @SuppressWarnings("unused")
-    public static PostsFilterDialogFragment newInstance() {
-        return new PostsFilterDialogFragment();
+    public static FIrestoreItemFilterDialogFragment newInstance() {
+        return new FIrestoreItemFilterDialogFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.dialog_filters_posts, container, false);
+        mRootView = inflater.inflate(R.layout.dialog_filters_items, container, false);
         ButterKnife.bind(this, mRootView);
 
         return mRootView;
@@ -112,7 +112,7 @@ public class PostsFilterDialogFragment extends DialogFragment {
     @Nullable
     private String getSelectedCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
-        if (getString(R.string.value_any_category_posts).equals(selected)) {
+        if (getString(R.string.value_any_category_items).equals(selected)) {
             return null;
         } else {
             return selected;
@@ -145,14 +145,14 @@ public class PostsFilterDialogFragment extends DialogFragment {
     @Nullable
     private String getSelectedSortBy() {
         String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_posts_by_rating).equals(selected)) {
-            return Post.FIELD_AVG_RATING;
+        if (getString(R.string.sort_items_by_rating).equals(selected)) {
+            return FirestoreItem.FIELD_AVG_RATING;
         }
-        if (getString(R.string.sort_posts_by_price).equals(selected)) {
-            return Post.FIELD_PRICE;
+        if (getString(R.string.sort_items_by_price).equals(selected)) {
+            return FirestoreItem.FIELD_PRICE;
         }
-        if (getString(R.string.sort_posts_by_popularity).equals(selected)) {
-            return Post.FIELD_POPULARITY;
+        if (getString(R.string.sort_items_by_popularity).equals(selected)) {
+            return FirestoreItem.FIELD_POPULARITY;
         }
 
         return null;
@@ -161,13 +161,13 @@ public class PostsFilterDialogFragment extends DialogFragment {
     @Nullable
     private Query.Direction getSortDirection() {
         String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_posts_by_rating).equals(selected)) {
+        if (getString(R.string.sort_items_by_rating).equals(selected)) {
             return Query.Direction.DESCENDING;
         }
-        if (getString(R.string.sort_posts_by_price).equals(selected)) {
+        if (getString(R.string.sort_items_by_price).equals(selected)) {
             return Query.Direction.ASCENDING;
         }
-        if (getString(R.string.sort_posts_by_popularity).equals(selected)) {
+        if (getString(R.string.sort_items_by_popularity).equals(selected)) {
             return Query.Direction.DESCENDING;
         }
 
@@ -184,23 +184,23 @@ public class PostsFilterDialogFragment extends DialogFragment {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public PostsFilters getFilters() {
-        PostsFilters postsFilters = Filters.PostsFilters();
+    public FirestoreItemFilters getFilters() {
+        FirestoreItemFilters firestoreItemFilters = Filters.PostsFilters();
 
         if (mRootView != null) {
-            postsFilters.setCategory(getSelectedCategory());
-            postsFilters.setCity(getSelectedCity());
-            postsFilters.setPrice(getSelectedPrice());
-            postsFilters.setSortBy(getSelectedSortBy());
-            postsFilters.setSortDirection(getSortDirection());
+            firestoreItemFilters.setCategory(getSelectedCategory());
+            firestoreItemFilters.setCity(getSelectedCity());
+            firestoreItemFilters.setPrice(getSelectedPrice());
+            firestoreItemFilters.setSortBy(getSelectedSortBy());
+            firestoreItemFilters.setSortDirection(getSortDirection());
         }
 
-        return postsFilters;
+        return firestoreItemFilters;
     }
 
     public interface FilterListener {
 
-        void onFilter(PostsFilters postsFilters);
+        void onFilter(FirestoreItemFilters firestoreItemFilters);
 
     }
 }

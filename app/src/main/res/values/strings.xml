@@ -8,7 +8,7 @@
     <string name="facebook_app_id">1909212625762516</string>
     <string name="fb_login_protocol_scheme">fb1909212625762516</string>
 
-    <string name="add_random_posts">Add Random Posts</string>
+    <string name="add_random_items">Add Random Posts</string>
     <string name="add_random_events">Add Random Events</string>
     <string name="sign_out">Sign Out</string>
     <string name="delete_all">Delete All</string>
@@ -23,7 +23,7 @@
     <string name="image_description">image description</string>
     <string name="text_view">text view</string>
     <string name="delete_feed">delete feed</string>
-    <string name="add_post">Add Post</string>
+    <string name="add_item">Add Item</string>
     <string name="name">Name</string>
     <string name="add">Add</string>
     <string name="add_event">Add Event</string>

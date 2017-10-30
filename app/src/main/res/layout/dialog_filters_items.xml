@@ -12,17 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dialog_filers_title_margin_bottom"
-        android:text="@string/add_event" />
+        android:text="@string/header_filters" />
 
     <!-- Food Type -->
-    <EditText
-        android:id="@+id/eventNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/event_name"
-        android:inputType="text" />
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -40,7 +32,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/icon_category"
             android:layout_toRightOf="@+id/icon_category"
-            android:entries="@array/categories_events" />
+            android:entries="@array/categories_items" />
 
     </RelativeLayout>
 
@@ -53,7 +45,7 @@
             android:id="@+id/icon_city"
             style="@style/AppTheme.FilterIcon"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/description"
+            android:contentDescription="@string/desc"
             app:srcCompat="@drawable/ic_place_white_24px" />
 
         <Spinner
@@ -84,11 +76,30 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/icon_price"
             android:layout_toRightOf="@+id/icon_price"
-            android:entries="@array/prices_events" />
+            android:entries="@array/prices_items" />
 
     </RelativeLayout>
 
     <!-- Sort by -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_sort"
+            style="@style/AppTheme.FilterIcon"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/description"
+            app:srcCompat="@drawable/ic_sort_white_24px" />
+
+        <Spinner
+            android:id="@+id/spinner_sort"
+            style="@style/AppTheme.FilterSpinner"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon_sort"
+            android:layout_toRightOf="@+id/icon_sort"
+            android:entries="@array/sort_by_items" />
+    </RelativeLayout>
 
     <!-- Cancel and apply buttons -->
     <LinearLayout
@@ -112,11 +123,11 @@
 
 
         <Button
-            android:id="@+id/button_add_event"
+            android:id="@+id/button_search"
             android:layout_width="@dimen/dialog_filters_search_button_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/add"
+            android:text="@string/apply"
             android:theme="@style/ThemeOverlay.FilterButton" />
 
     </LinearLayout>

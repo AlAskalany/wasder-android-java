@@ -58,19 +58,19 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.data.Util.PostUtil;
-import co.wasder.data.model.Post;
+import co.wasder.data.Util.FirestoreItemUtil;
+import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.adapter.Adapters;
+import co.wasder.wasder.adapter.FirestoreItemAdapter;
 import co.wasder.wasder.adapter.FirestoreItemsAdapter;
-import co.wasder.wasder.adapter.PostAdapter;
-import co.wasder.wasder.dialog.AddPostDialogFragment;
+import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.PostsFilterDialogFragment;
-import co.wasder.wasder.filter.PostsFilters;
+import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
+import co.wasder.wasder.filter.FirestoreItemFilters;
 import co.wasder.wasder.viewmodel.MainActivityViewModel;
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity implements PostsFilterDialogFragment
+public class MainActivity extends AppCompatActivity implements FIrestoreItemFilterDialogFragment
         .FilterListener, FirebaseAuth.AuthStateListener, LifecycleOwner {
 
     private static final int WELCOME_MESSAGE_EXPIRATION = 3600;
@@ -121,9 +121,9 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
     private FirebaseFirestore mFirestore;
     private Query mQuery;
 
-    private PostsFilterDialogFragment mFilterDialog;
+    private FIrestoreItemFilterDialogFragment mFilterDialog;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private AddPostDialogFragment mAddRestaurantDialog;
+    private AddFirestoreItemDialogFragment mAddRestaurantDialog;
     private FirebaseRemoteConfig mRemoteConfig;
 
     private MainActivityViewModel mViewModel;
@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        PostAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
+        FirestoreItemAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
         mRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this));
         mRestaurantsRecycler.setAdapter(adapter);
     }
@@ -291,16 +291,16 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
         CollectionReference restaurants = mFirestore.collection("restaurants");
 
         for (int i = 0; i < 10; i++) {
-            // Get a random Post POJO
-            Post post = PostUtil.getRandom(this);
+            // Get a random FirestoreItem POJO
+            FirestoreItem firestoreItem = FirestoreItemUtil.getRandom(this);
 
             // Add a new document to the restaurants collection
-            restaurants.add(post);
+            restaurants.add(firestoreItem);
         }
     }
 
     @Override
-    public void onFilter(PostsFilters filters) {
+    public void onFilter(FirestoreItemFilters filters) {
         // Construct query basic query
         Query query = mFirestore.collection("restaurants");
 
@@ -399,12 +399,12 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
     @OnClick(R.id.filter_bar)
     public void onFilterClicked() {
         // Show the dialog containing filter options
-        mFilterDialog.show(getSupportFragmentManager(), PostsFilterDialogFragment.TAG);
+        mFilterDialog.show(getSupportFragmentManager(), FIrestoreItemFilterDialogFragment.TAG);
     }
 
     @OnClick(R.id.floatingActionButton)
     public void submit(@SuppressWarnings("unused") View view) {
-        mAddRestaurantDialog.show(getSupportFragmentManager(), AddPostDialogFragment.TAG);
+        mAddRestaurantDialog.show(getSupportFragmentManager(), AddFirestoreItemDialogFragment.TAG);
         //startActivity(new Intent(this, EventsActivity.class));
     }
 
@@ -412,7 +412,7 @@ public class MainActivity extends AppCompatActivity implements PostsFilterDialog
     public void onClearFilterClicked() {
         mFilterDialog.resetFilters();
 
-        onFilter(PostsFilters.getDefault());
+        onFilter(FirestoreItemFilters.getDefault());
     }
 
     private boolean shouldStartSignIn() {

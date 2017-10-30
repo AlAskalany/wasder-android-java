@@ -29,11 +29,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.data.Util.PostUtil;
-import co.wasder.wasder.dialog.AddPostDialogFragment;
+import co.wasder.data.Util.FirestoreItemUtil;
+import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.PostsFilterDialogFragment;
-import co.wasder.wasder.filter.PostsFilters;
+import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
+import co.wasder.wasder.filter.FirestoreItemFilters;
 import co.wasder.wasder.pageradapter.SectionsPagerAdapter;
 import co.wasder.wasder.ui.FirebaseUtil;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
@@ -41,8 +41,7 @@ import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 
-public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
-        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, PostsFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
+public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView.OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, FIrestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
 
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -91,7 +90,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private WasderActivityViewModel mViewModel;
     @SuppressWarnings("unused")
     private ActionBarDrawerToggle toggle;
-    private PostsFilterDialogFragment mFilterDialog;
+    private FIrestoreItemFilterDialogFragment mFilterDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +140,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 .getLayoutParams();
 
         mFilterDialog = Dialogs.PostsFilterDialogFragment();
-        @SuppressWarnings("unused") final AddPostDialogFragment mAddPostDialog = Dialogs
+        @SuppressWarnings("unused") final AddFirestoreItemDialogFragment mAddPostDialog = Dialogs
                 .AddPostDialogFragment();
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -155,7 +154,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @OnClick(R.id.fab)
     public void submit(@SuppressWarnings("unused") View view) {
-        new AddPostDialogFragment().show(getSupportFragmentManager(), AddPostDialogFragment.TAG);
+        new AddFirestoreItemDialogFragment().show(getSupportFragmentManager(),
+                AddFirestoreItemDialogFragment.TAG);
     }
 
     @Override
@@ -205,7 +205,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add_events:
-                PostUtil.onAddItemsClicked(this);
+                FirestoreItemUtil.onAddItemsClicked(this);
                 return true;
             case R.id.menu_sign_out:
                 AuthUI.getInstance().signOut(this);
@@ -262,11 +262,11 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     }
 
     @Override
-    public void onFilter(PostsFilters postsFilters) {
+    public void onFilter(FirestoreItemFilters firestoreItemFilters) {
         TabFragment fragment = (TabFragment) getSupportFragmentManager().findFragmentById(R.id
                 .nestedScrollView_appbar);
         if (fragment != null) {
-            //fragment.onFilter(postsFilters);
+            //fragment.onFilter(firestoreItemFilters);
         }
     }
 

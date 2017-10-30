@@ -44,20 +44,20 @@ import com.google.firebase.storage.StorageReference;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.data.Util.PostUtil;
-import co.wasder.data.model.Post;
+import co.wasder.data.Util.FirestoreItemUtil;
+import co.wasder.data.model.FirestoreItem;
 import co.wasder.data.model.Rating;
 import co.wasder.wasder.R;
 import co.wasder.wasder.adapter.RatingAdapter;
 import co.wasder.wasder.dialog.AddRatingDialogFragment;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-public class PostDetailActivity extends BaseDetailActivity {
+public class FirestoreItemDetailActivity extends BaseDetailActivity {
 
     private static final String KEY_POST_ID = "key_post_id";
     private static final String TAG = "PostDetail";
     @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.post_image)
+    @BindView(R.id.item_image)
     ImageView mImageView;
 
     @SuppressWarnings("WeakerAccess")
@@ -65,23 +65,23 @@ public class PostDetailActivity extends BaseDetailActivity {
     TextView mNameView;
 
     @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.post_rating)
+    @BindView(R.id.item_rating)
     MaterialRatingBar mRatingIndicator;
 
     @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.post_num_ratings)
+    @BindView(R.id.item_num_ratings)
     TextView mNumRatingsView;
 
     @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.post_city)
+    @BindView(R.id.item_city)
     TextView mCityView;
 
     @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.post_category)
+    @BindView(R.id.item_category)
     TextView mCategoryView;
 
     @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.post_price)
+    @BindView(R.id.item_price)
     TextView mPriceView;
 
     @SuppressWarnings("WeakerAccess")
@@ -100,7 +100,7 @@ public class PostDetailActivity extends BaseDetailActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_detail);
+        setContentView(R.layout.activity_item_detail);
         ButterKnife.bind(this);
 
         // Get post ID from extras
@@ -154,21 +154,23 @@ public class PostDetailActivity extends BaseDetailActivity {
             @Override
             public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
 
-                Post post = transaction.get(documentRef).toObject(Post.class);
+                FirestoreItem firestoreItem = transaction.get(documentRef)
+                        .toObject(FirestoreItem.class);
 
                 // Compute new number of ratings
-                int newNumRatings = post.getNumRatings() + 1;
+                int newNumRatings = firestoreItem.getNumRatings() + 1;
 
                 // Compute new average rating
-                double oldRatingTotal = post.getAvgRating() * post.getNumRatings();
+                double oldRatingTotal = firestoreItem.getAvgRating() * firestoreItem
+                        .getNumRatings();
                 double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRatings;
 
-                // Set new post info
-                post.setNumRatings(newNumRatings);
-                post.setAvgRating(newAvgRating);
+                // Set new firestoreItem info
+                firestoreItem.setNumRatings(newNumRatings);
+                firestoreItem.setAvgRating(newAvgRating);
 
                 // Commit to Firestore
-                transaction.set(documentRef, post);
+                transaction.set(documentRef, firestoreItem);
                 transaction.set(ratingRef, rating);
 
                 return null;
@@ -177,7 +179,7 @@ public class PostDetailActivity extends BaseDetailActivity {
     }
 
     /**
-     * Listener for the Post document ({@link #mDocumentRef}).
+     * Listener for the FirestoreItem document ({@link #mDocumentRef}).
      */
     @Override
     public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
@@ -186,19 +188,19 @@ public class PostDetailActivity extends BaseDetailActivity {
             return;
         }
 
-        onModelLoaded(snapshot.toObject(Post.class));
+        onModelLoaded(snapshot.toObject(FirestoreItem.class));
     }
 
-    private void onModelLoaded(Post post) {
-        mNameView.setText(post.getName());
-        mRatingIndicator.setRating((float) post.getAvgRating());
-        mNumRatingsView.setText(getString(R.string.fmt_num_ratings, post.getNumRatings()));
-        mCityView.setText(post.getCity());
-        mCategoryView.setText(post.getCategory());
-        mPriceView.setText(PostUtil.getPriceString(post));
+    private void onModelLoaded(FirestoreItem firestoreItem) {
+        mNameView.setText(firestoreItem.getName());
+        mRatingIndicator.setRating((float) firestoreItem.getAvgRating());
+        mNumRatingsView.setText(getString(R.string.fmt_num_ratings, firestoreItem.getNumRatings()));
+        mCityView.setText(firestoreItem.getCity());
+        mCategoryView.setText(firestoreItem.getCategory());
+        mPriceView.setText(FirestoreItemUtil.getPriceString(firestoreItem));
 
         // Background image
-        String uuid = post.getPhoto();
+        String uuid = firestoreItem.getPhoto();
         if (uuid != null) {
             StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
             Glide.with(mImageView.getContext())

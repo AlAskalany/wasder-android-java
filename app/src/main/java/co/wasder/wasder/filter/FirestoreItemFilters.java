@@ -5,8 +5,8 @@ import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
 
-import co.wasder.data.Util.PostUtil;
-import co.wasder.data.model.Post;
+import co.wasder.data.Util.FirestoreItemUtil;
+import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.R;
 
 /**
@@ -14,7 +14,7 @@ import co.wasder.wasder.R;
  * Wasder AB
  */
 
-public class PostsFilters {
+public class FirestoreItemFilters {
 
     private String category = null;
     private String city = null;
@@ -22,15 +22,15 @@ public class PostsFilters {
     private String sortBy = null;
     private Query.Direction sortDirection = null;
 
-    public PostsFilters() {
+    public FirestoreItemFilters() {
     }
 
-    public static PostsFilters getDefault() {
-        PostsFilters postsFilters = new PostsFilters();
-        postsFilters.setSortBy(Post.FIELD_AVG_RATING);
-        postsFilters.setSortDirection(Query.Direction.DESCENDING);
+    public static FirestoreItemFilters getDefault() {
+        FirestoreItemFilters firestoreItemFilters = new FirestoreItemFilters();
+        firestoreItemFilters.setSortBy(FirestoreItem.FIELD_AVG_RATING);
+        firestoreItemFilters.setSortDirection(Query.Direction.DESCENDING);
 
-        return postsFilters;
+        return firestoreItemFilters;
     }
 
     public boolean hasCategory() {
@@ -94,7 +94,7 @@ public class PostsFilters {
 
         if (category == null && city == null) {
             desc.append("<b>");
-            desc.append(context.getString(R.string.all_posts));
+            desc.append(context.getString(R.string.all_items));
             desc.append("</b>");
         }
 
@@ -117,7 +117,7 @@ public class PostsFilters {
         if (price > 0) {
             desc.append(" for ");
             desc.append("<b>");
-            desc.append(PostUtil.getPriceString(price));
+            desc.append(FirestoreItemUtil.getPriceString(price));
             desc.append("</b>");
         }
 
@@ -125,12 +125,12 @@ public class PostsFilters {
     }
 
     public String getOrderDescription(Context context) {
-        if (Post.FIELD_PRICE.equals(sortBy)) {
-            return context.getString(R.string.posts_sorted_by_price);
-        } else if (Post.FIELD_POPULARITY.equals(sortBy)) {
-            return context.getString(R.string.posts_sorted_by_popularity);
+        if (FirestoreItem.FIELD_PRICE.equals(sortBy)) {
+            return context.getString(R.string.items_sorted_by_price);
+        } else if (FirestoreItem.FIELD_POPULARITY.equals(sortBy)) {
+            return context.getString(R.string.items_sorted_by_popularity);
         } else {
-            return context.getString(R.string.posts_sorted_by_rating);
+            return context.getString(R.string.items_sorted_by_rating);
         }
     }
 }

@@ -48,17 +48,17 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.data.model.FirestoreItem;
 import co.wasder.data.model.Model;
-import co.wasder.data.model.Post;
 import co.wasder.wasder.R;
-import co.wasder.wasder.filter.PostsFilters;
+import co.wasder.wasder.filter.FirestoreItemFilters;
 
 import static android.app.Activity.RESULT_OK;
 
 /**
  * Dialog Fragment containing filter form.
  */
-public class AddPostDialogFragment extends DialogFragment {
+public class AddFirestoreItemDialogFragment extends DialogFragment {
 
     public static final String TAG = "AddPostDialog";
     private static final int INITIAL_AVG_RATING = 0;
@@ -67,9 +67,9 @@ public class AddPostDialogFragment extends DialogFragment {
     @SuppressWarnings("unused")
     private static final int RC_IMAGE_PERMS = 102;
     @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.postNameEditText)
+    @BindView(R.id.itemNameEditText)
     EditText mPostNameEditText;
-    @BindView(R.id.feedEditText)
+    @BindView(R.id.itemEditText)
     EditText mFeedEditText;
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_category)
@@ -87,7 +87,7 @@ public class AddPostDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(R.layout.dialog_add_post, container, false);
+        View mRootView = inflater.inflate(R.layout.dialog_add_item, container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
     }
@@ -122,21 +122,22 @@ public class AddPostDialogFragment extends DialogFragment {
         mPriceSpinner.setSelection(INITIAL_PRICE_SELECTION);
     }
 
-    @OnClick(R.id.button_add_post)
+    @OnClick(R.id.button_add_item)
     public void onAddPostClicked() {
         addPostToDatabase(createPostFromFields());
         dismiss();
     }
 
     @NonNull
-    private Post createPostFromFields() {
+    private FirestoreItem createPostFromFields() {
 
-        return Model.Post(getPostName(), getPostCity(), getPostCategory(), uuid, getPostPrice(), INITIAL_AVG_RATING, INITIAL_NUM_RATINGS, getFeedText());
+        return Model.FirestoreItem(getPostName(), getPostCity(), getPostCategory(), uuid,
+                getPostPrice(), INITIAL_AVG_RATING, INITIAL_NUM_RATINGS, getFeedText());
     }
 
-    private void addPostToDatabase(@NonNull Post post) {
+    private void addPostToDatabase(@NonNull FirestoreItem firestoreItem) {
         CollectionReference posts = FirebaseFirestore.getInstance().collection("restaurants");
-        posts.add(post);
+        posts.add(firestoreItem);
     }
 
     @OnClick(R.id.button_cancel)
@@ -147,7 +148,7 @@ public class AddPostDialogFragment extends DialogFragment {
     @Nullable
     private String getPostCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
-        if (getString(R.string.value_any_category_posts).equals(selected)) {
+        if (getString(R.string.value_any_category_items).equals(selected)) {
             return null;
         } else {
             return selected;
@@ -203,7 +204,7 @@ public class AddPostDialogFragment extends DialogFragment {
         }*/
     }
 
-    @OnClick(R.id.selected_post_image)
+    @OnClick(R.id.selected_item_image)
     protected void choosePhoto() {
         /*if (!EasyPermissions.hasPermissions(this, PERMS)) {
             EasyPermissions.requestPermissions(this, getString(R.string.rational_image_perm),
@@ -267,7 +268,7 @@ public class AddPostDialogFragment extends DialogFragment {
     interface FilterListener {
 
         @SuppressWarnings("unused")
-        void onFilter(PostsFilters postsFilters);
+        void onFilter(FirestoreItemFilters firestoreItemFilters);
 
     }
 }

@@ -44,7 +44,7 @@
                     style="@style/AppTheme.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/all_posts"
+                    android:text="@string/all_items"
                     tools:text="Filter" />
 
                 <TextView
@@ -52,7 +52,7 @@
                     style="@style/AppTheme.Caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/posts_sorted_by_rating" />
+                    android:text="@string/items_sorted_by_rating" />
 
             </LinearLayout>
 

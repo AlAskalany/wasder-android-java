@@ -13,12 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dialog_filers_title_margin_bottom"
-        android:text="@string/add_post" />
+        android:text="@string/add_item" />
 
     <!-- Food Type -->
 
     <EditText
-        android:id="@+id/postNameEditText"
+        android:id="@+id/itemNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -26,7 +26,7 @@
         android:inputType="text" />
 
     <EditText
-        android:id="@+id/feedEditText"
+        android:id="@+id/itemEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -49,7 +49,7 @@
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_category"
-            android:entries="@array/categories_posts" />
+            android:entries="@array/categories_items" />
 
     </RelativeLayout>
 
@@ -89,7 +89,7 @@
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/icon_price"
-            android:entries="@array/prices_posts" />
+            android:entries="@array/prices_items" />
 
     </RelativeLayout>
 
@@ -98,7 +98,7 @@
     <!-- Cancel and apply buttons -->
 
     <Button
-        android:id="@+id/selected_post_image"
+        android:id="@+id/selected_item_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Image" />
@@ -124,7 +124,7 @@
 
 
         <Button
-            android:id="@+id/button_add_post"
+            android:id="@+id/button_add_item"
             android:layout_width="@dimen/dialog_filters_search_button_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"

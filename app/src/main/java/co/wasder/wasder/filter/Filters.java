@@ -7,7 +7,7 @@ package co.wasder.wasder.filter;
 
 public class Filters {
 
-    public static PostsFilters PostsFilters() {
-        return new PostsFilters();
+    public static FirestoreItemFilters PostsFilters() {
+        return new FirestoreItemFilters();
     }
 }

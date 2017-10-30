@@ -12,17 +12,17 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import co.wasder.data.R;
-import co.wasder.data.model.Post;
+import co.wasder.data.model.FirestoreItem;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
  * Wasder AB
  */
 
-public class PostUtil {
+public class FirestoreItemUtil {
 
     @SuppressWarnings("unused")
-    private static final String TAG = "PostUtil";
+    private static final String TAG = "FirestoreItemUtil";
 
     @SuppressWarnings("unused")
     private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
@@ -41,10 +41,10 @@ public class PostUtil {
 
 
     /**
-     * Create a random Post POJO.
+     * Create a random FirestoreItem POJO.
      */
-    public static Post getRandom(Context context) {
-        Post post = new Post();
+    public static FirestoreItem getRandom(Context context) {
+        FirestoreItem firestoreItem = new FirestoreItem();
         Random random = new Random();
 
         // Cities (first element is 'Any')
@@ -52,20 +52,20 @@ public class PostUtil {
         cities = Arrays.copyOfRange(cities, 1, cities.length);
 
         // Categories (first element is 'Any')
-        String[] categories = context.getResources().getStringArray(R.array.categories_posts);
+        String[] categories = context.getResources().getStringArray(R.array.categories_items);
         categories = Arrays.copyOfRange(categories, 1, categories.length);
 
         int[] prices = new int[]{1, 2, 3};
 
-        post.setName(getRandomName(random));
-        post.setCity(getRandomString(cities, random));
-        post.setCategory(getRandomString(categories, random));
-        post.setPhoto(getRandomImageUrl(random));
-        post.setPrice(getRandomInt(prices, random));
-        post.setAvgRating(getRandomRating(random));
-        post.setNumRatings(random.nextInt(20));
+        firestoreItem.setName(getRandomName(random));
+        firestoreItem.setCity(getRandomString(cities, random));
+        firestoreItem.setCategory(getRandomString(categories, random));
+        firestoreItem.setPhoto(getRandomImageUrl(random));
+        firestoreItem.setPrice(getRandomInt(prices, random));
+        firestoreItem.setAvgRating(getRandomRating(random));
+        firestoreItem.setNumRatings(random.nextInt(20));
 
-        return post;
+        return firestoreItem;
     }
 
 
@@ -84,8 +84,8 @@ public class PostUtil {
     /**
      * Get price represented as dollar signs.
      */
-    public static String getPriceString(Post post) {
-        return getPriceString(post.getPrice());
+    public static String getPriceString(FirestoreItem firestoreItem) {
+        return getPriceString(firestoreItem.getPrice());
     }
 
     /**
@@ -134,7 +134,7 @@ public class PostUtil {
 
         for (int i = 0; i < 10; i++) {
             // Get a random events POJO
-            Post event = getRandom(context);
+            FirestoreItem event = getRandom(context);
 
             // Add a new document to the events collection
             events.add(event);
