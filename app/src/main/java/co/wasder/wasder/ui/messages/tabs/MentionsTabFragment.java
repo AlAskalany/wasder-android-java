@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,7 +42,7 @@ import co.wasder.wasder.viewmodel.TabFragmentViewModel;
  * Navigator
  */
 
-public class MentionsTabFragment extends TabFragment implements LifecycleOwner {
+public class MentionsTabFragment extends Fragment implements TabFragment, LifecycleOwner {
 
     @SuppressWarnings("unused")
     private static final int FEED = 0;
@@ -87,6 +88,7 @@ public class MentionsTabFragment extends TabFragment implements LifecycleOwner {
             Log.d(TAG, "onPostSelectedListener: " + itemView);
         }
     };
+    private String mTitle;
 
     /**
      * Use this factory method to create a new instance of
@@ -219,6 +221,11 @@ public class MentionsTabFragment extends TabFragment implements LifecycleOwner {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public String getTitle() {
+        return mTitle;
     }
 
     /**

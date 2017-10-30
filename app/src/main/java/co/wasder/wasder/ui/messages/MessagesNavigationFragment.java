@@ -12,8 +12,6 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -35,6 +33,7 @@ import co.wasder.wasder.R;
 import co.wasder.wasder.WasderActivity;
 import co.wasder.wasder.ui.NavigationFragment;
 import co.wasder.wasder.ui.TabFragment;
+import co.wasder.wasder.ui.TabsPagerAdapter;
 import co.wasder.wasder.ui.messages.tabs.MentionsTabFragment;
 import co.wasder.wasder.ui.messages.tabs.PmTabFragment;
 
@@ -363,37 +362,4 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
         void onFragmentInteraction(@SuppressWarnings("unused") Uri uri);
     }
 
-    /**
-     * Created by Ahmed AlAskalany on 10/14/2017.
-     * Wasder AB
-     */
-    public static class TabsPagerAdapter extends FragmentPagerAdapter {
-
-        private final List<TabFragment> fragments = new ArrayList<>();
-        private final List<String> titles = new ArrayList<>();
-
-        TabsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public TabFragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles.get(position);
-        }
-
-        void addFragment(TabFragment fragment) {
-            fragments.add(fragment);
-            titles.add(fragment.getTitle());
-        }
-    }
 }

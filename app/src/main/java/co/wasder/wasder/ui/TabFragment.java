@@ -12,16 +12,7 @@ import co.wasder.wasder.ui.messages.tabs.MentionsTabFragment;
  * Use the {@link MentionsTabFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabFragment extends Fragment {
+public interface TabFragment {
 
-    protected String mTitle;
-
-    public TabFragment() {
-        // Required empty public constructor
-    }
-
-
-    public String getTitle() {
-        return mTitle;
-    }
+    String getTitle();
 }
