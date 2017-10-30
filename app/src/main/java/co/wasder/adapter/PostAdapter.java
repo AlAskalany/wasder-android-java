@@ -5,15 +5,21 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,6 +99,9 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
         @BindView(R.id.feedText)
         TextView feedText;
 
+        @BindView(R.id.imageView)
+        ImageView imageView;
+
         PostHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -103,6 +112,15 @@ public class PostAdapter extends FirestoreRecyclerAdapter<Post, PostAdapter.Post
 
             final Post post = snapshot.toObject(Post.class);
             Resources resources = itemView.getResources();
+            // Load image
+            String uuid = post.getPhoto();
+            if (!TextUtils.isEmpty(uuid)) {
+                StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+                Glide.with(imageView.getContext())
+                        .load(mImageRef)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(imageView);
+            }
             nameView.setText(post.getName());
             feedText.setText(post.getFeedText());
             // Click listener
