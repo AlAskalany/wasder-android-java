@@ -95,7 +95,7 @@ public class FollowingTabFragment extends TabFragment implements LifecycleOwner 
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabFragment newInstance(int sectionNumber, TabType tabType) {
+    public static FollowingTabFragment newInstance(int sectionNumber, TabType tabType) {
         FollowingTabFragment fragment = new FollowingTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);

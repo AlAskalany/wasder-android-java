@@ -33,7 +33,14 @@ import java.util.List;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.WasderActivity;
+import co.wasder.wasder.ui.tabs.feed.FeedTabFragment;
+import co.wasder.wasder.ui.tabs.groups.AllTabFragment;
+import co.wasder.wasder.ui.tabs.groups.OwnedTabFragment;
+import co.wasder.wasder.ui.tabs.live.DiscoveryTabFragment;
+import co.wasder.wasder.ui.tabs.live.FavoritesTabFragment;
+import co.wasder.wasder.ui.tabs.live.FollowingTabFragment;
 import co.wasder.wasder.ui.tabs.messages.MentionsTabFragment;
+import co.wasder.wasder.ui.tabs.messages.PmTabFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -128,29 +135,29 @@ public class NavigationFragment extends Fragment implements NavigationView
 
             switch (mSectionType) {
                 case HOME:
-                    TabFragment feedTab = MentionsTabFragment.newInstance(0, MentionsTabFragment
+                    FeedTabFragment feedTab = FeedTabFragment.newInstance(0, FeedTabFragment
                             .TabType.FEED);
                     this.addTab(feedTab);
                     break;
                 case LIVE:
-                    TabFragment twitchLive = MentionsTabFragment.newInstance(0,
-                            MentionsTabFragment.TabType.Following);
-                    TabFragment twitchStreams = MentionsTabFragment.newInstance(1,
-                            MentionsTabFragment.TabType.Discovery);
-                    TabFragment esports = MentionsTabFragment.newInstance(2, MentionsTabFragment
-                            .TabType.Favorites);
+                    FollowingTabFragment twitchLive = FollowingTabFragment.newInstance(0,
+                            FollowingTabFragment.TabType.Following);
+                    DiscoveryTabFragment twitchStreams = DiscoveryTabFragment.newInstance(1,
+                            DiscoveryTabFragment.TabType.Discovery);
+                    FavoritesTabFragment esports = FavoritesTabFragment.newInstance(2,
+                            FavoritesTabFragment.TabType.Favorites);
                     this.addTab(twitchLive).addTab(twitchStreams).addTab(esports);
                     break;
                 case GROUPS:
-                    TabFragment all = MentionsTabFragment.newInstance(0, MentionsTabFragment
-                            .TabType.ALL);
-                    TabFragment owned = MentionsTabFragment.newInstance(1, MentionsTabFragment.TabType.OWNED);
+                    AllTabFragment all = AllTabFragment.newInstance(0, AllTabFragment.TabType.ALL);
+                    OwnedTabFragment owned = OwnedTabFragment.newInstance(1, OwnedTabFragment
+                            .TabType.OWNED);
                     this.addTab(all).addTab(owned);
                     break;
                 case MESSAGES:
-                    TabFragment mentions = MentionsTabFragment.newInstance(0, MentionsTabFragment
-                            .TabType.MENTIONS);
-                    TabFragment pm = MentionsTabFragment.newInstance(1, MentionsTabFragment.TabType.PM);
+                    MentionsTabFragment mentions = MentionsTabFragment.newInstance(0,
+                            MentionsTabFragment.TabType.MENTIONS);
+                    PmTabFragment pm = PmTabFragment.newInstance(1, PmTabFragment.TabType.PM);
                     this.addTab(mentions).addTab(pm);
                     break;
                 default:
@@ -162,7 +169,8 @@ public class NavigationFragment extends Fragment implements NavigationView
     }
 
     @SuppressWarnings("unused")
-    public Runnable createRunnable(final View appbar, final Animator.AnimatorListener animatorListener) {
+    public Runnable createRunnable(final View appbar, final Animator.AnimatorListener
+            animatorListener) {
         return new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override

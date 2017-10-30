@@ -95,7 +95,7 @@ public class DiscoveryTabFragment extends TabFragment implements LifecycleOwner 
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabFragment newInstance(int sectionNumber, TabType tabType) {
+    public static DiscoveryTabFragment newInstance(int sectionNumber, TabType tabType) {
         DiscoveryTabFragment fragment = new DiscoveryTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);

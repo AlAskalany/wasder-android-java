@@ -38,13 +38,18 @@ import co.wasder.wasder.pageradapter.SectionsPagerAdapter;
 import co.wasder.wasder.ui.FirebaseUtil;
 import co.wasder.wasder.ui.NavigationFragment;
 import co.wasder.wasder.ui.TabFragment;
+import co.wasder.wasder.ui.tabs.feed.FeedTabFragment;
+import co.wasder.wasder.ui.tabs.groups.AllTabFragment;
+import co.wasder.wasder.ui.tabs.groups.OwnedTabFragment;
+import co.wasder.wasder.ui.tabs.live.DiscoveryTabFragment;
+import co.wasder.wasder.ui.tabs.live.FavoritesTabFragment;
+import co.wasder.wasder.ui.tabs.live.FollowingTabFragment;
 import co.wasder.wasder.ui.tabs.messages.MentionsTabFragment;
+import co.wasder.wasder.ui.tabs.messages.PmTabFragment;
 import co.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 
-public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
-        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment.OnFragmentInteractionListener, MentionsTabFragment.OnFragmentInteractionListener,
-        PostsFilterDialogFragment.FilterListener {
+public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView.OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment.OnFragmentInteractionListener, PostsFilterDialogFragment.FilterListener, FeedTabFragment.OnFragmentInteractionListener, AllTabFragment.OnFragmentInteractionListener, OwnedTabFragment.OnFragmentInteractionListener, DiscoveryTabFragment.OnFragmentInteractionListener, FavoritesTabFragment.OnFragmentInteractionListener, FollowingTabFragment.OnFragmentInteractionListener, MentionsTabFragment.OnFragmentInteractionListener, PmTabFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;

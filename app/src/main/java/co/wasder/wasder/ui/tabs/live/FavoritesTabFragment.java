@@ -95,7 +95,7 @@ public class FavoritesTabFragment extends TabFragment implements LifecycleOwner 
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabFragment newInstance(int sectionNumber, TabType tabType) {
+    public static FavoritesTabFragment newInstance(int sectionNumber, TabType tabType) {
         FavoritesTabFragment fragment = new FavoritesTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);

@@ -95,7 +95,7 @@ public class OwnedTabFragment extends TabFragment implements LifecycleOwner {
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabFragment newInstance(int sectionNumber, TabType tabType) {
+    public static OwnedTabFragment newInstance(int sectionNumber, TabType tabType) {
         OwnedTabFragment fragment = new OwnedTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);

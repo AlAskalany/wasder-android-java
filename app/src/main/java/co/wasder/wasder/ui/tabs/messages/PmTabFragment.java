@@ -95,7 +95,7 @@ public class PmTabFragment extends TabFragment implements LifecycleOwner {
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabFragment newInstance(int sectionNumber, TabType tabType) {
+    public static PmTabFragment newInstance(int sectionNumber, TabType tabType) {
         PmTabFragment fragment = new PmTabFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
