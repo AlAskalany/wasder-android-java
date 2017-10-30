@@ -3,7 +3,6 @@ package co.wasder.wasder.ui.live.tabs;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -140,14 +139,6 @@ public class FollowingTabFragment extends Fragment implements TabFragment, Lifec
         PostAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    @SuppressWarnings("unused")
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteractionListener(uri);
-        }
     }
 
     @Override
