@@ -38,12 +38,12 @@ import co.wasder.wasder.pageradapter.SectionsPagerAdapter;
 import co.wasder.wasder.ui.FirebaseUtil;
 import co.wasder.wasder.ui.NavigationFragment;
 import co.wasder.wasder.ui.TabFragment;
+import co.wasder.wasder.ui.tabs.messages.MentionsTabFragment;
 import co.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 
 public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
-        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment
-        .OnFragmentInteractionListener, TabFragment.OnFragmentInteractionListener,
+        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, NavigationFragment.OnFragmentInteractionListener, MentionsTabFragment.OnFragmentInteractionListener,
         PostsFilterDialogFragment.FilterListener {
 
     private static final String TAG = "WasderActivity";

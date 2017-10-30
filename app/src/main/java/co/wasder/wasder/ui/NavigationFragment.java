@@ -33,6 +33,7 @@ import java.util.List;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.WasderActivity;
+import co.wasder.wasder.ui.tabs.messages.MentionsTabFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -127,23 +128,29 @@ public class NavigationFragment extends Fragment implements NavigationView
 
             switch (mSectionType) {
                 case HOME:
-                    TabFragment feedTab = TabFragment.newInstance(0, TabFragment.TabType.FEED);
+                    TabFragment feedTab = MentionsTabFragment.newInstance(0, MentionsTabFragment
+                            .TabType.FEED);
                     this.addTab(feedTab);
                     break;
                 case LIVE:
-                    TabFragment twitchLive = TabFragment.newInstance(0, TabFragment.TabType.Following);
-                    TabFragment twitchStreams = TabFragment.newInstance(1, TabFragment.TabType.Discovery);
-                    TabFragment esports = TabFragment.newInstance(2, TabFragment.TabType.Favorites);
+                    TabFragment twitchLive = MentionsTabFragment.newInstance(0,
+                            MentionsTabFragment.TabType.Following);
+                    TabFragment twitchStreams = MentionsTabFragment.newInstance(1,
+                            MentionsTabFragment.TabType.Discovery);
+                    TabFragment esports = MentionsTabFragment.newInstance(2, MentionsTabFragment
+                            .TabType.Favorites);
                     this.addTab(twitchLive).addTab(twitchStreams).addTab(esports);
                     break;
                 case GROUPS:
-                    TabFragment all = TabFragment.newInstance(0, TabFragment.TabType.ALL);
-                    TabFragment owned = TabFragment.newInstance(1, TabFragment.TabType.OWNED);
+                    TabFragment all = MentionsTabFragment.newInstance(0, MentionsTabFragment
+                            .TabType.ALL);
+                    TabFragment owned = MentionsTabFragment.newInstance(1, MentionsTabFragment.TabType.OWNED);
                     this.addTab(all).addTab(owned);
                     break;
                 case MESSAGES:
-                    TabFragment mentions = TabFragment.newInstance(0, TabFragment.TabType.MENTIONS);
-                    TabFragment pm = TabFragment.newInstance(1, TabFragment.TabType.PM);
+                    TabFragment mentions = MentionsTabFragment.newInstance(0, MentionsTabFragment
+                            .TabType.MENTIONS);
+                    TabFragment pm = MentionsTabFragment.newInstance(1, MentionsTabFragment.TabType.PM);
                     this.addTab(mentions).addTab(pm);
                     break;
                 default:
