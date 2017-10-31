@@ -152,8 +152,10 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                     });
             feedView.getHeader().getUserName().setText(firestoreItem.getName());
             Date date = firestoreItem.getTimestamp();
-            String dateString = new SimpleDateFormat().format(date);
-            feedView.getHeader().getTimeStamp().setText(dateString);
+            if (date != null) {
+                String dateString = new SimpleDateFormat().format(date);
+                feedView.getHeader().getTimeStamp().setText(dateString);
+            }
             feedView.getItemText().getItemTextView().setText(firestoreItem.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
