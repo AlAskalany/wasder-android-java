@@ -25,6 +25,7 @@ import android.view.View;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +35,7 @@ import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
 import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
 import co.wasder.wasder.filter.FirestoreItemFilters;
+import co.wasder.wasder.model.User;
 import co.wasder.wasder.pageradapter.SectionsPagerAdapter;
 import co.wasder.wasder.ui.FirebaseUtil;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
@@ -152,6 +154,11 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        User newUser = new User(user, "Ahmed", "AlAskalany");
+        newUser.addToFirestore();
     }
 
     @OnClick(R.id.fab)
