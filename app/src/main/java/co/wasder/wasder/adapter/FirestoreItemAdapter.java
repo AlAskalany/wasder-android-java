@@ -32,8 +32,7 @@ import co.wasder.wasder.R;
  */
 
 public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem,
-        FirestoreItemAdapter.FirestoreItemHolder>
-        implements FirestoreItemsAdapter {
+        FirestoreItemAdapter.FirestoreItemHolder> implements FirestoreItemsAdapter {
 
     private OnFirestoreItemSelected mListener;
 
@@ -53,7 +52,8 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
     public static FirestoreItemsAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query
             query, OnFirestoreItemSelected listener) {
         FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
-                .setLifecycleOwner(lifecycleOwner).setQuery(query, FirestoreItem.class)
+                .setLifecycleOwner(lifecycleOwner)
+                .setQuery(query, FirestoreItem.class)
                 .build();
         return new FirestoreItemAdapter(options, listener);
     }
@@ -85,7 +85,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      */
     public static class FirestoreItemHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.item_name)
+        @BindView(R.id.itemUserName)
         TextView nameView;
 
         @BindView(R.id.postItemCardView)
@@ -94,7 +94,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
         @BindView(R.id.itemText)
         TextView feedText;
 
-        @BindView(R.id.imageView)
+        @BindView(R.id.itemImageView)
         ImageView imageView;
 
         FirestoreItemHolder(View itemView) {

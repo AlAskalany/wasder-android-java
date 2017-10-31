@@ -72,4 +72,17 @@
     <string name="description">TODO</string>
     <string name="desc">TODO</string>
     <string name="event_name">EventName</string>
+    <string name="item_user_handle">\@Askalany</string>
+    <string name="item_time_stamp">2h</string>
+    <string name="item_text">Feed text</string>
+    <string name="item_num_likes">5</string>
+    <string name="item_num_shares">2</string>
+    <string name="item_num_comments">1</string>
+    <string name="item_user_name">Askalany</string>
+    <string name="user_profile_photo">User Profile Photo</string>
+    <string name="item_shate_button">Share Button</string>
+    <string name="item_like_button">Like Button</string>
+    <string name="item_send_button">Send Button</string>
+    <string name="item_comment_button">Comment Button</string>
+    <string name="item_image">Image</string>
 </resources>
