@@ -10,35 +10,34 @@
     <TextView
         android:id="@+id/itemUserName"
         style="@style/AppTheme.Subheader"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="19dp"
-        android:layout_marginStart="8dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/item_user_name"
+        app:layout_constraintEnd_toStartOf="@+id/itemUserHandle"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:text="Askalany" />
 
     <TextView
         android:id="@+id/itemUserHandle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/item_user_handle"
         app:layout_constraintEnd_toStartOf="@+id/itemTimeStamp"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/itemUserName"
-        app:layout_constraintTop_toTopOf="@+id/itemUserName"
         tools:text="@string/item_user_handle" />
 
     <TextView
         android:id="@+id/itemTimeStamp"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:text="@string/item_time_stamp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/itemUserHandle"
         tools:text="2h" />
 </android.support.constraint.ConstraintLayout>
