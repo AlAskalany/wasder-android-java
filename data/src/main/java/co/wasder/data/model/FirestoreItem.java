@@ -21,6 +21,7 @@ public class FirestoreItem {
     private String name;
     private String city;
     private String category;
+    private String profilePhoto;
     private String photo;
     private int price;
     private int numRatings;
@@ -30,11 +31,13 @@ public class FirestoreItem {
     public FirestoreItem() {
     }
 
-    public FirestoreItem(String name, String city, String category, String photo, int price, int
+    public FirestoreItem(String name, String city, String category, String profilePhoto, String
+            photo, int price, int
             numRatings, double avgRating, String feedText) {
         this.name = name;
         this.city = city;
         this.category = category;
+        this.profilePhoto = profilePhoto;
         this.photo = photo;
         this.price = price;
         this.numRatings = numRatings;
@@ -104,5 +107,13 @@ public class FirestoreItem {
 
     public void setFeedText(String feedText) {
         this.feedText = feedText;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 }

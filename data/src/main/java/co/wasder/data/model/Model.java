@@ -17,13 +17,15 @@ public class Model {
 
     @SuppressWarnings("unused")
     public static FirestoreItem FirestoreItem() {
-        return FirestoreItem("Anonymous", "Cairo", "Brunch", "AD", 2, 2, 2, "Feed text");
+        return FirestoreItem("Anonymous", "Cairo", "Brunch", FirebaseAuth.getInstance()
+                .getCurrentUser()
+                .getPhotoUrl()
+                .toString(), "AD", 2, 2, 2, "Feed text");
     }
 
-    public static FirestoreItem FirestoreItem(String name, String city, String category, String
-            photo, int price, int numRatings, double avgRating, String feedText) {
-        return new FirestoreItem(name, city, category, photo, price, numRatings, avgRating,
-                feedText);
+    public static FirestoreItem FirestoreItem(String name, String city, String category, String profilePhotoUrl, String photo, int price, int numRatings, double avgRating, String feedText) {
+        return new FirestoreItem(name, city, category, profilePhotoUrl, photo, price, numRatings,
+                avgRating, feedText);
     }
 
     @SuppressWarnings("unused")

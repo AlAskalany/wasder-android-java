@@ -35,6 +35,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -82,6 +84,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     Spinner mPriceSpinner;
     private String uuid;
     private String feedText;
+    private String postProfilePhotoUrl;
 
     @Nullable
     @Override
@@ -131,8 +134,9 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     @NonNull
     private FirestoreItem createPostFromFields() {
 
-        return Model.FirestoreItem(getPostName(), getPostCity(), getPostCategory(), uuid,
-                getPostPrice(), INITIAL_AVG_RATING, INITIAL_NUM_RATINGS, getFeedText());
+        return Model.FirestoreItem(getPostName(), getPostCity(), getPostCategory(),
+                getPostProfilePhotoUrl(), uuid, getPostPrice(), INITIAL_AVG_RATING,
+                INITIAL_NUM_RATINGS, getFeedText());
     }
 
     private void addPostToDatabase(@NonNull FirestoreItem firestoreItem) {
@@ -156,12 +160,16 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     }
 
     private String getPostName() {
-        String name = mPostNameEditText.getText().toString();
-        if (!TextUtils.isEmpty(name)) {
-            return name;
-        } else {
-            return null;
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String name = null;
+        if (user != null) {
+            name = user.getDisplayName();
+            if (!TextUtils.isEmpty(name)) {
+                return name;
+            }
         }
+        return null;
     }
 
     @Nullable
@@ -262,6 +270,22 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         } else {
             return null;
         }
+    }
+
+    public String getPostProfilePhotoUrl() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        Uri profilePhotoUri = null;
+        if (user != null) {
+            profilePhotoUri = user.getPhotoUrl();
+            if (profilePhotoUri != null) {
+                String profilePhotoUrl = profilePhotoUri.toString();
+                if (!TextUtils.isEmpty(profilePhotoUrl)) {
+                    return profilePhotoUrl;
+                }
+            }
+        }
+        return null;
     }
 
     @SuppressWarnings("WeakerAccess")

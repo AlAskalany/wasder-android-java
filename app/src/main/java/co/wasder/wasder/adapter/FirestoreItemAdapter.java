@@ -2,6 +2,7 @@ package co.wasder.wasder.adapter;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
@@ -85,6 +88,9 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      */
     public static class FirestoreItemHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.itemProfilePhoto)
+        ImageView itemProfilePhoto;
+
         @BindView(R.id.itemUserName)
         TextView nameView;
 
@@ -115,6 +121,22 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(imageView);
+            }
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            FirebaseUser user = auth.getCurrentUser();
+            Uri photoUri = null;
+            if (user != null) {
+                photoUri = user.getPhotoUrl();
+                String photoUrl = null;
+                if (photoUri != null) {
+                    photoUrl = photoUri.toString();
+                    if (!TextUtils.isEmpty(photoUrl)) {
+                        Glide.with(imageView.getContext())
+                                .load(photoUri)
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .into(itemProfilePhoto);
+                    }
+                }
             }
             nameView.setText(firestoreItem.getName());
             feedText.setText(firestoreItem.getFeedText());

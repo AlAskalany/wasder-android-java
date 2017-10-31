@@ -1,7 +1,11 @@
 package co.wasder.data.Util;
 
 import android.content.Context;
+import android.net.Uri;
+import android.text.TextUtils;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,11 +29,12 @@ public class FirestoreItemUtil {
     private static final String TAG = "FirestoreItemUtil";
 
     @SuppressWarnings("unused")
-    private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+    private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit
+            .SECONDS, new LinkedBlockingQueue<Runnable>());
 
     @SuppressWarnings("unused")
-    private static final String RESTAURANT_URL_FMT = "https://storage.googleapis" + "" + "" +
-            ".com/firestorequickstarts.appspot.com/food_%d.png";
+    private static final String RESTAURANT_URL_FMT = "https://storage.googleapis" + "" + "" + ""
+            + ".com/firestorequickstarts.appspot.com/food_%d.png";
 
     private static final int MAX_IMAGE_NUM = 22;
 
@@ -57,9 +62,22 @@ public class FirestoreItemUtil {
 
         int[] prices = new int[]{1, 2, 3};
 
-        firestoreItem.setName(getRandomName(random));
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String name = user.getDisplayName();
+            firestoreItem.setName(name);
+            Uri profilePhotoUri = user.getPhotoUrl();
+            String profilePhotoUrl = null;
+            if (profilePhotoUri != null) {
+                profilePhotoUrl = profilePhotoUri.toString();
+                if (!TextUtils.isEmpty(profilePhotoUrl)) {
+                    firestoreItem.setProfilePhoto(profilePhotoUrl);
+                }
+            }
+        }
         firestoreItem.setCity(getRandomString(cities, random));
         firestoreItem.setCategory(getRandomString(categories, random));
+
         firestoreItem.setPhoto(getRandomImageUrl(random));
         firestoreItem.setPrice(getRandomInt(prices, random));
         firestoreItem.setAvgRating(getRandomRating(random));
