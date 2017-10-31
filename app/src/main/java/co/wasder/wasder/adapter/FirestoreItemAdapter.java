@@ -115,7 +115,8 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
             final FirestoreItem firestoreItem = snapshot.toObject(FirestoreItem.class);
 
             // Load image
-            String uuid = firestoreItem.getPhoto();
+            String uuid = null;
+            uuid = firestoreItem.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
                 StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
                 Glide.with(itemView.getContext())

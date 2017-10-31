@@ -73,6 +73,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     private static final int RC_IMAGE_PERMS = 102;
     @BindView(R.id.itemEditText)
     EditText mFeedEditText;
+
     private String uuid;
     private String feedText;
     private String postProfilePhotoUrl;
@@ -118,8 +119,25 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         if (user != null) {
             uId = user.getUid();
         }
-        return Model.FirestoreItem(uId, getPostProfilePhotoUrl(), uuid, INITIAL_AVG_RATING,
+        return Model.FirestoreItem(uId, getPostProfilePhotoUrl(), getUuid(), INITIAL_AVG_RATING,
                 INITIAL_NUM_RATINGS, getFeedText());
+    }
+
+    public String getUuid() {
+        if (uuid != null) {
+            return uuid;
+        } else {
+            return null;
+        }
+    }
+
+    public String getFeedText() {
+        String feedText = mFeedEditText.getText().toString();
+        if (!TextUtils.isEmpty(feedText)) {
+            return feedText;
+        } else {
+            return null;
+        }
     }
 
     private void addPostToDatabase(@NonNull final FirestoreItem firestoreItem) {
@@ -148,7 +166,9 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         if (requestCode == RC_CHOOSE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 Uri selectedImage = data.getData();
-                uploadPhoto(selectedImage);
+                if (selectedImage != null) {
+                    uploadPhoto(selectedImage);
+                }
             } else {
                 Toast.makeText(getContext(), "No image chosen", Toast.LENGTH_SHORT).show();
             }
@@ -207,15 +227,6 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
                         Toast.makeText(getContext(), "Upload failed", Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    public String getFeedText() {
-        String feedText = mFeedEditText.getText().toString();
-        if (!TextUtils.isEmpty(feedText)) {
-            return feedText;
-        } else {
-            return null;
-        }
     }
 
     public String getPostProfilePhotoUrl() {
