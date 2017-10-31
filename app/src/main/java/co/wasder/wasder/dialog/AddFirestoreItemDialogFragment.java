@@ -30,7 +30,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -72,20 +71,8 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     private static final int RC_CHOOSE_PHOTO = 101;
     @SuppressWarnings("unused")
     private static final int RC_IMAGE_PERMS = 102;
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.itemNameEditText)
-    EditText mPostNameEditText;
     @BindView(R.id.itemEditText)
     EditText mFeedEditText;
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.spinner_category)
-    Spinner mCategorySpinner;
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.spinner_city)
-    Spinner mCitySpinner;
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.spinner_price)
-    Spinner mPriceSpinner;
     private String uuid;
     private String feedText;
     private String postProfilePhotoUrl;
@@ -110,23 +97,11 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        resetFields();
         Window window = getDialog().getWindow();
         if (window != null) {
             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
                     .WRAP_CONTENT);
         }
-    }
-
-    private void resetFields() {
-        String INITIAL_NAME = "";
-        mPostNameEditText.setText(INITIAL_NAME);
-        int INITIAL_CATEGORY_SELECTION = 0;
-        mCategorySpinner.setSelection(INITIAL_CATEGORY_SELECTION);
-        int INITIAL_CITY_SELECTION = 0;
-        mCitySpinner.setSelection(INITIAL_CITY_SELECTION);
-        int INITIAL_PRICE_SELECTION = 0;
-        mPriceSpinner.setSelection(INITIAL_PRICE_SELECTION);
     }
 
     @OnClick(R.id.button_add_item)
@@ -143,8 +118,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         if (user != null) {
             uId = user.getUid();
         }
-        return Model.FirestoreItem(uId, getPostName(), getPostCity(), getPostCategory(),
-                getPostProfilePhotoUrl(), uuid, getPostPrice(), INITIAL_AVG_RATING,
+        return Model.FirestoreItem(uId, getPostProfilePhotoUrl(), uuid, INITIAL_AVG_RATING,
                 INITIAL_NUM_RATINGS, getFeedText());
     }
 
@@ -166,51 +140,6 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         dismiss();
     }
 
-    @Nullable
-    private String getPostCategory() {
-        String selected = (String) mCategorySpinner.getSelectedItem();
-        if (getString(R.string.value_any_category_items).equals(selected)) {
-            return null;
-        } else {
-            return selected;
-        }
-    }
-
-    private String getPostName() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        String name = null;
-        if (user != null) {
-            name = user.getDisplayName();
-            if (!TextUtils.isEmpty(name)) {
-                return name;
-            }
-        }
-        return null;
-    }
-
-    @Nullable
-    private String getPostCity() {
-        String selected = (String) mCitySpinner.getSelectedItem();
-        if (getString(R.string.value_any_city).equals(selected)) {
-            return null;
-        } else {
-            return selected;
-        }
-    }
-
-    private int getPostPrice() {
-        String selected = (String) mPriceSpinner.getSelectedItem();
-        if (selected.equals(getString(R.string.price_1))) {
-            return 1;
-        } else if (selected.equals(getString(R.string.price_2))) {
-            return 2;
-        } else if (selected.equals(getString(R.string.price_3))) {
-            return 3;
-        } else {
-            return -1;
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

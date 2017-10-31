@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
 
-import co.wasder.data.Util.FirestoreItemUtil;
 import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.R;
 
@@ -111,13 +110,6 @@ public class FirestoreItemFilters {
         if (city != null) {
             desc.append("<b>");
             desc.append(city);
-            desc.append("</b>");
-        }
-
-        if (price > 0) {
-            desc.append(" for ");
-            desc.append("<b>");
-            desc.append(FirestoreItemUtil.getPriceString(price));
             desc.append("</b>");
         }
 

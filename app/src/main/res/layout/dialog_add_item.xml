@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/filters_form"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,85 +11,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dialog_filers_title_margin_bottom"
-        android:text="@string/add_item" />
+        android:text="Post" />
 
     <!-- Food Type -->
-
-    <EditText
-        android:id="@+id/itemNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Title"
-        android:inputType="text" />
 
     <EditText
         android:id="@+id/itemEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Feed Text"
-        android:inputType="textPersonName"
-        tools:text="Feed text" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_category"
-            style="@style/AppTheme.FilterIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_pages_white_24dp" />
-
-        <Spinner
-            android:id="@+id/spinner_category"
-            style="@style/AppTheme.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_category"
-            android:entries="@array/categories_items" />
-
-    </RelativeLayout>
+        android:hint="Write post"
+        android:inputType="textMultiLine" />
 
     <!-- Location -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_city"
-            style="@style/AppTheme.FilterIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_place_white_24px" />
-
-        <Spinner
-            android:id="@+id/spinner_city"
-            style="@style/AppTheme.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_city"
-            android:entries="@array/cities" />
-
-    </RelativeLayout>
 
     <!-- Price -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_price"
-            style="@style/AppTheme.FilterIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_monetization_on_white_24px" />
-
-        <Spinner
-            android:id="@+id/spinner_price"
-            style="@style/AppTheme.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_price"
-            android:entries="@array/prices_items" />
-
-    </RelativeLayout>
 
     <!-- Sort by -->
 

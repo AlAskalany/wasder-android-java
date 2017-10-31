@@ -44,7 +44,6 @@ import com.google.firebase.storage.StorageReference;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.data.Util.FirestoreItemUtil;
 import co.wasder.data.model.FirestoreItem;
 import co.wasder.data.model.Rating;
 import co.wasder.wasder.R;
@@ -195,9 +194,6 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         mNameView.setText(firestoreItem.getName());
         mRatingIndicator.setRating((float) firestoreItem.getAvgRating());
         mNumRatingsView.setText(getString(R.string.fmt_num_ratings, firestoreItem.getNumRatings()));
-        mCityView.setText(firestoreItem.getCity());
-        mCategoryView.setText(firestoreItem.getCategory());
-        mPriceView.setText(FirestoreItemUtil.getPriceString(firestoreItem));
 
         // Background image
         String uuid = firestoreItem.getPhoto();

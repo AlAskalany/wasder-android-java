@@ -26,11 +26,8 @@ public class FirestoreItem {
     private @ServerTimestamp
     Date timestamp;
     private String name;
-    private String city;
-    private String category;
     private String profilePhoto;
     private String photo;
-    private int price;
     private int numRatings;
     private double avgRating;
     private String feedText;
@@ -38,16 +35,13 @@ public class FirestoreItem {
     public FirestoreItem() {
     }
 
-    public FirestoreItem(String uId, String name, String city, String category, String
-            profilePhoto, String photo, int price, int numRatings, double avgRating, String
+    public FirestoreItem(String uId, String profilePhoto, String photo, int numRatings, double
+            avgRating, String
             feedText) {
         this.uId = uId;
         this.name = name;
-        this.city = city;
-        this.category = category;
         this.profilePhoto = profilePhoto;
         this.photo = photo;
-        this.price = price;
         this.numRatings = numRatings;
         this.avgRating = avgRating;
         this.feedText = feedText;
@@ -69,21 +63,7 @@ public class FirestoreItem {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
-    }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 
     public String getPhoto() {
         return photo;
@@ -91,14 +71,6 @@ public class FirestoreItem {
 
     public void setPhoto(String photo) {
         this.photo = photo;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public int getNumRatings() {

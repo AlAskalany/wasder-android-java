@@ -77,11 +77,8 @@ public class FirestoreItemUtil {
                 }
             }
         }
-        firestoreItem.setCity(getRandomString(cities, random));
-        firestoreItem.setCategory(getRandomString(categories, random));
 
         firestoreItem.setPhoto(getRandomImageUrl(random));
-        firestoreItem.setPrice(getRandomInt(prices, random));
         firestoreItem.setAvgRating(getRandomRating(random));
         firestoreItem.setNumRatings(random.nextInt(20));
 
@@ -99,28 +96,6 @@ public class FirestoreItemUtil {
 
         //return String.format(Locale.getDefault(), RESTAURANT_URL_FMT, id);
         return "f07fafef-219a-4d10-90b5-bcabc1c82348";
-    }
-
-    /**
-     * Get price represented as dollar signs.
-     */
-    public static String getPriceString(FirestoreItem firestoreItem) {
-        return getPriceString(firestoreItem.getPrice());
-    }
-
-    /**
-     * Get price represented as dollar signs.
-     */
-    public static String getPriceString(int priceInt) {
-        switch (priceInt) {
-            case 1:
-                return "$";
-            case 2:
-                return "$$";
-            case 3:
-            default:
-                return "$$$";
-        }
     }
 
     @SuppressWarnings("WeakerAccess")
