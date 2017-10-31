@@ -28,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.R;
+import co.wasder.wasder.views.ProfilePhoto;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
@@ -89,7 +90,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
     public static class FirestoreItemHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.itemProfilePhoto)
-        ImageView itemProfilePhoto;
+        ProfilePhoto itemProfilePhoto;
 
         @BindView(R.id.itemUserName)
         TextView nameView;
@@ -121,6 +122,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(imageView);
+                imageView.setVisibility(View.VISIBLE);
             }
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
@@ -134,7 +136,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                         Glide.with(imageView.getContext())
                                 .load(photoUri)
                                 .transition(DrawableTransitionOptions.withCrossFade())
-                                .into(itemProfilePhoto);
+                                .into(itemProfilePhoto.getProfileImageView());
                     }
                 }
             }

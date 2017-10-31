@@ -10,9 +10,8 @@
     tools:layout_editor_absoluteY="89dp"
     tools:showIn="@layout/item_firestore_item">
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/item_profile_photo"
+    <co.wasder.wasder.views.ProfilePhoto
+        android:id="@+id/itemProfilePhoto"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
@@ -34,7 +33,7 @@
         app:layout_constraintBottom_toTopOf="@+id/include4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/include2"
+        app:layout_constraintStart_toEndOf="@+id/itemProfilePhoto"
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
@@ -55,7 +54,7 @@
         android:id="@+id/include5"
         layout="@layout/item_image"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
