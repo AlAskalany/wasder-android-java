@@ -36,7 +36,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".WasderActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -82,6 +81,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>

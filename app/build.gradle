@@ -35,12 +35,12 @@ android {
     }
     productFlavors {
     }
-    lintOptions{
+    lintOptions {
         // Turns off checks for the issue IDs you specify.
-        disable 'TypographyFractions','TypographyQuotes'
+        disable 'TypographyFractions', 'TypographyQuotes'
         // Turns on checks for the issue IDs you specify. These checks are in
         // addition to the default lint checks.
-        enable 'RtlHardcoded','RtlCompat', 'RtlEnabled'
+        enable 'RtlHardcoded', 'RtlCompat', 'RtlEnabled'
         // To enable checks for only a subset of issue IDs and ignore all others,
         // list the issue IDs with the 'check' property instead. This property overrides
         // any issue IDs you enable or disable using the properties above.
@@ -110,6 +110,7 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-database:${rootProject.ext.FIREBASEUI}"
     // ButterKnife
     implementation "com.jakewharton:butterknife:${rootProject.ext.BUTTERKNIFE}"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.BUTTERKNIFE}"
     // Support Libs
     implementation "com.android.support:support-annotations:${rootProject.ext.SUPPORT}"
