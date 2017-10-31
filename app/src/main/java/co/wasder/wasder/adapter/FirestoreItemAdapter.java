@@ -4,7 +4,6 @@ import android.arch.lifecycle.LifecycleOwner;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -80,7 +79,6 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
     public FirestoreItemHolder onCreateViewHolder(ViewGroup group, int viewType) {
         View view = LayoutInflater.from(group.getContext())
                 .inflate(R.layout.item_firestore_item, group, false);
-
         return new FirestoreItemHolder(view);
     }
 
@@ -96,11 +94,8 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
         @BindView(R.id.userName)
         UserName userName;
 
-        @BindView(R.id.postItemCardView)
-        CardView postItemCardView;
-
         @BindView(R.id.itemText)
-        ItemText feedText;
+        ItemText itemText;
 
         @BindView(R.id.itemImage)
         ItemImage itemImage;
@@ -112,9 +107,9 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
 
         public void bind(final DocumentSnapshot snapshot, final OnFirestoreItemSelected
                 onFirestoreItemSelected) {
-
             final FirestoreItem firestoreItem = snapshot.toObject(FirestoreItem.class);
             Resources resources = itemView.getResources();
+
             // Load image
             String uuid = firestoreItem.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
@@ -142,7 +137,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                 }
             }
             userName.setText(firestoreItem.getName());
-            feedText.getItemTextView().setText(firestoreItem.getFeedText());
+            itemText.getItemTextView().setText(firestoreItem.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

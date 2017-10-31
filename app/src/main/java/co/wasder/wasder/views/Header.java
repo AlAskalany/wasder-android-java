@@ -14,8 +14,14 @@ import co.wasder.wasder.R;
 
 public class Header extends FrameLayout {
 
+    private UserName userName;
     public Header(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_header, this, true);
+        userName = findViewById(R.id.userName);
+    }
+
+    public UserName getUserName() {
+        return userName;
     }
 }
