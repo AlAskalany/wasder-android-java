@@ -2,8 +2,6 @@ package co.wasder.wasder.adapter;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +18,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -117,8 +113,6 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
         public void bind(final DocumentSnapshot snapshot, final OnFirestoreItemSelected
                 onFirestoreItemSelected) {
             final FirestoreItem firestoreItem = snapshot.toObject(FirestoreItem.class);
-            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-            Resources resources = itemView.getResources();
 
             // Load image
             String uuid = firestoreItem.getPhoto();
@@ -130,20 +124,14 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                         .into(feedView.getItemImage().getItemImageView());
                 feedView.getItemImage().makeVisible();
             }
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            FirebaseUser user = auth.getCurrentUser();
-            Uri photoUri = null;
-            if (user != null) {
-                photoUri = user.getPhotoUrl();
-                String photoUrl = null;
-                if (photoUri != null) {
-                    photoUrl = photoUri.toString();
-                    if (!TextUtils.isEmpty(photoUrl)) {
-                        Glide.with(itemView.getContext())
-                                .load(photoUri)
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .into(feedView.getProfilePhoto().getProfileImageView());
-                    }
+            String profilePhotoUrl = firestoreItem.getProfilePhoto();
+            if (profilePhotoUrl != null) {
+                if (!TextUtils.isEmpty(profilePhotoUrl)) {
+                    Glide.with(itemView.getContext())
+                            .load(profilePhotoUrl)
+                            .transition(DrawableTransitionOptions.withCrossFade())
+                            .into(feedView.getProfilePhoto().getProfileImageView());
+
                 }
             }
             feedView.getProfilePhoto()

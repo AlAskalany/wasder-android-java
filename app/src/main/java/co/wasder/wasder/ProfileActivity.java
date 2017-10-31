@@ -58,8 +58,19 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        mQuery = FirebaseFirestore.getInstance().collection(FirestoreCollections.POSTS);
-        mQuery.orderBy("timestamp").limit(50);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            mUserReference = extras.getString(ARG_USER_REFERENCE);
+        }
+        if (mUserReference == null) {
+            throw new IllegalArgumentException("Must pass extra " + ARG_USER_REFERENCE);
+        }
+
+        mQuery = FirebaseFirestore.getInstance()
+                .collection(FirestoreCollections.POSTS)
+                .whereEqualTo("uid", mUserReference)
+                .orderBy("timestamp")
+                .limit(50);
         FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
                 .setLifecycleOwner(this)
                 .setQuery(mQuery, FirestoreItem.class)
@@ -70,14 +81,6 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         mRecyclerView.setAdapter((RecyclerView.Adapter<? extends RecyclerView.ViewHolder>) adapter);
 
         viewModel = ViewModelProviders.of(this).get(ProfileActivityViewModel.class);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            mUserReference = extras.getString(ARG_USER_REFERENCE);
-        }
-        if (mUserReference == null) {
-            throw new IllegalArgumentException("Must pass extra " + ARG_USER_REFERENCE);
-        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
