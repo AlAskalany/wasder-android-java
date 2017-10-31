@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,6 +38,7 @@ import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.ProfileActivity;
 import co.wasder.wasder.R;
 import co.wasder.wasder.views.FeedView;
+import co.wasder.wasder.views.FirestoreCollections;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
@@ -192,6 +196,21 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                                 case R.id.edit:
                                     break;
                                 case R.id.delete:
+                                    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                                    Task<Void> reference = firestore.collection
+                                            (FirestoreCollections.POSTS)
+                                            .document(snapshot.getId())
+                                            .delete()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Log.d(TAG, "onComplete: ");
+                                                    }
+                                                }
+                                            });
                                     break;
                             }
                             return false;
