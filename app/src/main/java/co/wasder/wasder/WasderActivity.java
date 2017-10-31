@@ -232,6 +232,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         if (id == R.id.nav_profile) {
             Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("user-reference", FirebaseAuth.getInstance().getCurrentUser().getUid());
             startActivity(intent);
         } else if (id == R.id.nav_friends) {
 
