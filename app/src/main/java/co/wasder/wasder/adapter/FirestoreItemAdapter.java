@@ -25,10 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.R;
-import co.wasder.wasder.views.ItemImage;
-import co.wasder.wasder.views.ItemText;
-import co.wasder.wasder.views.ProfilePhoto;
-import co.wasder.wasder.views.UserName;
+import co.wasder.wasder.views.FeedView;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
@@ -88,17 +85,8 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      */
     public static class FirestoreItemHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.profilePhoto)
-        ProfilePhoto itemProfilePhoto;
-
-        @BindView(R.id.userName)
-        UserName userName;
-
-        @BindView(R.id.itemText)
-        ItemText itemText;
-
-        @BindView(R.id.itemImage)
-        ItemImage itemImage;
+        @BindView(R.id.feedView)
+        FeedView feedView;
 
         FirestoreItemHolder(View itemView) {
             super(itemView);
@@ -117,8 +105,8 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                 Glide.with(itemView.getContext())
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(itemImage.getItemImageView());
-                itemImage.makeVisible();
+                        .into(feedView.getItemImage().getItemImageView());
+                feedView.getItemImage().makeVisible();
             }
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
@@ -132,12 +120,12 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                         Glide.with(itemView.getContext())
                                 .load(photoUri)
                                 .transition(DrawableTransitionOptions.withCrossFade())
-                                .into(itemProfilePhoto.getProfileImageView());
+                                .into(feedView.getProfilePhoto().getProfileImageView());
                     }
                 }
             }
-            userName.setText(firestoreItem.getName());
-            itemText.getItemTextView().setText(firestoreItem.getFeedText());
+            feedView.getHeader().getUserName().setText(firestoreItem.getName());
+            feedView.getItemText().getItemTextView().setText(firestoreItem.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

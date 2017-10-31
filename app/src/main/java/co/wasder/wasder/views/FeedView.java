@@ -1,7 +1,9 @@
 package co.wasder.wasder.views;
 
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.widget.FrameLayout;
 
 import co.wasder.wasder.R;
 
@@ -10,7 +12,7 @@ import co.wasder.wasder.R;
  * Navigator
  */
 
-public class FeedView extends View {
+public class FeedView extends FrameLayout {
 
     private ProfilePhoto profilePhoto;
     private Header header;
@@ -18,9 +20,9 @@ public class FeedView extends View {
     private ItemImage itemImage;
     private Actions actions;
 
-    public FeedView(ViewGroup group) {
-        super(group.getContext());
-        inflate(group.getContext(), R.layout.item_firestore_item, group);
+    public FeedView(Context context, AttributeSet attributeSet) {
+        super(context, attributeSet);
+        LayoutInflater.from(context).inflate(R.layout.feed, this, true);
         profilePhoto = findViewById(R.id.profilePhoto);
         header = findViewById(R.id.header);
         itemText = findViewById(R.id.itemText);
