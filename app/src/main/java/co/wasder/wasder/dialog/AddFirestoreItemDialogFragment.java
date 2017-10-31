@@ -133,8 +133,13 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
 
     @NonNull
     private FirestoreItem createPostFromFields() {
-
-        return Model.FirestoreItem(getPostName(), getPostCity(), getPostCategory(),
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String uId = null;
+        if (user != null) {
+            uId = user.getUid();
+        }
+        return Model.FirestoreItem(uId, getPostName(), getPostCity(), getPostCategory(),
                 getPostProfilePhotoUrl(), uuid, getPostPrice(), INITIAL_AVG_RATING,
                 INITIAL_NUM_RATINGS, getFeedText());
     }

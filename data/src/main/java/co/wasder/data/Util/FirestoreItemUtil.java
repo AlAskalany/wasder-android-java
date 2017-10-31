@@ -64,7 +64,9 @@ public class FirestoreItemUtil {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            String uId = user.getUid();
             String name = user.getDisplayName();
+            firestoreItem.setUId(uId);
             firestoreItem.setName(name);
             Uri profilePhotoUri = user.getPhotoUrl();
             String profilePhotoUrl = null;

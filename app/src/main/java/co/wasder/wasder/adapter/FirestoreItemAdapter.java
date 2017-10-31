@@ -1,6 +1,7 @@
 package co.wasder.wasder.adapter;
 
 import android.arch.lifecycle.LifecycleOwner;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -24,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.data.model.FirestoreItem;
+import co.wasder.wasder.ProfileActivity;
 import co.wasder.wasder.R;
 import co.wasder.wasder.views.FeedView;
 
@@ -96,6 +99,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
         public void bind(final DocumentSnapshot snapshot, final OnFirestoreItemSelected
                 onFirestoreItemSelected) {
             final FirestoreItem firestoreItem = snapshot.toObject(FirestoreItem.class);
+            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
             Resources resources = itemView.getResources();
 
             // Load image
@@ -124,6 +128,21 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                     }
                 }
             }
+            feedView.getProfilePhoto()
+                    .getProfileImageView()
+                    .setOnClickListener(new View.OnClickListener() {
+
+
+                        @Override
+                        public void onClick(View v) {
+                            if (firestoreItem.getUId() != null) {
+                                Intent intent = new Intent(itemView.getContext(), ProfileActivity
+                                        .class);
+                                intent.putExtra("user-reference", firestoreItem.getUId());
+                                itemView.getContext().startActivity(intent);
+                            }
+                        }
+                    });
             feedView.getHeader().getUserName().setText(firestoreItem.getName());
             feedView.getItemText().getItemTextView().setText(firestoreItem.getFeedText());
             // Click listener

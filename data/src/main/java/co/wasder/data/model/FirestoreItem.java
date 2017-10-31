@@ -11,6 +11,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 public class FirestoreItem {
 
     @SuppressWarnings("unused")
+    public static final String FIELD_UID = "uId";
     public static final String FIELD_CITY = "city";
     @SuppressWarnings("unused")
     public static final String FIELD_CATEGORY = "category";
@@ -18,6 +19,7 @@ public class FirestoreItem {
     public static final String FIELD_POPULARITY = "numRatings";
     public static final String FIELD_AVG_RATING = "avgRating";
 
+    private String uId;
     private String name;
     private String city;
     private String category;
@@ -31,9 +33,10 @@ public class FirestoreItem {
     public FirestoreItem() {
     }
 
-    public FirestoreItem(String name, String city, String category, String profilePhoto, String
-            photo, int price, int
-            numRatings, double avgRating, String feedText) {
+    public FirestoreItem(String uId, String name, String city, String category, String
+            profilePhoto, String photo, int price, int numRatings, double avgRating, String
+            feedText) {
+        this.uId = uId;
         this.name = name;
         this.city = city;
         this.category = category;
@@ -43,6 +46,14 @@ public class FirestoreItem {
         this.numRatings = numRatings;
         this.avgRating = avgRating;
         this.feedText = feedText;
+    }
+
+    public String getUId() {
+        return uId;
+    }
+
+    public void setUId(String uId) {
+        this.uId = uId;
     }
 
     public String getName() {
