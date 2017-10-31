@@ -57,7 +57,8 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      *
      * @param options FirestoreRecyclerOptions
      */
-    FirestoreItemAdapter(FirestoreRecyclerOptions options, OnFirestoreItemSelected listener) {
+    public FirestoreItemAdapter(FirestoreRecyclerOptions options, OnFirestoreItemSelected
+            listener) {
         //noinspection unchecked
         super(options);
         mListener = listener;
