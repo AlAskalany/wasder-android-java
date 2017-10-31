@@ -1,6 +1,9 @@
 package co.wasder.data.model;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
@@ -20,6 +23,8 @@ public class FirestoreItem {
     public static final String FIELD_AVG_RATING = "avgRating";
 
     private String uId;
+    private @ServerTimestamp
+    Date timestamp;
     private String name;
     private String city;
     private String category;
@@ -126,5 +131,13 @@ public class FirestoreItem {
 
     public void setProfilePhoto(String profilePhoto) {
         this.profilePhoto = profilePhoto;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 }

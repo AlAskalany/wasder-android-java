@@ -28,6 +28,7 @@ import co.wasder.wasder.ui.FirebaseUtil;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.TabFragmentViewModel;
+import co.wasder.wasder.views.FirestoreCollections;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.
@@ -82,7 +83,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         if (getArguments() != null) {
             int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-        mCollectionReferenceString = "restaurants";
+        mCollectionReferenceString = FirestoreCollections.POSTS;
         super.onCreate(savedInstanceState);
     }
 

@@ -15,13 +15,19 @@ import co.wasder.wasder.R;
 public class Header extends FrameLayout {
 
     private UserName userName;
+    private TimeStamp timeStamp;
     public Header(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_header, this, true);
         userName = findViewById(R.id.userName);
+        timeStamp = findViewById(R.id.timeStamp);
     }
 
     public UserName getUserName() {
         return userName;
+    }
+
+    public TimeStamp getTimeStamp() {
+        return timeStamp;
     }
 }

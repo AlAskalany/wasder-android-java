@@ -89,7 +89,7 @@ public class FirebaseUtil {
         // Get the 50 highest rated posts
         tabFragment.setQuery(tabFragment.getFirestore()
                 .collection(mCollectionReferenceString)
-                .orderBy("avgRating", Query.Direction.DESCENDING)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .limit(limit));
     }
 }

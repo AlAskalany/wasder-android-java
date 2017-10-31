@@ -28,6 +28,7 @@ import co.wasder.wasder.ui.FirebaseUtil;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.TabFragmentViewModel;
+import co.wasder.wasder.views.FirestoreCollections;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.
@@ -82,7 +83,7 @@ public class OwnedTabFragment extends Fragment implements TabFragment, Lifecycle
         if (getArguments() != null) {
             int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-        mCollectionReferenceString = "restaurants";
+        mCollectionReferenceString = FirestoreCollections.GROUPS;
         super.onCreate(savedInstanceState);
     }
 
@@ -94,7 +95,7 @@ public class OwnedTabFragment extends Fragment implements TabFragment, Lifecycle
 
         mViewModel = ViewModelProviders.of(this).get(TabFragmentViewModel.class);
 
-        FirebaseUtil.initFirestore(this, "restaurants", LIMIT);
+        FirebaseUtil.initFirestore(this, mCollectionReferenceString, LIMIT);
         initRecyclerView();
         // Filter Dialog
         mFilterDialog = Dialogs.PostsFilterDialogFragment();

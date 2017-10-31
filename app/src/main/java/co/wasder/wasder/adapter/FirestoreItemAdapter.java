@@ -23,6 +23,10 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.data.model.FirestoreItem;
@@ -88,6 +92,9 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      */
     public static class FirestoreItemHolder extends RecyclerView.ViewHolder {
 
+        private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale
+                .US);
+
         @BindView(R.id.feedView)
         FeedView feedView;
 
@@ -144,6 +151,9 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                         }
                     });
             feedView.getHeader().getUserName().setText(firestoreItem.getName());
+            Date date = firestoreItem.getTimestamp();
+            String dateString = new SimpleDateFormat().format(date);
+            feedView.getHeader().getTimeStamp().setText(dateString);
             feedView.getItemText().getItemTextView().setText(firestoreItem.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -33,11 +33,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
@@ -54,6 +57,7 @@ import co.wasder.data.model.FirestoreItem;
 import co.wasder.data.model.Model;
 import co.wasder.wasder.R;
 import co.wasder.wasder.filter.FirestoreItemFilters;
+import co.wasder.wasder.views.FirestoreCollections;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -144,9 +148,17 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
                 INITIAL_NUM_RATINGS, getFeedText());
     }
 
-    private void addPostToDatabase(@NonNull FirestoreItem firestoreItem) {
-        CollectionReference posts = FirebaseFirestore.getInstance().collection("restaurants");
-        posts.add(firestoreItem);
+    private void addPostToDatabase(@NonNull final FirestoreItem firestoreItem) {
+        CollectionReference posts = FirebaseFirestore.getInstance()
+                .collection(FirestoreCollections.POSTS);
+        posts.add(firestoreItem).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if (task.isSuccessful()) {
+
+                }
+            }
+        });
     }
 
     @OnClick(R.id.button_cancel)
