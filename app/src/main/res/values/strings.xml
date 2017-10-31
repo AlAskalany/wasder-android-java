@@ -87,4 +87,6 @@
     <string name="item_image">Image</string>
     <string name="profile_image">Profile Image</string>
     <string name="profile_photo">Profile Photo</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -42,6 +44,7 @@ import co.wasder.wasder.views.FeedView;
 public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem,
         FirestoreItemAdapter.FirestoreItemHolder> implements FirestoreItemsAdapter {
 
+    private static final String TAG = "FirestoreItemAdapter";
     private OnFirestoreItemSelected mListener;
 
     /**
@@ -75,7 +78,8 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
     }
 
     @Override
-    protected void onBindViewHolder(FirestoreItemHolder holder, int position, FirestoreItem model) {
+    protected void onBindViewHolder(final FirestoreItemHolder holder, int position, FirestoreItem
+            model) {
         holder.bind(getSnapshots().getSnapshot(position), mListener);
     }
 
@@ -92,11 +96,13 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      */
     public static class FirestoreItemHolder extends RecyclerView.ViewHolder {
 
+        private static final String TAG = "FirestoreItemHolder";
         private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale
                 .US);
 
         @BindView(R.id.feedView)
         FeedView feedView;
+        private String tag;
 
         FirestoreItemHolder(View itemView) {
             super(itemView);
@@ -167,6 +173,32 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                     //view.getContext().startActivity(intent);
                     //postItemCardView.setBackgroundColor(Color.GREEN);
                     onFirestoreItemSelected.onFirestoreItemSelected(snapshot, itemView);
+                }
+            });
+
+            feedView.getHeader().getExpandButton().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //creating a popup menu
+                    PopupMenu popup = new PopupMenu(v.getContext(), feedView.getHeader()
+                            .getExpandButton());
+                    //inflating menu from xml resource
+                    popup.inflate(R.menu.menu_item);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.edit:
+                                    break;
+                                case R.id.delete:
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    //displaying the popup
+                    popup.show();
                 }
             });
         }

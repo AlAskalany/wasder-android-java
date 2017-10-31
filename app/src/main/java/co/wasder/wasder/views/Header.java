@@ -16,11 +16,13 @@ public class Header extends FrameLayout {
 
     private UserName userName;
     private TimeStamp timeStamp;
+    private ExpandButton expandButton;
     public Header(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_header, this, true);
         userName = findViewById(R.id.userName);
         timeStamp = findViewById(R.id.timeStamp);
+        expandButton = findViewById(R.id.expandButton);
     }
 
     public UserName getUserName() {
@@ -29,5 +31,9 @@ public class Header extends FrameLayout {
 
     public TimeStamp getTimeStamp() {
         return timeStamp;
+    }
+
+    public ExpandButton getExpandButton() {
+        return expandButton;
     }
 }
