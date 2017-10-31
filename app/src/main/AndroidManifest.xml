@@ -38,6 +38,7 @@
         </activity>
         <activity
             android:name=".WasderActivity"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,7 +82,10 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ProfileActivity"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:parentActivityName=".WasderActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

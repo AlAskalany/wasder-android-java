@@ -41,7 +41,9 @@ import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.WasderActivityViewModel;
 
 
-public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView.OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, FIrestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
+public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
+        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener,
+        FIrestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
 
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -222,7 +224,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_friends) {
 
         } else if (id == R.id.nav_followers) {

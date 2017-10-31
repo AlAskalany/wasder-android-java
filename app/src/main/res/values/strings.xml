@@ -85,4 +85,6 @@
     <string name="item_send_button">Send Button</string>
     <string name="item_comment_button">Comment Button</string>
     <string name="item_image">Image</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="profile_photo">Profile Photo</string>
 </resources>
