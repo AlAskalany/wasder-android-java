@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import co.wasder.wasder.R;
 
@@ -16,8 +17,15 @@ import co.wasder.wasder.R;
 
 public class ItemText extends FrameLayout {
 
+    private TextView itemTextView;
+
     public ItemText(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_text, this, true);
+        itemTextView = findViewById(R.id.itemTextView);
+    }
+
+    public TextView getItemTextView() {
+        return itemTextView;
     }
 }

@@ -10,8 +10,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -28,7 +26,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.R;
+import co.wasder.wasder.views.ItemImage;
+import co.wasder.wasder.views.ItemText;
 import co.wasder.wasder.views.ProfilePhoto;
+import co.wasder.wasder.views.UserName;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
@@ -89,20 +90,20 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      */
     public static class FirestoreItemHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.itemProfilePhoto)
+        @BindView(R.id.profilePhoto)
         ProfilePhoto itemProfilePhoto;
 
-        @BindView(R.id.itemUserName)
-        TextView nameView;
+        @BindView(R.id.userName)
+        UserName userName;
 
         @BindView(R.id.postItemCardView)
         CardView postItemCardView;
 
         @BindView(R.id.itemText)
-        TextView feedText;
+        ItemText feedText;
 
-        @BindView(R.id.itemImageView)
-        ImageView imageView;
+        @BindView(R.id.itemImage)
+        ItemImage itemImage;
 
         FirestoreItemHolder(View itemView) {
             super(itemView);
@@ -118,11 +119,11 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
             String uuid = firestoreItem.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
                 StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-                Glide.with(imageView.getContext())
+                Glide.with(itemView.getContext())
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(imageView);
-                imageView.setVisibility(View.VISIBLE);
+                        .into(itemImage.getItemImageView());
+                itemImage.makeVisible();
             }
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
@@ -133,15 +134,15 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                 if (photoUri != null) {
                     photoUrl = photoUri.toString();
                     if (!TextUtils.isEmpty(photoUrl)) {
-                        Glide.with(imageView.getContext())
+                        Glide.with(itemView.getContext())
                                 .load(photoUri)
                                 .transition(DrawableTransitionOptions.withCrossFade())
                                 .into(itemProfilePhoto.getProfileImageView());
                     }
                 }
             }
-            nameView.setText(firestoreItem.getName());
-            feedText.setText(firestoreItem.getFeedText());
+            userName.setText(firestoreItem.getName());
+            feedText.getItemTextView().setText(firestoreItem.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
