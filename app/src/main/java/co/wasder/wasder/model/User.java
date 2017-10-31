@@ -1,8 +1,13 @@
 package co.wasder.wasder.model;
 
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
@@ -82,8 +87,15 @@ public class User {
 
     public void addToFirestore() {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        CollectionReference reference = firestore.collection("users");
-        DocumentReference documentReference = reference.document(uId);
-        documentReference.set(this);
+        final CollectionReference reference = firestore.collection("users");
+        final DocumentReference documentReference = reference.document(uId);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.getResult() == null) {
+                    documentReference.set(this);
+                }
+            }
+        });
     }
 }
