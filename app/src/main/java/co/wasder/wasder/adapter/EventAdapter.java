@@ -217,8 +217,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                                     break;
                                 case R.id.delete:
                                     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-                                    Task<Void> reference = firestore.collection
-                                            (FirestoreCollections.POSTS)
+                                    Task<Void> reference = firestore.collection(FirestoreCollections.EVENTS)
                                             .document(snapshot.getId())
                                             .delete()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
