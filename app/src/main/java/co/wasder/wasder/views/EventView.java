@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import co.wasder.wasder.R;
 
@@ -15,6 +16,7 @@ import co.wasder.wasder.R;
 public class EventView extends FrameLayout {
 
     private ProfilePhoto profilePhoto;
+    private TextView eventTitle;
     private Header header;
     private ItemText itemText;
     private ItemImage itemImage;
@@ -24,6 +26,7 @@ public class EventView extends FrameLayout {
         super(context, attributeSet);
         LayoutInflater.from(context).inflate(R.layout.event, this, true);
         profilePhoto = findViewById(R.id.profilePhoto);
+        eventTitle = findViewById(R.id.eventTitle);
         header = findViewById(R.id.header);
         itemText = findViewById(R.id.itemText);
         itemImage = findViewById(R.id.itemImage);
@@ -32,6 +35,10 @@ public class EventView extends FrameLayout {
 
     public ProfilePhoto getProfilePhoto() {
         return profilePhoto;
+    }
+
+    public TextView getEventTitle() {
+        return eventTitle;
     }
 
     public Header getHeader() {

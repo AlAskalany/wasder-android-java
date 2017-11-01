@@ -23,6 +23,7 @@ public class Event {
     public static final String FIELD_AVG_RATING = "avgRating";
 
     private String uId;
+    private String title;
     private @ServerTimestamp
     Date timestamp;
     private String name;
@@ -35,9 +36,10 @@ public class Event {
     public Event() {
     }
 
-    public Event(String uId, String profilePhoto, String photo, int numRatings, double avgRating,
-                 String feedText) {
+    public Event(String uId, String title, String profilePhoto, String photo, int numRatings,
+                 double avgRating, String feedText) {
         this.uId = uId;
+        this.title = title;
         this.name = name;
         this.profilePhoto = profilePhoto;
         this.photo = photo;
@@ -52,6 +54,14 @@ public class Event {
 
     public void setUId(String uId) {
         this.uId = uId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getName() {

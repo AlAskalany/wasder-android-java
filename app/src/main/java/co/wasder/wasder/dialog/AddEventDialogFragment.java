@@ -71,18 +71,23 @@ public class AddEventDialogFragment extends DialogFragment {
     private static final int RC_CHOOSE_PHOTO = 101;
     @SuppressWarnings("unused")
     private static final int RC_IMAGE_PERMS = 102;
+
+    @BindView(R.id.eventTitle)
+    EditText eventTitleEditText;
+
     @BindView(R.id.itemEditText)
     EditText mFeedEditText;
 
     private String uuid;
     private String feedText;
     private String postProfilePhotoUrl;
+    private String title;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(R.layout.dialog_add_item, container, false);
+        View mRootView = inflater.inflate(R.layout.dialog_add_event, container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
     }
@@ -119,8 +124,8 @@ public class AddEventDialogFragment extends DialogFragment {
         if (user != null) {
             uId = user.getUid();
         }
-        return Model.Event(uId, getPostProfilePhotoUrl(), getUuid(), INITIAL_AVG_RATING,
-                INITIAL_NUM_RATINGS, getFeedText());
+        return Model.Event(uId, getTitle(), getPostProfilePhotoUrl(), getUuid(),
+                INITIAL_AVG_RATING, INITIAL_NUM_RATINGS, getFeedText());
     }
 
     public String getUuid() {
@@ -135,6 +140,15 @@ public class AddEventDialogFragment extends DialogFragment {
         String feedText = mFeedEditText.getText().toString();
         if (!TextUtils.isEmpty(feedText)) {
             return feedText;
+        } else {
+            return null;
+        }
+    }
+
+    public String getTitle() {
+        String eventTitle = eventTitleEditText.getText().toString();
+        if (!TextUtils.isEmpty(eventTitle)) {
+            return eventTitle;
         } else {
             return null;
         }

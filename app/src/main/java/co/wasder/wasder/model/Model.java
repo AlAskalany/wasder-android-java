@@ -41,8 +41,9 @@ public class Model {
         return new Rating(user, rating, text);
     }
 
-    public static Event Event(String uId, String profilePhotoUrl, String photo, int numRatings,
+    public static Event Event(String uId, String title, String profilePhotoUrl, String photo, int
+            numRatings,
                               double avgRating, String feedText) {
-        return new Event(uId, profilePhotoUrl, photo, numRatings, avgRating, feedText);
+        return new Event(uId, title, profilePhotoUrl, photo, numRatings, avgRating, feedText);
     }
 }

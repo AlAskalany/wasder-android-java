@@ -129,7 +129,7 @@ public class FavoritesTabFragment extends Fragment implements TabFragment, Lifec
 
         // Get the 50 highest rated posts
         mQuery = mFirestore.collection(mCollectionReferenceString)
-                .orderBy("avgRating", Query.Direction.DESCENDING)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .limit(LIMIT);
     }
 

@@ -112,11 +112,15 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
         }
 
         public void bind(final DocumentSnapshot snapshot, final OnEventSelected onEventSelected) {
-            final FirestoreItem firestoreItem = snapshot.toObject(FirestoreItem.class);
+            final Event event = snapshot.toObject(Event.class);
 
+            String title = event.getTitle();
+            if (title != null) {
+                eventView.getEventTitle().setText(title);
+            }
             // Load image
             String uuid = null;
-            uuid = firestoreItem.getPhoto();
+            uuid = event.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
                 StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
                 Glide.with(itemView.getContext())
@@ -125,7 +129,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                         .into(eventView.getItemImage().getItemImageView());
                 eventView.getItemImage().makeVisible();
             }
-            String profilePhotoUrl = firestoreItem.getProfilePhoto();
+            String profilePhotoUrl = event.getProfilePhoto();
             if (profilePhotoUrl != null) {
                 if (!TextUtils.isEmpty(profilePhotoUrl)) {
                     Glide.with(itemView.getContext())
@@ -142,21 +146,21 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
 
                         @Override
                         public void onClick(View v) {
-                            if (firestoreItem.getUId() != null) {
+                            if (event.getUId() != null) {
                                 Intent intent = new Intent(itemView.getContext(), ProfileActivity
                                         .class);
-                                intent.putExtra("user-reference", firestoreItem.getUId());
+                                intent.putExtra("user-reference", event.getUId());
                                 itemView.getContext().startActivity(intent);
                             }
                         }
                     });
-            eventView.getHeader().getUserName().setText(firestoreItem.getName());
-            Date date = firestoreItem.getTimestamp();
+            eventView.getHeader().getUserName().setText(event.getName());
+            Date date = event.getTimestamp();
             if (date != null) {
                 String dateString = new SimpleDateFormat().format(date);
                 eventView.getHeader().getTimeStamp().setText(dateString);
             }
-            eventView.getItemText().getItemTextView().setText(firestoreItem.getFeedText());
+            eventView.getItemText().getItemTextView().setText(event.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -181,7 +185,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                     FirebaseAuth auth = FirebaseAuth.getInstance();
                     FirebaseUser user = auth.getCurrentUser();
                     String currentUserId = user.getUid();
-                    if (!TextUtils.equals(firestoreItem.getUId(), currentUserId)) {
+                    if (!TextUtils.equals(event.getUId(), currentUserId)) {
                         popup.getMenu().getItem(1).setVisible(false);
                     }
 
