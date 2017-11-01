@@ -1,4 +1,4 @@
-package co.wasder.data.model;
+package co.wasder.wasder.model;
 
 import android.text.TextUtils;
 

@@ -1,4 +1,4 @@
-package co.wasder.data.Util;
+package co.wasder.wasder.Util;
 
 import android.content.Context;
 import android.net.Uri;
@@ -15,8 +15,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import co.wasder.data.R;
-import co.wasder.data.model.FirestoreItem;
+import co.wasder.wasder.R;
+import co.wasder.wasder.model.FirestoreItem;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.

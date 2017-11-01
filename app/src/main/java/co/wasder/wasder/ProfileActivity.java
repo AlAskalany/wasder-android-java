@@ -25,9 +25,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
-import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.adapter.FirestoreItemAdapter;
 import co.wasder.wasder.adapter.FirestoreItemsAdapter;
+import co.wasder.wasder.model.FirestoreItem;
 import co.wasder.wasder.model.User;
 import co.wasder.wasder.viewmodel.ProfileActivityViewModel;
 import co.wasder.wasder.views.FirestoreCollections;

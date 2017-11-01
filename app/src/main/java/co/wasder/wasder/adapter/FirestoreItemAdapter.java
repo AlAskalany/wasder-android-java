@@ -32,9 +32,9 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.ProfileActivity;
 import co.wasder.wasder.R;
+import co.wasder.wasder.model.FirestoreItem;
 import co.wasder.wasder.views.FeedView;
 import co.wasder.wasder.views.FirestoreCollections;
 

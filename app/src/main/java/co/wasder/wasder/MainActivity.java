@@ -58,8 +58,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.data.Util.FirestoreItemUtil;
-import co.wasder.data.model.FirestoreItem;
+import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.adapter.Adapters;
 import co.wasder.wasder.adapter.FirestoreItemAdapter;
 import co.wasder.wasder.adapter.FirestoreItemsAdapter;
@@ -67,6 +66,7 @@ import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
 import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
 import co.wasder.wasder.filter.FirestoreItemFilters;
+import co.wasder.wasder.model.FirestoreItem;
 import co.wasder.wasder.viewmodel.MainActivityViewModel;
 import io.fabric.sdk.android.Fabric;
 

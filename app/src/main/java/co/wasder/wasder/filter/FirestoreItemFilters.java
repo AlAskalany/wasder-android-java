@@ -5,8 +5,8 @@ import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
 
-import co.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.R;
+import co.wasder.wasder.model.FirestoreItem;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.

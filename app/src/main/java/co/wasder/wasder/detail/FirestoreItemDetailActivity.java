@@ -44,11 +44,11 @@ import com.google.firebase.storage.StorageReference;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.data.model.FirestoreItem;
-import co.wasder.data.model.Rating;
 import co.wasder.wasder.R;
 import co.wasder.wasder.adapter.RatingAdapter;
 import co.wasder.wasder.dialog.AddRatingDialogFragment;
+import co.wasder.wasder.model.FirestoreItem;
+import co.wasder.wasder.model.Rating;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class FirestoreItemDetailActivity extends BaseDetailActivity {

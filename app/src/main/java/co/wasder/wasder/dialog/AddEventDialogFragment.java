@@ -47,6 +47,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -54,7 +55,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.filter.FirestoreItemFilters;
-import co.wasder.wasder.model.FirestoreItem;
+import co.wasder.wasder.model.Event;
 import co.wasder.wasder.model.Model;
 import co.wasder.wasder.views.FirestoreCollections;
 
@@ -63,7 +64,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Dialog Fragment containing filter form.
  */
-public class AddFirestoreItemDialogFragment extends DialogFragment {
+public class AddEventDialogFragment extends DialogFragment {
 
     public static final String TAG = "AddPostDialog";
     private static final int INITIAL_AVG_RATING = 0;
@@ -71,18 +72,26 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     private static final int RC_CHOOSE_PHOTO = 101;
     @SuppressWarnings("unused")
     private static final int RC_IMAGE_PERMS = 102;
-    @BindView(R.id.itemEditText)
-    EditText mFeedEditText;
+    @BindView(R.id.eventTitle)
+    EditText eventTitleEditText;
+
+    @BindView(R.id.eventDescription)
+    EditText eventDescriptionEditText;
+
+    @BindView(R.id.eventDate)
+    EditText eventDateEditText;
 
     private String uuid;
-    private String feedText;
-    private String postProfilePhotoUrl;
+    private String eventTitle;
+    private String eventDescription;
+    private Date eventDate;
+    private String uid;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(R.layout.dialog_add_item, container, false);
+        View mRootView = inflater.inflate(R.layout.dialog_add_event, container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
     }
@@ -106,21 +115,21 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     }
 
     @OnClick(R.id.button_add_item)
-    public void onAddPostClicked() {
-        addPostToDatabase(createPostFromFields());
+    public void onAddEventClicked() {
+        addEventToDatabase(createEventFromFields());
         dismiss();
     }
 
     @NonNull
-    private FirestoreItem createPostFromFields() {
+    private Event createEventFromFields() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         String uId = null;
         if (user != null) {
             uId = user.getUid();
         }
-        return Model.FirestoreItem(uId, getPostProfilePhotoUrl(), getUuid(), INITIAL_AVG_RATING,
-                INITIAL_NUM_RATINGS, getFeedText());
+        return Model.Event(getUid(), getEventTitle(), getEventDescription(), getUuid(),
+                getEventDate());
     }
 
     public String getUuid() {
@@ -131,19 +140,10 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         }
     }
 
-    public String getFeedText() {
-        String feedText = mFeedEditText.getText().toString();
-        if (!TextUtils.isEmpty(feedText)) {
-            return feedText;
-        } else {
-            return null;
-        }
-    }
-
-    private void addPostToDatabase(@NonNull final FirestoreItem firestoreItem) {
-        CollectionReference posts = FirebaseFirestore.getInstance()
-                .collection(FirestoreCollections.POSTS);
-        posts.add(firestoreItem).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+    private void addEventToDatabase(@NonNull final Event event) {
+        CollectionReference events = FirebaseFirestore.getInstance()
+                .collection(FirestoreCollections.EVENTS);
+        events.add(event).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
@@ -229,7 +229,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
                 });
     }
 
-    public String getPostProfilePhotoUrl() {
+    public String getEventProfilePhotoUrl() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         Uri profilePhotoUri = null;
@@ -243,6 +243,29 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
             }
         }
         return null;
+    }
+
+    public String getEventTitle() {
+        String s = eventTitleEditText.getText().toString();
+        return s;
+    }
+
+    public String getEventDescription() {
+        String s = eventDescriptionEditText.getText().toString();
+        return s;
+    }
+
+    public Date getEventDate() {
+        String s = eventDateEditText.getText().toString();
+        Date date = new Date();
+        return date;
+    }
+
+    public String getUid() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String uId = user.getUid();
+        return uId;
     }
 
     @SuppressWarnings("WeakerAccess")

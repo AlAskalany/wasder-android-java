@@ -30,7 +30,8 @@ import com.google.firebase.auth.FirebaseUser;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.data.Util.FirestoreItemUtil;
+import co.wasder.wasder.Util.FirestoreItemUtil;
+import co.wasder.wasder.dialog.AddEventDialogFragment;
 import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
 import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
@@ -163,7 +164,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @OnClick(R.id.fab)
     public void submit(@SuppressWarnings("unused") View view) {
-        new AddFirestoreItemDialogFragment().show(getSupportFragmentManager(),
+        /*new AddFirestoreItemDialogFragment().show(getSupportFragmentManager(),
+                AddFirestoreItemDialogFragment.TAG);*/
+        new AddEventDialogFragment().show(getSupportFragmentManager(),
                 AddFirestoreItemDialogFragment.TAG);
     }
 
