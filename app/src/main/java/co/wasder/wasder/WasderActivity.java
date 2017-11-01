@@ -157,9 +157,13 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         });
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        User newUser = new User(user, "Ahmed", "AlAskalany");
-        newUser.addToFirestore();
+        if (auth != null) {
+            FirebaseUser user = auth.getCurrentUser();
+            if (user != null) {
+                User newUser = new User(user, "Ahmed", "AlAskalany");
+                newUser.addToFirestore();
+            }
+        }
     }
 
     @OnClick(R.id.fab)
