@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -35,6 +37,7 @@ import butterknife.ButterKnife;
 import co.wasder.wasder.ProfileActivity;
 import co.wasder.wasder.R;
 import co.wasder.wasder.model.FirestoreItem;
+import co.wasder.wasder.model.User;
 import co.wasder.wasder.views.FeedView;
 import co.wasder.wasder.views.FirestoreCollections;
 
@@ -115,6 +118,21 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
         public void bind(final DocumentSnapshot snapshot, final OnFirestoreItemSelected
                 onFirestoreItemSelected) {
             final FirestoreItem firestoreItem = snapshot.toObject(FirestoreItem.class);
+            String userId = firestoreItem.getUId();
+            CollectionReference users = FirebaseFirestore.getInstance()
+                    .collection(FirestoreCollections.USERS);
+            DocumentReference userReference = users.document(userId);
+            Task<DocumentSnapshot> getUserTask = userReference.get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            User user = task.getResult().toObject(User.class);
+                            String userName = user.getDisplayName();
+                            feedView.getHeader().getUserName().setText(userName);
+                        }
+                    });
 
             // Load image
             String uuid = null;
@@ -152,7 +170,6 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                             }
                         }
                     });
-            feedView.getHeader().getUserName().setText(firestoreItem.getName());
             Date date = firestoreItem.getTimestamp();
             if (date != null) {
                 String dateString = new SimpleDateFormat().format(date);
