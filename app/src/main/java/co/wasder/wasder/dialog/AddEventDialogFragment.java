@@ -47,7 +47,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.MessageFormat;
-import java.util.Date;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -72,26 +71,18 @@ public class AddEventDialogFragment extends DialogFragment {
     private static final int RC_CHOOSE_PHOTO = 101;
     @SuppressWarnings("unused")
     private static final int RC_IMAGE_PERMS = 102;
-    @BindView(R.id.eventTitle)
-    EditText eventTitleEditText;
-
-    @BindView(R.id.eventDescription)
-    EditText eventDescriptionEditText;
-
-    @BindView(R.id.eventDate)
-    EditText eventDateEditText;
+    @BindView(R.id.itemEditText)
+    EditText mFeedEditText;
 
     private String uuid;
-    private String eventTitle;
-    private String eventDescription;
-    private Date eventDate;
-    private String uid;
+    private String feedText;
+    private String postProfilePhotoUrl;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(R.layout.dialog_add_event, container, false);
+        View mRootView = inflater.inflate(R.layout.dialog_add_item, container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
     }
@@ -115,21 +106,21 @@ public class AddEventDialogFragment extends DialogFragment {
     }
 
     @OnClick(R.id.button_add_item)
-    public void onAddEventClicked() {
-        addEventToDatabase(createEventFromFields());
+    public void onAddPostClicked() {
+        addPostToDatabase(createPostFromFields());
         dismiss();
     }
 
     @NonNull
-    private Event createEventFromFields() {
+    private Event createPostFromFields() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         String uId = null;
         if (user != null) {
             uId = user.getUid();
         }
-        return Model.Event(getUid(), getEventTitle(), getEventDescription(), getUuid(),
-                getEventDate());
+        return Model.Event(uId, getPostProfilePhotoUrl(), getUuid(), INITIAL_AVG_RATING,
+                INITIAL_NUM_RATINGS, getFeedText());
     }
 
     public String getUuid() {
@@ -140,10 +131,19 @@ public class AddEventDialogFragment extends DialogFragment {
         }
     }
 
-    private void addEventToDatabase(@NonNull final Event event) {
-        CollectionReference events = FirebaseFirestore.getInstance()
+    public String getFeedText() {
+        String feedText = mFeedEditText.getText().toString();
+        if (!TextUtils.isEmpty(feedText)) {
+            return feedText;
+        } else {
+            return null;
+        }
+    }
+
+    private void addPostToDatabase(@NonNull final Event event) {
+        CollectionReference posts = FirebaseFirestore.getInstance()
                 .collection(FirestoreCollections.EVENTS);
-        events.add(event).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        posts.add(event).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
@@ -229,7 +229,7 @@ public class AddEventDialogFragment extends DialogFragment {
                 });
     }
 
-    public String getEventProfilePhotoUrl() {
+    public String getPostProfilePhotoUrl() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         Uri profilePhotoUri = null;
@@ -243,29 +243,6 @@ public class AddEventDialogFragment extends DialogFragment {
             }
         }
         return null;
-    }
-
-    public String getEventTitle() {
-        String s = eventTitleEditText.getText().toString();
-        return s;
-    }
-
-    public String getEventDescription() {
-        String s = eventDescriptionEditText.getText().toString();
-        return s;
-    }
-
-    public Date getEventDate() {
-        String s = eventDateEditText.getText().toString();
-        Date date = new Date();
-        return date;
-    }
-
-    public String getUid() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        String uId = user.getUid();
-        return uId;
     }
 
     @SuppressWarnings("WeakerAccess")

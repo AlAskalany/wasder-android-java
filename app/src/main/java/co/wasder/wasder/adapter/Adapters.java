@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 
+import co.wasder.wasder.model.Event;
 import co.wasder.wasder.model.FirestoreItem;
 
 /**
@@ -17,9 +18,18 @@ public class Adapters {
 
     public static FirestoreItemAdapter PostAdapter(@NonNull LifecycleOwner lifecycleOwner, Query
             query, FirestoreItemsAdapter.OnFirestoreItemSelected listener) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
-                .setLifecycleOwner(lifecycleOwner).setQuery(query, FirestoreItem.class)
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>().setLifecycleOwner(lifecycleOwner)
+                .setQuery(query, FirestoreItem.class)
                 .build();
         return new FirestoreItemAdapter(options, listener);
+    }
+
+    public static EventAdapter eventAdapter(@NonNull LifecycleOwner lifecycleOwner, Query query,
+                                            EventsAdapter.OnEventSelected listener) {
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Event>()
+                .setLifecycleOwner(lifecycleOwner)
+                .setQuery(query, Event.class)
+                .build();
+        return new EventAdapter(options, listener);
     }
 }

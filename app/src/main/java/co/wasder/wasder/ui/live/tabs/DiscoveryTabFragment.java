@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.adapter.Adapters;
-import co.wasder.wasder.adapter.FirestoreItemsAdapter;
+import co.wasder.wasder.adapter.EventsAdapter;
 import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
 import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
@@ -50,11 +50,11 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
     // TODO: Rename and change types of parameters
     private String mCollectionReferenceString;
     private OnFragmentInteractionListener mListener;
-    private FirestoreItemsAdapter.OnFirestoreItemSelected mPostSelectedListener = new
-            FirestoreItemsAdapter.OnFirestoreItemSelected() {
+    private EventsAdapter.OnEventSelected mPostSelectedListener = new EventsAdapter
+            .OnEventSelected() {
 
         @Override
-        public void onFirestoreItemSelected(DocumentSnapshot event, View itemView) {
+        public void onEventSelected(DocumentSnapshot event, View itemView) {
             Log.d(TAG, "onFirestoreItemSelected: " + itemView);
         }
     };
@@ -137,7 +137,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        FirestoreItemsAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
+        EventsAdapter adapter = Adapters.eventAdapter(this, mQuery, mPostSelectedListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter((RecyclerView.Adapter) adapter);
     }

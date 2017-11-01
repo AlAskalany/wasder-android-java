@@ -3,8 +3,6 @@ package co.wasder.wasder.model;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Date;
-
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
  * Wasder AB
@@ -20,7 +18,9 @@ public class Model {
     @SuppressWarnings("unused")
     public static FirestoreItem FirestoreItem() {
         return FirestoreItem("ASD", FirebaseAuth.getInstance()
-                .getCurrentUser().getPhotoUrl().toString(), "AD", 2, 2, "Feed text");
+                .getCurrentUser()
+                .getPhotoUrl()
+                .toString(), "AD", 2, 2, "Feed text");
     }
 
     public static FirestoreItem FirestoreItem(String uId, String profilePhotoUrl, String photo,
@@ -41,8 +41,8 @@ public class Model {
         return new Rating(user, rating, text);
     }
 
-    public static Event Event(String uId, String title, String description, String eventImageUrl,
-                              Date eventDate) {
-        return new Event(uId, title, description, eventImageUrl, eventDate);
+    public static Event Event(String uId, String profilePhotoUrl, String photo, int numRatings,
+                              double avgRating, String feedText) {
+        return new Event(uId, profilePhotoUrl, photo, numRatings, avgRating, feedText);
     }
 }

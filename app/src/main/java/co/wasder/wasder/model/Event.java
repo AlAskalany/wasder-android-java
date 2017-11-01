@@ -6,69 +6,108 @@ import com.google.firebase.firestore.ServerTimestamp;
 import java.util.Date;
 
 /**
- * Created by Ahmed AlAskalany on 11/1/2017.
- * Navigator
+ * Created by Ahmed AlAskalany on 10/11/2017.
+ * Wasder AB
  */
+
 @IgnoreExtraProperties
 public class Event {
 
+    @SuppressWarnings("unused")
+    public static final String FIELD_UID = "uId";
+    public static final String FIELD_CITY = "city";
+    @SuppressWarnings("unused")
+    public static final String FIELD_CATEGORY = "category";
+    public static final String FIELD_PRICE = "price";
+    public static final String FIELD_POPULARITY = "numRatings";
+    public static final String FIELD_AVG_RATING = "avgRating";
+
     private String uId;
-    private String title;
-    private String description;
-    private String eventImageUrl;
-    private Date eventDate;
     private @ServerTimestamp
-    Date creationDate;
+    Date timestamp;
+    private String name;
+    private String profilePhoto;
+    private String photo;
+    private int numRatings;
+    private double avgRating;
+    private String feedText;
 
     public Event() {
     }
 
-    public Event(String uId, String title, String description, String eventImageUrl, Date
-            eventDate) {
+    public Event(String uId, String profilePhoto, String photo, int numRatings, double avgRating,
+                 String feedText) {
         this.uId = uId;
-        this.title = title;
-        this.description = description;
-        this.eventImageUrl = eventImageUrl;
-        this.eventDate = eventDate;
+        this.name = name;
+        this.profilePhoto = profilePhoto;
+        this.photo = photo;
+        this.numRatings = numRatings;
+        this.avgRating = avgRating;
+        this.feedText = feedText;
     }
 
-    public String getuId() {
+    public String getUId() {
         return uId;
     }
 
-    public void setuId(String uId) {
+    public void setUId(String uId) {
         this.uId = uId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    public Date getEventDate() {
-        return eventDate;
+    public int getNumRatings() {
+        return numRatings;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public void setNumRatings(int numRatings) {
+        this.numRatings = numRatings;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public double getAvgRating() {
+        return avgRating;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setAvgRating(double avgRating) {
+        this.avgRating = avgRating;
+    }
+
+    public String getFeedText() {
+        return feedText;
+    }
+
+    public void setFeedText(String feedText) {
+        this.feedText = feedText;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 }
