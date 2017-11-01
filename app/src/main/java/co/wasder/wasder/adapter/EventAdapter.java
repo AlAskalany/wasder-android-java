@@ -36,7 +36,7 @@ import co.wasder.wasder.ProfileActivity;
 import co.wasder.wasder.R;
 import co.wasder.wasder.model.Event;
 import co.wasder.wasder.model.FirestoreItem;
-import co.wasder.wasder.views.FeedView;
+import co.wasder.wasder.views.EventView;
 import co.wasder.wasder.views.FirestoreCollections;
 
 /**
@@ -88,7 +88,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     @Override
     public EventHolder onCreateViewHolder(ViewGroup group, int viewType) {
         View view = LayoutInflater.from(group.getContext())
-                .inflate(R.layout.item_firestore_item, group, false);
+                .inflate(R.layout.item_event, group, false);
         return new EventHolder(view);
     }
 
@@ -103,7 +103,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                 .US);
 
         @BindView(R.id.feedView)
-        FeedView feedView;
+        EventView eventView;
         private String tag;
 
         EventHolder(View itemView) {
@@ -122,8 +122,8 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                 Glide.with(itemView.getContext())
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(feedView.getItemImage().getItemImageView());
-                feedView.getItemImage().makeVisible();
+                        .into(eventView.getItemImage().getItemImageView());
+                eventView.getItemImage().makeVisible();
             }
             String profilePhotoUrl = firestoreItem.getProfilePhoto();
             if (profilePhotoUrl != null) {
@@ -131,11 +131,11 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                     Glide.with(itemView.getContext())
                             .load(profilePhotoUrl)
                             .transition(DrawableTransitionOptions.withCrossFade())
-                            .into(feedView.getProfilePhoto().getProfileImageView());
+                            .into(eventView.getProfilePhoto().getProfileImageView());
 
                 }
             }
-            feedView.getProfilePhoto()
+            eventView.getProfilePhoto()
                     .getProfileImageView()
                     .setOnClickListener(new View.OnClickListener() {
 
@@ -150,13 +150,13 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                             }
                         }
                     });
-            feedView.getHeader().getUserName().setText(firestoreItem.getName());
+            eventView.getHeader().getUserName().setText(firestoreItem.getName());
             Date date = firestoreItem.getTimestamp();
             if (date != null) {
                 String dateString = new SimpleDateFormat().format(date);
-                feedView.getHeader().getTimeStamp().setText(dateString);
+                eventView.getHeader().getTimeStamp().setText(dateString);
             }
-            feedView.getItemText().getItemTextView().setText(firestoreItem.getFeedText());
+            eventView.getItemText().getItemTextView().setText(firestoreItem.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -170,11 +170,11 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                 }
             });
 
-            feedView.getHeader().getExpandButton().setOnClickListener(new View.OnClickListener() {
+            eventView.getHeader().getExpandButton().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //creating a popup menu
-                    PopupMenu popup = new PopupMenu(v.getContext(), feedView.getHeader()
+                    PopupMenu popup = new PopupMenu(v.getContext(), eventView.getHeader()
                             .getExpandButton());
                     //inflating menu from xml resource
                     popup.inflate(R.menu.menu_item);
