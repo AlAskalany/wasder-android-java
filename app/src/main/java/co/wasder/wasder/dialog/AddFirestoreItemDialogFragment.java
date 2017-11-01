@@ -142,7 +142,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
 
     private void addPostToDatabase(@NonNull final FirestoreItem firestoreItem) {
         CollectionReference posts = FirebaseFirestore.getInstance()
-                .collection(FirestoreCollections.POSTS);
+                .collection(FirestoreCollections.EVENTS);
         posts.add(firestoreItem).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
