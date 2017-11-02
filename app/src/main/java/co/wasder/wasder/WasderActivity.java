@@ -186,7 +186,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         FeedbackManager.register(this);
 
-        if(enableCrashButton){
+        if (enableCrashButton) {
             Button crashButton = new Button(this);
             crashButton.setText("Crash!");
             crashButton.setOnClickListener(new View.OnClickListener() {
@@ -194,9 +194,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                     Crashlytics.getInstance().crash(); // Force a crash
                 }
             });
-            addContentView(crashButton,
-                    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT));
+            addContentView(crashButton, new ViewGroup.LayoutParams(ViewGroup.LayoutParams
+                    .MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
     }
 
@@ -329,7 +328,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         } else if (id == R.id.nav_achievements) {
 
         } else if (id == R.id.nav_settings_account) {
-
+            Intent intent = new Intent(WasderActivity.this, CreditCardActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_settings_notifications) {
 
         } else if (id == R.id.nav_drawer_feedback) {

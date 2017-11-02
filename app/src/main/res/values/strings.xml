@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Wasder</string>
+    <string name="com.stripe.publishable_key" translatable="false">pk_live_2VFlHLjP48vX5GhTe3LskPwH</string>
     <string name="fabric_api_key">8df3619c6e081ddf78247924077b51d93acca7fb</string>
     <string name="com_apsee_api_key">29e9a300c73d4dc1bf56f20335ea4479</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

@@ -86,9 +86,12 @@
             android:name=".ProfileActivity"
             android:parentActivityName=".WasderActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="a5afb5e5b8aa435a91624b6a55fbf716" />
+
+        <activity android:name=".CreditCardActivity"></activity>
     </application>
 
 </manifest>
