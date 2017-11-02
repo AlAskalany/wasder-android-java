@@ -54,6 +54,7 @@ ext {
     FIREBASEJOBDISPATCHER = "0.8.3"
     MULTIDEX = "1.0.2"
     BUTTERKNIFE = "8.7.0"
+    BUTTERKNIFE = "8.8.1"
     ARCHEXTENSIONS = "1.0.0-alpha9-1"
     ARCHRUNTIME = "1.0.0"
     ARCHCOMPILER = "1.0.0-alpha9-1"
