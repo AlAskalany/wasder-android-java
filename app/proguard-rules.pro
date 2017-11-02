@@ -23,3 +23,4 @@
 # keep everything in this package from being removed or renamed
 -keepattributes Signature
 -keepattributes *Annotation*
+-keep class android.arch.** { *; }
