@@ -20,5 +20,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/com_facebook_profile_picture_blank_portrait" />
+        app:srcCompat="@drawable/ic_notifications_black_24dp" />
 </android.support.constraint.ConstraintLayout>
