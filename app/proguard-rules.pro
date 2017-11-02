@@ -27,3 +27,8 @@
 -keepclasseswithmembernames,includedescriptorclasses class * {
     native <methods>;
 }
+
+# keep everything in this package from being removed or renamed
+-keep class javax.** { *; }
+
+-keep class android.arch.** { *; }
