@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/filters_form"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,82 +11,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dialog_filers_title_margin_bottom"
-        android:text="@string/add_event" />
+        android:text="Event" />
 
     <!-- Food Type -->
+
     <EditText
-        android:id="@+id/eventNameEditText"
+        android:id="@+id/eventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="EventName"
+        android:hint="Title"
         android:inputType="text" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_category"
-            style="@style/AppTheme.FilterIcon"
-            android:layout_centerVertical="true"
-            android:tint="@color/greySecondary"
-            app:srcCompat="@drawable/ic_fastfood_white_24dp" />
-
-        <Spinner
-            android:id="@+id/spinner_category"
-            style="@style/AppTheme.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_category"
-            android:entries="@array/categories_events" />
-
-    </RelativeLayout>
+    <EditText
+        android:id="@+id/itemEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Write post"
+        android:inputType="textMultiLine" />
 
     <!-- Location -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_city"
-            style="@style/AppTheme.FilterIcon"
-            android:layout_centerVertical="true"
-            android:tint="@color/greySecondary"
-            app:srcCompat="@drawable/ic_place_white_24px" />
-
-        <Spinner
-            android:id="@+id/spinner_city"
-            style="@style/AppTheme.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_city"
-            android:entries="@array/cities" />
-
-    </RelativeLayout>
 
     <!-- Price -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_price"
-            style="@style/AppTheme.FilterIcon"
-            android:layout_centerVertical="true"
-            android:tint="@color/greySecondary"
-            app:srcCompat="@drawable/ic_monetization_on_white_24px" />
-
-        <Spinner
-            android:id="@+id/spinner_price"
-            style="@style/AppTheme.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/icon_price"
-            android:entries="@array/prices_events" />
-
-    </RelativeLayout>
 
     <!-- Sort by -->
 
     <!-- Cancel and apply buttons -->
+
+    <Button
+        android:id="@+id/selected_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Image" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,12 +62,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cancel"
-            android:textColor="@color/greySecondary"
             android:theme="@style/ThemeOverlay.FilterButton" />
 
 
         <Button
-            android:id="@+id/button_add_event"
+            android:id="@+id/button_add_item"
             android:layout_width="@dimen/dialog_filters_search_button_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"

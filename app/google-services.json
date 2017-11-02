@@ -1,35 +1,38 @@
 {
   "project_info": {
-    "project_number": "1084741997638",
-    "firebase_url": "https://wasder-6424b.firebaseio.com",
-    "project_id": "wasder-6424b",
-    "storage_bucket": "wasder-6424b.appspot.com"
+    "project_number": "459802515685",
+    "firebase_url": "https://wasder-firebase.firebaseio.com",
+    "project_id": "wasder-firebase",
+    "storage_bucket": "wasder-firebase.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1084741997638:android:938214472b1ccffe",
+        "mobilesdk_app_id": "1:459802515685:android:80c5a3ad903ceb7c",
         "android_client_info": {
-          "package_name": "com.wasder.wasder"
+          "package_name": "co.wasder.wasder"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1084741997638-lnug4d0m4qgnl8lpp740u2g1ar2bmj5d.apps.googleusercontent.com",
+          "client_id": "459802515685-kks05ubj14i1afbkqgbkq43cpbvik51i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.wasder.wasder",
+            "package_name": "co.wasder.wasder",
             "certificate_hash": "0501813f73bd7e71cbc55fcf563a0c80697b8687"
           }
         },
         {
-          "client_id": "1084741997638-dh87mi8skgp4blvnh6jku8hr2tr1pjna.apps.googleusercontent.com",
+          "client_id": "459802515685-ejla6c17v1g0kmrhj0t8ps7s9v9k2t9h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDQ6y9Tj_WJSQQisSUonptVbAp_vwlc5_Y"
+          "current_key": "AIzaSyAS7LWMWbjnqrN8wPwH2NMDecdTA9gsfco"
+        },
+        {
+          "current_key": "AIzaSyChcuT_9Id9byHAioObHg0sXY5adknh_t8"
         }
       ],
       "services": {
@@ -40,7 +43,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1084741997638-dh87mi8skgp4blvnh6jku8hr2tr1pjna.apps.googleusercontent.com",
+              "client_id": "459802515685-ejla6c17v1g0kmrhj0t8ps7s9v9k2t9h.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

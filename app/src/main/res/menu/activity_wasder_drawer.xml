@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="@string/nav_drawer_profile" />
+        <item
+            android:id="@+id/nav_friends"
+            android:icon="@drawable/ic_group_black_24dp"
+            android:title="@string/nav_drawer_friends" />
+        <item
+            android:id="@+id/nav_followers"
+            android:icon="@drawable/ic_directions_run_black_24dp"
+            android:title="@string/nav_drawer_followers" />
+        <item
+            android:id="@+id/nav_achievements"
+            android:icon="@drawable/ic_stars_black_24dp"
+            android:title="@string/nav_drawer_achievements" />
+    </group>
+
+    <item android:title="@string/nav_drawer_settings">
+        <menu>
+            <item
+                android:id="@+id/nav_settings_account"
+                android:icon="@drawable/ic_account_circle_black_24dp"
+                android:title="@string/nav_drawer_account" />
+            <item
+                android:id="@+id/nav_settings_notifications"
+                android:icon="@drawable/ic_notifications_black_24dp"
+                android:title="@string/nav_drawer_notifications" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/nav_drawer_feedback"
+        android:icon="@drawable/ic_feedback_white_24dp"
+        android:title="Feedback" />
+
+</menu>
