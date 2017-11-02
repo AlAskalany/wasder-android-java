@@ -63,7 +63,6 @@ android {
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
-        maven { url 'https://jcenter.bintray.com' }
     }
 
     dependencies {
@@ -130,10 +129,6 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.GLIDE}"
     implementation("com.crashlytics.sdk.android:crashlytics:${rootProject.ext.CRASHLYTICS}") {
         transitive = true
-    }
-    compile 'com.stripe:stripe-android:5.1.0'
-    compile('com.stripe:stripe-android:1.0.4@aar') {
-        transitive = true;
     }
     implementation("io.fabric.sdk.android:fabric:${rootProject.ext.FABRIC}") {
         transitive = true
