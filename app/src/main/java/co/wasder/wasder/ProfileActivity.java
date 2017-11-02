@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -32,6 +31,7 @@ import co.wasder.wasder.model.FirestoreItem;
 import co.wasder.wasder.model.User;
 import co.wasder.wasder.viewmodel.ProfileActivityViewModel;
 import co.wasder.wasder.views.FirestoreCollections;
+import co.wasder.wasder.views.ProfilePhoto;
 
 @Keep
 public class ProfileActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
@@ -39,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     public static final String ARG_USER_REFERENCE = "user-reference";
     public static final String TAG = "ProfileActivity";
     public CollapsingToolbarLayout collapsingToolbarLayout;
-    public ImageView profilePhoto;
+    public ProfilePhoto profilePhoto;
     public String mUserReference;
     public FirebaseFirestore mFirestore;
     public DocumentReference mDocumentReference;
@@ -148,7 +148,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
             Glide.with(this)
                     .load(uuid)
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(profilePhoto);
+                    .into(profilePhoto.getProfileImageView());
         }
     }
 }
