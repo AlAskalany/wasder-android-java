@@ -41,19 +41,18 @@ allprojects {
 ext {
     versionCode = 4
     versionName = '1.0'
-    compileSdkVersion = 26
+    compileSdkVersion = 27
     buildToolsVersion = "26.0.2"
     minSdkVersion = 16
-    targetSdkVersion = 26
+    targetSdkVersion = 27
     GMS = "11.4.2"
-    SUPPORT = "26.1.0"
+    SUPPORT = "27.0.0"
     FIREBASEUI = "3.1.0"
     CONSTRAINTLAYOUT = "1.0.2"
     GLIDE = "4.2.0"
     SUPPORTTEST = "2.2.2"
     FIREBASEJOBDISPATCHER = "0.8.3"
     MULTIDEX = "1.0.2"
-    BUTTERKNIFE = "8.7.0"
     BUTTERKNIFE = "8.8.1"
     ARCHEXTENSIONS = "1.0.0-alpha9-1"
     ARCHRUNTIME = "1.0.0"
