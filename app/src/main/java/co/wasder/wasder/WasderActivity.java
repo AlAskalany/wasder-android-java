@@ -60,21 +60,21 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener,
         FIrestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
 
-    private static final String TAG = "WasderActivity";
-    private static final int RC_SIGN_IN = 9001;
+    public static final String TAG = "WasderActivity";
+    public static final int RC_SIGN_IN = 9001;
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
+    public DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
-    NavigationView mNavigationView;
+    public NavigationView mNavigationView;
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.navigation2)
-    BottomNavigationView mBottomNavigationView;
+    public BottomNavigationView mBottomNavigationView;
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.container)
-    NonSwipeableViewPager mViewPager;
+    public NonSwipeableViewPager mViewPager;
 
-    private final BottomNavigationView.OnNavigationItemSelectedListener
+    public final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
 
@@ -100,17 +100,18 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         }
     };
     @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    public SwipeRefreshLayout mSwipeRefreshLayout;
     @SuppressWarnings("unused")
-    private GoogleApiClient mGoogleApiClient;
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private WasderActivityViewModel mViewModel;
+    public GoogleApiClient mGoogleApiClient;
+    public SectionsPagerAdapter mSectionsPagerAdapter;
+    public WasderActivityViewModel mViewModel;
     @SuppressWarnings("unused")
-    private ActionBarDrawerToggle toggle;
-    private FIrestoreItemFilterDialogFragment mFilterDialog;
-    private boolean enableCrashButton = false;
+    public ActionBarDrawerToggle toggle;
+    public FIrestoreItemFilterDialogFragment mFilterDialog;
+    public boolean enableCrashButton = false;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_wasder);
@@ -200,12 +201,12 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         }
     }
 
-    private void checkForUpdates() {
+    public void checkForUpdates() {
         // Remove this for store builds!
         UpdateManager.register(this);
     }
 
-    private void unregisterManagers() {
+    public void unregisterManagers() {
         UpdateManager.unregister();
     }
 
@@ -235,7 +236,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
+    public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         if (toggle != null) {
             toggle.syncState();
@@ -279,7 +280,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         checkForCrashes();
     }
 
-    private void checkForCrashes() {
+    public void checkForCrashes() {
         CrashManager.register(this);
     }
 

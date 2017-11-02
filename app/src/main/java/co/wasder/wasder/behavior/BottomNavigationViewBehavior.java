@@ -14,7 +14,7 @@ import android.view.View;
 @Keep
 public class BottomNavigationViewBehavior extends CoordinatorLayout.Behavior<BottomNavigationView> {
 
-    private int height;
+    public int height;
 
     @Override
     public boolean onLayoutChild(CoordinatorLayout parent, BottomNavigationView child, int
@@ -42,12 +42,12 @@ public class BottomNavigationViewBehavior extends CoordinatorLayout.Behavior<Bot
         }
     }
 
-    private void slideUp(BottomNavigationView child) {
+    public void slideUp(BottomNavigationView child) {
         child.clearAnimation();
         child.animate().translationY(0).setDuration(200);
     }
 
-    private void slideDown(BottomNavigationView child) {
+    public void slideDown(BottomNavigationView child) {
         child.clearAnimation();
         child.animate().translationY(height).setDuration(200);
     }

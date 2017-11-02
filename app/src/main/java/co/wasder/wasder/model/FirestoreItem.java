@@ -2,6 +2,7 @@ package co.wasder.wasder.model;
 
 import android.support.annotation.Keep;
 
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
@@ -16,13 +17,13 @@ import java.util.Date;
 public class FirestoreItem {
 
     @SuppressWarnings("unused")
-    public static final String FIELD_UID = "uId";
-    public static final String FIELD_CITY = "city";
+    private static final String FIELD_UID = "uId";
+    private static final String FIELD_CITY = "city";
     @SuppressWarnings("unused")
-    public static final String FIELD_CATEGORY = "category";
-    public static final String FIELD_PRICE = "price";
-    public static final String FIELD_POPULARITY = "numRatings";
-    public static final String FIELD_AVG_RATING = "avgRating";
+    private static final String FIELD_CATEGORY = "category";
+    private static final String FIELD_PRICE = "price";
+    private static final String FIELD_POPULARITY = "numRatings";
+    private static final String FIELD_AVG_RATING = "avgRating";
 
     private String uId;
     private @ServerTimestamp
@@ -49,11 +50,11 @@ public class FirestoreItem {
         this.feedText = feedText;
     }
 
-    public String getUId() {
+    public String getUid() {
         return uId;
     }
 
-    public void setUId(String uId) {
+    public void setUid(String uId) {
         this.uId = uId;
     }
 

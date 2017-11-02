@@ -12,7 +12,7 @@ import co.wasder.wasder.filter.FirestoreItemFilters;
 @Keep
 public class TabFragmentViewModel extends ViewModel {
 
-    private FirestoreItemFilters mFirestoreItemFilters;
+    public FirestoreItemFilters mFirestoreItemFilters;
 
     public TabFragmentViewModel() {
         mFirestoreItemFilters = FirestoreItemFilters.getDefault();

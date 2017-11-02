@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
@@ -43,11 +44,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getuId() {
+    public String getUid() {
         return uId;
     }
 
-    public void setuId(String uId) {
+    public void setUid(String uId) {
         this.uId = uId;
     }
 
@@ -91,6 +92,7 @@ public class User {
         this.lastName = lastName;
     }
 
+    @Exclude
     public void addToFirestore() {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         final CollectionReference reference = firestore.collection("users");

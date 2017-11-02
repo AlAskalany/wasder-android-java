@@ -30,10 +30,10 @@ import java.util.ArrayList;
 public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView
         .Adapter<VH> implements EventListener<QuerySnapshot> {
 
-    private static final String TAG = "Firestore Adapter";
-    private final ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
-    private Query mQuery;
-    private ListenerRegistration mRegistration;
+    public static final String TAG = "Firestore Adapter";
+    public final ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
+    public Query mQuery;
+    public ListenerRegistration mRegistration;
 
     FirestoreAdapter(Query query) {
         mQuery = query;
@@ -69,12 +69,12 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
         onDataChanged();
     }
 
-    private void onDocumentAdded(DocumentChange change) {
+    public void onDocumentAdded(DocumentChange change) {
         mSnapshots.add(change.getNewIndex(), change.getDocument());
         notifyItemInserted(change.getNewIndex());
     }
 
-    private void onDocumentModified(DocumentChange change) {
+    public void onDocumentModified(DocumentChange change) {
         if (change.getOldIndex() == change.getNewIndex()) {
             // Item changed but remained in same position
             mSnapshots.set(change.getOldIndex(), change.getDocument());
@@ -87,7 +87,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
         }
     }
 
-    private void onDocumentRemoved(DocumentChange change) {
+    public void onDocumentRemoved(DocumentChange change) {
         mSnapshots.remove(change.getOldIndex());
         notifyItemRemoved(change.getOldIndex());
     }
@@ -132,9 +132,9 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
     }
 
     @SuppressWarnings("unused")
-    protected void onError(@SuppressWarnings("unused") FirebaseFirestoreException e) {
+    public void onError(@SuppressWarnings("unused") FirebaseFirestoreException e) {
     }
 
-    protected void onDataChanged() {
+    public void onDataChanged() {
     }
 }

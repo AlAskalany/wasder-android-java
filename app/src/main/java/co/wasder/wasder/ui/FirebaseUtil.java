@@ -53,7 +53,7 @@ public class FirebaseUtil {
         return (!viewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() == null);
     }
 
-    private static Job createJob(FirebaseJobDispatcher dispatcher) {
+    public static Job createJob(FirebaseJobDispatcher dispatcher) {
         return dispatcher.newJobBuilder()
                 // persist the task across boots
                 .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
@@ -73,7 +73,7 @@ public class FirebaseUtil {
                 .setConstraints(Constraint.ON_ANY_NETWORK).build();
     }
 
-    private static void scheduleJob(Context context) {
+    public static void scheduleJob(Context context) {
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
         Job job = createJob(dispatcher);
         dispatcher.schedule(job);

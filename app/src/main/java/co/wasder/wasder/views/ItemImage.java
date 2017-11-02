@@ -18,7 +18,7 @@ import co.wasder.wasder.R;
 @Keep
 public class ItemImage extends FrameLayout {
 
-    private ImageView itemImageView;
+    public ImageView itemImageView;
 
     public ItemImage(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);

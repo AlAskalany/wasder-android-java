@@ -10,7 +10,7 @@ import android.support.annotation.Keep;
 @Keep
 public class WasderActivityViewModel extends ViewModel {
 
-    private boolean mIsSigningIn;
+    public boolean mIsSigningIn;
 
     public WasderActivityViewModel() {
         mIsSigningIn = false;

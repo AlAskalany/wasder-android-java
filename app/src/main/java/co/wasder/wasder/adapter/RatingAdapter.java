@@ -26,7 +26,7 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 @Keep
 public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
 
-    protected RatingAdapter(Query query) {
+    public RatingAdapter(Query query) {
         super(query);
     }
 
@@ -41,18 +41,19 @@ public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
         holder.bind(getSnapshot(position).toObject(Rating.class));
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    @Keep
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.rating_item_name)
-        TextView nameView;
+        public TextView nameView;
 
         @BindView(R.id.rating_item_rating)
-        MaterialRatingBar ratingBar;
+        public MaterialRatingBar ratingBar;
 
         @BindView(R.id.rating_item_text)
-        TextView textView;
+        public TextView textView;
 
-        ViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

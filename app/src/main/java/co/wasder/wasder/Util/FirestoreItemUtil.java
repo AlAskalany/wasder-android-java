@@ -27,22 +27,22 @@ import co.wasder.wasder.model.FirestoreItem;
 public class FirestoreItemUtil {
 
     @SuppressWarnings("unused")
-    private static final String TAG = "FirestoreItemUtil";
+    public static final String TAG = "FirestoreItemUtil";
 
     @SuppressWarnings("unused")
-    private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit
+    public static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit
             .SECONDS, new LinkedBlockingQueue<Runnable>());
 
     @SuppressWarnings("unused")
-    private static final String RESTAURANT_URL_FMT = "https://storage.googleapis" + "" + "" + ""
+    public static final String RESTAURANT_URL_FMT = "https://storage.googleapis" + "" + "" + ""
             + ".com/firestorequickstarts.appspot.com/food_%d.png";
 
-    private static final int MAX_IMAGE_NUM = 22;
+    public static final int MAX_IMAGE_NUM = 22;
 
-    private static final String[] NAME_FIRST_WORDS = {"John", "David", "Buz", "Laura", "Mike",
+    public static final String[] NAME_FIRST_WORDS = {"John", "David", "Buz", "Laura", "Mike",
             "Sam's", "World Famous", "Google", "The Best",};
 
-    private static final String[] NAME_SECOND_WORDS = {"Norman", "Kelley", "Lauren", "Al' " +
+    public static final String[] NAME_SECOND_WORDS = {"Norman", "Kelley", "Lauren", "Al' " +
             "Mark", "Mendley", "Gamer", "Alex",};
 
 
@@ -67,7 +67,7 @@ public class FirestoreItemUtil {
         if (user != null) {
             String uId = user.getUid();
             String name = user.getDisplayName();
-            firestoreItem.setUId(uId);
+            firestoreItem.setUid(uId);
             firestoreItem.setName(name);
             Uri profilePhotoUri = user.getPhotoUrl();
             String profilePhotoUrl = null;

@@ -15,11 +15,11 @@ import co.wasder.wasder.R;
 @Keep
 public class FeedView extends FrameLayout {
 
-    private ProfilePhoto profilePhoto;
-    private Header header;
-    private ItemText itemText;
-    private ItemImage itemImage;
-    private Actions actions;
+    public ProfilePhoto profilePhoto;
+    public Header header;
+    public ItemText itemText;
+    public ItemImage itemImage;
+    public Actions actions;
 
     public FeedView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);

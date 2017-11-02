@@ -55,51 +55,51 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 @Keep
 public class FirestoreItemDetailActivity extends BaseDetailActivity {
 
-    private static final String KEY_POST_ID = "key_post_id";
-    private static final String TAG = "PostDetail";
+    public static final String KEY_POST_ID = "key_post_id";
+    public static final String TAG = "PostDetail";
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_image)
-    ImageView mImageView;
+    public ImageView mImageView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_name)
-    TextView mNameView;
+    public TextView mNameView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_rating)
-    MaterialRatingBar mRatingIndicator;
+    public MaterialRatingBar mRatingIndicator;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_num_ratings)
-    TextView mNumRatingsView;
+    public TextView mNumRatingsView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_city)
-    TextView mCityView;
+    public TextView mCityView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_category)
-    TextView mCategoryView;
+    public TextView mCategoryView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_price)
-    TextView mPriceView;
+    public TextView mPriceView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.view_empty_ratings)
-    ViewGroup mEmptyView;
+    public ViewGroup mEmptyView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recycler_ratings)
-    RecyclerView mRatingsRecycler;
+    public RecyclerView mRatingsRecycler;
 
     @BindView(R.id.fab_show_rating_dialog)
-    FloatingActionButton floatingActionButton;
+    public FloatingActionButton floatingActionButton;
 
-    private AddRatingDialogFragment mRatingDialog;
+    public AddRatingDialogFragment mRatingDialog;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
         ButterKnife.bind(this);
@@ -128,7 +128,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         // RecyclerView
         mRatingAdapter = new RatingAdapter(ratingsQuery) {
             @Override
-            protected void onDataChanged() {
+            public  void onDataChanged() {
                 if (getItemCount() == 0) {
                     mRatingsRecycler.setVisibility(View.GONE);
                     mEmptyView.setVisibility(View.VISIBLE);
@@ -146,7 +146,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
 
     }
 
-    private Task<Void> addRating(final DocumentReference documentRef, final Rating rating) {
+    public Task<Void> addRating(final DocumentReference documentRef, final Rating rating) {
         // Create reference for new rating, for use inside the transaction
         final DocumentReference ratingRef = documentRef.collection("ratings").document();
 
@@ -192,7 +192,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         onModelLoaded(snapshot.toObject(FirestoreItem.class));
     }
 
-    private void onModelLoaded(FirestoreItem firestoreItem) {
+    public void onModelLoaded(FirestoreItem firestoreItem) {
         mNameView.setText(firestoreItem.getName());
         mRatingIndicator.setRating((float) firestoreItem.getAvgRating());
         mNumRatingsView.setText(getString(R.string.fmt_num_ratings, firestoreItem.getNumRatings()));

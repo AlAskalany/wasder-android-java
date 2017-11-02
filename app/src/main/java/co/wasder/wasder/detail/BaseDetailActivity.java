@@ -23,16 +23,16 @@ import co.wasder.wasder.dialog.AddRatingDialogFragment;
  * Navigator
  */
 @Keep
-abstract class BaseDetailActivity extends AppCompatActivity implements
+public abstract class BaseDetailActivity extends AppCompatActivity implements
         EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
 
-    FirebaseFirestore mFirestore;
-    RatingAdapter mRatingAdapter;
-    DocumentReference mDocumentRef;
-    Query ratingsQuery;
-    private ListenerRegistration mModelRegistration;
+    public FirebaseFirestore mFirestore;
+    public RatingAdapter mRatingAdapter;
+    public DocumentReference mDocumentRef;
+    public Query ratingsQuery;
+    public ListenerRegistration mModelRegistration;
 
-    void hideKeyboard() {
+    public void hideKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {
             InputMethodManager inputMethodManager = ((InputMethodManager) getSystemService

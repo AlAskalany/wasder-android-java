@@ -36,7 +36,7 @@ public class Model {
     }
 
     @SuppressWarnings("unused")
-    private static Rating Rating(FirebaseUser user, @SuppressWarnings("SameParameterValue")
+    public static Rating Rating(FirebaseUser user, @SuppressWarnings("SameParameterValue")
             double rating, @SuppressWarnings("SameParameterValue") String text) {
         Model.rating = rating;
         Model.text = text;

@@ -38,20 +38,20 @@ import co.wasder.wasder.views.FirestoreCollections;
 @Keep
 public class DiscoveryTabFragment extends Fragment implements TabFragment, LifecycleOwner {
 
-    private static final long LIMIT = 50;
-    private static final String TAG = "TabFragment";
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    public static final long LIMIT = 50;
+    public static final String TAG = "TabFragment";
+    public static final String ARG_SECTION_NUMBER = "section_number";
     @BindView(R.id.recyclerView)
-    RecyclerView mRecyclerView;
-    private FirebaseFirestore mFirestore;
-    private Query mQuery;
-    private FIrestoreItemFilterDialogFragment mFilterDialog;
-    private AddFirestoreItemDialogFragment mAddPostDialog;
-    private TabFragmentViewModel mViewModel;
+    public RecyclerView mRecyclerView;
+    public FirebaseFirestore mFirestore;
+    public Query mQuery;
+    public FIrestoreItemFilterDialogFragment mFilterDialog;
+    public AddFirestoreItemDialogFragment mAddPostDialog;
+    public TabFragmentViewModel mViewModel;
     // TODO: Rename and change types of parameters
-    private String mCollectionReferenceString;
-    private OnFragmentInteractionListener mListener;
-    private EventsAdapter.OnEventSelected mPostSelectedListener = new EventsAdapter
+    public String mCollectionReferenceString;
+    public OnFragmentInteractionListener mListener;
+    public EventsAdapter.OnEventSelected mPostSelectedListener = new EventsAdapter
             .OnEventSelected() {
 
         @Override
@@ -59,7 +59,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
             Log.d(TAG, "onFirestoreItemSelected: " + itemView);
         }
     };
-    private String mTitle;
+    public String mTitle;
 
     /**
      * Use this factory method to create a new instance of
@@ -121,7 +121,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
         super.onResume();
     }
 
-    private void initFirestore() {
+    public void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
@@ -134,7 +134,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
                 .limit(LIMIT);
     }
 
-    private void initRecyclerView() {
+    public void initRecyclerView() {
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }

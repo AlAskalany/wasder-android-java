@@ -19,13 +19,13 @@ import co.wasder.wasder.ui.messages.tabs.MentionsTabFragment;
 @Keep
 public interface TabFragment {
 
-    FirebaseFirestore getFirestore();
+    public FirebaseFirestore getFirestore();
 
-    void setFirestore(FirebaseFirestore firestore);
+    public void setFirestore(FirebaseFirestore firestore);
 
-    Query getQuery();
+    public Query getQuery();
 
-    void setQuery(Query query);
+    public void setQuery(Query query);
 
-    String getTitle();
+    public String getTitle();
 }

@@ -43,7 +43,7 @@ public class NonSwipeableViewPager extends ViewPager {
 
     //down one is added for smooth scrolling
 
-    private void setMyScroller() {
+    public void setMyScroller() {
         try {
             Class<?> viewpager = ViewPager.class;
             Field scroller = viewpager.getDeclaredField("mScroller");
@@ -54,9 +54,9 @@ public class NonSwipeableViewPager extends ViewPager {
         }
     }
 
-    public class MyScroller extends Scroller {
+    public static class MyScroller extends Scroller {
 
-        MyScroller(Context context) {
+        public MyScroller(Context context) {
             super(context, new DecelerateInterpolator());
         }
 

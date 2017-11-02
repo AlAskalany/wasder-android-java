@@ -18,7 +18,7 @@ import co.wasder.wasder.R;
 @Keep
 public class ItemText extends FrameLayout {
 
-    private TextView itemTextView;
+    public TextView itemTextView;
 
     public ItemText(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);

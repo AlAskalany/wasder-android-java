@@ -18,5 +18,5 @@ public interface OnFragmentInteractionListener {
 
     // TODO: Update argument type and name
     @SuppressWarnings({"EmptyMethod", "unused"})
-    void onFragmentInteractionListener(@SuppressWarnings("unused") Uri uri);
+    public void onFragmentInteractionListener(@SuppressWarnings("unused") Uri uri);
 }

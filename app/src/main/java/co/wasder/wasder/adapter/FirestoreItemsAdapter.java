@@ -14,9 +14,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 @Keep
 public interface FirestoreItemsAdapter extends ChangeEventListener, LifecycleObserver {
 
-    interface OnFirestoreItemSelected {
+    public interface OnFirestoreItemSelected {
 
-        void onFirestoreItemSelected(DocumentSnapshot event, View itemView);
+        public void onFirestoreItemSelected(DocumentSnapshot event, View itemView);
 
     }
 }

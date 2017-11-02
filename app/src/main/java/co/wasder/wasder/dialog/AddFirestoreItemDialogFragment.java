@@ -68,17 +68,17 @@ import static android.app.Activity.RESULT_OK;
 public class AddFirestoreItemDialogFragment extends DialogFragment {
 
     public static final String TAG = "AddPostDialog";
-    private static final int INITIAL_AVG_RATING = 0;
-    private static final int INITIAL_NUM_RATINGS = 0;
-    private static final int RC_CHOOSE_PHOTO = 101;
+    public static final int INITIAL_AVG_RATING = 0;
+    public static final int INITIAL_NUM_RATINGS = 0;
+    public static final int RC_CHOOSE_PHOTO = 101;
     @SuppressWarnings("unused")
-    private static final int RC_IMAGE_PERMS = 102;
+    public static final int RC_IMAGE_PERMS = 102;
     @BindView(R.id.itemEditText)
-    EditText mFeedEditText;
+    public EditText mFeedEditText;
 
-    private String uuid;
-    private String feedText;
-    private String postProfilePhotoUrl;
+    public String uuid;
+    public String feedText;
+    public String postProfilePhotoUrl;
 
     @Nullable
     @Override
@@ -114,7 +114,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     }
 
     @NonNull
-    private FirestoreItem createPostFromFields() {
+    public FirestoreItem createPostFromFields() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         String uId = null;
@@ -142,7 +142,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         }
     }
 
-    private void addPostToDatabase(@NonNull final FirestoreItem firestoreItem) {
+    public void addPostToDatabase(@NonNull final FirestoreItem firestoreItem) {
         CollectionReference posts = FirebaseFirestore.getInstance()
                 .collection(FirestoreCollections.POSTS);
         posts.add(firestoreItem).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -192,7 +192,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         startActivityForResult(i, RC_CHOOSE_PHOTO);
     }
 
-    private void uploadPhoto(Uri uri) {
+    public void uploadPhoto(Uri uri) {
         // Reset UI
         //hideDownloadUI();
         Toast.makeText(getContext(), "Uploading...", Toast.LENGTH_SHORT).show();

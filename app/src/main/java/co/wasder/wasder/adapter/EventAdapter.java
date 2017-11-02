@@ -51,8 +51,8 @@ import co.wasder.wasder.views.FirestoreCollections;
 public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.EventHolder>
         implements EventsAdapter {
 
-    private static final String TAG = "EventAdapter";
-    private OnEventSelected mListener;
+    public static final String TAG = "EventAdapter";
+    public OnEventSelected mListener;
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See
@@ -100,15 +100,16 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
      * Created by Ahmed AlAskalany on 10/13/2017.
      * Wasder AB
      */
+    @Keep
     public static class EventHolder extends RecyclerView.ViewHolder {
 
-        private static final String TAG = "FirestoreItemHolder";
-        private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale
+        public static final String TAG = "FirestoreItemHolder";
+        public static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale
                 .US);
 
         @BindView(R.id.feedView)
-        EventView eventView;
-        private String tag;
+        public EventView eventView;
+        public String tag;
 
         EventHolder(View itemView) {
             super(itemView);
@@ -118,7 +119,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
         public void bind(final DocumentSnapshot snapshot, final OnEventSelected onEventSelected) {
             final Event event = snapshot.toObject(Event.class);
 
-            String userId = event.getUId();
+            String userId = event.getUid();
             CollectionReference users = FirebaseFirestore.getInstance()
                     .collection(FirestoreCollections.USERS);
             DocumentReference userReference = users.document(userId);
@@ -166,10 +167,10 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
 
                         @Override
                         public void onClick(View v) {
-                            if (event.getUId() != null) {
+                            if (event.getUid() != null) {
                                 Intent intent = new Intent(itemView.getContext(), ProfileActivity
                                         .class);
-                                intent.putExtra("user-reference", event.getUId());
+                                intent.putExtra("user-reference", event.getUid());
                                 itemView.getContext().startActivity(intent);
                             }
                         }
@@ -205,7 +206,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                     FirebaseAuth auth = FirebaseAuth.getInstance();
                     FirebaseUser user = auth.getCurrentUser();
                     String currentUserId = user.getUid();
-                    if (!TextUtils.equals(event.getUId(), currentUserId)) {
+                    if (!TextUtils.equals(event.getUid(), currentUserId)) {
                         popup.getMenu().getItem(1).setVisible(false);
                     }
 
