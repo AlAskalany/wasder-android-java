@@ -22,6 +22,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
@@ -106,6 +108,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @SuppressWarnings("unused")
     private ActionBarDrawerToggle toggle;
     private FIrestoreItemFilterDialogFragment mFilterDialog;
+    private boolean enableCrashButton = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,6 +185,19 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         });
 
         FeedbackManager.register(this);
+
+        if(enableCrashButton){
+            Button crashButton = new Button(this);
+            crashButton.setText("Crash!");
+            crashButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Crashlytics.getInstance().crash(); // Force a crash
+                }
+            });
+            addContentView(crashButton,
+                    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
     }
 
     private void checkForUpdates() {
