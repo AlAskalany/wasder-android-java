@@ -10,7 +10,6 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         vectorDrawables.useSupportLibrary true
-        multiDexEnabled true
         applicationId 'co.wasder.wasder'
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "a5afb5e5b8aa435a91624b6a55fbf716"]
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
