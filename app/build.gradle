@@ -40,6 +40,7 @@ android {
     productFlavors {
     }
     lintOptions {
+        checkReleaseBuilds false
         // Turns off checks for the issue IDs you specify.
         disable 'TypographyFractions', 'TypographyQuotes'
         // Turns on checks for the issue IDs you specify. These checks are in
@@ -127,9 +128,6 @@ dependencies {
     implementation 'net.hockeyapp.android:HockeySDK:5.0.3'
     annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.GLIDE}"
     implementation("com.crashlytics.sdk.android:crashlytics:${rootProject.ext.CRASHLYTICS}") {
-        transitive = true
-    }
-    implementation("com.appsee:appsee-android:${rootProject.ext.APPSEE}") {
         transitive = true
     }
     implementation("io.fabric.sdk.android:fabric:${rootProject.ext.FABRIC}") {

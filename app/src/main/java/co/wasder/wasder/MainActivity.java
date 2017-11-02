@@ -35,7 +35,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.appsee.Appsee;
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -272,7 +271,6 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
         } else {
 
             Fabric.with(this, new Crashlytics());
-            Appsee.start(getString(R.string.com_apsee_api_key));
             logUserCrashlytics();
             setupRemoteConfig();
             fetchWelcomeMessage();
