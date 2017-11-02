@@ -5,6 +5,7 @@ package co.wasder.wasder.adapter;
   Wasder AB
  */
 
+import android.support.annotation.Keep;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 /**
  * RecyclerView adapter for a bunch of Ratings.
  */
+@Keep
 public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
 
     protected RatingAdapter(Query query) {

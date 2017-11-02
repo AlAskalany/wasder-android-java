@@ -1,5 +1,6 @@
 package co.wasder.wasder;
 
+import android.support.annotation.Keep;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -9,7 +10,7 @@ import com.google.firebase.messaging.RemoteMessage;
  * Created by Ahmed AlAskalany on 10/13/2017.
  * Wasder AB
  */
-
+@Keep
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFMService";

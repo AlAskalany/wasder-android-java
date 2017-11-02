@@ -1,6 +1,7 @@
 package co.wasder.wasder;
 
 import android.content.Context;
+import android.support.annotation.Keep;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Registry;
@@ -15,7 +16,7 @@ import java.io.InputStream;
  * Created by Ahmed AlAskalany on 10/13/2017.
  * Wasder AB
  */
-
+@Keep
 @SuppressWarnings("WeakerAccess")
 @GlideModule
 public class MyAppGlideModule extends AppGlideModule {

@@ -1,5 +1,7 @@
 package co.wasder.wasder.jobservices;
 
+import android.support.annotation.Keep;
+
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -10,7 +12,7 @@ import com.google.firebase.firestore.Query;
  * Created by Ahmed AlAskalany on 10/18/2017.
  * Navigator
  */
-
+@Keep
 public class FirestoreQueryJobService extends JobService {
 
     private Thread mThread;

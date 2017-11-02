@@ -21,3 +21,5 @@
 #-renamesourcefileattribute SourceFile
 
 # keep everything in this package from being removed or renamed
+-keepattributes Signature
+-keepattributes *Annotation*

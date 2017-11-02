@@ -1,5 +1,7 @@
 package co.wasder.wasder.model;
 
+import android.support.annotation.Keep;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -7,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by Ahmed AlAskalany on 10/13/2017.
  * Wasder AB
  */
-
+@Keep
 public class Model {
 
     @SuppressWarnings("unused")

@@ -1,5 +1,6 @@
 package co.wasder.wasder.model;
 
+import android.support.annotation.Keep;
 import android.text.TextUtils;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -11,7 +12,7 @@ import java.util.Date;
  * Created by Ahmed AlAskalany on 10/11/2017.
  * Wasder AB
  */
-
+@Keep
 public class Rating {
 
     private String userId;

@@ -20,6 +20,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -70,6 +71,7 @@ import co.wasder.wasder.model.FirestoreItem;
 import co.wasder.wasder.viewmodel.MainActivityViewModel;
 import io.fabric.sdk.android.Fabric;
 
+@Keep
 public class MainActivity extends AppCompatActivity implements FIrestoreItemFilterDialogFragment
         .FilterListener, FirebaseAuth.AuthStateListener, LifecycleOwner {
 

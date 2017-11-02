@@ -16,6 +16,7 @@
 package co.wasder.wasder.detail;
 
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -51,6 +52,7 @@ import co.wasder.wasder.model.FirestoreItem;
 import co.wasder.wasder.model.Rating;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
+@Keep
 public class FirestoreItemDetailActivity extends BaseDetailActivity {
 
     private static final String KEY_POST_ID = "key_post_id";

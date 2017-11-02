@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
@@ -22,10 +23,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import net.hockeyapp.android.CrashManager;
+import net.hockeyapp.android.FeedbackManager;
+import net.hockeyapp.android.UpdateManager;
+import net.hockeyapp.android.metrics.MetricsManager;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,8 +51,9 @@ import co.wasder.wasder.ui.FirebaseUtil;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.WasderActivityViewModel;
+import io.fabric.sdk.android.Fabric;
 
-
+@Keep
 public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
         .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener,
         FIrestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
@@ -99,8 +109,23 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_wasder);
         ButterKnife.bind(this);
+
+        MetricsManager.register(getApplication());
+        MetricsManager.trackEvent("WasderActivity");
+
+        // add this wherever you want to track a custom event and attach properties or
+        // measurements to it
+        HashMap<String, String> properties = new HashMap<>();
+        properties.put("Property1", "Value1");
+        HashMap<String, Double> measurements = new HashMap<>();
+        measurements.put("Measurement1", 1.0);
+
+        MetricsManager.trackEvent("YOUR_EVENT_NAME", properties, measurements);
+
+        checkForUpdates();
 
         // View model
         mViewModel = ViewModelProviders.of(this).get(WasderActivityViewModel.class);
@@ -156,14 +181,28 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             }
         });
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth != null) {
-            FirebaseUser user = auth.getCurrentUser();
-            if (user != null) {
-                User newUser = new User(user, "Ahmed", "AlAskalany");
-                newUser.addToFirestore();
-            }
-        }
+        FeedbackManager.register(this);
+    }
+
+    private void checkForUpdates() {
+        // Remove this for store builds!
+        UpdateManager.register(this);
+    }
+
+    private void unregisterManagers() {
+        UpdateManager.unregister();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterManagers();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterManagers();
     }
 
     @OnClick(R.id.fab)
@@ -203,8 +242,29 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             FirebaseUtil.startSignIn(this, mViewModel, RC_SIGN_IN);
             //noinspection UnnecessaryReturnStatement
             return;
+        } else {
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            if (auth != null) {
+                FirebaseUser user = auth.getCurrentUser();
+                if (user != null) {
+                    //User newUser = new User(user, "Ahmed", "AlAskalany");
+                    User newUser = new User(user, user.getDisplayName(), "");
+                    newUser.addToFirestore();
+                }
+            }
         }
         Log.d(TAG, "onStart: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // ... your own onResume implementation
+        checkForCrashes();
+    }
+
+    private void checkForCrashes() {
+        CrashManager.register(this);
     }
 
     @Override
@@ -256,6 +316,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         } else if (id == R.id.nav_settings_notifications) {
 
+        } else if (id == R.id.nav_drawer_feedback) {
+            FeedbackManager.showFeedbackActivity(WasderActivity.this);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -264,7 +326,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
+        FirebaseUser user = firebaseAuth.getCurrentUser();
     }
 
     @Override

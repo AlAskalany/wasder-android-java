@@ -1,6 +1,7 @@
 package co.wasder.wasder.views;
 
 import android.content.Context;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -14,7 +15,7 @@ import co.wasder.wasder.R;
  * Created by Ahmed AlAskalany on 10/31/2017.
  * Navigator
  */
-
+@Keep
 public class ItemText extends FrameLayout {
 
     private TextView itemTextView;

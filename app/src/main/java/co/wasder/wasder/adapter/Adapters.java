@@ -1,6 +1,7 @@
 package co.wasder.wasder.adapter;
 
 import android.arch.lifecycle.LifecycleOwner;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -13,7 +14,7 @@ import co.wasder.wasder.model.FirestoreItem;
  * Created by Ahmed AlAskalany on 10/13/2017.
  * Wasder AB
  */
-
+@Keep
 public class Adapters {
 
     public static FirestoreItemAdapter PostAdapter(@NonNull LifecycleOwner lifecycleOwner, Query

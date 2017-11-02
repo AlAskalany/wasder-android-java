@@ -5,6 +5,7 @@ package co.wasder.wasder.adapter;
   Wasder AB
  */
 
+import android.support.annotation.Keep;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
  * {@link DocumentSnapshot#toObject(Class)} is not cached so the same object may be deserialized
  * many times as the user scrolls.
  */
+@Keep
 public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView
         .Adapter<VH> implements EventListener<QuerySnapshot> {
 

@@ -2,6 +2,7 @@ package co.wasder.wasder.detail;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,7 +22,7 @@ import co.wasder.wasder.dialog.AddRatingDialogFragment;
  * Created by Ahmed AlAskalany on 10/22/2017.
  * Navigator
  */
-
+@Keep
 abstract class BaseDetailActivity extends AppCompatActivity implements
         EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
 

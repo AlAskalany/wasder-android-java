@@ -1,5 +1,7 @@
 package co.wasder.wasder.model;
 
+import android.support.annotation.Keep;
+
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
@@ -9,7 +11,7 @@ import java.util.Date;
  * Created by Ahmed AlAskalany on 10/11/2017.
  * Wasder AB
  */
-
+@Keep
 @IgnoreExtraProperties
 public class FirestoreItem {
 

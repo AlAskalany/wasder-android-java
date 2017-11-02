@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +35,7 @@ import co.wasder.wasder.views.FirestoreCollections;
  * Created by Ahmed AlAskalany on 10/30/2017.
  * Navigator
  */
-
+@Keep
 public class FavoritesTabFragment extends Fragment implements TabFragment, LifecycleOwner {
 
     private static final long LIMIT = 50;

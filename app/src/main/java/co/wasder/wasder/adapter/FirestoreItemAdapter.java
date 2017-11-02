@@ -2,6 +2,7 @@ package co.wasder.wasder.adapter;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Intent;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -45,7 +46,7 @@ import co.wasder.wasder.views.FirestoreCollections;
  * Created by Ahmed AlAskalany on 10/13/2017.
  * Wasder AB
  */
-
+@Keep
 public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem,
         FirestoreItemAdapter.FirestoreItemHolder> implements FirestoreItemsAdapter {
 
@@ -100,6 +101,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      * Created by Ahmed AlAskalany on 10/13/2017.
      * Wasder AB
      */
+    @Keep
     public static class FirestoreItemHolder extends RecyclerView.ViewHolder {
 
         private static final String TAG = "FirestoreItemHolder";

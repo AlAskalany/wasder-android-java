@@ -12,6 +12,7 @@ android {
         vectorDrawables.useSupportLibrary true
         multiDexEnabled true
         applicationId 'co.wasder.wasder'
+        manifestPlaceholders = [HOCKEYAPP_APP_ID: "a5afb5e5b8aa435a91624b6a55fbf716"]
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
     signingConfigs {
@@ -25,11 +26,15 @@ android {
     buildTypes {
         debug {
             ext.enableCrashlytics = false
+            minifyEnabled true
+            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     productFlavors {
@@ -119,6 +124,7 @@ dependencies {
     // Third-party libraries
     implementation "me.zhanghai.android.materialratingbar:library:${rootProject.ext.MATERIALRATINGBAR}"
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.GLIDE}"
+    implementation 'net.hockeyapp.android:HockeySDK:5.0.3'
     annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.GLIDE}"
     implementation("com.crashlytics.sdk.android:crashlytics:${rootProject.ext.CRASHLYTICS}") {
         transitive = true

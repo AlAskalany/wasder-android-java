@@ -34,5 +34,9 @@
                 android:title="@string/nav_drawer_notifications" />
         </menu>
     </item>
+    <item
+        android:id="@+id/nav_drawer_feedback"
+        android:icon="@drawable/ic_feedback_white_24dp"
+        android:title="Feedback" />
 
 </menu>

@@ -69,9 +69,9 @@
             </intent-filter>
         </service>
 
-        <meta-data xmlns:tools="http://schemas.android.com/tools"
+        <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="@string/fabric_api_key"
+            android:value="8df3619c6e081ddf78247924077b51d93acca7fb"
             tools:replace="android:value" />
 
         <service
@@ -86,6 +86,9 @@
             android:name=".ProfileActivity"
             android:parentActivityName=".WasderActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="a5afb5e5b8aa435a91624b6a55fbf716" />
     </application>
 
 </manifest>

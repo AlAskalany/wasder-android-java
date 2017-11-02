@@ -2,6 +2,7 @@ package co.wasder.wasder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.Keep;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -14,7 +15,7 @@ import java.lang.reflect.Field;
  * Created by Ahmed AlAskalany on 10/15/2017.
  * Navigator
  */
-
+@Keep
 public class NonSwipeableViewPager extends ViewPager {
 
     public NonSwipeableViewPager(Context context) {

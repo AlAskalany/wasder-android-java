@@ -1,5 +1,7 @@
 package co.wasder.wasder.jobservices;
 
+import android.support.annotation.Keep;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -7,7 +9,7 @@ import com.google.firebase.firestore.Query;
  * Created by Ahmed AlAskalany on 10/18/2017.
  * Navigator
  */
-
+@Keep
 @SuppressWarnings("unused")
 class FirestoreQueryRunnable implements Runnable {
 

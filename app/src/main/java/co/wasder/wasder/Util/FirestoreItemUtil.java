@@ -2,6 +2,7 @@ package co.wasder.wasder.Util;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.Keep;
 import android.text.TextUtils;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +23,7 @@ import co.wasder.wasder.model.FirestoreItem;
  * Created by Ahmed AlAskalany on 10/11/2017.
  * Wasder AB
  */
-
+@Keep
 public class FirestoreItemUtil {
 
     @SuppressWarnings("unused")

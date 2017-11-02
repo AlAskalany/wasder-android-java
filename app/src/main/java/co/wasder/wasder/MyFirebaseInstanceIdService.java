@@ -1,5 +1,6 @@
 package co.wasder.wasder;
 
+import android.support.annotation.Keep;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -10,7 +11,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
  * Created by Ahmed AlAskalany on 10/13/2017.
  * Wasder AB
  */
-
+@Keep
 public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
     private static final String TAG = "MyFirebaseIIDService";

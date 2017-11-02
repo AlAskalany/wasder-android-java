@@ -2,6 +2,7 @@ package co.wasder.wasder.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Keep;
 
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -28,7 +29,7 @@ import co.wasder.wasder.viewmodel.WasderActivityViewModel;
  * Created by Ahmed AlAskalany on 10/21/2017.
  * Navigator
  */
-
+@Keep
 public class FirebaseUtil {
 
     public static void startSignIn(WasderActivity activity, WasderActivityViewModel mViewModel,

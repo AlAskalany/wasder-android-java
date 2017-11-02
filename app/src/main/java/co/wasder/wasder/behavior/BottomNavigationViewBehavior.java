@@ -1,5 +1,6 @@
 package co.wasder.wasder.behavior;
 
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
@@ -10,6 +11,7 @@ import android.view.View;
  * https://github.com/sjthn/BottomNavigationViewBehavior/blob/master/app/src/main/java/com
  * /example/srijith/bottomnavigationviewbehavior/MainActivity.java
  */
+@Keep
 public class BottomNavigationViewBehavior extends CoordinatorLayout.Behavior<BottomNavigationView> {
 
     private int height;

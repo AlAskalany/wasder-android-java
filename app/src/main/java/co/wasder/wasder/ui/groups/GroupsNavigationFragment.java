@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
@@ -46,6 +47,7 @@ import co.wasder.wasder.ui.groups.tabs.OwnedTabFragment;
  * Use the {@link GroupsNavigationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@Keep
 public class GroupsNavigationFragment extends Fragment implements NavigationFragment,
         NavigationView.OnNavigationItemSelectedListener {
 

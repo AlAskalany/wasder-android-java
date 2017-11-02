@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -63,6 +64,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Dialog Fragment containing filter form.
  */
+@Keep
 public class AddEventDialogFragment extends DialogFragment {
 
     public static final String TAG = "AddPostDialog";

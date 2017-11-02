@@ -1,5 +1,6 @@
 package co.wasder.wasder.pageradapter;
 
+import android.support.annotation.Keep;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,6 +16,7 @@ import co.wasder.wasder.ui.messages.MessagesNavigationFragment;
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
+@Keep
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public SectionsPagerAdapter(@SuppressWarnings("unused") WasderActivity activity,

@@ -1,5 +1,7 @@
 package co.wasder.wasder.model;
 
+import android.net.Uri;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +17,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
  * Created by Ahmed AlAskalany on 10/31/2017.
  * Navigator
  */
+@Keep
 @IgnoreExtraProperties
 public class User {
 
@@ -32,7 +35,10 @@ public class User {
         uId = user.getUid();
         displayName = user.getDisplayName();
         email = user.getEmail();
-        photoUrl = String.valueOf(user.getPhotoUrl());
+        Uri uri = user.getPhotoUrl();
+        if (uri != null) {
+            photoUrl = uri.toString();
+        }
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -89,11 +95,14 @@ public class User {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         final CollectionReference reference = firestore.collection("users");
         final DocumentReference documentReference = reference.document(uId);
+        final User myUser = this;
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.getResult() == null) {
-                    documentReference.set(this);
+                if (task.getResult() != null) {
+                    if (!task.getResult().exists()) {
+                        documentReference.set(myUser);
+                    }
                 }
             }
         });

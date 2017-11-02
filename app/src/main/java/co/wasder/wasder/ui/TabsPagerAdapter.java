@@ -1,5 +1,6 @@
 package co.wasder.wasder.ui;
 
+import android.support.annotation.Keep;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by Ahmed AlAskalany on 10/14/2017.
  * Wasder AB
  */
+@Keep
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
     private final List<TabFragment> fragments = new ArrayList<>();

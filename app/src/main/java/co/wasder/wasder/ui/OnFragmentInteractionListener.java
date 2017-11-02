@@ -1,6 +1,7 @@
 package co.wasder.wasder.ui;
 
 import android.net.Uri;
+import android.support.annotation.Keep;
 
 /**
  * This interface must be implemented by activities that contain this
@@ -12,6 +13,7 @@ import android.net.Uri;
  * "http://developer.android.com/training/basics/fragments/communicating.html"
  * >Communicating with Other Fragments</a> for more information.
  */
+@Keep
 public interface OnFragmentInteractionListener {
 
     // TODO: Update argument type and name

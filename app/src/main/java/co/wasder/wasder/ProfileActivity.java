@@ -2,6 +2,7 @@ package co.wasder.wasder;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Keep;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -32,6 +33,7 @@ import co.wasder.wasder.model.User;
 import co.wasder.wasder.viewmodel.ProfileActivityViewModel;
 import co.wasder.wasder.views.FirestoreCollections;
 
+@Keep
 public class ProfileActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
     private static final String ARG_USER_REFERENCE = "user-reference";

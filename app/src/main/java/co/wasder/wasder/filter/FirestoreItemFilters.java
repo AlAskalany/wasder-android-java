@@ -1,6 +1,7 @@
 package co.wasder.wasder.filter;
 
 import android.content.Context;
+import android.support.annotation.Keep;
 import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
@@ -12,7 +13,7 @@ import co.wasder.wasder.model.FirestoreItem;
  * Created by Ahmed AlAskalany on 10/11/2017.
  * Wasder AB
  */
-
+@Keep
 public class FirestoreItemFilters {
 
     private String category = null;
