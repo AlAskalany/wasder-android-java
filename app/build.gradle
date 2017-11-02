@@ -94,6 +94,7 @@ dependencies {
     implementation "com.android.support:palette-v7:${rootProject.ext.SUPPORT}"
     // Support
     implementation "com.android.support.constraint:constraint-layout:$CONSTRAINTLAYOUT"
+    implementation "com.android.support.constraint:constraint-layout:1.0.2"
     implementation "com.android.support:support-vector-drawable:${rootProject.ext.SUPPORT}"
     implementation "com.android.support:mediarouter-v7:${rootProject.ext.SUPPORT}"
     implementation "com.android.support:multidex:${rootProject.ext.MULTIDEX}"
