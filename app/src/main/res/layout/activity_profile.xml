@@ -51,17 +51,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+            <co.wasder.wasder.views.ProfilePhoto
                 android:id="@+id/profilePhoto"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="bottom|end"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:contentDescription="@string/profile_photo"
-                app:layout_collapseMode="parallax"
-                app:srcCompat="@drawable/com_facebook_profile_picture_blank_portrait" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"

@@ -45,12 +45,12 @@ public class AddRatingDialogFragment extends DialogFragment {
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_form_rating)
-    MaterialRatingBar mRatingBar;
+    public MaterialRatingBar mRatingBar;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_form_text)
-    EditText mRatingText;
-    private RatingListener mRatingListener;
+    public EditText mRatingText;
+    public RatingListener mRatingListener;
 
     @Nullable
     @Override

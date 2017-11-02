@@ -16,12 +16,12 @@ import co.wasder.wasder.R;
 @Keep
 public class EventView extends FrameLayout {
 
-    private ProfilePhoto profilePhoto;
-    private TextView eventTitle;
-    private Header header;
-    private ItemText itemText;
-    private ItemImage itemImage;
-    private Actions actions;
+    public ProfilePhoto profilePhoto;
+    public TextView eventTitle;
+    public Header header;
+    public ItemText itemText;
+    public ItemImage itemImage;
+    public Actions actions;
 
     public EventView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);

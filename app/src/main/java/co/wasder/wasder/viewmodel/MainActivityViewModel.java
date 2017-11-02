@@ -12,8 +12,8 @@ import co.wasder.wasder.filter.FirestoreItemFilters;
 @Keep
 public class MainActivityViewModel extends ViewModel {
 
-    private boolean mIsSigningIn;
-    private FirestoreItemFilters mFirestoreItemFilters;
+    public boolean mIsSigningIn;
+    public FirestoreItemFilters mFirestoreItemFilters;
 
     public MainActivityViewModel() {
         mIsSigningIn = false;

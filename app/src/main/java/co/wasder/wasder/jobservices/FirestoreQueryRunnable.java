@@ -13,9 +13,9 @@ import com.google.firebase.firestore.Query;
 @SuppressWarnings("unused")
 class FirestoreQueryRunnable implements Runnable {
 
-    private final String collectionName;
+    public final String collectionName;
     @SuppressWarnings("unused")
-    private Query query;
+    public Query query;
 
     @SuppressWarnings("unused")
     public FirestoreQueryRunnable(Query query, String collectionName) {

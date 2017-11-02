@@ -12,7 +12,7 @@ import co.wasder.wasder.filter.FirestoreItemFilters;
 @Keep
 public class ProfileActivityViewModel extends ViewModel {
 
-    private FirestoreItemFilters mFirestoreItemFilters;
+    public FirestoreItemFilters mFirestoreItemFilters;
 
     public FirestoreItemFilters getFilters() {
         return mFirestoreItemFilters;

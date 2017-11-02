@@ -52,21 +52,21 @@ import co.wasder.wasder.ui.live.tabs.FollowingTabFragment;
 public class LiveNavigationFragment extends Fragment implements NavigationFragment,
         NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String ARG_TAG = "tag";
+    public static final String ARG_TAG = "tag";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_SECTION_NUMBER = "param1";
-    private static final String ARG_SECTION_TYPE = "param2";
-    private final List<TabFragment> fragments = new ArrayList<>();
-    private String TAG;
-    private ViewPager viewPager;
+    public static final String ARG_SECTION_NUMBER = "param1";
+    public static final String ARG_SECTION_TYPE = "param2";
+    public final List<TabFragment> fragments = new ArrayList<>();
+    public String TAG;
+    public ViewPager viewPager;
     @SuppressWarnings("unused")
-    private View appBarLayout;
+    public View appBarLayout;
     // TODO: Rename and change types of parameters
-    private int mSectionNumber;
-    private OnFragmentInteractionListener mListener;
+    public int mSectionNumber;
+    public OnFragmentInteractionListener mListener;
     @SuppressWarnings("unused")
-    private Animator.AnimatorListener mAnimationListener = new Animator.AnimatorListener() {
+    public Animator.AnimatorListener mAnimationListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animation) {
 
@@ -88,7 +88,7 @@ public class LiveNavigationFragment extends Fragment implements NavigationFragme
         }
     };
     @SuppressWarnings("unused")
-    private DrawerLayout mDrawerLayout;
+    public DrawerLayout mDrawerLayout;
 
     public LiveNavigationFragment() {
         // Required empty public constructor
@@ -110,7 +110,7 @@ public class LiveNavigationFragment extends Fragment implements NavigationFragme
         return fragment;
     }
 
-    private LiveNavigationFragment addTab(TabFragment tab) {
+    public LiveNavigationFragment addTab(TabFragment tab) {
         fragments.add(tab);
         return this;
     }
@@ -216,7 +216,7 @@ public class LiveNavigationFragment extends Fragment implements NavigationFragme
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void AnimateAppBarColor(View view, Animator.AnimatorListener listener) {
+    public void AnimateAppBarColor(View view, Animator.AnimatorListener listener) {
         int cx = view.getWidth() / 2;
         int cy = view.getHeight() / 2;
         float finalRadius = Math.max(view.getWidth(), view.getHeight());

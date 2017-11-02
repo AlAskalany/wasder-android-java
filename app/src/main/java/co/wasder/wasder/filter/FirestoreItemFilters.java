@@ -16,18 +16,18 @@ import co.wasder.wasder.model.FirestoreItem;
 @Keep
 public class FirestoreItemFilters {
 
-    private String category = null;
-    private String city = null;
-    private int price = -1;
-    private String sortBy = null;
-    private Query.Direction sortDirection = null;
+    public String category = null;
+    public String city = null;
+    public int price = -1;
+    public String sortBy = null;
+    public Query.Direction sortDirection = null;
 
     public FirestoreItemFilters() {
     }
 
     public static FirestoreItemFilters getDefault() {
         FirestoreItemFilters firestoreItemFilters = new FirestoreItemFilters();
-        firestoreItemFilters.setSortBy(FirestoreItem.FIELD_AVG_RATING);
+        firestoreItemFilters.setSortBy("avgRating");
         firestoreItemFilters.setSortDirection(Query.Direction.DESCENDING);
 
         return firestoreItemFilters;
@@ -118,9 +118,9 @@ public class FirestoreItemFilters {
     }
 
     public String getOrderDescription(Context context) {
-        if (FirestoreItem.FIELD_PRICE.equals(sortBy)) {
+        if ("price".equals(sortBy)) {
             return context.getString(R.string.items_sorted_by_price);
-        } else if (FirestoreItem.FIELD_POPULARITY.equals(sortBy)) {
+        } else if ("numRatings".equals(sortBy)) {
             return context.getString(R.string.items_sorted_by_popularity);
         } else {
             return context.getString(R.string.items_sorted_by_rating);

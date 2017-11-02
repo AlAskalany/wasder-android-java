@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -32,22 +31,23 @@ import co.wasder.wasder.model.FirestoreItem;
 import co.wasder.wasder.model.User;
 import co.wasder.wasder.viewmodel.ProfileActivityViewModel;
 import co.wasder.wasder.views.FirestoreCollections;
+import co.wasder.wasder.views.ProfilePhoto;
 
 @Keep
 public class ProfileActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
 
-    private static final String ARG_USER_REFERENCE = "user-reference";
-    private static final String TAG = "ProfileActivity";
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    ImageView profilePhoto;
-    private String mUserReference;
-    private FirebaseFirestore mFirestore;
-    private DocumentReference mDocumentReference;
-    private ListenerRegistration mModelRegistration;
-    private ProfileActivityViewModel viewModel;
-    private FirestoreItemsAdapter adapter;
-    private Query mQuery;
-    private FirestoreItemsAdapter.OnFirestoreItemSelected mItemSelectedListener = new
+    public static final String ARG_USER_REFERENCE = "user-reference";
+    public static final String TAG = "ProfileActivity";
+    public CollapsingToolbarLayout collapsingToolbarLayout;
+    public ProfilePhoto profilePhoto;
+    public String mUserReference;
+    public FirebaseFirestore mFirestore;
+    public DocumentReference mDocumentReference;
+    public ListenerRegistration mModelRegistration;
+    public ProfileActivityViewModel viewModel;
+    public FirestoreItemsAdapter adapter;
+    public Query mQuery;
+    public FirestoreItemsAdapter.OnFirestoreItemSelected mItemSelectedListener = new
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
@@ -57,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         Bundle extras = getIntent().getExtras();
@@ -134,11 +134,11 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         onItemModelLoaded(documentSnapshot.toObject(FirestoreItem.class));
     }
 
-    private void onItemModelLoaded(FirestoreItem firestoreItem) {
+    public void onItemModelLoaded(FirestoreItem firestoreItem) {
 
     }
 
-    private void onUserModelLoaded(User user) {
+    public void onUserModelLoaded(User user) {
         collapsingToolbarLayout.setTitle(user.getDisplayName());
 
 
@@ -148,7 +148,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
             Glide.with(this)
                     .load(uuid)
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(profilePhoto);
+                    .into(profilePhoto.getProfileImageView());
         }
     }
 }

@@ -15,7 +15,7 @@ import java.util.Date;
 @Keep
 public class Rating {
 
-    private String userId;
+    private String uId;
     private String userName;
     private double rating;
     private String text;
@@ -27,7 +27,7 @@ public class Rating {
     }
 
     public Rating(FirebaseUser user, double rating, String text) {
-        this.userId = user.getUid();
+        this.uId = user.getUid();
         this.userName = user.getDisplayName();
         if (TextUtils.isEmpty(this.userName)) {
             this.userName = user.getEmail();
@@ -38,13 +38,13 @@ public class Rating {
     }
 
     @SuppressWarnings("unused")
-    public String getUserId() {
-        return userId;
+    public String getUid() {
+        return uId;
     }
 
     @SuppressWarnings("unused")
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUid(String uId) {
+        this.uId = uId;
     }
 
     public String getUserName() {

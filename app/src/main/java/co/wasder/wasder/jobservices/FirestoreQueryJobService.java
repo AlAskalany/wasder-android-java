@@ -15,7 +15,7 @@ import com.google.firebase.firestore.Query;
 @Keep
 public class FirestoreQueryJobService extends JobService {
 
-    private Thread mThread;
+    public Thread mThread;
 
     @Override
     public boolean onStartJob(final JobParameters jobParameters) {

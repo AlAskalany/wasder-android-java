@@ -15,8 +15,8 @@ import java.util.List;
 @Keep
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
-    private final List<TabFragment> fragments = new ArrayList<>();
-    private final List<String> titles = new ArrayList<>();
+    public final List<TabFragment> fragments = new ArrayList<>();
+    public final List<String> titles = new ArrayList<>();
 
     public TabsPagerAdapter(FragmentManager fm) {
         super(fm);

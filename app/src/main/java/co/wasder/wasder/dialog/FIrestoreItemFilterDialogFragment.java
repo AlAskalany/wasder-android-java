@@ -45,18 +45,18 @@ public class FIrestoreItemFilterDialogFragment extends DialogFragment {
     public static final String TAG = "FilterDialog";
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_category)
-    Spinner mCategorySpinner;
+    public Spinner mCategorySpinner;
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_city)
-    Spinner mCitySpinner;
+    public Spinner mCitySpinner;
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_sort)
-    Spinner mSortSpinner;
+    public Spinner mSortSpinner;
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_price)
-    Spinner mPriceSpinner;
-    private View mRootView;
-    private FilterListener mFilterListener;
+    public Spinner mPriceSpinner;
+    public View mRootView;
+    public FilterListener mFilterListener;
 
     public FIrestoreItemFilterDialogFragment() {
     }
@@ -112,7 +112,7 @@ public class FIrestoreItemFilterDialogFragment extends DialogFragment {
     }
 
     @Nullable
-    private String getSelectedCategory() {
+    public String getSelectedCategory() {
         String selected = (String) mCategorySpinner.getSelectedItem();
         if (getString(R.string.value_any_category_items).equals(selected)) {
             return null;
@@ -122,7 +122,7 @@ public class FIrestoreItemFilterDialogFragment extends DialogFragment {
     }
 
     @Nullable
-    private String getSelectedCity() {
+    public String getSelectedCity() {
         String selected = (String) mCitySpinner.getSelectedItem();
         if (getString(R.string.value_any_city).equals(selected)) {
             return null;
@@ -131,7 +131,7 @@ public class FIrestoreItemFilterDialogFragment extends DialogFragment {
         }
     }
 
-    private int getSelectedPrice() {
+    public int getSelectedPrice() {
         String selected = (String) mPriceSpinner.getSelectedItem();
         if (selected.equals(getString(R.string.price_1))) {
             return 1;
@@ -145,23 +145,23 @@ public class FIrestoreItemFilterDialogFragment extends DialogFragment {
     }
 
     @Nullable
-    private String getSelectedSortBy() {
+    public String getSelectedSortBy() {
         String selected = (String) mSortSpinner.getSelectedItem();
         if (getString(R.string.sort_items_by_rating).equals(selected)) {
-            return FirestoreItem.FIELD_AVG_RATING;
+            return "avgRating";
         }
         if (getString(R.string.sort_items_by_price).equals(selected)) {
-            return FirestoreItem.FIELD_PRICE;
+            return "price";
         }
         if (getString(R.string.sort_items_by_popularity).equals(selected)) {
-            return FirestoreItem.FIELD_POPULARITY;
+            return "numRatings";
         }
 
         return null;
     }
 
     @Nullable
-    private Query.Direction getSortDirection() {
+    public Query.Direction getSortDirection() {
         String selected = (String) mSortSpinner.getSelectedItem();
         if (getString(R.string.sort_items_by_rating).equals(selected)) {
             return Query.Direction.DESCENDING;

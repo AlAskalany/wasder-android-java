@@ -74,61 +74,61 @@ import io.fabric.sdk.android.Fabric;
 public class MainActivity extends AppCompatActivity implements FIrestoreItemFilterDialogFragment
         .FilterListener, FirebaseAuth.AuthStateListener, LifecycleOwner {
 
-    private static final int WELCOME_MESSAGE_EXPIRATION = 3600;
-    private static final String TAG = "MainActivity";
-    private static final int RC_SIGN_IN = 9001;
-    private static final int LIMIT = 50;
-    private static final int REQUEST_INVITE = 0;
+    public static final int WELCOME_MESSAGE_EXPIRATION = 3600;
+    public static final String TAG = "MainActivity";
+    public static final int RC_SIGN_IN = 9001;
+    public static final int LIMIT = 50;
+    public static final int REQUEST_INVITE = 0;
     // Remote Config keys
-    private static final String LOADING_PHRASE_CONFIG_KEY = "loading_phrase";
-    private static final String WELCOME_MESSAGE_KEY = "welcome_message";
-    private static final String WELCOME_MESSAGE_CAPS_KEY = "welcome_message_caps";
+    public static final String LOADING_PHRASE_CONFIG_KEY = "loading_phrase";
+    public static final String WELCOME_MESSAGE_KEY = "welcome_message";
+    public static final String WELCOME_MESSAGE_CAPS_KEY = "welcome_message_caps";
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    public Toolbar mToolbar;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.text_current_search)
-    TextView mCurrentSearchView;
+    public TextView mCurrentSearchView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.text_current_sort_by)
-    TextView mCurrentSortByView;
+    public TextView mCurrentSortByView;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recycler_restaurants)
-    RecyclerView mRestaurantsRecycler;
+    public RecyclerView mRestaurantsRecycler;
 
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.welcome_text_view)
-    TextView mWelcomeTextView;
+    public TextView mWelcomeTextView;
 
     @SuppressWarnings("WeakerAccess")
     @BindString(R.string.invitation_message)
-    String mInviteMessage;
+    public String mInviteMessage;
 
     @SuppressWarnings("WeakerAccess")
     @BindString(R.string.invitation_deep_link)
-    String mInviteDeepLink;
+    public String mInviteDeepLink;
 
     @SuppressWarnings("WeakerAccess")
     @BindString(R.string.invitation_custom_image)
-    String mInviteCustomImage;
+    public String mInviteCustomImage;
 
     @SuppressWarnings("WeakerAccess")
     @BindString(R.string.invitation_cta)
-    String mInviteCta;
+    public String mInviteCta;
 
-    private FirebaseFirestore mFirestore;
-    private Query mQuery;
+    public FirebaseFirestore mFirestore;
+    public Query mQuery;
 
-    private FIrestoreItemFilterDialogFragment mFilterDialog;
+    public FIrestoreItemFilterDialogFragment mFilterDialog;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private AddFirestoreItemDialogFragment mAddRestaurantDialog;
-    private FirebaseRemoteConfig mRemoteConfig;
+    public AddFirestoreItemDialogFragment mAddRestaurantDialog;
+    public FirebaseRemoteConfig mRemoteConfig;
 
-    private MainActivityViewModel mViewModel;
-    private FirestoreItemsAdapter.OnFirestoreItemSelected mPostSelectedListener = new
+    public MainActivityViewModel mViewModel;
+    public FirestoreItemsAdapter.OnFirestoreItemSelected mPostSelectedListener = new
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
         }
     };
 
-    private void logUserCrashlytics() {
+    public void logUserCrashlytics() {
         // TODO: Use the current user's information
         // You can call any combination of these three methods
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
         mAddRestaurantDialog = Dialogs.AddPostDialogFragment();
     }
 
-    private void onInviteClicked() {
+    public void onInviteClicked() {
         Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string
                 .invitation_title)).setMessage(mInviteMessage).setDeepLink(Uri.parse
                 (mInviteDeepLink)).setCustomImage(Uri.parse(mInviteCustomImage))
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
         startActivityForResult(intent, REQUEST_INVITE);
     }
 
-    private void fetchWelcomeMessage() {
+    public void fetchWelcomeMessage() {
         mWelcomeTextView.setText(mRemoteConfig.getString(LOADING_PHRASE_CONFIG_KEY));
 
         long cacheExpiration = WELCOME_MESSAGE_EXPIRATION; // 1 hour in
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
         // [END fetch_config_with_callback]
     }
 
-    private void displayWelcomeMessage() {
+    public void displayWelcomeMessage() {
         String welcomeMessage = mRemoteConfig.getString(WELCOME_MESSAGE_KEY);
         if (mRemoteConfig.getBoolean(WELCOME_MESSAGE_CAPS_KEY)) {
             mWelcomeTextView.setAllCaps(true);
@@ -235,14 +235,14 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
         mWelcomeTextView.setText(welcomeMessage);
     }
 
-    private void setupRemoteConfig() {
+    public void setupRemoteConfig() {
         mRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .setDeveloperModeEnabled(BuildConfig.DEBUG).build();
         mRemoteConfig.setConfigSettings(configSettings);
     }
 
-    private void initFirestore() {
+    public void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true).build();
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
                 .DESCENDING).limit(LIMIT);
     }
 
-    private void initRecyclerView() {
+    public void initRecyclerView() {
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
         super.onStop();
     }
 
-    private void onAddItemsClicked() {
+    public void onAddItemsClicked() {
         // Get a reference to the restaurants collection
         CollectionReference restaurants = mFirestore.collection("restaurants");
 
@@ -391,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
         }
     }
 
-    private void showSnackbar(int message) {
+    public void showSnackbar(int message) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT);
     }
 
@@ -415,12 +415,12 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
         onFilter(FirestoreItemFilters.getDefault());
     }
 
-    private boolean shouldStartSignIn() {
+    public boolean shouldStartSignIn() {
         return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() ==
                 null);
     }
 
-    private void startSignIn() {
+    public void startSignIn() {
         // Sign in with FirebaseUI
         Intent intent = AuthUI.getInstance().createSignInIntentBuilder().setTheme(R.style
                 .GreenTheme).setAvailableProviders(Collections.singletonList(new AuthUI.IdpConfig
@@ -432,7 +432,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
     }
 
     @SuppressWarnings("unused")
-    private void showTodoToast() {
+    public void showTodoToast() {
         Toast.makeText(this, "TODO: Implement", Toast.LENGTH_SHORT).show();
     }
 

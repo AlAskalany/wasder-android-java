@@ -15,9 +15,9 @@ import co.wasder.wasder.R;
 @Keep
 public class Header extends FrameLayout {
 
-    private UserName userName;
-    private TimeStamp timeStamp;
-    private ExpandButton expandButton;
+    public UserName userName;
+    public TimeStamp timeStamp;
+    public ExpandButton expandButton;
     public Header(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_header, this, true);

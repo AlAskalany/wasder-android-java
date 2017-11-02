@@ -19,7 +19,16 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# keep everything in this package from being removed or renamed
+-keep class com.firebase.** { *; }
+
+# Preserve all native method names and the names of their classes.
+
+-keepclasseswithmembernames,includedescriptorclasses class * {
+    native <methods>;
+}
 
 # keep everything in this package from being removed or renamed
--keepattributes Signature
--keepattributes *Annotation*
+-keep class javax.** { *; }
+
+-keep class android.arch.** { *; }
