@@ -34,13 +34,12 @@ import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.filter.Filters;
 import co.wasder.wasder.filter.FirestoreItemFilters;
-import co.wasder.wasder.model.FirestoreItem;
 
 /**
  * Dialog Fragment containing filter form.
  */
 @Keep
-public class FIrestoreItemFilterDialogFragment extends DialogFragment {
+public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "FilterDialog";
     @SuppressWarnings("WeakerAccess")
@@ -58,12 +57,12 @@ public class FIrestoreItemFilterDialogFragment extends DialogFragment {
     public View mRootView;
     public FilterListener mFilterListener;
 
-    public FIrestoreItemFilterDialogFragment() {
+    public FirestoreItemFilterDialogFragment() {
     }
 
     @SuppressWarnings("unused")
-    public static FIrestoreItemFilterDialogFragment newInstance() {
-        return new FIrestoreItemFilterDialogFragment();
+    public static FirestoreItemFilterDialogFragment newInstance() {
+        return new FirestoreItemFilterDialogFragment();
     }
 
     @Nullable

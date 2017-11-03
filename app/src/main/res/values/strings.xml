@@ -203,4 +203,7 @@
 
     <string name="value_any_date">Anytime</string>
     <string name="pick_a_date">Pick a date</string>
+    <string name="signing_in">Signing In</string>
+    <string name="signed_in">Signed In</string>
+    <string name="anonymous_auth_failed_msg">Anonymous Sign In Failed</string>
 </resources>

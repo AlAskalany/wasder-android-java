@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import com.google.firebase.firestore.Query;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.model.FirestoreItem;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
@@ -21,16 +20,21 @@ public class FirestoreItemFilters {
     public int price = -1;
     public String sortBy = null;
     public Query.Direction sortDirection = null;
+    private String uid;
 
     public FirestoreItemFilters() {
     }
 
     public static FirestoreItemFilters getDefault() {
         FirestoreItemFilters firestoreItemFilters = new FirestoreItemFilters();
-        firestoreItemFilters.setSortBy("avgRating");
+        firestoreItemFilters.setSortBy("timestamp");
         firestoreItemFilters.setSortDirection(Query.Direction.DESCENDING);
 
         return firestoreItemFilters;
+    }
+
+    public boolean hasUid(){
+        return !(TextUtils.isEmpty(uid));
     }
 
     public boolean hasCategory() {
@@ -92,6 +96,12 @@ public class FirestoreItemFilters {
     public String getSearchDescription(Context context) {
         StringBuilder desc = new StringBuilder();
 
+        if(uid != null){
+            desc.append("<b>");
+            desc.append(uid);
+            desc.append("</b>");
+        }
+
         if (category == null && city == null) {
             desc.append("<b>");
             desc.append(context.getString(R.string.all_items));
@@ -125,5 +135,13 @@ public class FirestoreItemFilters {
         } else {
             return context.getString(R.string.items_sorted_by_rating);
         }
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUid(){
+        return uid;
     }
 }

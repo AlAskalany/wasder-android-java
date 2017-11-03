@@ -45,7 +45,7 @@ import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.dialog.AddEventDialogFragment;
 import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
+import co.wasder.wasder.dialog.FirestoreItemFilterDialogFragment;
 import co.wasder.wasder.filter.FirestoreItemFilters;
 import co.wasder.wasder.model.User;
 import co.wasder.wasder.pageradapter.SectionsPagerAdapter;
@@ -58,7 +58,7 @@ import io.fabric.sdk.android.Fabric;
 @Keep
 public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
         .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener,
-        FIrestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
+        FirestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
 
     public static final String TAG = "WasderActivity";
     public static final int RC_SIGN_IN = 9001;
@@ -73,7 +73,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.container)
     public NonSwipeableViewPager mViewPager;
-
     public final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
@@ -107,7 +106,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public WasderActivityViewModel mViewModel;
     @SuppressWarnings("unused")
     public ActionBarDrawerToggle toggle;
-    public FIrestoreItemFilterDialogFragment mFilterDialog;
+    public FirestoreItemFilterDialogFragment mFilterDialog;
     public boolean enableCrashButton = false;
 
     @Override
@@ -187,7 +186,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         FeedbackManager.register(this);
 
-        if(enableCrashButton){
+        if (enableCrashButton) {
             Button crashButton = new Button(this);
             crashButton.setText("Crash!");
             crashButton.setOnClickListener(new View.OnClickListener() {
@@ -195,9 +194,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                     Crashlytics.getInstance().crash(); // Force a crash
                 }
             });
-            addContentView(crashButton,
-                    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT));
+            addContentView(crashButton, new ViewGroup.LayoutParams(ViewGroup.LayoutParams
+                    .MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
     }
 

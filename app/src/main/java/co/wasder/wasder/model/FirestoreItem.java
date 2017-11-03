@@ -2,7 +2,6 @@ package co.wasder.wasder.model;
 
 import android.support.annotation.Keep;
 
-import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
@@ -14,7 +13,7 @@ import java.util.Date;
  */
 @Keep
 @IgnoreExtraProperties
-public class FirestoreItem {
+public class FirestoreItem extends AbstractFirestoreItem {
 
     @SuppressWarnings("unused")
     private static final String FIELD_UID = "uId";
@@ -60,6 +59,11 @@ public class FirestoreItem {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getMessage() {
+        return null;
     }
 
     public void setName(String name) {

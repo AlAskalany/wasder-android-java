@@ -187,7 +187,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                     //intent.putExtra("key_post_id", snapshot.getId());
                     //view.getContext().startActivity(intent);
                     //postItemCardView.setBackgroundColor(Color.GREEN);
-                    onFirestoreItemSelected.onFirestoreItemSelected(snapshot, itemView);
+                    onFirestoreItemSelected.onFirestoreItemSelected(firestoreItem, itemView);
                 }
             });
 

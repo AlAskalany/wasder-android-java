@@ -27,6 +27,7 @@ import com.google.firebase.firestore.Query;
 
 import co.wasder.wasder.adapter.FirestoreItemAdapter;
 import co.wasder.wasder.adapter.FirestoreItemsAdapter;
+import co.wasder.wasder.model.AbstractFirestoreItem;
 import co.wasder.wasder.model.FirestoreItem;
 import co.wasder.wasder.model.User;
 import co.wasder.wasder.viewmodel.ProfileActivityViewModel;
@@ -51,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
-        public void onFirestoreItemSelected(DocumentSnapshot event, View itemView) {
+        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
 
         }
     };

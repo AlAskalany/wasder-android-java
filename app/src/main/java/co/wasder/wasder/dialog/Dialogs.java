@@ -9,8 +9,8 @@ import android.support.annotation.Keep;
 @Keep
 public class Dialogs {
 
-    public static FIrestoreItemFilterDialogFragment PostsFilterDialogFragment() {
-        return new FIrestoreItemFilterDialogFragment();
+    public static FirestoreItemFilterDialogFragment PostsFilterDialogFragment() {
+        return new FirestoreItemFilterDialogFragment();
     }
 
     public static AddFirestoreItemDialogFragment AddPostDialogFragment() {

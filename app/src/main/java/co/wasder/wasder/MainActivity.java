@@ -45,7 +45,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
@@ -64,14 +63,15 @@ import co.wasder.wasder.adapter.FirestoreItemAdapter;
 import co.wasder.wasder.adapter.FirestoreItemsAdapter;
 import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
+import co.wasder.wasder.dialog.FirestoreItemFilterDialogFragment;
 import co.wasder.wasder.filter.FirestoreItemFilters;
+import co.wasder.wasder.model.AbstractFirestoreItem;
 import co.wasder.wasder.model.FirestoreItem;
 import co.wasder.wasder.viewmodel.MainActivityViewModel;
 import io.fabric.sdk.android.Fabric;
 
 @Keep
-public class MainActivity extends AppCompatActivity implements FIrestoreItemFilterDialogFragment
+public class MainActivity extends AppCompatActivity implements FirestoreItemFilterDialogFragment
         .FilterListener, FirebaseAuth.AuthStateListener, LifecycleOwner {
 
     public static final int WELCOME_MESSAGE_EXPIRATION = 3600;
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
     public FirebaseFirestore mFirestore;
     public Query mQuery;
 
-    public FIrestoreItemFilterDialogFragment mFilterDialog;
+    public FirestoreItemFilterDialogFragment mFilterDialog;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     public AddFirestoreItemDialogFragment mAddRestaurantDialog;
     public FirebaseRemoteConfig mRemoteConfig;
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
-        public void onFirestoreItemSelected(DocumentSnapshot event, View itemView) {
+        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
             Log.d(TAG, "onFirestoreItemSelected: " + itemView);
         }
     };
@@ -399,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements FIrestoreItemFilt
     @OnClick(R.id.filter_bar)
     public void onFilterClicked() {
         // Show the dialog containing filter options
-        mFilterDialog.show(getSupportFragmentManager(), FIrestoreItemFilterDialogFragment.TAG);
+        mFilterDialog.show(getSupportFragmentManager(), FirestoreItemFilterDialogFragment.TAG);
     }
 
     @OnClick(R.id.floatingActionButton)
