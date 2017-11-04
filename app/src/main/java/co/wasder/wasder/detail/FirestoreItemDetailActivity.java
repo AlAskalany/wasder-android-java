@@ -45,6 +45,7 @@ import com.google.firebase.storage.StorageReference;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.wasder.GlideApp;
 import co.wasder.wasder.R;
 import co.wasder.wasder.adapter.RatingAdapter;
 import co.wasder.wasder.dialog.AddRatingDialogFragment;
@@ -201,7 +202,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         String uuid = firestoreItem.getPhoto();
         if (uuid != null) {
             StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-            Glide.with(mImageView.getContext())
+            GlideApp.with(mImageView.getContext())
                     .load(mImageRef)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(mImageView);

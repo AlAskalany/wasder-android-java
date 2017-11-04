@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentReference;
@@ -146,7 +145,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         // Background image
         String uuid = user.getPhotoUrl();
         if (uuid != null) {
-            Glide.with(this)
+            GlideApp.with(this)
                     .load(uuid)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(profilePhoto.getProfileImageView());

@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -44,6 +43,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import co.wasder.wasder.GlideApp;
 import co.wasder.wasder.ProfileActivity;
 import co.wasder.wasder.R;
 import co.wasder.wasder.SignInResultNotifier;
@@ -311,7 +311,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
             uuid = chat.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
                 StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-                Glide.with(itemView.getContext())
+                GlideApp.with(itemView.getContext())
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(feedView.getItemImage().getItemImageView());
@@ -320,7 +320,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
             String profilePhotoUrl = chat.getProfilePhoto();
             if (profilePhotoUrl != null) {
                 if (!TextUtils.isEmpty(profilePhotoUrl)) {
-                    Glide.with(itemView.getContext())
+                    GlideApp.with(itemView.getContext())
                             .load(profilePhotoUrl)
                             .transition(DrawableTransitionOptions.withCrossFade())
                             .into(feedView.getProfilePhoto().getProfileImageView());
