@@ -25,7 +25,7 @@ import co.wasder.wasder.adapter.Adapters;
 import co.wasder.wasder.adapter.EventsAdapter;
 import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
+import co.wasder.wasder.dialog.FirestoreItemFilterDialogFragment;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.TabFragmentViewModel;
@@ -45,7 +45,7 @@ public class FavoritesTabFragment extends Fragment implements TabFragment, Lifec
     public RecyclerView mRecyclerView;
     public FirebaseFirestore mFirestore;
     public Query mQuery;
-    public FIrestoreItemFilterDialogFragment mFilterDialog;
+    public FirestoreItemFilterDialogFragment mFilterDialog;
     public AddFirestoreItemDialogFragment mAddPostDialog;
     public TabFragmentViewModel mViewModel;
     // TODO: Rename and change types of parameters

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
@@ -25,7 +24,8 @@ import co.wasder.wasder.adapter.Adapters;
 import co.wasder.wasder.adapter.FirestoreItemsAdapter;
 import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
+import co.wasder.wasder.dialog.FirestoreItemFilterDialogFragment;
+import co.wasder.wasder.model.AbstractFirestoreItem;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.viewmodel.TabFragmentViewModel;
@@ -44,7 +44,7 @@ public class PmTabFragment extends Fragment implements TabFragment, LifecycleOwn
     public RecyclerView mRecyclerView;
     public FirebaseFirestore mFirestore;
     public Query mQuery;
-    public FIrestoreItemFilterDialogFragment mFilterDialog;
+    public FirestoreItemFilterDialogFragment mFilterDialog;
     public AddFirestoreItemDialogFragment mAddPostDialog;
     public TabFragmentViewModel mViewModel;
     // TODO: Rename and change types of parameters
@@ -54,7 +54,7 @@ public class PmTabFragment extends Fragment implements TabFragment, LifecycleOwn
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
-        public void onFirestoreItemSelected(DocumentSnapshot event, View itemView) {
+        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
             Log.d(TAG, "onFirestoreItemSelected: " + itemView);
         }
     };

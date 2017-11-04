@@ -5,7 +5,8 @@ import android.support.annotation.Keep;
 import android.view.View;
 
 import com.firebase.ui.firestore.ChangeEventListener;
-import com.google.firebase.firestore.DocumentSnapshot;
+
+import co.wasder.wasder.model.AbstractFirestoreItem;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.
@@ -16,7 +17,7 @@ public interface FirestoreItemsAdapter extends ChangeEventListener, LifecycleObs
 
     public interface OnFirestoreItemSelected {
 
-        public void onFirestoreItemSelected(DocumentSnapshot event, View itemView);
+        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView);
 
     }
 }

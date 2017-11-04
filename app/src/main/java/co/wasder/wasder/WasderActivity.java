@@ -25,16 +25,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.amplitude.api.Amplitude;
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.FeedbackManager;
 import net.hockeyapp.android.UpdateManager;
 import net.hockeyapp.android.metrics.MetricsManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -45,7 +51,7 @@ import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.dialog.AddEventDialogFragment;
 import co.wasder.wasder.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialog.Dialogs;
-import co.wasder.wasder.dialog.FIrestoreItemFilterDialogFragment;
+import co.wasder.wasder.dialog.FirestoreItemFilterDialogFragment;
 import co.wasder.wasder.filter.FirestoreItemFilters;
 import co.wasder.wasder.model.User;
 import co.wasder.wasder.pageradapter.SectionsPagerAdapter;
@@ -58,10 +64,11 @@ import io.fabric.sdk.android.Fabric;
 @Keep
 public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
         .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener,
-        FIrestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
+        FirestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
 
     public static final String TAG = "WasderActivity";
     public static final int RC_SIGN_IN = 9001;
+    private static final java.lang.String AMPLITUDE_API_KEY = "937ae55b73eb164890021fe9b2d4fa63";
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.drawer_layout)
     public DrawerLayout mDrawerLayout;
@@ -73,7 +80,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.container)
     public NonSwipeableViewPager mViewPager;
-
     public final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
@@ -83,15 +89,19 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             int id = item.getItemId();
             switch (id) {
                 case R.id.navigation_home:
+                    logAmplitudeEvent("Navigation", "BottomNav", "Home");
                     mViewPager.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_live:
+                    logAmplitudeEvent("Navigation", "BottomNav", "Live");
                     mViewPager.setCurrentItem(1, false);
                     return true;
                 case R.id.navigation_groups:
+                    logAmplitudeEvent("Navigation", "BottomNav", "Groups");
                     mViewPager.setCurrentItem(2, false);
                     return true;
                 case R.id.navigation_messages:
+                    logAmplitudeEvent("Navigation", "BottomNav", "Messages");
                     mViewPager.setCurrentItem(3, false);
                     return true;
                 default:
@@ -107,18 +117,33 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public WasderActivityViewModel mViewModel;
     @SuppressWarnings("unused")
     public ActionBarDrawerToggle toggle;
-    public FIrestoreItemFilterDialogFragment mFilterDialog;
+    public FirestoreItemFilterDialogFragment mFilterDialog;
     public boolean enableCrashButton = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_wasder);
         ButterKnife.bind(this);
 
         MetricsManager.register(getApplication());
         MetricsManager.trackEvent("WasderActivity");
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            Amplitude.getInstance()
+                    .initialize(this, AMPLITUDE_API_KEY)
+                    .enableForegroundTracking(getApplication())
+                    .setUserId(userId);
+            Amplitude.getInstance().trackSessionEvents(true);
+            long sessionId = Amplitude.getInstance().getSessionId();
+        }
+
+        logAmplitudeEvent("App Open", "KEY", "VALUE");
 
         // add this wherever you want to track a custom event and attach properties or
         // measurements to it
@@ -187,7 +212,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         FeedbackManager.register(this);
 
-        if(enableCrashButton){
+        if (enableCrashButton) {
             Button crashButton = new Button(this);
             crashButton.setText("Crash!");
             crashButton.setOnClickListener(new View.OnClickListener() {
@@ -195,10 +220,29 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                     Crashlytics.getInstance().crash(); // Force a crash
                 }
             });
-            addContentView(crashButton,
-                    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT));
+            addContentView(crashButton, new ViewGroup.LayoutParams(ViewGroup.LayoutParams
+                    .MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
+
+        String idToken = FirebaseInstanceId.getInstance().getToken();
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+    }
+
+    private void logAmplitudeEvent(@NonNull String eventType, @NonNull String key, @NonNull
+            String value) {
+        JSONObject eventProperties = createEventProperties(key, value);
+        Amplitude.getInstance().logEvent(eventType, eventProperties);
+    }
+
+    @NonNull
+    private JSONObject createEventProperties(@NonNull String key, @NonNull String value) {
+        JSONObject eventProperties = new JSONObject();
+        try {
+            eventProperties.put(key, value);
+        } catch (JSONException exception) {
+            exception.getStackTrace();
+        }
+        return eventProperties;
     }
 
     public void checkForUpdates() {
@@ -304,8 +348,10 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         switch (item.getItemId()) {
             case R.id.menu_add_events:
                 FirestoreItemUtil.onAddItemsClicked(this);
+                logAmplitudeEvent("Options Menu", "WasderActivity", "Add Events");
                 return true;
             case R.id.menu_sign_out:
+                logAmplitudeEvent("Options Menu", "WasderActivity", "Sign Out");
                 AuthUI.getInstance().signOut(this);
                 FirebaseUtil.startSignIn(this, mViewModel, RC_SIGN_IN);
                 return true;
@@ -320,20 +366,22 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
+            logAmplitudeEvent("Navigation", "NavDrawer", "Profile");
             Intent intent = new Intent(this, ProfileActivity.class);
             intent.putExtra("user-reference", FirebaseAuth.getInstance().getCurrentUser().getUid());
             startActivity(intent);
         } else if (id == R.id.nav_friends) {
-
+            logAmplitudeEvent("Navigation", "NavDrawer", "Friends");
         } else if (id == R.id.nav_followers) {
-
+            logAmplitudeEvent("Navigation", "NavDrawer", "Followers");
         } else if (id == R.id.nav_achievements) {
-
+            logAmplitudeEvent("Navigation", "NavDrawer", "Achievements");
         } else if (id == R.id.nav_settings_account) {
-
+            logAmplitudeEvent("Navigation", "NavDrawer", "Account");
         } else if (id == R.id.nav_settings_notifications) {
-
+            logAmplitudeEvent("Navigation", "NavDrawer", "Notifications");
         } else if (id == R.id.nav_drawer_feedback) {
+            logAmplitudeEvent("Navigation", "NavDrawer", "Feedback");
             FeedbackManager.showFeedbackActivity(WasderActivity.this);
         }
 
@@ -343,6 +391,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        logAmplitudeEvent("Authentication", "State", "Changed");
         FirebaseUser user = firebaseAuth.getCurrentUser();
     }
 
