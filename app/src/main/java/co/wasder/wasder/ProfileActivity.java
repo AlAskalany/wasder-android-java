@@ -148,7 +148,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
             GlideApp.with(this)
                     .load(uuid)
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(profilePhoto.getProfileImageView());
+                    .into(profilePhoto.getProfileImageView(user.getUid()));
         }
     }
 }

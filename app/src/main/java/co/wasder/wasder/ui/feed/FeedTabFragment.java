@@ -327,12 +327,12 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                     GlideApp.with(itemView.getContext())
                             .load(profilePhotoUrl)
                             .transition(DrawableTransitionOptions.withCrossFade())
-                            .into(feedView.getProfilePhoto().getProfileImageView());
+                            .into(feedView.getProfilePhoto().getProfileImageView(userId));
 
                 }
             }
             feedView.getProfilePhoto()
-                    .getProfileImageView()
+                    .getProfileImageView(userId)
                     .setOnClickListener(new View.OnClickListener() {
 
 

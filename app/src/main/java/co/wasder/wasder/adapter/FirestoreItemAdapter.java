@@ -156,12 +156,12 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                     GlideApp.with(itemView.getContext())
                             .load(profilePhotoUrl)
                             .transition(DrawableTransitionOptions.withCrossFade())
-                            .into(feedView.getProfilePhoto().getProfileImageView());
+                            .into(feedView.getProfilePhoto().getProfileImageView(userId));
 
                 }
             }
             feedView.getProfilePhoto()
-                    .getProfileImageView()
+                    .getProfileImageView(userId)
                     .setOnClickListener(new View.OnClickListener() {
 
 

@@ -323,6 +323,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onStop() {
         super.onStop();
+        Log.d(TAG, "onStop: " + "Task is root " + getTaskId());
     }
 
     @Override

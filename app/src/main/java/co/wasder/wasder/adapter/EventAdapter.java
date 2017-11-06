@@ -156,12 +156,12 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                     GlideApp.with(itemView.getContext())
                             .load(profilePhotoUrl)
                             .transition(DrawableTransitionOptions.withCrossFade())
-                            .into(eventView.getProfilePhoto().getProfileImageView());
+                            .into(eventView.getProfilePhoto().getProfileImageView(userId));
 
                 }
             }
             eventView.getProfilePhoto()
-                    .getProfileImageView()
+                    .getProfileImageView(userId)
                     .setOnClickListener(new View.OnClickListener() {
 
 
