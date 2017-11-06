@@ -31,6 +31,8 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -43,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -141,6 +144,18 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                     .setUserId(userId);
             Amplitude.getInstance().trackSessionEvents(true);
             long sessionId = Amplitude.getInstance().getSessionId();
+            // Write a message to the database
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("users");
+            DatabaseReference userRef = myRef.child(userId).child("notificationTokens");
+            String token = FirebaseInstanceId.getInstance().getToken();
+            Map<String, Object> data = new HashMap<>();
+            data.put(token, true);
+            userRef.updateChildren(data);
+
+            Map<String, Object> onlineStatus = new HashMap<>();
+            onlineStatus.put("online", true);
+            myRef.child(userId).updateChildren(onlineStatus);
         }
 
         logAmplitudeEvent("App Open", "KEY", "VALUE");
@@ -262,6 +277,16 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public void onDestroy() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String uId = user.getUid();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+
+        Map<String, Object> onlineStatus = new HashMap<>();
+        onlineStatus.put("online", false);
+        myRef.child(uId).updateChildren(onlineStatus);
         super.onDestroy();
         unregisterManagers();
     }
@@ -293,6 +318,11 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         if (toggle != null) {
             toggle.onConfigurationChanged(newConfig);
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     @Override
