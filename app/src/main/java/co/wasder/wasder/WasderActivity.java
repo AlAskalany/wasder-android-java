@@ -144,18 +144,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                     .setUserId(userId);
             Amplitude.getInstance().trackSessionEvents(true);
             long sessionId = Amplitude.getInstance().getSessionId();
-            // Write a message to the database
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("users");
-            DatabaseReference userRef = myRef.child(userId).child("notificationTokens");
-            String token = FirebaseInstanceId.getInstance().getToken();
-            Map<String, Object> data = new HashMap<>();
-            data.put(token, true);
-            userRef.updateChildren(data);
-
-            Map<String, Object> onlineStatus = new HashMap<>();
-            onlineStatus.put("online", true);
-            myRef.child(userId).updateChildren(onlineStatus);
         }
 
         logAmplitudeEvent("App Open", "KEY", "VALUE");
@@ -277,16 +265,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public void onDestroy() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        String uId = user.getUid();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("users");
-
-        Map<String, Object> onlineStatus = new HashMap<>();
-        onlineStatus.put("online", false);
-        myRef.child(uId).updateChildren(onlineStatus);
         super.onDestroy();
         unregisterManagers();
     }
@@ -323,6 +301,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onStop() {
         super.onStop();
+        setPresenceOnline(false);
         Log.d(TAG, "onStop: " + "Task is root " + getTaskId());
     }
 
@@ -351,8 +330,26 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onResume() {
         super.onResume();
-        // ... your own onResume implementation
+        setPresenceOnline(true);
         checkForCrashes();
+    }
+
+    private void setPresenceOnline(boolean online) {
+        // Write a message to the database
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String userId = user.getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+        DatabaseReference userRef = myRef.child(userId).child("notificationTokens");
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Map<String, Object> data = new HashMap<>();
+        data.put(token, online);
+        userRef.updateChildren(data);
+
+        Map<String, Object> onlineStatus = new HashMap<>();
+        onlineStatus.put("online", true);
+        myRef.child(userId).updateChildren(onlineStatus);
     }
 
     public void checkForCrashes() {
@@ -365,14 +362,14 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         return true;
     }
 
-    /*@Override
+    @Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-    }*/
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
