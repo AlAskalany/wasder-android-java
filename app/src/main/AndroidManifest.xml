@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".WasderActivity"
+            android:name=".ui.activity.WasderActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,21 +26,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".detail.FirestoreItemDetailActivity"
+            android:name=".ui.activity.detail.FirestoreItemDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".network.service.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".MyFirebaseInstanceIdService"
+            android:name=".network.service.MyFirebaseInstanceIdService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -65,7 +62,7 @@
             tools:replace="android:value" />
 
         <service
-            android:name=".jobservices.FirestoreQueryJobService"
+            android:name=".network.service.jobservices.FirestoreQueryJobService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
@@ -73,8 +70,8 @@
         </service>
 
         <activity
-            android:name=".ProfileActivity"
-            android:parentActivityName=".WasderActivity"
+            android:name=".ui.activity.ProfileActivity"
+            android:parentActivityName=".ui.activity.WasderActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"

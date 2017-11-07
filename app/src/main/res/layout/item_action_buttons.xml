@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     tools:layout_editor_absoluteY="81dp">
 
-    <co.wasder.wasder.views.action.CommentAction
+    <co.wasder.wasder.ui.views.action.CommentAction
         android:id="@+id/include7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <co.wasder.wasder.views.action.ShareAction
+    <co.wasder.wasder.ui.views.action.ShareAction
         android:id="@+id/include8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         app:layout_constraintStart_toEndOf="@+id/include7"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <co.wasder.wasder.views.action.LikeAction
+    <co.wasder.wasder.ui.views.action.LikeAction
         android:id="@+id/include9"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         app:layout_constraintStart_toEndOf="@+id/include8"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <co.wasder.wasder.views.action.SendAction
+    <co.wasder.wasder.ui.views.action.SendAction
         android:id="@+id/include10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

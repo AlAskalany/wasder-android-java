@@ -11,9 +11,9 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="5dp"
     app:contentPadding="8dp"
-    tools:context=".WasderActivity">
+    tools:context=".ui.activity.WasderActivity">
 
-    <co.wasder.wasder.views.EventView
+    <co.wasder.wasder.ui.views.EventView
         android:id="@+id/feedView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
