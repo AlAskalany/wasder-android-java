@@ -303,7 +303,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onStop() {
         super.onStop();
-        setPresenceOnline(false);
         Log.d(TAG, "onStop: " + "Task is root " + getTaskId());
     }
 
@@ -332,7 +331,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onResume() {
         super.onResume();
-        setPresenceOnline(true);
         checkForCrashes();
     }
 
