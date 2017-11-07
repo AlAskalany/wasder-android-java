@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -21,6 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,10 +32,13 @@ import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import co.wasder.wasder.GlideApp;
 import co.wasder.wasder.ProfileActivity;
 import co.wasder.wasder.R;
 import co.wasder.wasder.model.FirestoreItem;
@@ -105,8 +109,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
     public static class FirestoreItemHolder extends RecyclerView.ViewHolder {
 
         public static final String TAG = "FirestoreItemHolder";
-        public static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale
-                .US);
+        public static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
         @BindView(R.id.feedView)
         public FeedView feedView;
@@ -141,7 +144,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
             uuid = firestoreItem.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
                 StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-                Glide.with(itemView.getContext())
+                GlideApp.with(itemView.getContext())
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(feedView.getItemImage().getItemImageView());
@@ -150,15 +153,15 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
             String profilePhotoUrl = firestoreItem.getProfilePhoto();
             if (profilePhotoUrl != null) {
                 if (!TextUtils.isEmpty(profilePhotoUrl)) {
-                    Glide.with(itemView.getContext())
+                    GlideApp.with(itemView.getContext())
                             .load(profilePhotoUrl)
                             .transition(DrawableTransitionOptions.withCrossFade())
-                            .into(feedView.getProfilePhoto().getProfileImageView());
+                            .into(feedView.getProfilePhoto().getProfileImageView(userId));
 
                 }
             }
             feedView.getProfilePhoto()
-                    .getProfileImageView()
+                    .getProfileImageView(userId)
                     .setOnClickListener(new View.OnClickListener() {
 
 
@@ -201,9 +204,10 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                     popup.inflate(R.menu.menu_item);
                     FirebaseAuth auth = FirebaseAuth.getInstance();
                     FirebaseUser user = auth.getCurrentUser();
-                    String currentUserId = user.getUid();
+                    final String currentUserId = user.getUid();
                     if (!TextUtils.equals(firestoreItem.getUid(), currentUserId)) {
                         popup.getMenu().getItem(1).setVisible(false);
+                        //popup.getMenu().getItem(2).setVisible(true);
                     }
 
                     //adding click listener
@@ -229,6 +233,17 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                                                     }
                                                 }
                                             });
+                                    break;
+                                case R.id.follow:
+                                    DatabaseReference database = FirebaseDatabase.getInstance()
+                                            .getReference("users");
+                                    DatabaseReference followedFollowersRef = database.child
+                                            (firestoreItem
+                                            .getUid()).child("followers");
+
+                                    Map<String, Object> data = new HashMap<>();
+                                    data.put(currentUserId, true);
+                                    followedFollowersRef.updateChildren(data);
                                     break;
                             }
                             return false;

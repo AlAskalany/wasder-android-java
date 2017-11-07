@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -28,6 +27,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,11 +40,14 @@ import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import co.wasder.wasder.GlideApp;
 import co.wasder.wasder.ProfileActivity;
 import co.wasder.wasder.R;
 import co.wasder.wasder.SignInResultNotifier;
@@ -293,7 +297,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
             String userId = chat.getUid();
             CollectionReference users = FirebaseFirestore.getInstance()
                     .collection(FirestoreCollections.USERS);
-            DocumentReference userReference = users.document(userId);
+            final DocumentReference userReference = users.document(userId);
             Task<DocumentSnapshot> getUserTask = userReference.get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
@@ -311,7 +315,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
             uuid = chat.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
                 StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-                Glide.with(itemView.getContext())
+                GlideApp.with(itemView.getContext())
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(feedView.getItemImage().getItemImageView());
@@ -320,15 +324,15 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
             String profilePhotoUrl = chat.getProfilePhoto();
             if (profilePhotoUrl != null) {
                 if (!TextUtils.isEmpty(profilePhotoUrl)) {
-                    Glide.with(itemView.getContext())
+                    GlideApp.with(itemView.getContext())
                             .load(profilePhotoUrl)
                             .transition(DrawableTransitionOptions.withCrossFade())
-                            .into(feedView.getProfilePhoto().getProfileImageView());
+                            .into(feedView.getProfilePhoto().getProfileImageView(userId));
 
                 }
             }
             feedView.getProfilePhoto()
-                    .getProfileImageView()
+                    .getProfileImageView(userId)
                     .setOnClickListener(new View.OnClickListener() {
 
 
@@ -371,9 +375,10 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                     popup.inflate(R.menu.menu_item);
                     FirebaseAuth auth = FirebaseAuth.getInstance();
                     FirebaseUser user = auth.getCurrentUser();
-                    String currentUserId = user.getUid();
+                    final String currentUserId = user.getUid();
                     if (!TextUtils.equals(chat.getUid(), currentUserId)) {
                         popup.getMenu().getItem(1).setVisible(false);
+                        popup.getMenu().getItem(2).setVisible(true);
                     }
 
                     //adding click listener
@@ -398,6 +403,17 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                                                     }
                                                 }
                                             });
+                                    break;
+                                case R.id.follow:
+                                    DatabaseReference database = FirebaseDatabase.getInstance()
+                                            .getReference("users");
+                                    DatabaseReference followedFollowersRef = database.child(chat
+                                            .getUid())
+                                            .child("followers");
+
+                                    Map<String, Object> data = new HashMap<>();
+                                    data.put(currentUserId, true);
+                                    followedFollowersRef.updateChildren(data);
                                     break;
                             }
                             return false;

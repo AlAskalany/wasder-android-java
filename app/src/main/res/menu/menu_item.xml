@@ -10,4 +10,10 @@
         android:id="@+id/delete"
         android:title="@string/delete"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/follow"
+        android:title="@string/follow"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
 </menu>

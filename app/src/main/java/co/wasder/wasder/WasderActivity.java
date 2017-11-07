@@ -31,6 +31,8 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -43,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -296,6 +299,13 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        setPresenceOnline(false);
+        Log.d(TAG, "onStop: " + "Task is root " + getTaskId());
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         // Start sign in if necessary
@@ -320,8 +330,26 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onResume() {
         super.onResume();
-        // ... your own onResume implementation
+        setPresenceOnline(true);
         checkForCrashes();
+    }
+
+    private void setPresenceOnline(boolean online) {
+        // Write a message to the database
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String userId = user.getUid();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+        DatabaseReference userRef = myRef.child(userId).child("notificationTokens");
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Map<String, Object> data = new HashMap<>();
+        data.put(token, online);
+        userRef.updateChildren(data);
+
+        Map<String, Object> onlineStatus = new HashMap<>();
+        onlineStatus.put("online", true);
+        myRef.child(userId).updateChildren(onlineStatus);
     }
 
     public void checkForCrashes() {
@@ -334,14 +362,14 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         return true;
     }
 
-    /*@Override
+    @Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-    }*/
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

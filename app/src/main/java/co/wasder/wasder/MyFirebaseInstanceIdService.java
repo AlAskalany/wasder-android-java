@@ -3,6 +3,10 @@ package co.wasder.wasder;
 import android.support.annotation.Keep;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -34,6 +38,14 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(String token) {
-
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String uId = user.getUid();
+        DatabaseReference database = FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child(uId)
+                .child("asd")
+                .push()
+                .child(token);
     }
 }
