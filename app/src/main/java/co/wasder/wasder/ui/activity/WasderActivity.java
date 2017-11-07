@@ -124,6 +124,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public ActionBarDrawerToggle toggle;
     public FirestoreItemFilterDialogFragment mFilterDialog;
     public boolean enableCrashButton = false;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,11 +137,10 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
         MetricsManager.register(getApplication());
         MetricsManager.trackEvent("WasderActivity");
-
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if (user != null) {
-            String userId = user.getUid();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            String userId = firebaseUser.getUid();
             Amplitude.getInstance()
                     .initialize(this, AMPLITUDE_API_KEY)
                     .enableForegroundTracking(getApplication())
@@ -315,12 +316,10 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             //noinspection UnnecessaryReturnStatement
             return;
         } else {
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            if (auth != null) {
-                FirebaseUser user = auth.getCurrentUser();
-                if (user != null) {
+            if (firebaseAuth != null) {
+                if (firebaseUser != null) {
                     //User newUser = new User(user, "Ahmed", "AlAskalany");
-                    User newUser = new User(user, user.getDisplayName(), "");
+                    User newUser = new User(firebaseUser, firebaseUser.getDisplayName(), "");
                     newUser.addToFirestore();
                 }
             }
@@ -336,9 +335,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     private void setPresenceOnline(boolean online) {
         // Write a message to the database
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        String userId = user.getUid();
+        String userId = firebaseUser.getUid();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
         DatabaseReference userRef = myRef.child(userId).child("notificationTokens");
