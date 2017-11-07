@@ -1,6 +1,5 @@
 package co.wasder.wasder.arch;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -21,11 +20,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        MainActivityViewModel model = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-        model.getUser().observe(this, user -> {
-            // TODO Update UI
-        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
