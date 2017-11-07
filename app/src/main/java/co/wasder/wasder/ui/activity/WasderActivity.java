@@ -56,6 +56,7 @@ import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.ui.NonSwipeableViewPager;
+import co.wasder.wasder.ui.activity.detail.ProfileActivity;
 import co.wasder.wasder.ui.dialog.AddEventDialogFragment;
 import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.dialog.Dialogs;

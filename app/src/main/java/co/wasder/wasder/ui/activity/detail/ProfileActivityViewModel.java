@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.activity;
+package co.wasder.wasder.ui.activity.detail;
 
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.Keep;

@@ -39,7 +39,7 @@ import co.wasder.wasder.data.model.Event;
 import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
-import co.wasder.wasder.ui.activity.ProfileActivity;
+import co.wasder.wasder.ui.activity.detail.ProfileActivity;
 import co.wasder.wasder.ui.views.EventView;
 import co.wasder.wasder.ui.views.FirestoreCollections;
 

@@ -54,7 +54,7 @@ import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.SignInResultNotifier;
-import co.wasder.wasder.ui.activity.ProfileActivity;
+import co.wasder.wasder.ui.activity.detail.ProfileActivity;
 import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.dialog.Dialogs;
 import co.wasder.wasder.ui.fragment.OnFragmentInteractionListener;
