@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivityViewModel extends ViewModel {
 
-    private MutableLiveData<FirebaseAuth> auth;
     private MutableLiveData<FirebaseUser> user;
 
     public LiveData<FirebaseUser> getUser() {
