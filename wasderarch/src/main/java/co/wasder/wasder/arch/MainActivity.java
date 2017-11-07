@@ -1,6 +1,9 @@
 package co.wasder.wasder.arch;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -13,8 +16,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 public class MainActivity extends AppCompatActivity implements NavigationView
         .OnNavigationItemSelectedListener {
+
+    private static final String EXTRA_IDP_RESPONSE = "extra_idp_response";
+
+    public static Intent createIntent(Context context, IdpResponse idpResponse) {
+
+        Intent startIntent = new Intent();
+        if (idpResponse != null) {
+            startIntent.putExtra(EXTRA_IDP_RESPONSE, idpResponse);
+        }
+
+        return startIntent.setClass(context, MainActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +91,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_sign_out) {
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            startActivity(new Intent(MainActivity.this, SplashActivity.class));
+                            finish();
+                        }
+                    });
         }
 
         return super.onOptionsItemSelected(item);
