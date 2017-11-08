@@ -1,8 +1,12 @@
 package co.wasder.wasder.arch;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,10 +15,8 @@ import android.widget.ImageView;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
@@ -22,23 +24,33 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener,
+        FirebaseAuth.IdTokenListener {
 
     private static final int RC_SIGN_IN = 100;
     private static final String TAG = "SplashActivity";
+    @BindView(R.id.root)
+    View rootView;
     @BindView(R.id.logoImageView)
-    ImageView mLogoImageView;
-    private FirebaseAuth mAuth;
+    ImageView logoImageView;
+    private SplashActivityModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() != null) {
-            startActivity(MainActivity.createIntent(SplashActivity.this, null));
-        }
+
+        model = ViewModelProviders.of(this).get(SplashActivityModel.class);
+        model.getUser().observe(this, user -> {
+            if (user != null) {
+                if (!user.isAnonymous()) {
+                    startActivity(MainActivity.createIntent(SplashActivity.this, null));
+                } else {
+                    startActivity(MainActivity.createIntent(SplashActivity.this, null));
+                }
+            }
+        });
     }
 
     @OnClick(R.id.signInButton)
@@ -54,16 +66,11 @@ public class SplashActivity extends AppCompatActivity {
 
     @OnClick(R.id.skipButton)
     public void skip(View view) {
-        mAuth.signInAnonymously().addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    startActivity(MainActivity.createIntent(SplashActivity.this, null));
-                } else {
-                    Log.d(TAG, "onComplete: Anonymous Sign In Failed");
-                }
-            }
-        });
+        if (model.isSignedIn().getValue() == Boolean.TRUE) {
+            startActivity(MainActivity.createIntent(SplashActivity.this, null));
+        } else {
+            model.startSignInAnonymous();
+        }
     }
 
     @Override
@@ -76,8 +83,6 @@ public class SplashActivity extends AppCompatActivity {
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
-                String providerType = response.getProviderType();
-                Log.d(TAG, "onActivityResult: Provider Type: " + providerType);
                 startActivity(MainActivity.createIntent(this, response));
                 finish();
                 return;
@@ -85,22 +90,42 @@ public class SplashActivity extends AppCompatActivity {
                 // Sign in failed
                 if (response == null) {
                     // User pressed back button
-                    //showSnackbar(R.string.sign_in_cancelled);
+                    showSnackbar(R.string.sign_in_cancelled);
                     return;
                 }
 
                 if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
-                    //showSnackbar(R.string.no_internet_connection);
+                    showSnackbar(R.string.no_internet_connection);
                     return;
                 }
 
                 if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
-                    //showSnackbar(R.string.unknown_error);
+                    showSnackbar(R.string.unknown_error);
                     return;
                 }
             }
+            showSnackbar(R.string.unknown_sign_in_response);
+        }
+    }
 
-            //showSnackbar(R.string.unknown_sign_in_response);
+    @MainThread
+    private void showSnackbar(@StringRes int errorMessageRes) {
+        Snackbar.make(rootView, errorMessageRes, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            Log.d(TAG, "onAuthStateChanged: " + user.getUid());
+        }
+    }
+
+    @Override
+    public void onIdTokenChanged(@NonNull FirebaseAuth firebaseAuth) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            Log.d(TAG, "onIdTokenChanged: " + user.getIdToken(true));
         }
     }
 }
