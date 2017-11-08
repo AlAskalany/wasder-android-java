@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         navHeaderImageView = headerLayout.findViewById(R.id.navHeaderImageView);
         navHeaderTitle = headerLayout.findViewById(R.id.navHeaderTitle);
         navHeaderSubtitle = headerLayout.findViewById(R.id.navHeaderSubtitle);
+        // TODO check getDisplayName before using
         navHeaderTitle.setText(model.getUser().getValue().getDisplayName());
         navHeaderSubtitle.setText(model.getUser().getValue().getEmail());
     }
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+        // TODO check isAnonymous before using
         boolean anonymous = model.getUser().getValue().isAnonymous() == Boolean.TRUE;
         menu.findItem(R.id.action_sign_up).setVisible(anonymous);
         menu.findItem(R.id.action_sign_out).setVisible(!anonymous);
