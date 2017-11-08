@@ -26,7 +26,6 @@ class MainActivityModel extends ViewModel implements FirebaseAuth.AuthStateListe
 
     public MainActivityModel() {
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
         auth = FirebaseAuth.getInstance();
         auth.addAuthStateListener(this);
         auth.addIdTokenListener(this);

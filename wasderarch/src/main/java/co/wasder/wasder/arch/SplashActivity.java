@@ -29,10 +29,12 @@ public class SplashActivity extends AppCompatActivity implements FirebaseAuth.Au
 
     private static final int RC_SIGN_IN = 100;
     private static final String TAG = "SplashActivity";
+
     @BindView(R.id.root)
     View rootView;
     @BindView(R.id.logoImageView)
     ImageView logoImageView;
+
     private SplashActivityModel model;
 
     @Override
