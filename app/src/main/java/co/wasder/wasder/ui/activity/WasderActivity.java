@@ -237,6 +237,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private void logAmplitudeEvent(@NonNull String eventType, @NonNull String key, @NonNull
             String value) {
         JSONObject eventProperties = createEventProperties(key, value);
+        Amplitude.initialize(this, AMPLITUDE_API_KEY);
         Amplitude.getInstance().logEvent(eventType, eventProperties);
     }
 
