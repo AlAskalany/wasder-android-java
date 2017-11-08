@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Wasder.iml" filepath="$PROJECT_DIR$/Wasder.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/firebaselibrary/firebaselibrary.iml" filepath="$PROJECT_DIR$/firebaselibrary/firebaselibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/wasderarch/wasderarch.iml" filepath="$PROJECT_DIR$/wasderarch/wasderarch.iml" />
     </modules>
   </component>

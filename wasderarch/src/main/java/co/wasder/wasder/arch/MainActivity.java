@@ -26,6 +26,7 @@ import com.firebase.ui.auth.IdpResponse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import co.wasder.wasder.arch.data.source.firestoredb.FirebaseManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView
         .OnNavigationItemSelectedListener {
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         // TODO check getDisplayName before using
         navHeaderTitle.setText(model.getUser().getValue().getDisplayName());
         navHeaderSubtitle.setText(model.getUser().getValue().getEmail());
+
+        FirebaseManager jobManager = new FirebaseManager(this);
     }
 
     @Override

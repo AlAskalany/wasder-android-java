@@ -1,1 +1,1 @@
-include ':app', ':wasderarch'
+include ':app', ':wasderarch', ':firebaselibrary'
