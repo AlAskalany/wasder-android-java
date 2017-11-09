@@ -129,7 +129,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         ButterKnife.bind(this);
         MetricsManager.register(getApplication());
         MetricsManager.trackEvent("WasderActivity");
-        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseUtil.getAuth();
         firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser != null) {
             final String userId = firebaseUser.getUid();
@@ -226,7 +226,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         /**/
         /**/
         if (mViewPager.getCurrentItem() == 0) {
-            new AddFirestoreItemDialogFragment().show(getSupportFragmentManager(),
+            Dialogs.AddPostDialogFragment().show(getSupportFragmentManager(),
                     AddFirestoreItemDialogFragment.TAG);
         } else if (mViewPager.getCurrentItem() == 1) {
             new AddEventDialogFragment().show(getSupportFragmentManager(),
@@ -316,7 +316,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         final int id = item.getItemId();
         if (id == R.id.nav_profile) {
             final Intent intent = new Intent(this, ProfileActivity.class);
-            intent.putExtra("user-reference", FirebaseAuth.getInstance().getCurrentUser().getUid());
+            intent.putExtra("user-reference", FirestoreItemUtil.getCurrentUser().getUid());
             startActivity(intent);
         } else if (id == R.id.nav_friends) {
         } else if (id == R.id.nav_followers) {

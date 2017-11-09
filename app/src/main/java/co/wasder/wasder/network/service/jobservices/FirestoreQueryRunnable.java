@@ -5,6 +5,8 @@ import android.support.annotation.Keep;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import co.wasder.wasder.Util.FirestoreItemUtil;
+
 /**
  * Created by Ahmed AlAskalany on 10/18/2017.
  * Navigator
@@ -25,7 +27,7 @@ class FirestoreQueryRunnable implements Runnable {
 
     @Override
     public void run() {
-        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        final FirebaseFirestore firestore = FirestoreItemUtil.getFirestore();
         query = firestore.collection(collectionName);
     }
 }

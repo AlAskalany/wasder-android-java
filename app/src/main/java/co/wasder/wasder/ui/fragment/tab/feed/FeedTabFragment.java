@@ -48,6 +48,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
+import co.wasder.wasder.Util.FirebaseUtil;
+import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.data.model.FirestoreItem;
@@ -75,8 +77,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
     public static final long LIMIT = 50;
     public static final String TAG = "TabFragment";
     public static final String ARG_SECTION_NUMBER = "section_number";
-    private static final CollectionReference postsCollection = FirebaseFirestore.getInstance()
-            .collection("posts");
+    private static final CollectionReference postsCollection = FirebaseUtil.getUsersCollectionReference("posts");
     private static final Query mQuery = postsCollection.orderBy("timestamp", Query.Direction
             .DESCENDING)
             .limit(LIMIT);
@@ -140,8 +141,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String search) {
-                final CollectionReference usersReference = FirebaseFirestore.getInstance()
-                        .collection("users");
+                final CollectionReference usersReference = FirebaseUtil.getUsersCollectionReference("users");
                 final Query query = usersReference.whereEqualTo("displayName", search);
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -175,11 +175,11 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         if (isSignedIn()) {
             attachRecyclerViewAdapter();
         }
-        FirebaseAuth.getInstance().addAuthStateListener(this);
+        FirebaseUtil.getAuth().addAuthStateListener(this);
     }
 
     private boolean isSignedIn() {
-        return FirebaseAuth.getInstance().getCurrentUser() != null;
+        return FirestoreItemUtil.getCurrentUser() != null;
     }
 
     private void attachRecyclerViewAdapter() {
@@ -203,7 +203,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
     @Override
     public void onStop() {
         super.onStop();
-        FirebaseAuth.getInstance().removeAuthStateListener(this);
+        FirebaseUtil.getAuth().removeAuthStateListener(this);
     }
 
     @Override
@@ -304,8 +304,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
         public void bind(final AbstractFirestoreItem chat) {
             final String userId = chat.getUid();
-            final CollectionReference users = FirebaseFirestore.getInstance()
-                    .collection(FirestoreCollections.USERS);
+            final CollectionReference users = FirebaseUtil.getUsersCollectionReference(FirestoreCollections.USERS);
             final DocumentReference userReference = users.document(userId);
             final Task<DocumentSnapshot> getUserTask = userReference.get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -382,7 +381,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                             .getExpandButton());
                     //inflating menu from xml resource
                     popup.inflate(R.menu.menu_item);
-                    final FirebaseAuth auth = FirebaseAuth.getInstance();
+                    final FirebaseAuth auth = FirebaseUtil.getAuth();
                     final FirebaseUser user = auth.getCurrentUser();
                     final String currentUserId = user.getUid();
                     if (!TextUtils.equals(chat.getUid(), currentUserId)) {
@@ -398,7 +397,8 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                                 case R.id.edit:
                                     break;
                                 case R.id.delete:
-                                    final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                                    final FirebaseFirestore firestore = FirestoreItemUtil
+                                            .getFirestore();
                                     final Task<Void> reference = firestore.collection
                                             (FirestoreCollections.POSTS)
                                             .document(chat.getUid())
@@ -434,4 +434,5 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
             });
         }
     }
+
 }

@@ -45,6 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
+import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.Rating;
 import co.wasder.wasder.network.GlideApp;
@@ -113,7 +114,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         assert postId != null : "Must pass extra " + KEY_POST_ID;
 
         // Initialize Firestore
-        mFirestore = FirebaseFirestore.getInstance();
+        mFirestore = FirestoreItemUtil.getFirestore();
 
         // Get reference to the post
         mDocumentRef = mFirestore.collection("restaurants").document(postId);

@@ -3,9 +3,9 @@ package co.wasder.wasder.Util;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -63,7 +63,7 @@ public class FirestoreItemUtil {
 
         final int[] prices = new int[]{1, 2, 3};
 
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = getCurrentUser();
         if (user != null) {
             final String uId = user.getUid();
             final String name = user.getDisplayName();
@@ -84,6 +84,10 @@ public class FirestoreItemUtil {
         firestoreItem.setNumRatings(random.nextInt(20));
 
         return firestoreItem;
+    }
+
+    public static FirebaseUser getCurrentUser() {
+        return FirebaseUtil.getAuth().getCurrentUser();
     }
 
 
@@ -125,7 +129,7 @@ public class FirestoreItemUtil {
 
     public static void onAddItemsClicked(final Context context) {
         // Get a reference to the events collection
-        final FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        final FirebaseFirestore mFirestore = getFirestore();
         final CollectionReference events = mFirestore.collection("restaurants");
 
         for (int i = 0; i < 10; i++) {
@@ -135,5 +139,10 @@ public class FirestoreItemUtil {
             // Add a new document to the events collection
             events.add(event);
         }
+    }
+
+    @NonNull
+    public static FirebaseFirestore getFirestore() {
+        return FirebaseFirestore.getInstance();
     }
 }

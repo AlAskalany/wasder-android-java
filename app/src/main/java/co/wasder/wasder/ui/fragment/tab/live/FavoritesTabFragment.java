@@ -21,6 +21,8 @@ import com.google.firebase.firestore.Query;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
+import co.wasder.wasder.Util.FirebaseUtil;
+import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.dialog.Dialogs;
 import co.wasder.wasder.ui.dialog.FirestoreItemFilterDialogFragment;
@@ -122,10 +124,8 @@ public class FavoritesTabFragment extends Fragment implements TabFragment, Lifec
     }
 
     public void initFirestore() {
-        mFirestore = FirebaseFirestore.getInstance();
-        final FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .build();
+        mFirestore = FirestoreItemUtil.getFirestore();
+        final FirebaseFirestoreSettings settings = FirebaseUtil.getFirebaseFirestoreSettings();
         mFirestore.setFirestoreSettings(settings);
 
         // Get the 50 highest rated posts

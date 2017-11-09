@@ -32,6 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
+import co.wasder.wasder.Util.FirebaseUtil;
+import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.model.Rating;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
@@ -83,7 +85,7 @@ public class AddRatingDialogFragment extends DialogFragment {
 
     @OnClick(R.id.post_form_button)
     public void onSubmitClicked(@SuppressWarnings("unused") final View view) {
-        final Rating rating = new Rating(FirebaseAuth.getInstance().getCurrentUser(), mRatingBar
+        final Rating rating = new Rating(FirestoreItemUtil.getCurrentUser(), mRatingBar
                 .getRating(), mRatingText.getText().toString());
 
         if (mRatingListener != null) {

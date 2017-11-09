@@ -24,6 +24,8 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
 import co.wasder.wasder.R;
+import co.wasder.wasder.Util.FirebaseUtil;
+import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.User;
@@ -66,8 +68,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         }
         assert mUserReference != null : "Must pass extra " + ARG_USER_REFERENCE;
 
-        mQuery = FirebaseFirestore.getInstance()
-                .collection(FirestoreCollections.POSTS)
+        mQuery = FirebaseUtil.getUsersCollectionReference(FirestoreCollections.POSTS)
                 .whereEqualTo("uid", mUserReference)
                 .orderBy("timestamp")
                 .limit(50);
@@ -87,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         collapsingToolbarLayout = findViewById(R.id.collapsingToolbarLayout);
         profilePhoto = findViewById(R.id.profilePhoto);
 
-        mFirestore = FirebaseFirestore.getInstance();
+        mFirestore = FirestoreItemUtil.getFirestore();
         mDocumentReference = mFirestore.collection("users").document(mUserReference);
     }
 

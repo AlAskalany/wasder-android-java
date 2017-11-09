@@ -62,7 +62,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     @SuppressWarnings("unused")
     public static FirestoreItemFilterDialogFragment newInstance() {
-        return new FirestoreItemFilterDialogFragment();
+        return Dialogs.PostsFilterDialogFragment();
     }
 
     @Nullable

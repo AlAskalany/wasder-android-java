@@ -39,6 +39,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
+import co.wasder.wasder.Util.FirebaseUtil;
+import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
@@ -196,7 +198,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                             .getExpandButton());
                     //inflating menu from xml resource
                     popup.inflate(R.menu.menu_item);
-                    final FirebaseAuth auth = FirebaseAuth.getInstance();
+                    final FirebaseAuth auth = FirebaseUtil.getAuth();
                     final FirebaseUser user = auth.getCurrentUser();
                     final String currentUserId = user.getUid();
                     if (!TextUtils.equals(firestoreItem.getUid(), currentUserId)) {
@@ -212,7 +214,8 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                                 case R.id.edit:
                                     break;
                                 case R.id.delete:
-                                    final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                                    final FirebaseFirestore firestore = FirestoreItemUtil
+                                            .getFirestore();
                                     final Task<Void> reference = firestore.collection
                                             (FirestoreCollections.POSTS)
                                             .document(snapshot.getId())
@@ -252,8 +255,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
 
     @NonNull
     private static DocumentReference getAuthorDocumentReference(final String userId) {
-        final CollectionReference users = FirebaseFirestore.getInstance()
-                .collection(FirestoreCollections.USERS);
+        final CollectionReference users = FirebaseUtil.getUsersCollectionReference(FirestoreCollections.USERS);
         return users.document(userId);
     }
 }

@@ -3,6 +3,7 @@ package co.wasder.wasder.Util;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -13,7 +14,7 @@ import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
 
@@ -51,7 +52,7 @@ public class FirebaseUtil {
 
     public static boolean shouldStartSignIn(@SuppressWarnings("unused") final WasderActivity activity,
                                             final WasderActivityViewModel viewModel) {
-        return (!viewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() == null);
+        return (!viewModel.getIsSigningIn() && FirestoreItemUtil.getCurrentUser() == null);
     }
 
     public static Job createJob(final FirebaseJobDispatcher dispatcher) {
@@ -82,10 +83,8 @@ public class FirebaseUtil {
 
     public static void initFirestore(final TabFragment tabFragment, final String mCollectionReferenceString,
                                      final long limit) {
-        tabFragment.setFirestore(FirebaseFirestore.getInstance());
-        final FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .build();
+        tabFragment.setFirestore(FirestoreItemUtil.getFirestore());
+        final FirebaseFirestoreSettings settings = getFirebaseFirestoreSettings();
         tabFragment.getFirestore().setFirestoreSettings(settings);
 
         // Get the 50 highest rated posts
@@ -93,5 +92,21 @@ public class FirebaseUtil {
                 .collection(mCollectionReferenceString)
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .limit(limit));
+    }
+
+    @NonNull
+    public static CollectionReference getUsersCollectionReference(String users) {
+        return FirestoreItemUtil.getFirestore().collection(users);
+    }
+
+    public static FirebaseAuth getAuth() {
+        return FirebaseAuth.getInstance();
+    }
+
+    @NonNull
+    public static FirebaseFirestoreSettings getFirebaseFirestoreSettings() {
+        return new FirebaseFirestoreSettings.Builder()
+                    .setPersistenceEnabled(true)
+                    .build();
     }
 }

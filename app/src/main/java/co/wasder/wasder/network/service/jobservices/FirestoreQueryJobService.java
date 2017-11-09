@@ -7,6 +7,8 @@ import com.firebase.jobdispatcher.JobService;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import co.wasder.wasder.Util.FirestoreItemUtil;
+
 
 /**
  * Created by Ahmed AlAskalany on 10/18/2017.
@@ -23,7 +25,7 @@ public class FirestoreQueryJobService extends JobService {
             @Override
             public void run() {
                 try {
-                    final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                    final FirebaseFirestore firestore = FirestoreItemUtil.getFirestore();
                     @SuppressWarnings("unused") final String collectionName = null;
                     @SuppressWarnings("unused") final Query query = firestore.collection("restaurants");
                 } finally {

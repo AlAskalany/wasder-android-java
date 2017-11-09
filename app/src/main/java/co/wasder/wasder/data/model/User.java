@@ -14,6 +14,8 @@ import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
+import co.wasder.wasder.Util.FirestoreItemUtil;
+
 /**
  * Created by Ahmed AlAskalany on 10/31/2017.
  * Navigator
@@ -94,7 +96,7 @@ public class User {
 
     @Exclude
     public void addToFirestore() {
-        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        final FirebaseFirestore firestore = FirestoreItemUtil.getFirestore();
         final CollectionReference reference = firestore.collection("users");
         final DocumentReference documentReference = reference.document(uId);
         final User myUser = this;

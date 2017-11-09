@@ -35,6 +35,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
+import co.wasder.wasder.Util.FirebaseUtil;
+import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.model.Event;
 import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.User;
@@ -120,8 +122,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
             final Event event = snapshot.toObject(Event.class);
 
             final String userId = event.getUid();
-            final CollectionReference users = FirebaseFirestore.getInstance()
-                    .collection(FirestoreCollections.USERS);
+            final CollectionReference users = FirebaseUtil.getUsersCollectionReference(FirestoreCollections.USERS);
             final DocumentReference userReference = users.document(userId);
             final Task<DocumentSnapshot> getUserTask = userReference.get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -203,7 +204,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                             .getExpandButton());
                     //inflating menu from xml resource
                     popup.inflate(R.menu.menu_item);
-                    final FirebaseAuth auth = FirebaseAuth.getInstance();
+                    final FirebaseAuth auth = FirebaseUtil.getAuth();
                     final FirebaseUser user = auth.getCurrentUser();
                     final String currentUserId = user.getUid();
                     if (!TextUtils.equals(event.getUid(), currentUserId)) {
@@ -218,7 +219,8 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                                 case R.id.edit:
                                     break;
                                 case R.id.delete:
-                                    final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                                    final FirebaseFirestore firestore = FirestoreItemUtil
+                                            .getFirestore();
                                     final Task<Void> reference = firestore.collection(FirestoreCollections.EVENTS)
                                             .document(snapshot.getId())
                                             .delete()
@@ -243,4 +245,5 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
             });
         }
     }
+
 }

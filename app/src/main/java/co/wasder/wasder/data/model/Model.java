@@ -2,8 +2,9 @@ package co.wasder.wasder.data.model;
 
 import android.support.annotation.Keep;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import co.wasder.wasder.Util.FirestoreItemUtil;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
@@ -19,8 +20,7 @@ public class Model {
 
     @SuppressWarnings("unused")
     public static FirestoreItem FirestoreItem() {
-        return FirestoreItem("ASD", FirebaseAuth.getInstance()
-                .getCurrentUser()
+        return FirestoreItem("ASD", FirestoreItemUtil.getCurrentUser()
                 .getPhotoUrl()
                 .toString(), "AD", 2, 2, "Feed text");
     }
@@ -32,7 +32,7 @@ public class Model {
 
     @SuppressWarnings("unused")
     public static Rating Rating() {
-        return Rating(FirebaseAuth.getInstance().getCurrentUser(), 2, "Asd");
+        return Rating(FirestoreItemUtil.getCurrentUser(), 2, "Asd");
     }
 
     @SuppressWarnings("unused")
