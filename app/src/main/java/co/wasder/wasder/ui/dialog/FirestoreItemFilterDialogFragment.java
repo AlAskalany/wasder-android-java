@@ -67,8 +67,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-            Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.dialog_filters_items, container, false);
         ButterKnife.bind(this, mRootView);
 
@@ -76,7 +75,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(final Context context) {
         super.onAttach(context);
 
         if (context instanceof FilterListener) {
@@ -89,7 +88,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Window window = getDialog().getWindow();
+        final Window window = getDialog().getWindow();
         if (window != null) {
             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
                     .WRAP_CONTENT);
@@ -112,7 +111,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     @Nullable
     public String getSelectedCategory() {
-        String selected = (String) mCategorySpinner.getSelectedItem();
+        final String selected = (String) mCategorySpinner.getSelectedItem();
         if (getString(R.string.value_any_category_items).equals(selected)) {
             return null;
         } else {
@@ -122,7 +121,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     @Nullable
     public String getSelectedCity() {
-        String selected = (String) mCitySpinner.getSelectedItem();
+        final String selected = (String) mCitySpinner.getSelectedItem();
         if (getString(R.string.value_any_city).equals(selected)) {
             return null;
         } else {
@@ -131,7 +130,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
     }
 
     public int getSelectedPrice() {
-        String selected = (String) mPriceSpinner.getSelectedItem();
+        final String selected = (String) mPriceSpinner.getSelectedItem();
         if (selected.equals(getString(R.string.price_1))) {
             return 1;
         } else if (selected.equals(getString(R.string.price_2))) {
@@ -145,7 +144,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     @Nullable
     public String getSelectedSortBy() {
-        String selected = (String) mSortSpinner.getSelectedItem();
+        final String selected = (String) mSortSpinner.getSelectedItem();
         if (getString(R.string.sort_items_by_rating).equals(selected)) {
             return "avgRating";
         }
@@ -161,7 +160,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     @Nullable
     public Query.Direction getSortDirection() {
-        String selected = (String) mSortSpinner.getSelectedItem();
+        final String selected = (String) mSortSpinner.getSelectedItem();
         if (getString(R.string.sort_items_by_rating).equals(selected)) {
             return Query.Direction.DESCENDING;
         }
@@ -186,7 +185,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     @SuppressWarnings("WeakerAccess")
     public FirestoreItemFilters getFilters() {
-        FirestoreItemFilters firestoreItemFilters = Filters.PostsFilters();
+        final FirestoreItemFilters firestoreItemFilters = Filters.PostsFilters();
 
         if (mRootView != null) {
             firestoreItemFilters.setCategory(getSelectedCategory());

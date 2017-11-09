@@ -25,7 +25,7 @@ public class ProfilePhoto extends FrameLayout {
     ImageView profileImageView;
     ImageView presenceImageView;
 
-    public ProfilePhoto(Context context, AttributeSet attrs) {
+    public ProfilePhoto(final Context context, final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_profile_photo, this, true);
         profileImageView = findViewById(R.id.itemProfileImageView);
@@ -42,15 +42,15 @@ public class ProfilePhoto extends FrameLayout {
                 .ic_presence_status_online));
     }
 
-    public ImageView getProfileImageView(String uid) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference users = reference.child("users");
-        DatabaseReference myUser = users.child(uid);
+    public ImageView getProfileImageView(final String uid) {
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference users = reference.child("users");
+        final DatabaseReference myUser = users.child(uid);
         myUser.child("online").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    Object myPresence = dataSnapshot.getValue().toString();
+                    final Object myPresence = dataSnapshot.getValue().toString();
                     if (myPresence == "true") {
                         setPresenceOnline();
                     } else if (myPresence == "false"){
@@ -60,7 +60,7 @@ public class ProfilePhoto extends FrameLayout {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(final DatabaseError databaseError) {
 
             }
         });

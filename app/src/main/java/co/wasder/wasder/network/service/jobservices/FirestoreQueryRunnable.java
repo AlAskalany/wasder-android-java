@@ -18,14 +18,14 @@ class FirestoreQueryRunnable implements Runnable {
     public Query query;
 
     @SuppressWarnings("unused")
-    public FirestoreQueryRunnable(Query query, String collectionName) {
+    public FirestoreQueryRunnable(final Query query, final String collectionName) {
         this.query = query;
         this.collectionName = collectionName;
     }
 
     @Override
     public void run() {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         query = firestore.collection(collectionName);
     }
 }

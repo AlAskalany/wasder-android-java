@@ -82,25 +82,24 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-            Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(R.layout.dialog_add_item, container, false);
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
+        final View mRootView = inflater.inflate(R.layout.dialog_add_item, container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(final Context context) {
         super.onAttach(context);
         if (context instanceof FilterListener) {
-            @SuppressWarnings("unused") FilterListener mFilterListener = (FilterListener) context;
+            @SuppressWarnings("unused") final FilterListener mFilterListener = (FilterListener) context;
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Window window = getDialog().getWindow();
+        final Window window = getDialog().getWindow();
         if (window != null) {
             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
                     .WRAP_CONTENT);
@@ -115,8 +114,8 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
 
     @NonNull
     public FirestoreItem createPostFromFields() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        final FirebaseUser user = auth.getCurrentUser();
         String uId = null;
         if (user != null) {
             uId = user.getUid();
@@ -134,7 +133,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     }
 
     public String getFeedText() {
-        String feedText = mFeedEditText.getText().toString();
+        final String feedText = mFeedEditText.getText().toString();
         if (!TextUtils.isEmpty(feedText)) {
             return feedText;
         } else {
@@ -143,11 +142,11 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     }
 
     public void addPostToDatabase(@NonNull final FirestoreItem firestoreItem) {
-        CollectionReference posts = FirebaseFirestore.getInstance()
+        final CollectionReference posts = FirebaseFirestore.getInstance()
                 .collection(FirestoreCollections.POSTS);
         posts.add(firestoreItem).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
+            public void onComplete(@NonNull final Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
 
                 }
@@ -162,12 +161,12 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_CHOOSE_PHOTO) {
             if (resultCode == RESULT_OK) {
-                Uri selectedImage = data.getData();
+                final Uri selectedImage = data.getData();
                 if (selectedImage != null) {
                     uploadPhoto(selectedImage);
                 }
@@ -188,26 +187,26 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
             return;
         }*/
 
-        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        final Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RC_CHOOSE_PHOTO);
     }
 
-    public void uploadPhoto(Uri uri) {
+    public void uploadPhoto(final Uri uri) {
         // Reset UI
         //hideDownloadUI();
         Toast.makeText(getContext(), "Uploading...", Toast.LENGTH_SHORT).show();
 
         // Upload to Cloud Storage
         uuid = UUID.randomUUID().toString();
-        StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+        final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
         mImageRef.putFile(uri)
                 .addOnSuccessListener(getActivity(), new OnSuccessListener<UploadTask
                         .TaskSnapshot>() {
                     @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
                         //noinspection LogConditional
-                        StorageMetadata storageMetadata = taskSnapshot.getMetadata();
-                        StorageReference storageReference;
+                        final StorageMetadata storageMetadata = taskSnapshot.getMetadata();
+                        final StorageReference storageReference;
                         if (storageMetadata != null) {
                             storageReference = storageMetadata.getReference();
                             if (storageReference != null) {
@@ -224,7 +223,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
                 })
                 .addOnFailureListener(getActivity(), new OnFailureListener() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
+                    public void onFailure(@NonNull final Exception e) {
                         Log.w(TAG, "uploadPhoto:onError", e);
                         Toast.makeText(getContext(), "Upload failed", Toast.LENGTH_SHORT).show();
                     }
@@ -232,13 +231,13 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     }
 
     public String getPostProfilePhotoUrl() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        final FirebaseUser user = auth.getCurrentUser();
         Uri profilePhotoUri = null;
         if (user != null) {
             profilePhotoUri = user.getPhotoUrl();
             if (profilePhotoUri != null) {
-                String profilePhotoUrl = profilePhotoUri.toString();
+                final String profilePhotoUrl = profilePhotoUri.toString();
                 if (!TextUtils.isEmpty(profilePhotoUrl)) {
                     return profilePhotoUrl;
                 }

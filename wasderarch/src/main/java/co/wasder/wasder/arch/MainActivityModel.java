@@ -49,12 +49,12 @@ class MainActivityModel extends ViewModel implements FirebaseAuth.AuthStateListe
     }
 
     @Override
-    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+    public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
         auth = firebaseAuth;
     }
 
     @Override
-    public void onIdTokenChanged(@NonNull FirebaseAuth firebaseAuth) {
+    public void onIdTokenChanged(@NonNull final FirebaseAuth firebaseAuth) {
         auth = firebaseAuth;
     }
 }

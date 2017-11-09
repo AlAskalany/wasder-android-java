@@ -19,12 +19,12 @@ public class SignInResultNotifier implements OnCompleteListener<AuthResult> {
 
     private Context mContext;
 
-    public SignInResultNotifier(Context context) {
+    public SignInResultNotifier(final Context context) {
         mContext = context.getApplicationContext();
     }
 
     @Override
-    public void onComplete(@NonNull Task<AuthResult> task) {
+    public void onComplete(@NonNull final Task<AuthResult> task) {
         if (task.isSuccessful()) {
             Toast.makeText(mContext, R.string.signed_in, Toast.LENGTH_SHORT).show();
         } else {

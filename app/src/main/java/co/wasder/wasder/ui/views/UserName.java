@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 @Keep
 public class UserName extends android.support.v7.widget.AppCompatTextView {
 
-    public UserName(Context context, @Nullable AttributeSet attrs) {
+    public UserName(final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         setText("User Name");
     }

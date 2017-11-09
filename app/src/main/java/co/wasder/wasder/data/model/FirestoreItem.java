@@ -37,8 +37,8 @@ public class FirestoreItem extends AbstractFirestoreItem {
     public FirestoreItem() {
     }
 
-    public FirestoreItem(String uId, String profilePhoto, String photo, int numRatings, double
-            avgRating, String
+    public FirestoreItem(final String uId, final String profilePhoto, final String photo, final int numRatings, final double
+            avgRating, final String
             feedText) {
         this.uId = uId;
         this.name = name;
@@ -53,7 +53,7 @@ public class FirestoreItem extends AbstractFirestoreItem {
         return uId;
     }
 
-    public void setUid(String uId) {
+    public void setUid(final String uId) {
         this.uId = uId;
     }
 
@@ -61,7 +61,7 @@ public class FirestoreItem extends AbstractFirestoreItem {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -74,7 +74,7 @@ public class FirestoreItem extends AbstractFirestoreItem {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(final String photo) {
         this.photo = photo;
     }
 
@@ -82,7 +82,7 @@ public class FirestoreItem extends AbstractFirestoreItem {
         return numRatings;
     }
 
-    public void setNumRatings(int numRatings) {
+    public void setNumRatings(final int numRatings) {
         this.numRatings = numRatings;
     }
 
@@ -90,7 +90,7 @@ public class FirestoreItem extends AbstractFirestoreItem {
         return avgRating;
     }
 
-    public void setAvgRating(double avgRating) {
+    public void setAvgRating(final double avgRating) {
         this.avgRating = avgRating;
     }
 
@@ -98,7 +98,7 @@ public class FirestoreItem extends AbstractFirestoreItem {
         return feedText;
     }
 
-    public void setFeedText(String feedText) {
+    public void setFeedText(final String feedText) {
         this.feedText = feedText;
     }
 
@@ -106,7 +106,7 @@ public class FirestoreItem extends AbstractFirestoreItem {
         return profilePhoto;
     }
 
-    public void setProfilePhoto(String profilePhoto) {
+    public void setProfilePhoto(final String profilePhoto) {
         this.profilePhoto = profilePhoto;
     }
 
@@ -114,7 +114,7 @@ public class FirestoreItem extends AbstractFirestoreItem {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(final Date timestamp) {
         this.timestamp = timestamp;
     }
 }

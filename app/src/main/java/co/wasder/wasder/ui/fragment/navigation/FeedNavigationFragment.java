@@ -65,22 +65,22 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
     @SuppressWarnings("unused")
     public Animator.AnimatorListener mAnimationListener = new Animator.AnimatorListener() {
         @Override
-        public void onAnimationStart(Animator animation) {
+        public void onAnimationStart(final Animator animation) {
 
         }
 
         @Override
-        public void onAnimationEnd(Animator animation) {
+        public void onAnimationEnd(final Animator animation) {
             appBarLayout.setBackgroundColor(Color.RED);
         }
 
         @Override
-        public void onAnimationCancel(Animator animation) {
+        public void onAnimationCancel(final Animator animation) {
 
         }
 
         @Override
-        public void onAnimationRepeat(Animator animation) {
+        public void onAnimationRepeat(final Animator animation) {
 
         }
     };
@@ -99,30 +99,29 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
      * @return A new instance of fragment MessagesNavigationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FeedNavigationFragment newInstance(int sectionNumber) {
-        FeedNavigationFragment fragment = new FeedNavigationFragment();
-        Bundle args = new Bundle();
+    public static FeedNavigationFragment newInstance(final int sectionNumber) {
+        final FeedNavigationFragment fragment = new FeedNavigationFragment();
+        final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public FeedNavigationFragment addTab(TabFragment tab) {
+    public void addTab(final TabFragment tab) {
         fragments.add(tab);
-        return this;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         if (getArguments() != null) {
             mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
-            int mSectionType = getArguments().getInt(ARG_SECTION_TYPE);
+            final int mSectionType = getArguments().getInt(ARG_SECTION_TYPE);
             TAG = getArguments().getString(ARG_TAG);
 
 
-            FeedTabFragment feedTab = FeedTabFragment.newInstance();
+            final FeedTabFragment feedTab = FeedTabFragment.newInstance();
             this.addTab(feedTab);
 
 
@@ -145,16 +144,16 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle
             savedInstanceState) {
         Log.d(TAG, "Navigation Fragment onCreateView: " + mSectionNumber);
         return inflater.inflate(R.layout.fragment_navigation, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getChildFragmentManager());
-        for (TabFragment tab : fragments) {
+    public void onViewCreated(final View view, final Bundle savedInstanceState) {
+        final TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getChildFragmentManager());
+        for (final TabFragment tab : fragments) {
             tabsPagerAdapter.addFragment(tab);
         }
 
@@ -162,46 +161,46 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
         viewPager.setAdapter(tabsPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int
+            public void onPageScrolled(final int position, final float positionOffset, final int
                     positionOffsetPixels) {
 
             }
 
             @Override
-            public void onPageSelected(int position) {
+            public void onPageSelected(final int position) {
                 Log.d(TAG, "onPageSelected: Tab" + position);
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onPageScrollStateChanged(final int state) {
 
             }
         });
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         //inflater.inflate(R.menu.menu_main, menu);
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
+    public void setUserVisibleHint(final boolean isVisibleToUser) {
         if (isVisibleToUser) {
             Log.d(TAG, "setUserVisibleHint: " + this.mSectionNumber);
-            WasderActivity activity = (WasderActivity) getActivity();
+            final WasderActivity activity = (WasderActivity) getActivity();
             if (activity != null) {
                 if (mSectionNumber == 0) {
-                    View view = activity.findViewById(R.id.searchView);
+                    final View view = activity.findViewById(R.id.searchView);
                     view.setVisibility(View.VISIBLE);
-                    TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
+                    final TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
                     tabLayout.removeAllTabs();
                     //tabLayout.setVisibility(View.GONE);
                 } else {
-                    TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
+                    final TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
                     if (tabLayout.getVisibility() != View.VISIBLE) {
                         tabLayout.setVisibility(View.VISIBLE);
                     }
-                    View view = activity.findViewById(R.id.searchView);
+                    final View view = activity.findViewById(R.id.searchView);
                     view.setVisibility(View.GONE);
                     tabLayout.setupWithViewPager(this.viewPager);
                 }
@@ -211,11 +210,11 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void AnimateAppBarColor(View view, Animator.AnimatorListener listener) {
-        int cx = view.getWidth() / 2;
-        int cy = view.getHeight() / 2;
-        float finalRadius = Math.max(view.getWidth(), view.getHeight());
-        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+    public void AnimateAppBarColor(final View view, final Animator.AnimatorListener listener) {
+        final int cx = view.getWidth() / 2;
+        final int cy = view.getHeight() / 2;
+        final float finalRadius = Math.max(view.getWidth(), view.getHeight());
+        final Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(1000);
         view.setVisibility(View.VISIBLE);
@@ -224,7 +223,7 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
     }
 
     @OnClick(R.id.fab)
-    public void submit(View view) {
+    public void submit(final View view) {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show();
@@ -232,14 +231,14 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
 
     // TODO: Rename method, update argument and hook method into UI event
     @SuppressWarnings("unused")
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(final Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteractionListener(uri);
         }
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(final Context context) {
         super.onAttach(context);
         Log.d(TAG, "Navigation Fragment onAttach: " + mSectionNumber);
         if (context instanceof OnFragmentInteractionListener) {
@@ -266,9 +265,9 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        final int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
             // Handle the camera action

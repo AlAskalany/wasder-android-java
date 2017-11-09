@@ -13,7 +13,7 @@ import co.wasder.wasder.R;
 @Keep
 public class ExpandButton extends android.support.v7.widget.AppCompatImageButton {
 
-    public ExpandButton(Context context, AttributeSet attrs) {
+    public ExpandButton(final Context context, final AttributeSet attrs) {
         super(context, attrs);
         this.setImageDrawable(getResources().getDrawable(R.drawable.mr_group_expand));
     }

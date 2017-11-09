@@ -17,7 +17,7 @@ import co.wasder.wasder.R;
 @Keep
 public class Actions extends FrameLayout {
 
-    public Actions(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public Actions(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_action_buttons, this, true);
     }

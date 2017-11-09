@@ -32,11 +32,11 @@ public class User {
     public User() {
     }
 
-    public User(FirebaseUser user, String firstName, String lastName) {
+    public User(final FirebaseUser user, final String firstName, final String lastName) {
         uId = user.getUid();
         displayName = user.getDisplayName();
         email = user.getEmail();
-        Uri uri = user.getPhotoUrl();
+        final Uri uri = user.getPhotoUrl();
         if (uri != null) {
             photoUrl = uri.toString();
         }
@@ -48,7 +48,7 @@ public class User {
         return uId;
     }
 
-    public void setUid(String uId) {
+    public void setUid(final String uId) {
         this.uId = uId;
     }
 
@@ -56,7 +56,7 @@ public class User {
         return displayName;
     }
 
-    public void setDisplayName(String displayName) {
+    public void setDisplayName(final String displayName) {
         this.displayName = displayName;
     }
 
@@ -64,7 +64,7 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -72,7 +72,7 @@ public class User {
         return photoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
+    public void setPhotoUrl(final String photoUrl) {
         this.photoUrl = photoUrl;
     }
 
@@ -80,7 +80,7 @@ public class User {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
@@ -88,19 +88,19 @@ public class User {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
     @Exclude
     public void addToFirestore() {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         final CollectionReference reference = firestore.collection("users");
         final DocumentReference documentReference = reference.document(uId);
         final User myUser = this;
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull final Task<DocumentSnapshot> task) {
                 if (task.getResult() != null) {
                     if (!task.getResult().exists()) {
                         documentReference.set(myUser);

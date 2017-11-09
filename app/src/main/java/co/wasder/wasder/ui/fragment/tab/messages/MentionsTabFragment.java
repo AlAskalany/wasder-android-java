@@ -54,7 +54,7 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
-        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
+        public void onFirestoreItemSelected(final AbstractFirestoreItem event, final View itemView) {
             Log.d(TAG, "onFirestoreItemSelected: " + itemView);
         }
     };
@@ -67,9 +67,9 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MentionsTabFragment newInstance(int sectionNumber) {
-        MentionsTabFragment fragment = new MentionsTabFragment();
-        Bundle args = new Bundle();
+    public static MentionsTabFragment newInstance(final int sectionNumber) {
+        final MentionsTabFragment fragment = new MentionsTabFragment();
+        final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.mTitle = "Mentions";
         fragment.setArguments(args);
@@ -78,19 +78,19 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
 
     @SuppressWarnings("unused")
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         setUserVisibleHint(true);
         if (getArguments() != null) {
-            int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+            final int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
         }
         mCollectionReferenceString = "restaurants";
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle
             savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab, container, false);
+        final View view = inflater.inflate(R.layout.fragment_tab, container, false);
         ButterKnife.bind(this, view);
 
         mViewModel = ViewModelProviders.of(this).get(TabFragmentViewModel.class);
@@ -122,7 +122,7 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
 
     public void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+        final FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
                 .build();
         mFirestore.setFirestoreSettings(settings);
@@ -137,13 +137,13 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        FirestoreItemsAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
+        final FirestoreItemsAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter((RecyclerView.Adapter) adapter);
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(final Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -165,7 +165,7 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
     }
 
     @Override
-    public void setFirestore(FirebaseFirestore firestore) {
+    public void setFirestore(final FirebaseFirestore firestore) {
         mFirestore = firestore;
     }
 
@@ -175,7 +175,7 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
     }
 
     @Override
-    public void setQuery(Query query) {
+    public void setQuery(final Query query) {
         mQuery = query;
     }
 

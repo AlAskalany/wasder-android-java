@@ -18,7 +18,7 @@ public class ProfileActivityViewModel extends ViewModel {
         return mFirestoreItemFilters;
     }
 
-    public void setFilters(FirestoreItemFilters mFirestoreItemFilters) {
+    public void setFilters(final FirestoreItemFilters mFirestoreItemFilters) {
         this.mFirestoreItemFilters = mFirestoreItemFilters;
     }
 }

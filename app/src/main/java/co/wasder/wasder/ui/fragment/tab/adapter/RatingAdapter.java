@@ -26,18 +26,18 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 @Keep
 public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
 
-    public RatingAdapter(Query query) {
+    public RatingAdapter(final Query query) {
         super(query);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout
                 .item_rating, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.bind(getSnapshot(position).toObject(Rating.class));
     }
 
@@ -53,12 +53,12 @@ public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
         @BindView(R.id.rating_item_text)
         public TextView textView;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(Rating rating) {
+        public void bind(final Rating rating) {
             nameView.setText(rating.getUserName());
             ratingBar.setRating((float) rating.getRating());
             textView.setText(rating.getText());

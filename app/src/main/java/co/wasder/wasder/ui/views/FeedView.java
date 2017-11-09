@@ -21,7 +21,7 @@ public class FeedView extends FrameLayout {
     public ItemImage itemImage;
     public Actions actions;
 
-    public FeedView(Context context, AttributeSet attributeSet) {
+    public FeedView(final Context context, final AttributeSet attributeSet) {
         super(context, attributeSet);
         LayoutInflater.from(context).inflate(R.layout.feed, this, true);
         profilePhoto = findViewById(R.id.profilePhoto);

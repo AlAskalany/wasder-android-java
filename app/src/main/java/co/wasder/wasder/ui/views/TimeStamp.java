@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 @Keep
 public class TimeStamp extends android.support.v7.widget.AppCompatTextView {
 
-    public TimeStamp(Context context, @Nullable AttributeSet attrs) {
+    public TimeStamp(final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         this.setText("2h");
     }

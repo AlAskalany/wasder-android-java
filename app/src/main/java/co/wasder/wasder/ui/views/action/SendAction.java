@@ -16,7 +16,7 @@ import co.wasder.wasder.R;
 
 public class SendAction extends FrameLayout {
 
-    public SendAction(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public SendAction(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.button_send, this, true);
     }

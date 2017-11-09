@@ -60,16 +60,16 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
      *
      * @param options FirestoreRecyclerOptions
      */
-    public EventAdapter(FirestoreRecyclerOptions options, OnEventSelected listener) {
+    public EventAdapter(final FirestoreRecyclerOptions options, final OnEventSelected listener) {
         //noinspection unchecked
         super(options);
         mListener = listener;
     }
 
     @SuppressWarnings("unused")
-    public static EventsAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query query,
-                                            OnEventSelected listener) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
+    public static EventsAdapter newInstance(@NonNull final LifecycleOwner lifecycleOwner, final Query query,
+                                            final OnEventSelected listener) {
+        final FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
                 .setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, FirestoreItem.class)
                 .build();
@@ -77,21 +77,21 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     }
 
     @SuppressWarnings("unused")
-    public static EventsAdapter newInstance(Query query, OnEventSelected listener) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
+    public static EventsAdapter newInstance(final Query query, final OnEventSelected listener) {
+        final FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
                 .setQuery(query, FirestoreItem.class)
                 .build();
         return new EventAdapter(options, listener);
     }
 
     @Override
-    protected void onBindViewHolder(final EventHolder holder, int position, Event model) {
+    protected void onBindViewHolder(final EventHolder holder, final int position, final Event model) {
         holder.bind(getSnapshots().getSnapshot(position), mListener);
     }
 
     @Override
-    public EventHolder onCreateViewHolder(ViewGroup group, int viewType) {
-        View view = LayoutInflater.from(group.getContext())
+    public EventHolder onCreateViewHolder(final ViewGroup group, final int viewType) {
+        final View view = LayoutInflater.from(group.getContext())
                 .inflate(R.layout.item_event, group, false);
         return new EventHolder(view);
     }
@@ -111,7 +111,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
         public EventView eventView;
         public String tag;
 
-        EventHolder(View itemView) {
+        EventHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -119,23 +119,23 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
         public void bind(final DocumentSnapshot snapshot, final OnEventSelected onEventSelected) {
             final Event event = snapshot.toObject(Event.class);
 
-            String userId = event.getUid();
-            CollectionReference users = FirebaseFirestore.getInstance()
+            final String userId = event.getUid();
+            final CollectionReference users = FirebaseFirestore.getInstance()
                     .collection(FirestoreCollections.USERS);
-            DocumentReference userReference = users.document(userId);
-            Task<DocumentSnapshot> getUserTask = userReference.get()
+            final DocumentReference userReference = users.document(userId);
+            final Task<DocumentSnapshot> getUserTask = userReference.get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
 
                         @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            User user = task.getResult().toObject(User.class);
-                            String userName = user.getDisplayName();
+                        public void onComplete(@NonNull final Task<DocumentSnapshot> task) {
+                            final User user = task.getResult().toObject(User.class);
+                            final String userName = user.getDisplayName();
                             eventView.getHeader().getUserName().setText(userName);
                         }
                     });
 
-            String title = event.getTitle();
+            final String title = event.getTitle();
             if (title != null) {
                 eventView.getEventTitle().setText(title);
             }
@@ -143,14 +143,14 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
             String uuid = null;
             uuid = event.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
-                StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+                final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
                 GlideApp.with(itemView.getContext())
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(eventView.getItemImage().getItemImageView());
                 eventView.getItemImage().makeVisible();
             }
-            String profilePhotoUrl = event.getProfilePhoto();
+            final String profilePhotoUrl = event.getProfilePhoto();
             if (profilePhotoUrl != null) {
                 if (!TextUtils.isEmpty(profilePhotoUrl)) {
                     GlideApp.with(itemView.getContext())
@@ -166,9 +166,9 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
 
 
                         @Override
-                        public void onClick(View v) {
+                        public void onClick(final View v) {
                             if (event.getUid() != null) {
-                                Intent intent = new Intent(itemView.getContext(), ProfileActivity
+                                final Intent intent = new Intent(itemView.getContext(), ProfileActivity
                                         .class);
                                 intent.putExtra("user-reference", event.getUid());
                                 itemView.getContext().startActivity(intent);
@@ -176,16 +176,16 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                         }
                     });
             eventView.getHeader().getUserName().setText(event.getName());
-            Date date = event.getTimestamp();
+            final Date date = event.getTimestamp();
             if (date != null) {
-                String dateString = new SimpleDateFormat().format(date);
+                final String dateString = new SimpleDateFormat().format(date);
                 eventView.getHeader().getTimeStamp().setText(dateString);
             }
             eventView.getItemText().getItemTextView().setText(event.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(final View view) {
                     //Intent intent = new Intent(view.getContext(), FirestoreItemDetailActivity
                     // .class);
                     //intent.putExtra("key_post_id", snapshot.getId());
@@ -197,15 +197,15 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
 
             eventView.getHeader().getExpandButton().setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(final View v) {
                     //creating a popup menu
-                    PopupMenu popup = new PopupMenu(v.getContext(), eventView.getHeader()
+                    final PopupMenu popup = new PopupMenu(v.getContext(), eventView.getHeader()
                             .getExpandButton());
                     //inflating menu from xml resource
                     popup.inflate(R.menu.menu_item);
-                    FirebaseAuth auth = FirebaseAuth.getInstance();
-                    FirebaseUser user = auth.getCurrentUser();
-                    String currentUserId = user.getUid();
+                    final FirebaseAuth auth = FirebaseAuth.getInstance();
+                    final FirebaseUser user = auth.getCurrentUser();
+                    final String currentUserId = user.getUid();
                     if (!TextUtils.equals(event.getUid(), currentUserId)) {
                         popup.getMenu().getItem(1).setVisible(false);
                     }
@@ -213,20 +213,20 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                     //adding click listener
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
-                        public boolean onMenuItemClick(MenuItem item) {
+                        public boolean onMenuItemClick(final MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.edit:
                                     break;
                                 case R.id.delete:
-                                    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-                                    Task<Void> reference = firestore.collection(FirestoreCollections.EVENTS)
+                                    final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                                    final Task<Void> reference = firestore.collection(FirestoreCollections.EVENTS)
                                             .document(snapshot.getId())
                                             .delete()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
 
 
                                                 @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
+                                                public void onComplete(@NonNull final Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         Log.d(TAG, "onComplete: ");
                                                     }

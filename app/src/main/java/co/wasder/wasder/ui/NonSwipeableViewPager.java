@@ -18,25 +18,25 @@ import java.lang.reflect.Field;
 @Keep
 public class NonSwipeableViewPager extends ViewPager {
 
-    public NonSwipeableViewPager(Context context) {
+    public NonSwipeableViewPager(final Context context) {
         super(context);
         setMyScroller();
     }
 
-    public NonSwipeableViewPager(Context context, AttributeSet attrs) {
+    public NonSwipeableViewPager(final Context context, final AttributeSet attrs) {
         super(context, attrs);
         setMyScroller();
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent event) {
+    public boolean onInterceptTouchEvent(final MotionEvent event) {
         // Never allow swiping to switch between pages
         return false;
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(final MotionEvent event) {
         // Never allow swiping to switch between pages
         return false;
     }
@@ -45,23 +45,23 @@ public class NonSwipeableViewPager extends ViewPager {
 
     public void setMyScroller() {
         try {
-            Class<?> viewpager = ViewPager.class;
-            Field scroller = viewpager.getDeclaredField("mScroller");
+            final Class<?> viewpager = ViewPager.class;
+            final Field scroller = viewpager.getDeclaredField("mScroller");
             scroller.setAccessible(true);
             scroller.set(this, new MyScroller(getContext()));
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
 
     public static class MyScroller extends Scroller {
 
-        public MyScroller(Context context) {
+        public MyScroller(final Context context) {
             super(context, new DecelerateInterpolator());
         }
 
         @Override
-        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+        public void startScroll(final int startX, final int startY, final int dx, final int dy, final int duration) {
             super.startScroll(startX, startY, dx, dy, 350 /*1 secs*/);
         }
     }

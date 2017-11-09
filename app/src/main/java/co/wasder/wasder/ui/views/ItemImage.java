@@ -20,7 +20,7 @@ public class ItemImage extends FrameLayout {
 
     public ImageView itemImageView;
 
-    public ItemImage(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ItemImage(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_image, this, true);
         this.setVisibility(GONE);

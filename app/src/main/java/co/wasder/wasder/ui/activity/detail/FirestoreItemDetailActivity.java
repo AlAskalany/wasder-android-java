@@ -99,20 +99,18 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
     public AddRatingDialogFragment mRatingDialog;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
         ButterKnife.bind(this);
 
         // Get post ID from extras
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = getIntent().getExtras();
         String postId = null;
         if (extras != null) {
             postId = extras.getString(KEY_POST_ID);
         }
-        if (postId == null) {
-            throw new IllegalArgumentException("Must pass extra " + KEY_POST_ID);
-        }
+        assert postId != null : "Must pass extra " + KEY_POST_ID;
 
         // Initialize Firestore
         mFirestore = FirebaseFirestore.getInstance();
@@ -153,18 +151,18 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         // In a transaction, add the new rating and update the aggregate totals
         return mFirestore.runTransaction(new Transaction.Function<Void>() {
             @Override
-            public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+            public Void apply(@NonNull final Transaction transaction) throws FirebaseFirestoreException {
 
-                FirestoreItem firestoreItem = transaction.get(documentRef)
+                final FirestoreItem firestoreItem = transaction.get(documentRef)
                         .toObject(FirestoreItem.class);
 
                 // Compute new number of ratings
-                int newNumRatings = firestoreItem.getNumRatings() + 1;
+                final int newNumRatings = firestoreItem.getNumRatings() + 1;
 
                 // Compute new average rating
-                double oldRatingTotal = firestoreItem.getAvgRating() * firestoreItem
+                final double oldRatingTotal = firestoreItem.getAvgRating() * firestoreItem
                         .getNumRatings();
-                double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRatings;
+                final double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRatings;
 
                 // Set new firestoreItem info
                 firestoreItem.setNumRatings(newNumRatings);
@@ -183,7 +181,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
      * Listener for the FirestoreItem document ({@link #mDocumentRef}).
      */
     @Override
-    public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
+    public void onEvent(final DocumentSnapshot snapshot, final FirebaseFirestoreException e) {
         if (e != null) {
             Log.w(TAG, "restaurant:onEvent", e);
             return;
@@ -192,15 +190,15 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         onModelLoaded(snapshot.toObject(FirestoreItem.class));
     }
 
-    public void onModelLoaded(FirestoreItem firestoreItem) {
+    public void onModelLoaded(final FirestoreItem firestoreItem) {
         mNameView.setText(firestoreItem.getName());
         mRatingIndicator.setRating((float) firestoreItem.getAvgRating());
         mNumRatingsView.setText(getString(R.string.fmt_num_ratings, firestoreItem.getNumRatings()));
 
         // Background image
-        String uuid = firestoreItem.getPhoto();
+        final String uuid = firestoreItem.getPhoto();
         if (uuid != null) {
-            StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+            final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
             GlideApp.with(mImageView.getContext())
                     .load(mImageRef)
                     .transition(DrawableTransitionOptions.withCrossFade())
@@ -209,21 +207,21 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
     }
 
     @OnClick(R.id.post_button_back)
-    public void onBackArrowClicked(@SuppressWarnings("unused") View view) {
+    public void onBackArrowClicked(@SuppressWarnings("unused") final View view) {
         onBackPressed();
     }
 
     @OnClick(R.id.fab_show_rating_dialog)
-    public void onAddRatingClicked(@SuppressWarnings("unused") View view) {
+    public void onAddRatingClicked(@SuppressWarnings("unused") final View view) {
         mRatingDialog.show(getSupportFragmentManager(), AddRatingDialogFragment.TAG);
     }
 
     @Override
-    public void onRating(Rating rating) {
+    public void onRating(final Rating rating) {
         // In a transaction, add the new rating and update the aggregate totals
         addRating(mDocumentRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onSuccess(final Void aVoid) {
                 Log.d(TAG, "Rating added");
 
                 // Hide keyboard and scroll to top
@@ -235,7 +233,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
             }
         }).addOnFailureListener(this, new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
+            public void onFailure(@NonNull final Exception e) {
                 Log.w(TAG, "Add rating failed", e);
 
                 // Show failure message and hide keyboard

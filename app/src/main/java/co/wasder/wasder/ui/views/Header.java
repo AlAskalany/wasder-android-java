@@ -18,7 +18,7 @@ public class Header extends FrameLayout {
     public UserName userName;
     public TimeStamp timeStamp;
     public ExpandButton expandButton;
-    public Header(Context context, AttributeSet attrs) {
+    public Header(final Context context, final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_header, this, true);
         userName = findViewById(R.id.userName);

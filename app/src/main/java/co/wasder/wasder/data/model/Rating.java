@@ -26,7 +26,7 @@ public class Rating {
     public Rating() {
     }
 
-    public Rating(FirebaseUser user, double rating, String text) {
+    public Rating(final FirebaseUser user, final double rating, final String text) {
         this.uId = user.getUid();
         this.userName = user.getDisplayName();
         if (TextUtils.isEmpty(this.userName)) {
@@ -43,7 +43,7 @@ public class Rating {
     }
 
     @SuppressWarnings("unused")
-    public void setUid(String uId) {
+    public void setUid(final String uId) {
         this.uId = uId;
     }
 
@@ -52,7 +52,7 @@ public class Rating {
     }
 
     @SuppressWarnings("unused")
-    public void setUserName(String userName) {
+    public void setUserName(final String userName) {
         this.userName = userName;
     }
 
@@ -61,7 +61,7 @@ public class Rating {
     }
 
     @SuppressWarnings("unused")
-    public void setRating(double rating) {
+    public void setRating(final double rating) {
         this.rating = rating;
     }
 
@@ -70,7 +70,7 @@ public class Rating {
     }
 
     @SuppressWarnings("unused")
-    public void setText(String text) {
+    public void setText(final String text) {
         this.text = text;
     }
 
@@ -80,7 +80,7 @@ public class Rating {
     }
 
     @SuppressWarnings("unused")
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(final Date timestamp) {
         this.timestamp = timestamp;
     }
 }

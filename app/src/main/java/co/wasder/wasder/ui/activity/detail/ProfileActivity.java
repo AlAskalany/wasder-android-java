@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -29,7 +28,7 @@ import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
-import co.wasder.wasder.ui.fragment.tab.adapter.FirestoreItemAdapter;
+import co.wasder.wasder.ui.fragment.tab.adapter.Adapters;
 import co.wasder.wasder.ui.fragment.tab.adapter.FirestoreItemsAdapter;
 import co.wasder.wasder.ui.views.FirestoreCollections;
 import co.wasder.wasder.ui.views.ProfilePhoto;
@@ -52,42 +51,36 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
-        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
+        public void onFirestoreItemSelected(final AbstractFirestoreItem event, final View itemView) {
 
         }
     };
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mUserReference = extras.getString(ARG_USER_REFERENCE);
         }
-        if (mUserReference == null) {
-            throw new IllegalArgumentException("Must pass extra " + ARG_USER_REFERENCE);
-        }
+        assert mUserReference != null : "Must pass extra " + ARG_USER_REFERENCE;
 
         mQuery = FirebaseFirestore.getInstance()
                 .collection(FirestoreCollections.POSTS)
                 .whereEqualTo("uid", mUserReference)
                 .orderBy("timestamp")
                 .limit(50);
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
-                .setLifecycleOwner(this)
-                .setQuery(mQuery, FirestoreItem.class)
-                .build();
-        adapter = new FirestoreItemAdapter(options, mItemSelectedListener);
-        RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
+        adapter = Adapters.PostAdapter(this, mQuery, mItemSelectedListener);
+        final RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter((RecyclerView.Adapter<? extends RecyclerView.ViewHolder>) adapter);
 
         viewModel = ViewModelProviders.of(this).get(ProfileActivityViewModel.class);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -105,7 +98,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
@@ -125,7 +118,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     }
 
     @Override
-    public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+    public void onEvent(final DocumentSnapshot documentSnapshot, final FirebaseFirestoreException e) {
         if (e != null) {
             Log.w(TAG, "restaurant:onEvent", e);
             return;
@@ -135,16 +128,16 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         onItemModelLoaded(documentSnapshot.toObject(FirestoreItem.class));
     }
 
-    public void onItemModelLoaded(FirestoreItem firestoreItem) {
+    public void onItemModelLoaded(final FirestoreItem firestoreItem) {
 
     }
 
-    public void onUserModelLoaded(User user) {
+    public void onUserModelLoaded(final User user) {
         collapsingToolbarLayout.setTitle(user.getDisplayName());
 
 
         // Background image
-        String uuid = user.getPhotoUrl();
+        final String uuid = user.getPhotoUrl();
         if (uuid != null) {
             GlideApp.with(this)
                     .load(uuid)

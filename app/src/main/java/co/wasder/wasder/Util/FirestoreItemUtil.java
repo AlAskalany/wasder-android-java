@@ -49,9 +49,9 @@ public class FirestoreItemUtil {
     /**
      * Create a random FirestoreItem POJO.
      */
-    public static FirestoreItem getRandom(Context context) {
-        FirestoreItem firestoreItem = new FirestoreItem();
-        Random random = new Random();
+    public static FirestoreItem getRandom(final Context context) {
+        final FirestoreItem firestoreItem = new FirestoreItem();
+        final Random random = new Random();
 
         // Cities (first element is 'Any')
         String[] cities = context.getResources().getStringArray(R.array.cities);
@@ -61,15 +61,15 @@ public class FirestoreItemUtil {
         String[] categories = context.getResources().getStringArray(R.array.categories_items);
         categories = Arrays.copyOfRange(categories, 1, categories.length);
 
-        int[] prices = new int[]{1, 2, 3};
+        final int[] prices = new int[]{1, 2, 3};
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            String uId = user.getUid();
-            String name = user.getDisplayName();
+            final String uId = user.getUid();
+            final String name = user.getDisplayName();
             firestoreItem.setUid(uId);
             firestoreItem.setName(name);
-            Uri profilePhotoUri = user.getPhotoUrl();
+            final Uri profilePhotoUri = user.getPhotoUrl();
             String profilePhotoUrl = null;
             if (profilePhotoUri != null) {
                 profilePhotoUrl = profilePhotoUri.toString();
@@ -91,46 +91,46 @@ public class FirestoreItemUtil {
      * Get a random image.
      */
     @SuppressWarnings("SameReturnValue")
-    public static String getRandomImageUrl(Random random) {
+    public static String getRandomImageUrl(final Random random) {
         // Integer between 1 and MAX_IMAGE_NUM (inclusive)
-        @SuppressWarnings("unused") int id = random.nextInt(MAX_IMAGE_NUM) + 1;
+        @SuppressWarnings("unused") final int id = random.nextInt(MAX_IMAGE_NUM) + 1;
 
         //return String.format(Locale.getDefault(), RESTAURANT_URL_FMT, id);
         return "f07fafef-219a-4d10-90b5-bcabc1c82348";
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static double getRandomRating(Random random) {
-        double min = 1.0;
+    public static double getRandomRating(final Random random) {
+        final double min = 1.0;
         return min + (random.nextDouble() * 4.0);
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static String getRandomName(Random random) {
+    public static String getRandomName(final Random random) {
         return getRandomString(NAME_FIRST_WORDS, random) + " " + getRandomString
                 (NAME_SECOND_WORDS, random);
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static String getRandomString(String[] array, Random random) {
-        int ind = random.nextInt(array.length);
+    public static String getRandomString(final String[] array, final Random random) {
+        final int ind = random.nextInt(array.length);
         return array[ind];
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static int getRandomInt(int[] array, Random random) {
-        int ind = random.nextInt(array.length);
+    public static int getRandomInt(final int[] array, final Random random) {
+        final int ind = random.nextInt(array.length);
         return array[ind];
     }
 
-    public static void onAddItemsClicked(Context context) {
+    public static void onAddItemsClicked(final Context context) {
         // Get a reference to the events collection
-        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
-        CollectionReference events = mFirestore.collection("restaurants");
+        final FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        final CollectionReference events = mFirestore.collection("restaurants");
 
         for (int i = 0; i < 10; i++) {
             // Get a random events POJO
-            FirestoreItem event = getRandom(context);
+            final FirestoreItem event = getRandom(context);
 
             // Add a new document to the events collection
             events.add(event);

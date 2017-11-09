@@ -55,7 +55,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
             .OnEventSelected() {
 
         @Override
-        public void onEventSelected(DocumentSnapshot event, View itemView) {
+        public void onEventSelected(final DocumentSnapshot event, final View itemView) {
             Log.d(TAG, "onFirestoreItemSelected: " + itemView);
         }
     };
@@ -68,9 +68,9 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DiscoveryTabFragment newInstance(int sectionNumber) {
-        DiscoveryTabFragment fragment = new DiscoveryTabFragment();
-        Bundle args = new Bundle();
+    public static DiscoveryTabFragment newInstance(final int sectionNumber) {
+        final DiscoveryTabFragment fragment = new DiscoveryTabFragment();
+        final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.mTitle = "Discovery";
         fragment.setArguments(args);
@@ -79,19 +79,19 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
 
     @SuppressWarnings("unused")
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         setUserVisibleHint(true);
         if (getArguments() != null) {
-            int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+            final int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
         }
         mCollectionReferenceString = FirestoreCollections.EVENTS;
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle
             savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab, container, false);
+        final View view = inflater.inflate(R.layout.fragment_tab, container, false);
         ButterKnife.bind(this, view);
 
         mViewModel = ViewModelProviders.of(this).get(TabFragmentViewModel.class);
@@ -123,7 +123,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
 
     public void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+        final FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
                 .build();
         mFirestore.setFirestoreSettings(settings);
@@ -138,13 +138,13 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        EventsAdapter adapter = Adapters.eventAdapter(this, mQuery, mPostSelectedListener);
+        final EventsAdapter adapter = Adapters.eventAdapter(this, mQuery, mPostSelectedListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter((RecyclerView.Adapter) adapter);
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(final Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -166,7 +166,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
     }
 
     @Override
-    public void setFirestore(FirebaseFirestore firestore) {
+    public void setFirestore(final FirebaseFirestore firestore) {
         mFirestore = firestore;
     }
 
@@ -176,7 +176,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
     }
 
     @Override
-    public void setQuery(Query query) {
+    public void setQuery(final Query query) {
         mQuery = query;
     }
 

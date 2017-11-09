@@ -26,7 +26,7 @@ public class FirestoreItemFilters {
     }
 
     public static FirestoreItemFilters getDefault() {
-        FirestoreItemFilters firestoreItemFilters = new FirestoreItemFilters();
+        final FirestoreItemFilters firestoreItemFilters = new FirestoreItemFilters();
         firestoreItemFilters.setSortBy("timestamp");
         firestoreItemFilters.setSortDirection(Query.Direction.DESCENDING);
 
@@ -57,7 +57,7 @@ public class FirestoreItemFilters {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(final String category) {
         this.category = category;
     }
 
@@ -65,7 +65,7 @@ public class FirestoreItemFilters {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(final String city) {
         this.city = city;
     }
 
@@ -73,7 +73,7 @@ public class FirestoreItemFilters {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(final int price) {
         this.price = price;
     }
 
@@ -81,7 +81,7 @@ public class FirestoreItemFilters {
         return sortBy;
     }
 
-    public void setSortBy(String sortBy) {
+    public void setSortBy(final String sortBy) {
         this.sortBy = sortBy;
     }
 
@@ -89,12 +89,12 @@ public class FirestoreItemFilters {
         return sortDirection;
     }
 
-    public void setSortDirection(Query.Direction sortDirection) {
+    public void setSortDirection(final Query.Direction sortDirection) {
         this.sortDirection = sortDirection;
     }
 
-    public String getSearchDescription(Context context) {
-        StringBuilder desc = new StringBuilder();
+    public String getSearchDescription(final Context context) {
+        final StringBuilder desc = new StringBuilder();
 
         if(uid != null){
             desc.append("<b>");
@@ -127,7 +127,7 @@ public class FirestoreItemFilters {
         return desc.toString();
     }
 
-    public String getOrderDescription(Context context) {
+    public String getOrderDescription(final Context context) {
         if ("price".equals(sortBy)) {
             return context.getString(R.string.items_sorted_by_price);
         } else if ("numRatings".equals(sortBy)) {
@@ -141,7 +141,7 @@ public class FirestoreItemFilters {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid(final String uid) {
         this.uid = uid;
     }
 }

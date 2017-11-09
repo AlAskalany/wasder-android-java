@@ -23,7 +23,7 @@ public class EventView extends FrameLayout {
     public ItemImage itemImage;
     public Actions actions;
 
-    public EventView(Context context, AttributeSet attributeSet) {
+    public EventView(final Context context, final AttributeSet attributeSet) {
         super(context, attributeSet);
         LayoutInflater.from(context).inflate(R.layout.event, this, true);
         profilePhoto = findViewById(R.id.profilePhoto);

@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView
 
     private MainActivityModel model;
 
-    public static Intent createIntent(Context context, IdpResponse idpResponse) {
+    public static Intent createIntent(final Context context, final IdpResponse idpResponse) {
 
-        Intent startIntent = new Intent();
+        final Intent startIntent = new Intent();
         if (idpResponse != null) {
             startIntent.putExtra(EXTRA_IDP_RESPONSE, idpResponse);
         }
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
                 .setAction("Action", null)
                 .show());
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string
                 .navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -95,12 +95,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         navHeaderTitle.setText(model.getUser().getValue().getDisplayName());
         navHeaderSubtitle.setText(model.getUser().getValue().getEmail());
 
-        FirebaseManager jobManager = new FirebaseManager(this);
+        final FirebaseManager jobManager = new FirebaseManager(this);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -109,12 +109,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
+        final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         // TODO check isAnonymous before using
-        boolean anonymous = model.getUser().getValue().isAnonymous() == Boolean.TRUE;
+        final boolean anonymous = model.getUser().getValue().isAnonymous() == Boolean.TRUE;
         menu.findItem(R.id.action_sign_up).setVisible(anonymous);
         menu.findItem(R.id.action_sign_out).setVisible(!anonymous);
         menu.findItem(R.id.action_settings).setVisible(!anonymous);
@@ -123,11 +123,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        final int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -152,9 +152,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        final int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
             // Handle the camera action

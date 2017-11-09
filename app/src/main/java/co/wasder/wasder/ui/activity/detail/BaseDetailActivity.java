@@ -33,9 +33,9 @@ public abstract class BaseDetailActivity extends AppCompatActivity implements
     public ListenerRegistration mModelRegistration;
 
     public void hideKeyboard() {
-        View view = getCurrentFocus();
+        final View view = getCurrentFocus();
         if (view != null) {
-            InputMethodManager inputMethodManager = ((InputMethodManager) getSystemService
+            final InputMethodManager inputMethodManager = ((InputMethodManager) getSystemService
                     (Context.INPUT_METHOD_SERVICE));
             if (inputMethodManager != null) {
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -65,7 +65,7 @@ public abstract class BaseDetailActivity extends AppCompatActivity implements
 
     @SuppressWarnings("EmptyMethod")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 

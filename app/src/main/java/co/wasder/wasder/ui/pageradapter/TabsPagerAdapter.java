@@ -20,12 +20,12 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public final List<TabFragment> fragments = new ArrayList<>();
     public final List<String> titles = new ArrayList<>();
 
-    public TabsPagerAdapter(FragmentManager fm) {
+    public TabsPagerAdapter(final FragmentManager fm) {
         super(fm);
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public Fragment getItem(final int position) {
         return (Fragment) fragments.get(position);
     }
 
@@ -35,11 +35,11 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public CharSequence getPageTitle(int position) {
+    public CharSequence getPageTitle(final int position) {
         return titles.get(position);
     }
 
-    public void addFragment(TabFragment fragment) {
+    public void addFragment(final TabFragment fragment) {
         fragments.add(fragment);
         titles.add(fragment.getTitle());
     }

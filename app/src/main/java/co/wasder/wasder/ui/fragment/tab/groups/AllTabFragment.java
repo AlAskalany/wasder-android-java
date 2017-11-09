@@ -55,7 +55,7 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
-        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
+        public void onFirestoreItemSelected(final AbstractFirestoreItem event, final View itemView) {
             Log.d(TAG, "onFirestoreItemSelected: " + itemView);
         }
     };
@@ -68,9 +68,9 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AllTabFragment newInstance(int sectionNumber) {
-        AllTabFragment fragment = new AllTabFragment();
-        Bundle args = new Bundle();
+    public static AllTabFragment newInstance(final int sectionNumber) {
+        final AllTabFragment fragment = new AllTabFragment();
+        final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.mTitle = "All";
         fragment.setArguments(args);
@@ -79,19 +79,19 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
 
     @SuppressWarnings("unused")
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         setUserVisibleHint(true);
         if (getArguments() != null) {
-            int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+            final int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
         }
         mCollectionReferenceString = FirestoreCollections.GROUPS;
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle
             savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab, container, false);
+        final View view = inflater.inflate(R.layout.fragment_tab, container, false);
         ButterKnife.bind(this, view);
 
         mViewModel = ViewModelProviders.of(this).get(TabFragmentViewModel.class);
@@ -122,16 +122,16 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
     }
 
     public void initRecyclerView() {
-        if (mQuery == null) {
+        if (getQuery() == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        FirestoreItemsAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
+        final FirestoreItemsAdapter adapter = Adapters.PostAdapter(this, getQuery(), mPostSelectedListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter((RecyclerView.Adapter) adapter);
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(final Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -153,7 +153,7 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
     }
 
     @Override
-    public void setFirestore(FirebaseFirestore firestore) {
+    public void setFirestore(final FirebaseFirestore firestore) {
         mFirestore = firestore;
     }
 
@@ -163,7 +163,7 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
     }
 
     @Override
-    public void setQuery(Query query) {
+    public void setQuery(final Query query) {
         mQuery = query;
     }
 

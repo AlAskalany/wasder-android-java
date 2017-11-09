@@ -33,10 +33,10 @@ import co.wasder.wasder.ui.fragment.tab.TabFragment;
 @Keep
 public class FirebaseUtil {
 
-    public static void startSignIn(WasderActivity activity, WasderActivityViewModel mViewModel,
-                                   @SuppressWarnings("SameParameterValue") int rcSignIn) {
+    public static void startSignIn(final WasderActivity activity, final WasderActivityViewModel mViewModel,
+                                   @SuppressWarnings("SameParameterValue") final int rcSignIn) {
         // Sign in with FirebaseUI
-        Intent intent = AuthUI.getInstance()
+        final Intent intent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setTheme(R.style.GreenTheme)
                 .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
@@ -49,12 +49,12 @@ public class FirebaseUtil {
         mViewModel.setIsSigningIn(true);
     }
 
-    public static boolean shouldStartSignIn(@SuppressWarnings("unused") WasderActivity activity,
-                                            WasderActivityViewModel viewModel) {
+    public static boolean shouldStartSignIn(@SuppressWarnings("unused") final WasderActivity activity,
+                                            final WasderActivityViewModel viewModel) {
         return (!viewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() == null);
     }
 
-    public static Job createJob(FirebaseJobDispatcher dispatcher) {
+    public static Job createJob(final FirebaseJobDispatcher dispatcher) {
         return dispatcher.newJobBuilder()
                 // persist the task across boots
                 .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
@@ -74,16 +74,16 @@ public class FirebaseUtil {
                 .setConstraints(Constraint.ON_ANY_NETWORK).build();
     }
 
-    public static void scheduleJob(Context context) {
-        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
-        Job job = createJob(dispatcher);
+    public static void scheduleJob(final Context context) {
+        final FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
+        final Job job = createJob(dispatcher);
         dispatcher.schedule(job);
     }
 
-    public static void initFirestore(TabFragment tabFragment, String mCollectionReferenceString,
-                                     long limit) {
+    public static void initFirestore(final TabFragment tabFragment, final String mCollectionReferenceString,
+                                     final long limit) {
         tabFragment.setFirestore(FirebaseFirestore.getInstance());
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+        final FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
                 .build();
         tabFragment.getFirestore().setFirestoreSettings(settings);

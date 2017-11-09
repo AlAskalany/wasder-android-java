@@ -27,7 +27,7 @@ class WasderUser implements UserInfo {
         // Mandatory empty constructor
     }
 
-    WasderUser(FirebaseUser firebaseUser) {
+    WasderUser(final FirebaseUser firebaseUser) {
         uId = firebaseUser.getUid();
         providerId = firebaseUser.getProviderId();
         email = firebaseUser.getEmail();

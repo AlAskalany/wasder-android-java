@@ -16,7 +16,7 @@ import co.wasder.wasder.R;
 
 public class ShareAction extends FrameLayout {
 
-    public ShareAction(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ShareAction(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.button_share, this, true);
     }

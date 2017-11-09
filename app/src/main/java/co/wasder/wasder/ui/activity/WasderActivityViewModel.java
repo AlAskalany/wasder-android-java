@@ -20,7 +20,7 @@ public class WasderActivityViewModel extends ViewModel {
         return mIsSigningIn;
     }
 
-    public void setIsSigningIn(boolean mIsSigningIn) {
+    public void setIsSigningIn(final boolean mIsSigningIn) {
         this.mIsSigningIn = mIsSigningIn;
     }
 }

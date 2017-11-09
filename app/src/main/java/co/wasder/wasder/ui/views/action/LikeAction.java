@@ -16,7 +16,7 @@ import co.wasder.wasder.R;
 
 public class LikeAction extends FrameLayout {
 
-    public LikeAction(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public LikeAction(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.button_like, this, true);
     }

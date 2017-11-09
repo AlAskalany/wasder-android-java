@@ -29,7 +29,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         // If you need to handle the generation of a token, initially or
         // after a refresh this is where you should do that.
-        String token = FirebaseInstanceId.getInstance().getToken();
+        final String token = FirebaseInstanceId.getInstance().getToken();
         sendRegistrationToServer(token);
         Log.d(TAG, "FCM Token: " + token);
 
@@ -37,13 +37,13 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
         FirebaseMessaging.getInstance().subscribeToTopic(FRIENDLY_ENGAGE_TOPIC);
     }
 
-    private void sendRegistrationToServer(String token) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+    private void sendRegistrationToServer(final String token) {
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        final FirebaseUser user = auth.getCurrentUser();
         String uId = null;
         if (user != null) {
             uId = user.getUid();
-            DatabaseReference database = FirebaseDatabase.getInstance()
+            final DatabaseReference database = FirebaseDatabase.getInstance()
                     .getReference("users")
                     .child(uId)
                     .child("asd")

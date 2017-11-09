@@ -20,7 +20,7 @@ public class ItemText extends FrameLayout {
 
     public TextView itemTextView;
 
-    public ItemText(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ItemText(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_text, this, true);
         itemTextView = findViewById(R.id.itemTextView);

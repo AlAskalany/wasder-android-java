@@ -63,7 +63,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      *
      * @param options FirestoreRecyclerOptions
      */
-    public FirestoreItemAdapter(FirestoreRecyclerOptions options, OnFirestoreItemSelected
+    public FirestoreItemAdapter(final FirestoreRecyclerOptions options, final OnFirestoreItemSelected
             listener) {
         //noinspection unchecked
         super(options);
@@ -71,32 +71,28 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
     }
 
     @SuppressWarnings("unused")
-    public static FirestoreItemsAdapter newInstance(@NonNull LifecycleOwner lifecycleOwner, Query
-            query, OnFirestoreItemSelected listener) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
-                .setLifecycleOwner(lifecycleOwner)
-                .setQuery(query, FirestoreItem.class)
-                .build();
-        return new FirestoreItemAdapter(options, listener);
+    public static FirestoreItemsAdapter newInstance(@NonNull final LifecycleOwner lifecycleOwner, final Query
+            query, final OnFirestoreItemSelected listener) {
+        return Adapters.PostAdapter(lifecycleOwner, query, listener);
     }
 
     @SuppressWarnings("unused")
-    public static FirestoreItemsAdapter newInstance(Query query, OnFirestoreItemSelected listener) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
+    public static FirestoreItemsAdapter newInstance(final Query query, final OnFirestoreItemSelected listener) {
+        final FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
                 .setQuery(query, FirestoreItem.class)
                 .build();
         return new FirestoreItemAdapter(options, listener);
     }
 
     @Override
-    public void onBindViewHolder(final FirestoreItemHolder holder, int position, FirestoreItem
+    public void onBindViewHolder(final FirestoreItemHolder holder, final int position, final FirestoreItem
             model) {
         holder.bind(getSnapshots().getSnapshot(position), mListener);
     }
 
     @Override
-    public FirestoreItemHolder onCreateViewHolder(ViewGroup group, int viewType) {
-        View view = LayoutInflater.from(group.getContext())
+    public FirestoreItemHolder onCreateViewHolder(final ViewGroup group, final int viewType) {
+        final View view = LayoutInflater.from(group.getContext())
                 .inflate(R.layout.item_firestore_item, group, false);
         return new FirestoreItemHolder(view);
     }
@@ -115,7 +111,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
         public FeedView feedView;
         public String tag;
 
-        public FirestoreItemHolder(View itemView) {
+        public FirestoreItemHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -123,18 +119,16 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
         public void bind(final DocumentSnapshot snapshot, final OnFirestoreItemSelected
                 onFirestoreItemSelected) {
             final FirestoreItem firestoreItem = snapshot.toObject(FirestoreItem.class);
-            String userId = firestoreItem.getUid();
-            CollectionReference users = FirebaseFirestore.getInstance()
-                    .collection(FirestoreCollections.USERS);
-            DocumentReference userReference = users.document(userId);
-            Task<DocumentSnapshot> getUserTask = userReference.get()
+            final String userId = firestoreItem.getUid();
+            final DocumentReference userReference = getAuthorDocumentReference(userId);
+            final Task<DocumentSnapshot> getUserTask = userReference.get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
 
                         @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            User user = task.getResult().toObject(User.class);
-                            String userName = user.getDisplayName();
+                        public void onComplete(@NonNull final Task<DocumentSnapshot> task) {
+                            final User user = task.getResult().toObject(User.class);
+                            final String userName = user.getDisplayName();
                             feedView.getHeader().getUserName().setText(userName);
                         }
                     });
@@ -143,14 +137,14 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
             String uuid = null;
             uuid = firestoreItem.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
-                StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+                final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
                 GlideApp.with(itemView.getContext())
                         .load(mImageRef)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .into(feedView.getItemImage().getItemImageView());
                 feedView.getItemImage().makeVisible();
             }
-            String profilePhotoUrl = firestoreItem.getProfilePhoto();
+            final String profilePhotoUrl = firestoreItem.getProfilePhoto();
             if (profilePhotoUrl != null) {
                 if (!TextUtils.isEmpty(profilePhotoUrl)) {
                     GlideApp.with(itemView.getContext())
@@ -166,25 +160,25 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
 
 
                         @Override
-                        public void onClick(View v) {
+                        public void onClick(final View v) {
                             if (firestoreItem.getUid() != null) {
-                                Intent intent = new Intent(itemView.getContext(), ProfileActivity
+                                final Intent intent = new Intent(itemView.getContext(), ProfileActivity
                                         .class);
                                 intent.putExtra("user-reference", firestoreItem.getUid());
                                 itemView.getContext().startActivity(intent);
                             }
                         }
                     });
-            Date date = firestoreItem.getTimestamp();
+            final Date date = firestoreItem.getTimestamp();
             if (date != null) {
-                String dateString = new SimpleDateFormat().format(date);
+                final String dateString = new SimpleDateFormat().format(date);
                 feedView.getHeader().getTimeStamp().setText(dateString);
             }
             feedView.getItemText().getItemTextView().setText(firestoreItem.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(final View view) {
                     //Intent intent = new Intent(view.getContext(), FirestoreItemDetailActivity
                     // .class);
                     //intent.putExtra("key_post_id", snapshot.getId());
@@ -196,14 +190,14 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
 
             feedView.getHeader().getExpandButton().setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(final View v) {
                     //creating a popup menu
-                    PopupMenu popup = new PopupMenu(v.getContext(), feedView.getHeader()
+                    final PopupMenu popup = new PopupMenu(v.getContext(), feedView.getHeader()
                             .getExpandButton());
                     //inflating menu from xml resource
                     popup.inflate(R.menu.menu_item);
-                    FirebaseAuth auth = FirebaseAuth.getInstance();
-                    FirebaseUser user = auth.getCurrentUser();
+                    final FirebaseAuth auth = FirebaseAuth.getInstance();
+                    final FirebaseUser user = auth.getCurrentUser();
                     final String currentUserId = user.getUid();
                     if (!TextUtils.equals(firestoreItem.getUid(), currentUserId)) {
                         popup.getMenu().getItem(1).setVisible(false);
@@ -213,13 +207,13 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                     //adding click listener
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
-                        public boolean onMenuItemClick(MenuItem item) {
+                        public boolean onMenuItemClick(final MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.edit:
                                     break;
                                 case R.id.delete:
-                                    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-                                    Task<Void> reference = firestore.collection
+                                    final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                                    final Task<Void> reference = firestore.collection
                                             (FirestoreCollections.POSTS)
                                             .document(snapshot.getId())
                                             .delete()
@@ -227,7 +221,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
 
 
                                                 @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
+                                                public void onComplete(@NonNull final Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         Log.d(TAG, "onComplete: ");
                                                     }
@@ -235,13 +229,13 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                                             });
                                     break;
                                 case R.id.follow:
-                                    DatabaseReference database = FirebaseDatabase.getInstance()
+                                    final DatabaseReference database = FirebaseDatabase.getInstance()
                                             .getReference("users");
-                                    DatabaseReference followedFollowersRef = database.child
+                                    final DatabaseReference followedFollowersRef = database.child
                                             (firestoreItem
                                             .getUid()).child("followers");
 
-                                    Map<String, Object> data = new HashMap<>();
+                                    final Map<String, Object> data = new HashMap<>();
                                     data.put(currentUserId, true);
                                     followedFollowersRef.updateChildren(data);
                                     break;
@@ -254,5 +248,12 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                 }
             });
         }
+    }
+
+    @NonNull
+    private static DocumentReference getAuthorDocumentReference(final String userId) {
+        final CollectionReference users = FirebaseFirestore.getInstance()
+                .collection(FirestoreCollections.USERS);
+        return users.document(userId);
     }
 }

@@ -16,7 +16,7 @@ import co.wasder.wasder.R;
 
 public class CommentAction extends FrameLayout {
 
-    public CommentAction(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public CommentAction(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.button_comment, this, true);
     }

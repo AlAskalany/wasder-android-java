@@ -38,19 +38,19 @@ public class FirebaseManager {
     private FirebaseAuth.IdTokenListener idTokenListener;
 
     public FirebaseManager() {
-        FirebaseApp app = FirebaseApp.getInstance();
+        final FirebaseApp app = FirebaseApp.getInstance();
         app.getApplicationContext();
         app.getName();
         app.getOptions();
         app.getToken(true);
         try {
             app.getUid();
-        } catch (FirebaseApiNotAvailableException e) {
+        } catch (final FirebaseApiNotAvailableException e) {
             e.printStackTrace();
         }
         app.setAutomaticResourceManagementEnabled(true);
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.getCurrentUser();
         auth.signInAnonymously();
         auth.signOut();
@@ -64,11 +64,11 @@ public class FirebaseManager {
         auth.sendPasswordResetEmail("email");
         auth.useAppLanguage();
         auth.signInWithCustomToken("Ad");
-        AuthCredential asd = null;
+        final AuthCredential asd = null;
         auth.signInWithCredential(asd);
         auth.verifyPasswordResetCode("asd");
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.getReference("A");
         database.getReference();
         database.setPersistenceCacheSizeBytes(100);
@@ -79,7 +79,7 @@ public class FirebaseManager {
         database.purgeOutstandingWrites();
         database.setLogLevel(Logger.Level.DEBUG);
 
-        FirebaseAnalytics analytics = FirebaseAnalytics.getInstance(app.getApplicationContext());
+        final FirebaseAnalytics analytics = FirebaseAnalytics.getInstance(app.getApplicationContext());
         analytics.logEvent("asd", new Bundle());
         analytics.getAppInstanceId();
         analytics.resetAnalyticsData();
@@ -90,50 +90,50 @@ public class FirebaseManager {
         analytics.setUserId("asd");
         analytics.setUserProperty("Asd", "ASd");
 
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("123");
-        FirebaseFirestoreSettings sdfsf = null;
+        final FirebaseFirestoreSettings sdfsf = null;
         firestore.setFirestoreSettings(sdfsf);
         firestore.batch();
         firestore.document("doc");
         firestore.getApp();
         firestore.getFirestoreSettings();
-        Transaction.Function<?> asdasdasd = new Transaction.Function<Object>() {
+        final Transaction.Function<?> asdasdasd = new Transaction.Function<Object>() {
             @Nullable
             @Override
-            public Object apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+            public Object apply(@NonNull final Transaction transaction) throws FirebaseFirestoreException {
                 return null;
             }
         };
         firestore.runTransaction(asdasdasd);
-        FirebaseFirestoreSettings.Builder builder = new FirebaseFirestoreSettings.Builder();
+        final FirebaseFirestoreSettings.Builder builder = new FirebaseFirestoreSettings.Builder();
 
-        FirebaseInstanceId instanceId = FirebaseInstanceId.getInstance();
+        final FirebaseInstanceId instanceId = FirebaseInstanceId.getInstance();
         instanceId.getToken();
         try {
             instanceId.getToken("ASd", "ASd");
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         try {
             instanceId.deleteInstanceId();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         try {
             instanceId.deleteToken("ASd", "Asd");
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         instanceId.getCreationTime();
         instanceId.getId();
 
-        FirebaseInstanceIdReceiver instanceIdReceiver = new FirebaseInstanceIdReceiver();
+        final FirebaseInstanceIdReceiver instanceIdReceiver = new FirebaseInstanceIdReceiver();
 
-        FirebaseInstanceIdService instanceIdService = new FirebaseInstanceIdService();
+        final FirebaseInstanceIdService instanceIdService = new FirebaseInstanceIdService();
         instanceIdService.onTokenRefresh();
 
-        FirebaseOptions options = FirebaseOptions.fromResource(app.getApplicationContext());
+        final FirebaseOptions options = FirebaseOptions.fromResource(app.getApplicationContext());
         options.getApiKey();
         options.getApplicationId();
         options.getDatabaseUrl();
@@ -141,12 +141,12 @@ public class FirebaseManager {
         options.getProjectId();
         options.getStorageBucket();
 
-        FirebaseInitProvider initProvider = new FirebaseInitProvider();
+        final FirebaseInitProvider initProvider = new FirebaseInitProvider();
 
-        User.Builder userBuilder = new User.Builder("A", "B");
+        final User.Builder userBuilder = new User.Builder("A", "B");
     }
 
-    public FirebaseManager(MainActivity activity) {
+    public FirebaseManager(final MainActivity activity) {
 
     }
 }

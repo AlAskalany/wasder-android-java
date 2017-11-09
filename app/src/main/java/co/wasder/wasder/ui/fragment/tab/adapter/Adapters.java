@@ -17,17 +17,17 @@ import co.wasder.wasder.data.model.FirestoreItem;
 @Keep
 public class Adapters {
 
-    public static FirestoreItemAdapter PostAdapter(@NonNull LifecycleOwner lifecycleOwner, Query
-            query, FirestoreItemsAdapter.OnFirestoreItemSelected listener) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>().setLifecycleOwner(lifecycleOwner)
+    public static FirestoreItemAdapter PostAdapter(@NonNull final LifecycleOwner lifecycleOwner, final Query
+            query, final FirestoreItemsAdapter.OnFirestoreItemSelected listener) {
+        final FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>().setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, FirestoreItem.class)
                 .build();
         return new FirestoreItemAdapter(options, listener);
     }
 
-    public static EventAdapter eventAdapter(@NonNull LifecycleOwner lifecycleOwner, Query query,
-                                            EventsAdapter.OnEventSelected listener) {
-        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Event>()
+    public static EventAdapter eventAdapter(@NonNull final LifecycleOwner lifecycleOwner, final Query query,
+                                            final EventsAdapter.OnEventSelected listener) {
+        final FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Event>()
                 .setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, Event.class)
                 .build();
