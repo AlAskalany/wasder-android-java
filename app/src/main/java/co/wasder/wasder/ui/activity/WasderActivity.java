@@ -212,7 +212,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         UpdateManager.register(this);
     }
 
-    public void unregisterManagers() {
+    public static void unregisterManagers() {
         UpdateManager.unregister();
     }
 

@@ -160,7 +160,7 @@ public class AddEventDialogFragment extends DialogFragment {
         }
     }
 
-    public void addPostToDatabase(@NonNull final Event event) {
+    public static void addPostToDatabase(@NonNull final Event event) {
         final CollectionReference posts = FirebaseUtil.getUsersCollectionReference(Utils.EVENTS);
         posts.add(event).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
@@ -249,7 +249,7 @@ public class AddEventDialogFragment extends DialogFragment {
     }
 
     @Nullable
-    public String getPostProfilePhotoUrl() {
+    public static String getPostProfilePhotoUrl() {
         final FirebaseAuth auth = FirebaseUtil.getAuth();
         final FirebaseUser user = auth.getCurrentUser();
         Uri profilePhotoUri = null;

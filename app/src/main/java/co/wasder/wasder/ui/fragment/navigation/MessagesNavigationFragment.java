@@ -139,8 +139,8 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
 
     @NonNull
     @SuppressWarnings("unused")
-    public Runnable createRunnable(@NonNull final View appbar, final Animator.AnimatorListener
-            animatorListener) {
+    public static Runnable createRunnable(@NonNull final View appbar, final Animator
+            .AnimatorListener animatorListener) {
         return new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -215,6 +215,7 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
 
     }
 
+    @SuppressWarnings("MethodMayBeStatic")
     @OnClick(R.id.fab)
     public void submit(@NonNull final View view) {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

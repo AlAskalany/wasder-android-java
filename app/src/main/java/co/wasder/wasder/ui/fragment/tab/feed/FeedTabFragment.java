@@ -185,7 +185,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         FirebaseUtil.getAuth().addAuthStateListener(this);
     }
 
-    private boolean isSignedIn() {
+    private static boolean isSignedIn() {
         return FirebaseUtil.getCurrentUser() != null;
     }
 

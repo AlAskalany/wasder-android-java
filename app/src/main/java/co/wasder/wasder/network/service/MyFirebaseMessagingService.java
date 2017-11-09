@@ -49,7 +49,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
-    private boolean isProcessingNeeded() {
+    private static boolean isProcessingNeeded() {
         /* Check if data needs to be processed by long running job */
         return false;
     }

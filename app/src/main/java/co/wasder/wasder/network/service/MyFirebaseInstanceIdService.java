@@ -40,7 +40,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
         FirebaseMessaging.getInstance().subscribeToTopic(FRIENDLY_ENGAGE_TOPIC);
     }
 
-    private void sendRegistrationToServer(@NonNull final String token) {
+    private static void sendRegistrationToServer(@NonNull final String token) {
         final FirebaseAuth auth = FirebaseUtil.getAuth();
         final FirebaseUser user = auth.getCurrentUser();
         String uId = null;

@@ -144,7 +144,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         }
     }
 
-    public void addPostToDatabase(@NonNull final FirestoreItem firestoreItem) {
+    public static void addPostToDatabase(@NonNull final FirestoreItem firestoreItem) {
         final CollectionReference posts = FirebaseUtil.getUsersCollectionReference(Utils.POSTS);
         posts.add(firestoreItem).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
