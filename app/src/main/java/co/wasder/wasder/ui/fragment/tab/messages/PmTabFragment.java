@@ -39,7 +39,7 @@ import co.wasder.wasder.ui.fragment.tab.adapter.FirestoreItemsAdapter;
 @Keep
 public class PmTabFragment extends Fragment implements TabFragment, LifecycleOwner {
 
-    public static final long LIMIT = 50;
+    public static final long LIMIT = FirebaseUtil.LIMIT;
     public static final String TAG = "TabFragment";
     public static final String ARG_SECTION_NUMBER = "section_number";
     @BindView(R.id.recyclerView)

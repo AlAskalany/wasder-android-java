@@ -74,7 +74,7 @@ import co.wasder.wasder.ui.views.FirestoreCollections;
 public class FeedTabFragment extends Fragment implements TabFragment, LifecycleOwner,
         FirebaseAuth.AuthStateListener {
 
-    public static final long LIMIT = 50;
+    public static final long LIMIT = FirebaseUtil.LIMIT;
     public static final String TAG = "TabFragment";
     public static final String ARG_SECTION_NUMBER = "section_number";
     private static final CollectionReference postsCollection = FirebaseUtil.getUsersCollectionReference("posts");

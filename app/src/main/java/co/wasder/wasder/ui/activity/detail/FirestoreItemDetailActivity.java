@@ -34,7 +34,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
@@ -45,6 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
+import co.wasder.wasder.Util.FirebaseUtil;
 import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.Rating;
@@ -122,7 +122,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         // Get ratings
         ratingsQuery = mDocumentRef.collection("ratings")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(50);
+                .limit(FirebaseUtil.LIMIT);
 
         // RecyclerView
         mRatingAdapter = new RatingAdapter(ratingsQuery) {

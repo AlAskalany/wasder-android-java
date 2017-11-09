@@ -40,7 +40,6 @@ import co.wasder.wasder.ui.views.FirestoreCollections;
 @Keep
 public class FollowingTabFragment extends Fragment implements TabFragment, LifecycleOwner {
 
-    public static final long LIMIT = 50;
     public static final String TAG = "TabFragment";
     public static final String ARG_SECTION_NUMBER = "section_number";
     @BindView(R.id.recyclerView)
@@ -131,7 +130,7 @@ public class FollowingTabFragment extends Fragment implements TabFragment, Lifec
         // Get the 50 highest rated posts
         mQuery = mFirestore.collection(mCollectionReferenceString)
                 .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(LIMIT);
+                .limit(FirebaseUtil.LIMIT);
     }
 
     public void initRecyclerView() {

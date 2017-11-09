@@ -71,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         mQuery = FirebaseUtil.getUsersCollectionReference(FirestoreCollections.POSTS)
                 .whereEqualTo("uid", mUserReference)
                 .orderBy("timestamp")
-                .limit(50);
+                .limit(FirebaseUtil.LIMIT);
         adapter = Adapters.PostAdapter(this, mQuery, mItemSelectedListener);
         final RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

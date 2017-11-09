@@ -34,6 +34,8 @@ import co.wasder.wasder.ui.fragment.tab.TabFragment;
 @Keep
 public class FirebaseUtil {
 
+    public static final long LIMIT = 50;
+
     public static void startSignIn(final WasderActivity activity, final WasderActivityViewModel mViewModel,
                                    @SuppressWarnings("SameParameterValue") final int rcSignIn) {
         // Sign in with FirebaseUI
