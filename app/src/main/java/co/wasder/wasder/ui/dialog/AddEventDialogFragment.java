@@ -45,6 +45,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.wasder.wasder.Utils;
 
 import java.text.MessageFormat;
 import java.util.UUID;
@@ -57,7 +58,6 @@ import co.wasder.wasder.Util.FirebaseUtil;
 import co.wasder.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.data.model.Event;
 import co.wasder.wasder.data.model.Model;
-import co.wasder.wasder.ui.views.FirestoreCollections;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -156,7 +156,7 @@ public class AddEventDialogFragment extends DialogFragment {
     }
 
     public void addPostToDatabase(@NonNull final Event event) {
-        final CollectionReference posts = FirebaseUtil.getUsersCollectionReference(FirestoreCollections.EVENTS);
+        final CollectionReference posts = FirebaseUtil.getUsersCollectionReference(Utils.EVENTS);
         posts.add(event).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull final Task<DocumentReference> task) {

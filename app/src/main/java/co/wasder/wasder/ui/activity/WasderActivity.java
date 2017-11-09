@@ -161,8 +161,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             });
         }
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R
-                .string.navigation_drawer_open, R.string.navigation_drawer_close);
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         final NavigationView navigationView = findViewById(R.id.nav_view);
@@ -226,8 +226,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         /**/
         /**/
         if (mViewPager.getCurrentItem() == 0) {
-            Dialogs.AddPostDialogFragment().show(getSupportFragmentManager(),
-                    AddFirestoreItemDialogFragment.TAG);
+            Dialogs.AddPostDialogFragment()
+                    .show(getSupportFragmentManager(), AddFirestoreItemDialogFragment.TAG);
         } else if (mViewPager.getCurrentItem() == 1) {
             new AddEventDialogFragment().show(getSupportFragmentManager(),
                     AddFirestoreItemDialogFragment.TAG);
@@ -316,7 +316,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         final int id = item.getItemId();
         if (id == R.id.nav_profile) {
             final Intent intent = new Intent(this, ProfileActivity.class);
-            intent.putExtra("user-reference", FirestoreItemUtil.getCurrentUser().getUid());
+            intent.putExtra("user-reference", FirebaseUtil.getCurrentUser().getUid());
             startActivity(intent);
         } else if (id == R.id.nav_friends) {
         } else if (id == R.id.nav_followers) {
@@ -336,7 +336,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     }
 
     @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent
+            data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             mViewModel.setIsSigningIn(false);

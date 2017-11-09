@@ -22,17 +22,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.Utils;
 
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;
-import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.fragment.tab.adapter.Adapters;
 import co.wasder.wasder.ui.fragment.tab.adapter.FirestoreItemsAdapter;
-import co.wasder.wasder.ui.views.FirestoreCollections;
 import co.wasder.wasder.ui.views.ProfilePhoto;
 
 @Keep
@@ -68,9 +67,9 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         }
         assert mUserReference != null : "Must pass extra " + ARG_USER_REFERENCE;
 
-        mQuery = FirebaseUtil.getUsersCollectionReference(FirestoreCollections.POSTS)
+        mQuery = FirebaseUtil.getUsersCollectionReference(Utils.POSTS)
                 .whereEqualTo("uid", mUserReference)
-                .orderBy("timestamp")
+                .orderBy(Utils.TIMESTAMP)
                 .limit(FirebaseUtil.LIMIT);
         adapter = Adapters.PostAdapter(this, mQuery, mItemSelectedListener);
         final RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
@@ -88,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         collapsingToolbarLayout = findViewById(R.id.collapsingToolbarLayout);
         profilePhoto = findViewById(R.id.profilePhoto);
 
-        mFirestore = FirestoreItemUtil.getFirestore();
+        mFirestore = FirebaseUtil.getFirestore();
         mDocumentReference = mFirestore.collection("users").document(mUserReference);
     }
 

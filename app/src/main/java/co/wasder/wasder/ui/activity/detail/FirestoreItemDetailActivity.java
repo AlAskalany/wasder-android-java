@@ -39,13 +39,13 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.wasder.wasder.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;
-import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.Rating;
 import co.wasder.wasder.network.GlideApp;
@@ -114,14 +114,14 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         assert postId != null : "Must pass extra " + KEY_POST_ID;
 
         // Initialize Firestore
-        mFirestore = FirestoreItemUtil.getFirestore();
+        mFirestore = FirebaseUtil.getFirestore();
 
         // Get reference to the post
         mDocumentRef = mFirestore.collection("restaurants").document(postId);
 
         // Get ratings
         ratingsQuery = mDocumentRef.collection("ratings")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .orderBy(Utils.TIMESTAMP, Query.Direction.DESCENDING)
                 .limit(FirebaseUtil.LIMIT);
 
         // RecyclerView

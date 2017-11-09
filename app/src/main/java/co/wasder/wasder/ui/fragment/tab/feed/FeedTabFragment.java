@@ -37,6 +37,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.wasder.wasder.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,7 +50,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;
-import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.data.model.FirestoreItem;
@@ -64,7 +64,6 @@ import co.wasder.wasder.ui.fragment.tab.TabFragment;
 import co.wasder.wasder.ui.fragment.tab.TabFragmentViewModel;
 import co.wasder.wasder.ui.fragment.tab.adapter.FirestoreItemsAdapter;
 import co.wasder.wasder.ui.views.FeedView;
-import co.wasder.wasder.ui.views.FirestoreCollections;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.
@@ -76,9 +75,12 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
     public static final long LIMIT = FirebaseUtil.LIMIT;
     public static final String TAG = "TabFragment";
-    public static final String ARG_SECTION_NUMBER = "section_number";
-    private static final CollectionReference postsCollection = FirebaseUtil.getUsersCollectionReference("posts");
-    private static final Query mQuery = postsCollection.orderBy("timestamp", Query.Direction
+    public static final String ARG_SECTION_NUMBER = Utils.ARG_SECTION_NUMBER;
+    private static final CollectionReference postsCollection = FirebaseUtil.getUsersCollectionReference(Utils.POSTS);
+
+
+
+    private static final Query mQuery = postsCollection.orderBy(Utils.TIMESTAMP, Query.Direction
             .DESCENDING)
             .limit(LIMIT);
 
@@ -179,7 +181,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
     }
 
     private boolean isSignedIn() {
-        return FirestoreItemUtil.getCurrentUser() != null;
+        return FirebaseUtil.getCurrentUser() != null;
     }
 
     private void attachRecyclerViewAdapter() {
@@ -302,9 +304,9 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final AbstractFirestoreItem chat) {
-            final String userId = chat.getUid();
-            final CollectionReference users = FirebaseUtil.getUsersCollectionReference(FirestoreCollections.USERS);
+        public void bind(final AbstractFirestoreItem model) {
+            final String userId = model.getUid();
+            final CollectionReference users = FirebaseUtil.getUsersCollectionReference(Utils.USERS);
             final DocumentReference userReference = users.document(userId);
             final Task<DocumentSnapshot> getUserTask = userReference.get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -320,7 +322,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
             // Load image
             String uuid = null;
-            uuid = chat.getPhoto();
+            uuid = model.getPhoto();
             if (!TextUtils.isEmpty(uuid)) {
                 final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
                 GlideApp.with(itemView.getContext())
@@ -329,7 +331,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                         .into(feedView.getItemImage().getItemImageView());
                 feedView.getItemImage().makeVisible();
             }
-            final String profilePhotoUrl = chat.getProfilePhoto();
+            final String profilePhotoUrl = model.getProfilePhoto();
             if (profilePhotoUrl != null) {
                 if (!TextUtils.isEmpty(profilePhotoUrl)) {
                     GlideApp.with(itemView.getContext())
@@ -346,20 +348,20 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
                         @Override
                         public void onClick(final View v) {
-                            if (chat.getUid() != null) {
+                            if (model.getUid() != null) {
                                 final Intent intent = new Intent(itemView.getContext(), ProfileActivity
                                         .class);
-                                intent.putExtra("user-reference", chat.getUid());
+                                intent.putExtra("user-reference", model.getUid());
                                 itemView.getContext().startActivity(intent);
                             }
                         }
                     });
-            final Date date = chat.getTimestamp();
+            final Date date = model.getTimestamp();
             if (date != null) {
                 final String dateString = new SimpleDateFormat().format(date);
                 feedView.getHeader().getTimeStamp().setText(dateString);
             }
-            feedView.getItemText().getItemTextView().setText(chat.getFeedText());
+            feedView.getItemText().getItemTextView().setText(model.getFeedText());
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -369,7 +371,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                     //intent.putExtra("key_post_id", snapshot.getId());
                     //view.getContext().startActivity(intent);
                     //postItemCardView.setBackgroundColor(Color.GREEN);
-                    onFirestoreItemSelected.onFirestoreItemSelected(chat, itemView);
+                    onFirestoreItemSelected.onFirestoreItemSelected(model, itemView);
                 }
             });
 
@@ -384,7 +386,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                     final FirebaseAuth auth = FirebaseUtil.getAuth();
                     final FirebaseUser user = auth.getCurrentUser();
                     final String currentUserId = user.getUid();
-                    if (!TextUtils.equals(chat.getUid(), currentUserId)) {
+                    if (!TextUtils.equals(model.getUid(), currentUserId)) {
                         popup.getMenu().getItem(1).setVisible(false);
                         popup.getMenu().getItem(2).setVisible(true);
                     }
@@ -397,11 +399,11 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                                 case R.id.edit:
                                     break;
                                 case R.id.delete:
-                                    final FirebaseFirestore firestore = FirestoreItemUtil
+                                    final FirebaseFirestore firestore = FirebaseUtil
                                             .getFirestore();
                                     final Task<Void> reference = firestore.collection
-                                            (FirestoreCollections.POSTS)
-                                            .document(chat.getUid())
+                                            (Utils.POSTS)
+                                            .document(model.getUid())
                                             .delete()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
 
@@ -416,7 +418,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                                 case R.id.follow:
                                     final DatabaseReference database = FirebaseDatabase.getInstance()
                                             .getReference("users");
-                                    final DatabaseReference followedFollowersRef = database.child(chat
+                                    final DatabaseReference followedFollowersRef = database.child(model
                                             .getUid())
                                             .child("followers");
 

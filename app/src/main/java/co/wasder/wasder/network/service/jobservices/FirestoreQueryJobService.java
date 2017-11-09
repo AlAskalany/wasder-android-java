@@ -7,7 +7,7 @@ import com.firebase.jobdispatcher.JobService;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import co.wasder.wasder.Util.FirestoreItemUtil;
+import co.wasder.wasder.Util.FirebaseUtil;
 
 
 /**
@@ -25,7 +25,7 @@ public class FirestoreQueryJobService extends JobService {
             @Override
             public void run() {
                 try {
-                    final FirebaseFirestore firestore = FirestoreItemUtil.getFirestore();
+                    final FirebaseFirestore firestore = FirebaseUtil.getFirestore();
                     @SuppressWarnings("unused") final String collectionName = null;
                     @SuppressWarnings("unused") final Query query = firestore.collection("restaurants");
                 } finally {

@@ -16,12 +16,12 @@ import android.view.ViewGroup;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;
-import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.dialog.Dialogs;
@@ -41,7 +41,7 @@ public class PmTabFragment extends Fragment implements TabFragment, LifecycleOwn
 
     public static final long LIMIT = FirebaseUtil.LIMIT;
     public static final String TAG = "TabFragment";
-    public static final String ARG_SECTION_NUMBER = "section_number";
+    public static final String ARG_SECTION_NUMBER = Utils.ARG_SECTION_NUMBER;
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
     public FirebaseFirestore mFirestore;
@@ -123,7 +123,7 @@ public class PmTabFragment extends Fragment implements TabFragment, LifecycleOwn
     }
 
     public void initFirestore() {
-        mFirestore = FirestoreItemUtil.getFirestore();
+        mFirestore = FirebaseUtil.getFirestore();
         final FirebaseFirestoreSettings settings = FirebaseUtil.getFirebaseFirestoreSettings();
         mFirestore.setFirestoreSettings(settings);
 

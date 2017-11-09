@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.wasder.wasder.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,14 +37,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;
-import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.model.Event;
 import co.wasder.wasder.data.model.FirestoreItem;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.activity.detail.ProfileActivity;
 import co.wasder.wasder.ui.views.EventView;
-import co.wasder.wasder.ui.views.FirestoreCollections;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
@@ -122,7 +121,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
             final Event event = snapshot.toObject(Event.class);
 
             final String userId = event.getUid();
-            final CollectionReference users = FirebaseUtil.getUsersCollectionReference(FirestoreCollections.USERS);
+            final CollectionReference users = FirebaseUtil.getUsersCollectionReference(Utils.USERS);
             final DocumentReference userReference = users.document(userId);
             final Task<DocumentSnapshot> getUserTask = userReference.get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -219,9 +218,9 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                                 case R.id.edit:
                                     break;
                                 case R.id.delete:
-                                    final FirebaseFirestore firestore = FirestoreItemUtil
+                                    final FirebaseFirestore firestore = FirebaseUtil
                                             .getFirestore();
-                                    final Task<Void> reference = firestore.collection(FirestoreCollections.EVENTS)
+                                    final Task<Void> reference = firestore.collection(Utils.EVENTS)
                                             .document(snapshot.getId())
                                             .delete()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {

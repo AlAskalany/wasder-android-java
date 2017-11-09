@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +30,6 @@ import co.wasder.wasder.ui.fragment.tab.TabFragment;
 import co.wasder.wasder.ui.fragment.tab.TabFragmentViewModel;
 import co.wasder.wasder.ui.fragment.tab.adapter.Adapters;
 import co.wasder.wasder.ui.fragment.tab.adapter.FirestoreItemsAdapter;
-import co.wasder.wasder.ui.views.FirestoreCollections;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.
@@ -40,7 +40,7 @@ public class OwnedTabFragment extends Fragment implements TabFragment, Lifecycle
 
     public static final long LIMIT = FirebaseUtil.LIMIT;
     public static final String TAG = "TabFragment";
-    public static final String ARG_SECTION_NUMBER = "section_number";
+    public static final String ARG_SECTION_NUMBER = Utils.ARG_SECTION_NUMBER;
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
     public FirebaseFirestore mFirestore;
@@ -84,7 +84,7 @@ public class OwnedTabFragment extends Fragment implements TabFragment, Lifecycle
         if (getArguments() != null) {
             final int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-        mCollectionReferenceString = FirestoreCollections.GROUPS;
+        mCollectionReferenceString = Utils.GROUPS;
         super.onCreate(savedInstanceState);
     }
 
