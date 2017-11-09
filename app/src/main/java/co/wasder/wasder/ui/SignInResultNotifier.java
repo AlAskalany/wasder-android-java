@@ -19,7 +19,7 @@ public class SignInResultNotifier implements OnCompleteListener<AuthResult> {
 
     private Context mContext;
 
-    public SignInResultNotifier(final Context context) {
+    public SignInResultNotifier(@NonNull final Context context) {
         mContext = context.getApplicationContext();
     }
 

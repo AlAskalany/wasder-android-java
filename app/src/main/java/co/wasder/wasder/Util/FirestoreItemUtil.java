@@ -3,6 +3,7 @@ package co.wasder.wasder.Util;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -49,7 +50,8 @@ public class FirestoreItemUtil {
     /**
      * Create a random FirestoreItem POJO.
      */
-    public static FirestoreItem getRandom(final Context context) {
+    @NonNull
+    public static FirestoreItem getRandom(@NonNull final Context context) {
         final FirestoreItem firestoreItem = new FirestoreItem();
         final Random random = new Random();
 
@@ -91,7 +93,7 @@ public class FirestoreItemUtil {
      * Get a random image.
      */
     @SuppressWarnings("SameReturnValue")
-    public static String getRandomImageUrl(final Random random) {
+    public static String getRandomImageUrl(@NonNull final Random random) {
         // Integer between 1 and MAX_IMAGE_NUM (inclusive)
         @SuppressWarnings("unused") final int id = random.nextInt(MAX_IMAGE_NUM) + 1;
 
@@ -100,30 +102,30 @@ public class FirestoreItemUtil {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static double getRandomRating(final Random random) {
+    public static double getRandomRating(@NonNull final Random random) {
         final double min = 1.0;
         return min + (random.nextDouble() * 4.0);
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static String getRandomName(final Random random) {
+    public static String getRandomName(@NonNull final Random random) {
         return getRandomString(NAME_FIRST_WORDS, random) + " " + getRandomString
                 (NAME_SECOND_WORDS, random);
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static String getRandomString(final String[] array, final Random random) {
+    public static String getRandomString(@NonNull final String[] array, @NonNull final Random random) {
         final int ind = random.nextInt(array.length);
         return array[ind];
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static int getRandomInt(final int[] array, final Random random) {
+    public static int getRandomInt(@NonNull final int[] array, @NonNull final Random random) {
         final int ind = random.nextInt(array.length);
         return array[ind];
     }
 
-    public static void onAddItemsClicked(final Context context) {
+    public static void onAddItemsClicked(@NonNull final Context context) {
         // Get a reference to the events collection
         final FirebaseFirestore mFirestore = FirebaseUtil.getFirestore();
         final CollectionReference events = mFirestore.collection(Utils.RESTAURANTS);

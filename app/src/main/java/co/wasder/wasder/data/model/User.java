@@ -3,6 +3,7 @@ package co.wasder.wasder.data.model;
 import android.net.Uri;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +26,9 @@ import co.wasder.wasder.Util.FirebaseUtil;
 public class User {
 
     private String uId;
+    @Nullable
     private String displayName;
+    @Nullable
     private String email;
     private String photoUrl;
     private String firstName;
@@ -34,7 +37,7 @@ public class User {
     public User() {
     }
 
-    public User(final FirebaseUser user, final String firstName, final String lastName) {
+    public User(@NonNull final FirebaseUser user, final String firstName, final String lastName) {
         uId = user.getUid();
         displayName = user.getDisplayName();
         email = user.getEmail();
@@ -54,6 +57,7 @@ public class User {
         this.uId = uId;
     }
 
+    @Nullable
     public String getDisplayName() {
         return displayName;
     }
@@ -62,6 +66,7 @@ public class User {
         this.displayName = displayName;
     }
 
+    @Nullable
     public String getEmail() {
         return email;
     }

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -72,14 +73,18 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public static final String TAG = "WasderActivity";
     public static final int RC_SIGN_IN = 9001;
     private static final java.lang.String AMPLITUDE_API_KEY = "937ae55b73eb164890021fe9b2d4fa63";
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.drawer_layout)
     public DrawerLayout mDrawerLayout;
+    @Nullable
     @BindView(R.id.nav_view)
     public NavigationView mNavigationView;
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.navigation2)
     public BottomNavigationView mBottomNavigationView;
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.container)
     public NonSwipeableViewPager mViewPager;
@@ -108,6 +113,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             }
         }
     };
+    @Nullable
     @BindView(R.id.swipeRefreshLayout)
     public SwipeRefreshLayout mSwipeRefreshLayout;
     @SuppressWarnings("unused")
@@ -119,6 +125,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public FirestoreItemFilterDialogFragment mFilterDialog;
     public boolean enableCrashButton = false;
     private FirebaseAuth firebaseAuth;
+    @Nullable
     private FirebaseUser firebaseUser;
 
     @Override
@@ -297,7 +304,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add_events:
                 FirestoreItemUtil.onAddItemsClicked(this);
@@ -367,6 +374,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             super(fm);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(final int position) {
             final NavigationFragment fragment;

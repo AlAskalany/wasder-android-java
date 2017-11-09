@@ -1,5 +1,7 @@
 package co.wasder.wasder.data.model;
 
+import android.support.annotation.Nullable;
+
 import java.util.Date;
 
 /**
@@ -13,6 +15,7 @@ public abstract class AbstractFirestoreItem {
 
     public abstract String getName();
 
+    @Nullable
     public abstract String getMessage();
 
     public abstract String getUid();

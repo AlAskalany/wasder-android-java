@@ -2,6 +2,8 @@ package co.wasder.wasder.data.filter;
 
 import android.content.Context;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
@@ -16,16 +18,21 @@ import co.wasder.wasder.R;
 @Keep
 public class FirestoreItemFilters {
 
+    @Nullable
     public String category = null;
+    @Nullable
     public String city = null;
     public int price = -1;
+    @Nullable
     public String sortBy = null;
+    @Nullable
     public Query.Direction sortDirection = null;
     private String uid;
 
     public FirestoreItemFilters() {
     }
 
+    @NonNull
     public static FirestoreItemFilters getDefault() {
         final FirestoreItemFilters firestoreItemFilters = new FirestoreItemFilters();
         firestoreItemFilters.setSortBy(Utils.TIMESTAMP);
@@ -54,6 +61,7 @@ public class FirestoreItemFilters {
         return !(TextUtils.isEmpty(sortBy));
     }
 
+    @Nullable
     public String getCategory() {
         return category;
     }
@@ -62,6 +70,7 @@ public class FirestoreItemFilters {
         this.category = category;
     }
 
+    @Nullable
     public String getCity() {
         return city;
     }
@@ -78,6 +87,7 @@ public class FirestoreItemFilters {
         this.price = price;
     }
 
+    @Nullable
     public String getSortBy() {
         return sortBy;
     }
@@ -86,6 +96,7 @@ public class FirestoreItemFilters {
         this.sortBy = sortBy;
     }
 
+    @Nullable
     public Query.Direction getSortDirection() {
         return sortDirection;
     }
@@ -94,7 +105,8 @@ public class FirestoreItemFilters {
         this.sortDirection = sortDirection;
     }
 
-    public String getSearchDescription(final Context context) {
+    @NonNull
+    public String getSearchDescription(@NonNull final Context context) {
         final StringBuilder desc = new StringBuilder();
 
         if(uid != null){
@@ -128,7 +140,8 @@ public class FirestoreItemFilters {
         return desc.toString();
     }
 
-    public String getOrderDescription(final Context context) {
+    @NonNull
+    public String getOrderDescription(@NonNull final Context context) {
         if ("price".equals(sortBy)) {
             return context.getString(R.string.items_sorted_by_price);
         } else if ("numRatings".equals(sortBy)) {

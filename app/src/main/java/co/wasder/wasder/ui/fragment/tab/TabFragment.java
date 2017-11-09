@@ -1,6 +1,7 @@
 package co.wasder.wasder.ui.fragment.tab;
 
 import android.support.annotation.Keep;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,13 +21,16 @@ import co.wasder.wasder.ui.fragment.tab.messages.MentionsTabFragment;
 @Keep
 public interface TabFragment {
 
+    @Nullable
     FirebaseFirestore getFirestore();
 
     void setFirestore(FirebaseFirestore instance);
 
+    @Nullable
     Query getQuery();
 
     void setQuery(Query timestamp);
 
+    @Nullable
     String getTitle();
 }

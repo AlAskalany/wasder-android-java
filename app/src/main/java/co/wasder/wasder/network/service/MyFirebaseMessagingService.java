@@ -1,6 +1,7 @@
 package co.wasder.wasder.network.service;
 
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -16,7 +17,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String TAG = "MyFMService";
 
     @Override
-    public void onMessageReceived(final RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NonNull final RemoteMessage remoteMessage) {
         // Handle data payload of FCM messages.
         Log.d(TAG, "FCM Message Id: " + remoteMessage.getMessageId());
         Log.d(TAG, "FCM Notification Message: " + remoteMessage.getNotification());

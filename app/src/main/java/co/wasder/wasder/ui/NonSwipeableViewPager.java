@@ -3,6 +3,7 @@ package co.wasder.wasder.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -18,12 +19,12 @@ import java.lang.reflect.Field;
 @Keep
 public class NonSwipeableViewPager extends ViewPager {
 
-    public NonSwipeableViewPager(final Context context) {
+    public NonSwipeableViewPager(@NonNull final Context context) {
         super(context);
         setMyScroller();
     }
 
-    public NonSwipeableViewPager(final Context context, final AttributeSet attrs) {
+    public NonSwipeableViewPager(@NonNull final Context context, final AttributeSet attrs) {
         super(context, attrs);
         setMyScroller();
     }
@@ -49,7 +50,7 @@ public class NonSwipeableViewPager extends ViewPager {
             final Field scroller = viewpager.getDeclaredField("mScroller");
             scroller.setAccessible(true);
             scroller.set(this, new MyScroller(getContext()));
-        } catch (final Exception e) {
+        } catch (@NonNull final Exception e) {
             e.printStackTrace();
         }
     }

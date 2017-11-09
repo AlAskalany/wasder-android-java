@@ -2,6 +2,7 @@ package co.wasder.wasder.ui.views;
 
 import android.content.Context;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
@@ -23,7 +24,7 @@ public class EventView extends FrameLayout {
     public ItemImage itemImage;
     public Actions actions;
 
-    public EventView(final Context context, final AttributeSet attributeSet) {
+    public EventView(@NonNull final Context context, final AttributeSet attributeSet) {
         super(context, attributeSet);
         LayoutInflater.from(context).inflate(R.layout.event, this, true);
         profilePhoto = findViewById(R.id.profilePhoto);

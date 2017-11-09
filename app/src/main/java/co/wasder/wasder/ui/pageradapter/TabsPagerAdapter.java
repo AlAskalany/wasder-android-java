@@ -1,6 +1,7 @@
 package co.wasder.wasder.ui.pageradapter;
 
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,6 +25,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
+    @NonNull
     @Override
     public Fragment getItem(final int position) {
         return (Fragment) fragments.get(position);
@@ -39,7 +41,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         return titles.get(position);
     }
 
-    public void addFragment(final TabFragment fragment) {
+    public void addFragment(@NonNull final TabFragment fragment) {
         fragments.add(fragment);
         titles.add(fragment.getTitle());
     }

@@ -3,6 +3,8 @@ package co.wasder.wasder.ui.activity.detail;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -41,13 +43,16 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     public static final String TAG = "ProfileActivity";
     public CollapsingToolbarLayout collapsingToolbarLayout;
     public ProfilePhoto profilePhoto;
+    @Nullable
     public String mUserReference;
     public FirebaseFirestore mFirestore;
     public DocumentReference mDocumentReference;
+    @Nullable
     public ListenerRegistration mModelRegistration;
     public ProfileActivityViewModel viewModel;
     public FirestoreItemsAdapter adapter;
     public Query mQuery;
+    @NonNull
     public FirestoreItemsAdapter.OnFirestoreItemSelected mItemSelectedListener = new
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
@@ -98,7 +103,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
@@ -118,7 +123,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     }
 
     @Override
-    public void onEvent(final DocumentSnapshot documentSnapshot, final FirebaseFirestoreException e) {
+    public void onEvent(@NonNull final DocumentSnapshot documentSnapshot, @Nullable final FirebaseFirestoreException e) {
         if (e != null) {
             Log.w(TAG, "restaurant:onEvent", e);
             return;
@@ -132,7 +137,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
 
     }
 
-    public void onUserModelLoaded(final User user) {
+    public void onUserModelLoaded(@NonNull final User user) {
         collapsingToolbarLayout.setTitle(user.getDisplayName());
 
 

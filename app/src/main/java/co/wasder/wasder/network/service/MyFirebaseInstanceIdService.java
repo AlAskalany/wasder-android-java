@@ -1,6 +1,7 @@
 package co.wasder.wasder.network.service;
 
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +40,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
         FirebaseMessaging.getInstance().subscribeToTopic(FRIENDLY_ENGAGE_TOPIC);
     }
 
-    private void sendRegistrationToServer(final String token) {
+    private void sendRegistrationToServer(@NonNull final String token) {
         final FirebaseAuth auth = FirebaseUtil.getAuth();
         final FirebaseUser user = auth.getCurrentUser();
         String uId = null;

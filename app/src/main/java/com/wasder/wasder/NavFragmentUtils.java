@@ -20,7 +20,7 @@ import co.wasder.wasder.R;
 
 public class NavFragmentUtils {
 
-    public static boolean handleNavigationDrawer(DrawerLayout mDrawerLayout, @NonNull MenuItem
+    public static boolean handleNavigationDrawer(@NonNull DrawerLayout mDrawerLayout, @NonNull MenuItem
             item) {
         // Handle navigation view item clicks here.
         final int id = item.getItemId();
@@ -44,7 +44,7 @@ public class NavFragmentUtils {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void AnimateAppBarColor(final View view, final Animator.AnimatorListener listener) {
+    public static void AnimateAppBarColor(@NonNull final View view, final Animator.AnimatorListener listener) {
         final int cx = view.getWidth() / 2;
         final int cy = view.getHeight() / 2;
         final float finalRadius = Math.max(view.getWidth(), view.getHeight());

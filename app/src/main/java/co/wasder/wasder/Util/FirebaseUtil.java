@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -39,7 +40,7 @@ public class FirebaseUtil {
 
     public static final long LIMIT = 50;
 
-    public static void startSignIn(final WasderActivity activity, final WasderActivityViewModel mViewModel,
+    public static void startSignIn(@NonNull final WasderActivity activity, @NonNull final WasderActivityViewModel mViewModel,
                                    @SuppressWarnings("SameParameterValue") final int rcSignIn) {
         // Sign in with FirebaseUI
         final Intent intent = AuthUI.getInstance()
@@ -56,11 +57,11 @@ public class FirebaseUtil {
     }
 
     public static boolean shouldStartSignIn(@SuppressWarnings("unused") final WasderActivity activity,
-                                            final WasderActivityViewModel viewModel) {
+                                            @NonNull final WasderActivityViewModel viewModel) {
         return (!viewModel.getIsSigningIn() && getCurrentUser() == null);
     }
 
-    public static Job createJob(final FirebaseJobDispatcher dispatcher) {
+    public static Job createJob(@NonNull final FirebaseJobDispatcher dispatcher) {
         return dispatcher.newJobBuilder()
                 // persist the task across boots
                 .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
@@ -86,7 +87,7 @@ public class FirebaseUtil {
         dispatcher.schedule(job);
     }
 
-    public static void initFirestore(final TabFragment tabFragment, final String mCollectionReferenceString,
+    public static void initFirestore(@NonNull final TabFragment tabFragment, @NonNull final String mCollectionReferenceString,
                                      final long limit) {
         tabFragment.setFirestore(getFirestore());
         final FirebaseFirestoreSettings settings = getFirebaseFirestoreSettings();
@@ -100,7 +101,7 @@ public class FirebaseUtil {
     }
 
     @NonNull
-    public static CollectionReference getUsersCollectionReference(String users) {
+    public static CollectionReference getUsersCollectionReference(@NonNull String users) {
         return getFirestore().collection(users);
     }
 
@@ -120,6 +121,7 @@ public class FirebaseUtil {
         return FirebaseFirestore.getInstance();
     }
 
+    @Nullable
     public static FirebaseUser getCurrentUser() {
         return getAuth().getCurrentUser();
     }

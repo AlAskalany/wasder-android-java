@@ -42,10 +42,12 @@ public class AddRatingDialogFragment extends DialogFragment {
 
     public static final String TAG = "RatingDialog";
 
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_form_rating)
     public MaterialRatingBar mRatingBar;
 
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_form_text)
     public EditText mRatingText;

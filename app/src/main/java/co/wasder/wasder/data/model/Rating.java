@@ -1,6 +1,8 @@
 package co.wasder.wasder.data.model;
 
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -16,6 +18,7 @@ import java.util.Date;
 public class Rating {
 
     private String uId;
+    @Nullable
     private String userName;
     private double rating;
     private String text;
@@ -26,7 +29,7 @@ public class Rating {
     public Rating() {
     }
 
-    public Rating(final FirebaseUser user, final double rating, final String text) {
+    public Rating(@NonNull final FirebaseUser user, final double rating, final String text) {
         this.uId = user.getUid();
         this.userName = user.getDisplayName();
         if (TextUtils.isEmpty(this.userName)) {
@@ -47,6 +50,7 @@ public class Rating {
         this.uId = uId;
     }
 
+    @Nullable
     public String getUserName() {
         return userName;
     }

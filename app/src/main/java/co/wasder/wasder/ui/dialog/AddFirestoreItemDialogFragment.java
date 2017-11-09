@@ -73,6 +73,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     public static final int RC_CHOOSE_PHOTO = 101;
     @SuppressWarnings("unused")
     public static final int RC_IMAGE_PERMS = 102;
+    @Nullable
     @BindView(R.id.itemEditText)
     public EditText mFeedEditText;
 
@@ -124,6 +125,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
                 INITIAL_NUM_RATINGS, getFeedText());
     }
 
+    @Nullable
     public String getUuid() {
         if (uuid != null) {
             return uuid;
@@ -132,6 +134,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         }
     }
 
+    @Nullable
     public String getFeedText() {
         final String feedText = mFeedEditText.getText().toString();
         if (!TextUtils.isEmpty(feedText)) {
@@ -160,7 +163,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
 
 
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode, @NonNull final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_CHOOSE_PHOTO) {
@@ -190,7 +193,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         startActivityForResult(i, RC_CHOOSE_PHOTO);
     }
 
-    public void uploadPhoto(final Uri uri) {
+    public void uploadPhoto(@NonNull final Uri uri) {
         // Reset UI
         //hideDownloadUI();
         Toast.makeText(getContext(), "Uploading...", Toast.LENGTH_SHORT).show();
@@ -202,7 +205,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
                 .addOnSuccessListener(getActivity(), new OnSuccessListener<UploadTask
                         .TaskSnapshot>() {
                     @Override
-                    public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
+                    public void onSuccess(@NonNull final UploadTask.TaskSnapshot taskSnapshot) {
                         //noinspection LogConditional
                         final StorageMetadata storageMetadata = taskSnapshot.getMetadata();
                         final StorageReference storageReference;
@@ -229,6 +232,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
                 });
     }
 
+    @Nullable
     public String getPostProfilePhotoUrl() {
         final FirebaseAuth auth = FirebaseUtil.getAuth();
         final FirebaseUser user = auth.getCurrentUser();

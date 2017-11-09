@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleOwner;
 import android.content.Intent;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -61,7 +62,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
      *
      * @param options FirestoreRecyclerOptions
      */
-    public EventAdapter(final FirestoreRecyclerOptions options, final OnEventSelected listener) {
+    public EventAdapter(@NonNull final FirestoreRecyclerOptions options, final OnEventSelected listener) {
         //noinspection unchecked
         super(options);
         mListener = listener;
@@ -86,12 +87,13 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     }
 
     @Override
-    protected void onBindViewHolder(final EventHolder holder, final int position, final Event model) {
+    protected void onBindViewHolder(@NonNull final EventHolder holder, final int position, final Event model) {
         holder.bind(getSnapshots().getSnapshot(position), mListener);
     }
 
+    @NonNull
     @Override
-    public EventHolder onCreateViewHolder(final ViewGroup group, final int viewType) {
+    public EventHolder onCreateViewHolder(@NonNull final ViewGroup group, final int viewType) {
         final View view = LayoutInflater.from(group.getContext())
                 .inflate(R.layout.item_event, group, false);
         return new EventHolder(view);
@@ -108,16 +110,17 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
         public static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale
                 .US);
 
+        @Nullable
         @BindView(R.id.feedView)
         public EventView eventView;
         public String tag;
 
-        EventHolder(final View itemView) {
+        EventHolder(@NonNull final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot, final OnEventSelected onEventSelected) {
+        public void bind(@NonNull final DocumentSnapshot snapshot, @NonNull final OnEventSelected onEventSelected) {
             final Event event = snapshot.toObject(Event.class);
 
             final String userId = event.getUid();
@@ -197,7 +200,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
 
             eventView.getHeader().getExpandButton().setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(final View v) {
+                public void onClick(@NonNull final View v) {
                     //creating a popup menu
                     final PopupMenu popup = new PopupMenu(v.getContext(), eventView.getHeader()
                             .getExpandButton());
@@ -213,7 +216,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                     //adding click listener
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
-                        public boolean onMenuItemClick(final MenuItem item) {
+                        public boolean onMenuItemClick(@NonNull final MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.edit:
                                     break;

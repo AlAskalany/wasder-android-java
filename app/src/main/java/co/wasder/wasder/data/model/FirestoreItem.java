@@ -1,6 +1,7 @@
 package co.wasder.wasder.data.model;
 
 import android.support.annotation.Keep;
+import android.support.annotation.Nullable;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
@@ -65,6 +66,7 @@ public class FirestoreItem extends AbstractFirestoreItem {
         this.name = name;
     }
 
+    @Nullable
     @Override
     public String getMessage() {
         return null;

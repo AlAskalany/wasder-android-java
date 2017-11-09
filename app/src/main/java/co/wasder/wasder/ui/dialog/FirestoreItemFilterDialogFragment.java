@@ -18,6 +18,7 @@ package co.wasder.wasder.ui.dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -42,15 +43,19 @@ import co.wasder.wasder.data.filter.FirestoreItemFilters;
 public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "FilterDialog";
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_category)
     public Spinner mCategorySpinner;
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_city)
     public Spinner mCitySpinner;
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_sort)
     public Spinner mSortSpinner;
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_price)
     public Spinner mPriceSpinner;
@@ -183,6 +188,7 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
         }
     }
 
+    @NonNull
     @SuppressWarnings("WeakerAccess")
     public FirestoreItemFilters getFilters() {
         final FirestoreItemFilters firestoreItemFilters = Filters.PostsFilters();

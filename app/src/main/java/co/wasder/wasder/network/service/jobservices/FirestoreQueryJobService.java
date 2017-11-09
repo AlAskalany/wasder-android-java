@@ -1,6 +1,8 @@
 package co.wasder.wasder.network.service.jobservices;
 
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
@@ -18,10 +20,11 @@ import co.wasder.wasder.Util.FirebaseUtil;
 @Keep
 public class FirestoreQueryJobService extends JobService {
 
+    @Nullable
     public Thread mThread;
 
     @Override
-    public boolean onStartJob(final JobParameters jobParameters) {
+    public boolean onStartJob(@NonNull final JobParameters jobParameters) {
         @SuppressWarnings("unused") final Runnable mRunnable = mThread = new Thread(new Runnable() {
             @Override
             public void run() {

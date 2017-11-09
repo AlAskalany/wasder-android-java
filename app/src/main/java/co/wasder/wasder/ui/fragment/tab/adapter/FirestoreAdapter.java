@@ -6,6 +6,8 @@ package co.wasder.wasder.ui.fragment.tab.adapter;
  */
 
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -33,6 +35,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
     public static final String TAG = "Firestore Adapter";
     public final ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
     public Query mQuery;
+    @Nullable
     public ListenerRegistration mRegistration;
 
     FirestoreAdapter(final Query query) {
@@ -40,7 +43,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
     }
 
     @Override
-    public void onEvent(final QuerySnapshot documentSnapshots, final FirebaseFirestoreException e) {
+    public void onEvent(@NonNull final QuerySnapshot documentSnapshots, @Nullable final FirebaseFirestoreException e) {
 
         // Handle errors
         if (e != null) {
@@ -69,12 +72,12 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
         onDataChanged();
     }
 
-    public void onDocumentAdded(final DocumentChange change) {
+    public void onDocumentAdded(@NonNull final DocumentChange change) {
         mSnapshots.add(change.getNewIndex(), change.getDocument());
         notifyItemInserted(change.getNewIndex());
     }
 
-    public void onDocumentModified(final DocumentChange change) {
+    public void onDocumentModified(@NonNull final DocumentChange change) {
         if (change.getOldIndex() == change.getNewIndex()) {
             // Item changed but remained in same position
             mSnapshots.set(change.getOldIndex(), change.getDocument());
@@ -87,7 +90,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
         }
     }
 
-    public void onDocumentRemoved(final DocumentChange change) {
+    public void onDocumentRemoved(@NonNull final DocumentChange change) {
         mSnapshots.remove(change.getOldIndex());
         notifyItemRemoved(change.getOldIndex());
     }

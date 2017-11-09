@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,6 +44,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
     public static final long LIMIT = FirebaseUtil.LIMIT;
     public static final String TAG = "TabFragment";
     public static final String ARG_SECTION_NUMBER = Utils.ARG_SECTION_NUMBER;
+    @Nullable
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
     public FirebaseFirestore mFirestore;
@@ -51,7 +54,9 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
     public TabFragmentViewModel mViewModel;
     // TODO: Rename and change types of parameters
     public String mCollectionReferenceString;
+    @Nullable
     public OnFragmentInteractionListener mListener;
+    @NonNull
     public EventsAdapter.OnEventSelected mPostSelectedListener = new EventsAdapter
             .OnEventSelected() {
 
@@ -69,6 +74,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
+    @NonNull
     public static DiscoveryTabFragment newInstance(final int sectionNumber) {
         final DiscoveryTabFragment fragment = new DiscoveryTabFragment();
         final Bundle args = new Bundle();
@@ -169,6 +175,7 @@ public class DiscoveryTabFragment extends Fragment implements TabFragment, Lifec
         mFirestore = firestore;
     }
 
+    @Nullable
     @Override
     public Query getQuery() {
         return null;

@@ -2,6 +2,7 @@ package co.wasder.wasder.ui.views;
 
 import android.content.Context;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
@@ -25,7 +26,7 @@ public class ProfilePhoto extends FrameLayout {
     ImageView profileImageView;
     ImageView presenceImageView;
 
-    public ProfilePhoto(final Context context, final AttributeSet attrs) {
+    public ProfilePhoto(@NonNull final Context context, final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_profile_photo, this, true);
         profileImageView = findViewById(R.id.itemProfileImageView);
@@ -42,13 +43,13 @@ public class ProfilePhoto extends FrameLayout {
                 .ic_presence_status_online));
     }
 
-    public ImageView getProfileImageView(final String uid) {
+    public ImageView getProfileImageView(@NonNull final String uid) {
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference users = reference.child("users");
         final DatabaseReference myUser = users.child(uid);
         myUser.child("online").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     final String myPresence = dataSnapshot.getValue().toString();
                     if (myPresence == "true") {

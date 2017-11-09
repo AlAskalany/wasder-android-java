@@ -3,6 +3,7 @@ package co.wasder.wasder.ui.activity.detail;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Keep;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -30,6 +31,7 @@ public abstract class BaseDetailActivity extends AppCompatActivity implements
     public RatingAdapter mRatingAdapter;
     public DocumentReference mDocumentRef;
     public Query ratingsQuery;
+    @Nullable
     public ListenerRegistration mModelRegistration;
 
     public void hideKeyboard() {

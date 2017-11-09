@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -55,13 +56,16 @@ public class GroupsNavigationFragment extends Fragment implements NavigationFrag
     public static final String ARG_SECTION_NUMBER = "param1";
     public static final String ARG_SECTION_TYPE = "param2";
     public final List<TabFragment> fragments = new ArrayList<>();
+    @Nullable
     public String TAG;
     public ViewPager viewPager;
     @SuppressWarnings("unused")
     public View appBarLayout;
     // TODO: Rename and change types of parameters
     public int mSectionNumber;
+    @Nullable
     public OnFragmentInteractionListener mListener;
+    @NonNull
     @SuppressWarnings("unused")
     public Animator.AnimatorListener mAnimationListener = new Animator.AnimatorListener() {
         @Override
@@ -99,6 +103,7 @@ public class GroupsNavigationFragment extends Fragment implements NavigationFrag
      * @return A new instance of fragment MessagesNavigationFragment.
      */
     // TODO: Rename and change types and number of parameters
+    @NonNull
     public static GroupsNavigationFragment newInstance(final int sectionNumber) {
         final GroupsNavigationFragment fragment = new GroupsNavigationFragment();
         final Bundle args = new Bundle();
@@ -107,6 +112,7 @@ public class GroupsNavigationFragment extends Fragment implements NavigationFrag
         return fragment;
     }
 
+    @NonNull
     public GroupsNavigationFragment addTab(final TabFragment tab) {
         fragments.add(tab);
         return this;
@@ -130,8 +136,9 @@ public class GroupsNavigationFragment extends Fragment implements NavigationFrag
         Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
     }
 
+    @NonNull
     @SuppressWarnings("unused")
-    public Runnable createRunnable(final View appbar, final Animator.AnimatorListener
+    public Runnable createRunnable(@NonNull final View appbar, final Animator.AnimatorListener
             animatorListener) {
         return new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -213,7 +220,7 @@ public class GroupsNavigationFragment extends Fragment implements NavigationFrag
     }
 
     @OnClick(R.id.fab)
-    public void submit(final View view) {
+    public void submit(@NonNull final View view) {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show();

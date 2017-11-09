@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +43,7 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
 
     public static final long LIMIT = FirebaseUtil.LIMIT;
     public static final String TAG = "TabFragment";
+    @Nullable
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
     public FirebaseFirestore mFirestore;
@@ -50,7 +53,9 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
     public TabFragmentViewModel mViewModel;
     // TODO: Rename and change types of parameters
     public String mCollectionReferenceString;
+    @Nullable
     public OnFragmentInteractionListener mListener;
+    @NonNull
     public FirestoreItemsAdapter.OnFirestoreItemSelected mPostSelectedListener = new
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
@@ -68,6 +73,7 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
      * @return A new instance of fragment TabFragment.
      */
     // TODO: Rename and change types and number of parameters
+    @NonNull
     public static MentionsTabFragment newInstance(final int sectionNumber) {
         final MentionsTabFragment fragment = new MentionsTabFragment();
         final Bundle args = new Bundle();

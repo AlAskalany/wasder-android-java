@@ -18,6 +18,7 @@ package co.wasder.wasder.ui.activity.detail;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -58,42 +59,52 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
 
     public static final String KEY_POST_ID = "key_post_id";
     public static final String TAG = "PostDetail";
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_image)
     public ImageView mImageView;
 
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_name)
     public TextView mNameView;
 
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_rating)
     public MaterialRatingBar mRatingIndicator;
 
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_num_ratings)
     public TextView mNumRatingsView;
 
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_city)
     public TextView mCityView;
 
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_category)
     public TextView mCategoryView;
 
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.item_price)
     public TextView mPriceView;
 
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.view_empty_ratings)
     public ViewGroup mEmptyView;
 
+    @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.recycler_ratings)
     public RecyclerView mRatingsRecycler;
 
+    @Nullable
     @BindView(R.id.fab_show_rating_dialog)
     public FloatingActionButton floatingActionButton;
 
@@ -145,7 +156,8 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
 
     }
 
-    public Task<Void> addRating(final DocumentReference documentRef, final Rating rating) {
+    @NonNull
+    public Task<Void> addRating(@NonNull final DocumentReference documentRef, @NonNull final Rating rating) {
         // Create reference for new rating, for use inside the transaction
         final DocumentReference ratingRef = documentRef.collection("ratings").document();
 
@@ -182,7 +194,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
      * Listener for the FirestoreItem document ({@link #mDocumentRef}).
      */
     @Override
-    public void onEvent(final DocumentSnapshot snapshot, final FirebaseFirestoreException e) {
+    public void onEvent(@NonNull final DocumentSnapshot snapshot, @Nullable final FirebaseFirestoreException e) {
         if (e != null) {
             Log.w(TAG, "restaurant:onEvent", e);
             return;
@@ -191,7 +203,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         onModelLoaded(snapshot.toObject(FirestoreItem.class));
     }
 
-    public void onModelLoaded(final FirestoreItem firestoreItem) {
+    public void onModelLoaded(@NonNull final FirestoreItem firestoreItem) {
         mNameView.setText(firestoreItem.getName());
         mRatingIndicator.setRating((float) firestoreItem.getAvgRating());
         mNumRatingsView.setText(getString(R.string.fmt_num_ratings, firestoreItem.getNumRatings()));
@@ -218,7 +230,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
     }
 
     @Override
-    public void onRating(final Rating rating) {
+    public void onRating(@NonNull final Rating rating) {
         // In a transaction, add the new rating and update the aggregate totals
         addRating(mDocumentRef, rating).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override

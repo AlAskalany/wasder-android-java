@@ -2,6 +2,7 @@ package co.wasder.wasder.ui.views;
 
 import android.content.Context;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
@@ -18,7 +19,7 @@ public class Header extends FrameLayout {
     public UserName userName;
     public TimeStamp timeStamp;
     public ExpandButton expandButton;
-    public Header(final Context context, final AttributeSet attrs) {
+    public Header(@NonNull final Context context, final AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.item_header, this, true);
         userName = findViewById(R.id.userName);

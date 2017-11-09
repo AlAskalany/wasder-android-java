@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -88,13 +89,16 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         FirebaseFirestore.setLoggingEnabled(true);
     }
 
+    @Nullable
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
     public AddFirestoreItemDialogFragment mAddPostDialog;
     public TabFragmentViewModel mViewModel;
+    @Nullable
     public OnFragmentInteractionListener mListener;
 
     public String mTitle;
+    @NonNull
     private FirestoreItemsAdapter.OnFirestoreItemSelected onFirestoreItemSelected = new
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
@@ -105,6 +109,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         }
     };
 
+    @NonNull
     public static FeedTabFragment newInstance() {
         final FeedTabFragment fragment = new FeedTabFragment();
         fragment.mTitle = "Feed";
@@ -225,19 +230,21 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         mListener = null;
     }
 
+    @NonNull
     protected RecyclerView.Adapter<ChatHolder> newAdapter() {
         final FirestoreRecyclerOptions<FirestoreItem> options =
                 getFirestoreItemFirestoreRecyclerOptions();
 
         return new FirestoreRecyclerAdapter<FirestoreItem, ChatHolder>(options) {
+            @NonNull
             @Override
-            public ChatHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+            public ChatHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
                 return new ChatHolder(LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_firestore_item, parent, false));
             }
 
             @Override
-            protected void onBindViewHolder(final ChatHolder holder, final int position, final FirestoreItem model) {
+            protected void onBindViewHolder(@NonNull final ChatHolder holder, final int position, @NonNull final FirestoreItem model) {
                 holder.bind(model);
             }
 
@@ -266,6 +273,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         }
     }
 
+    @Nullable
     @Override
     public FirebaseFirestore getFirestore() {
         return null;
@@ -276,6 +284,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
     }
 
+    @Nullable
     @Override
     public Query getQuery() {
         return null;
@@ -286,6 +295,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
     }
 
+    @Nullable
     @Override
     public String getTitle() {
         return null;
@@ -295,16 +305,17 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
         public final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
+        @Nullable
         @BindView(R.id.feedView)
         public FeedView feedView;
         public String tag;
 
-        public ChatHolder(final View itemView) {
+        public ChatHolder(@NonNull final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final AbstractFirestoreItem model) {
+        public void bind(@NonNull final AbstractFirestoreItem model) {
             final String userId = model.getUid();
             final CollectionReference users = FirebaseUtil.getUsersCollectionReference(Utils.USERS);
             final DocumentReference userReference = users.document(userId);
@@ -377,7 +388,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
             feedView.getHeader().getExpandButton().setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(final View v) {
+                public void onClick(@NonNull final View v) {
                     //creating a popup menu
                     final PopupMenu popup = new PopupMenu(v.getContext(), feedView.getHeader()
                             .getExpandButton());
@@ -394,7 +405,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                     //adding click listener
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
-                        public boolean onMenuItemClick(final MenuItem item) {
+                        public boolean onMenuItemClick(@NonNull final MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.edit:
                                     break;

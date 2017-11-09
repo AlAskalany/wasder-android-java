@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleOwner;
 import android.content.Intent;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -64,7 +65,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      *
      * @param options FirestoreRecyclerOptions
      */
-    public FirestoreItemAdapter(final FirestoreRecyclerOptions<FirestoreItem> options, final OnFirestoreItemSelected
+    public FirestoreItemAdapter(@NonNull final FirestoreRecyclerOptions<FirestoreItem> options, final OnFirestoreItemSelected
             listener) {
         //noinspection unchecked
         super(options);
@@ -86,13 +87,14 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
     }
 
     @Override
-    public void onBindViewHolder(final FirestoreItemHolder holder, final int position, final FirestoreItem
+    public void onBindViewHolder(@NonNull final FirestoreItemHolder holder, final int position, final FirestoreItem
             model) {
         holder.bind(getSnapshots().getSnapshot(position), mListener);
     }
 
+    @NonNull
     @Override
-    public FirestoreItemHolder onCreateViewHolder(final ViewGroup group, final int viewType) {
+    public FirestoreItemHolder onCreateViewHolder(@NonNull final ViewGroup group, final int viewType) {
         final View view = LayoutInflater.from(group.getContext())
                 .inflate(R.layout.item_firestore_item, group, false);
         return new FirestoreItemHolder(view);
@@ -108,16 +110,17 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
         public static final String TAG = "FirestoreItemHolder";
         public static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
+        @Nullable
         @BindView(R.id.feedView)
         public FeedView feedView;
         public String tag;
 
-        public FirestoreItemHolder(final View itemView) {
+        public FirestoreItemHolder(@NonNull final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot, final OnFirestoreItemSelected
+        public void bind(@NonNull final DocumentSnapshot snapshot, @NonNull final OnFirestoreItemSelected
                 onFirestoreItemSelected) {
             final FirestoreItem firestoreItem = snapshot.toObject(FirestoreItem.class);
             final String userId = firestoreItem.getUid();
@@ -191,7 +194,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
 
             feedView.getHeader().getExpandButton().setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(final View v) {
+                public void onClick(@NonNull final View v) {
                     //creating a popup menu
                     final PopupMenu popup = new PopupMenu(v.getContext(), feedView.getHeader()
                             .getExpandButton());
@@ -208,7 +211,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
                     //adding click listener
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
-                        public boolean onMenuItemClick(final MenuItem item) {
+                        public boolean onMenuItemClick(@NonNull final MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.edit:
                                     break;
@@ -253,7 +256,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
     }
 
     @NonNull
-    private static DocumentReference getAuthorDocumentReference(final String userId) {
+    private static DocumentReference getAuthorDocumentReference(@NonNull final String userId) {
         final CollectionReference users = FirebaseUtil.getUsersCollectionReference(Utils.USERS);
         return users.document(userId);
     }
