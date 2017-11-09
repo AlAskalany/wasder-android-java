@@ -69,7 +69,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     @SuppressWarnings("unused")
     public static EventsAdapter newInstance(@NonNull final LifecycleOwner lifecycleOwner, final Query query,
                                             final OnEventSelected listener) {
-        final FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
+        final FirestoreRecyclerOptions<FirestoreItem> options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
                 .setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, FirestoreItem.class)
                 .build();
@@ -78,7 +78,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
 
     @SuppressWarnings("unused")
     public static EventsAdapter newInstance(final Query query, final OnEventSelected listener) {
-        final FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
+        final FirestoreRecyclerOptions<FirestoreItem> options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
                 .setQuery(query, FirestoreItem.class)
                 .build();
         return new EventAdapter(options, listener);

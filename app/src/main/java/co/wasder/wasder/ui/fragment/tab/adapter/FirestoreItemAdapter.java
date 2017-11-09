@@ -78,7 +78,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
 
     @SuppressWarnings("unused")
     public static FirestoreItemsAdapter newInstance(final Query query, final OnFirestoreItemSelected listener) {
-        final FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
+        final FirestoreRecyclerOptions<FirestoreItem> options = new FirestoreRecyclerOptions.Builder<FirestoreItem>()
                 .setQuery(query, FirestoreItem.class)
                 .build();
         return new FirestoreItemAdapter(options, listener);
