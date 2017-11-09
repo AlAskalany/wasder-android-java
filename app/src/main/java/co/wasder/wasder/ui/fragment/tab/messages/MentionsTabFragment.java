@@ -138,7 +138,7 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
         }
         final FirestoreItemsAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter((RecyclerView.Adapter) adapter);
+        mRecyclerView.setAdapter((RecyclerView.Adapter<? extends RecyclerView.ViewHolder>) adapter);
     }
 
     @Override

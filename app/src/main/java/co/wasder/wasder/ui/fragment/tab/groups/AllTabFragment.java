@@ -127,7 +127,7 @@ public class AllTabFragment extends Fragment implements TabFragment, LifecycleOw
         }
         final FirestoreItemsAdapter adapter = Adapters.PostAdapter(this, getQuery(), mPostSelectedListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter((RecyclerView.Adapter) adapter);
+        mRecyclerView.setAdapter((RecyclerView.Adapter<? extends RecyclerView.ViewHolder>) adapter);
     }
 
     @Override

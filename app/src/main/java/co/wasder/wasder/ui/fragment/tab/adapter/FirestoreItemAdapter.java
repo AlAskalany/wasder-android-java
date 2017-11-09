@@ -64,7 +64,7 @@ public class FirestoreItemAdapter extends FirestoreRecyclerAdapter<FirestoreItem
      *
      * @param options FirestoreRecyclerOptions
      */
-    public FirestoreItemAdapter(final FirestoreRecyclerOptions options, final OnFirestoreItemSelected
+    public FirestoreItemAdapter(final FirestoreRecyclerOptions<FirestoreItem> options, final OnFirestoreItemSelected
             listener) {
         //noinspection unchecked
         super(options);

@@ -50,7 +50,7 @@ public class ProfilePhoto extends FrameLayout {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    final Object myPresence = dataSnapshot.getValue().toString();
+                    final String myPresence = dataSnapshot.getValue().toString();
                     if (myPresence == "true") {
                         setPresenceOnline();
                     } else if (myPresence == "false"){

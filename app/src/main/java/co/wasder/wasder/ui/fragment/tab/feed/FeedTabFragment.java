@@ -189,7 +189,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                 .Builder<FirestoreItem>()
                 .setQuery(mQuery, FirestoreItem.class)
                 .build();
-        final RecyclerView.Adapter adapter = newAdapter();
+        final RecyclerView.Adapter<ChatHolder> adapter = newAdapter();
 
         // Scroll to bottom on new messages
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -225,7 +225,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         mListener = null;
     }
 
-    protected RecyclerView.Adapter newAdapter() {
+    protected RecyclerView.Adapter<ChatHolder> newAdapter() {
         final FirestoreRecyclerOptions<FirestoreItem> options =
                 getFirestoreItemFirestoreRecyclerOptions();
 
