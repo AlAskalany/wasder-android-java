@@ -20,6 +20,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * RecyclerView adapter for displaying the results of a Firestore {@link Query}.
@@ -33,7 +34,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
         .Adapter<VH> implements EventListener<QuerySnapshot> {
 
     public static final String TAG = "Firestore Adapter";
-    public final ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
+    public final List<DocumentSnapshot> mSnapshots = new ArrayList<>();
     public Query mQuery;
     @Nullable
     public ListenerRegistration mRegistration;

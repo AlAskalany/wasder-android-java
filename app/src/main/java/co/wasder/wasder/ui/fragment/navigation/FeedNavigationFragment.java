@@ -27,7 +27,7 @@ import android.view.ViewGroup;
 import com.wasder.wasder.NavFragmentUtils;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import butterknife.OnClick;
 import co.wasder.wasder.R;
@@ -54,7 +54,7 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String ARG_SECTION_NUMBER = "param1";
     public static final String ARG_SECTION_TYPE = "param2";
-    public final List<TabFragment> fragments = new ArrayList<>();
+    public final Collection<TabFragment> fragments = new ArrayList<>();
     @Nullable
     public String TAG;
     public ViewPager viewPager;
@@ -103,7 +103,7 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
      */
     // TODO: Rename and change types and number of parameters
     @NonNull
-    public static FeedNavigationFragment newInstance(final int sectionNumber) {
+    public static NavigationFragment newInstance(final int sectionNumber) {
         final FeedNavigationFragment fragment = new FeedNavigationFragment();
         final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);

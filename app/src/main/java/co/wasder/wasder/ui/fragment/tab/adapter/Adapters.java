@@ -17,7 +17,7 @@ import co.wasder.wasder.data.model.FirestoreItem;
 @Keep
 public class Adapters {
 
-    public static FirestoreItemAdapter PostAdapter(@NonNull final LifecycleOwner lifecycleOwner, final Query
+    public static FirestoreItemsAdapter PostAdapter(@NonNull final LifecycleOwner lifecycleOwner, final Query
             query, final FirestoreItemsAdapter.OnFirestoreItemSelected listener) {
         final FirestoreRecyclerOptions<FirestoreItem> options = new FirestoreRecyclerOptions.Builder<FirestoreItem>().setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, FirestoreItem.class)
@@ -25,8 +25,8 @@ public class Adapters {
         return new FirestoreItemAdapter(options, listener);
     }
 
-    public static EventAdapter eventAdapter(@NonNull final LifecycleOwner lifecycleOwner, final Query query,
-                                            final EventsAdapter.OnEventSelected listener) {
+    public static EventsAdapter eventAdapter(@NonNull final LifecycleOwner lifecycleOwner, final Query query,
+                                             final EventsAdapter.OnEventSelected listener) {
         final FirestoreRecyclerOptions<Event> options = new FirestoreRecyclerOptions.Builder<Event>()
                 .setLifecycleOwner(lifecycleOwner)
                 .setQuery(query, Event.class)

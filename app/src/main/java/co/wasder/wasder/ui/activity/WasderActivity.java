@@ -42,6 +42,7 @@ import net.hockeyapp.android.UpdateManager;
 import net.hockeyapp.android.metrics.MetricsManager;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -147,9 +148,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             Amplitude.getInstance().trackSessionEvents(true);
             final long sessionId = Amplitude.getInstance().getSessionId();
         }
-        final HashMap<String, String> properties = new HashMap<>();
+        final Map<String, String> properties = new HashMap<>();
         properties.put("Property1", "Value1");
-        final HashMap<String, Double> measurements = new HashMap<>();
+        final Map<String, Double> measurements = new HashMap<>();
         measurements.put("Measurement1", 1.0);
         MetricsManager.trackEvent("YOUR_EVENT_NAME", properties, measurements);
         checkForUpdates();
