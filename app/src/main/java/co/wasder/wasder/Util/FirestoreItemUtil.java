@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.wasder.wasder.Utils;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -125,7 +126,7 @@ public class FirestoreItemUtil {
     public static void onAddItemsClicked(final Context context) {
         // Get a reference to the events collection
         final FirebaseFirestore mFirestore = FirebaseUtil.getFirestore();
-        final CollectionReference events = mFirestore.collection("restaurants");
+        final CollectionReference events = mFirestore.collection(Utils.RESTAURANTS);
 
         for (int i = 0; i < 10; i++) {
             // Get a random events POJO

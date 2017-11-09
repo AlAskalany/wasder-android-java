@@ -84,7 +84,7 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
         if (getArguments() != null) {
             final int mSectionNumber = getArguments().getInt(Utils.ARG_SECTION_NUMBER);
         }
-        mCollectionReferenceString = "restaurants";
+        mCollectionReferenceString = Utils.RESTAURANTS;
         super.onCreate(savedInstanceState);
     }
 

@@ -117,7 +117,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         mFirestore = FirebaseUtil.getFirestore();
 
         // Get reference to the post
-        mDocumentRef = mFirestore.collection("restaurants").document(postId);
+        mDocumentRef = mFirestore.collection(Utils.RESTAURANTS).document(postId);
 
         // Get ratings
         ratingsQuery = mDocumentRef.collection("ratings")

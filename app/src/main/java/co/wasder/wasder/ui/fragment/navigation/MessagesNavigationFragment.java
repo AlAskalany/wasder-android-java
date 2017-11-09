@@ -13,7 +13,6 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -22,9 +21,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
+
+import com.wasder.wasder.NavFragmentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +140,7 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
             public void run() {
                 appbar.setVisibility(View.INVISIBLE);
                 appbar.setBackgroundColor(Color.RED);
-                AnimateAppBarColor(appbar, animatorListener);
+                NavFragmentUtils.AnimateAppBarColor(appbar, animatorListener);
             }
         };
     }
@@ -193,10 +192,7 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
             final WasderActivity activity = (WasderActivity) getActivity();
             if (activity != null) {
                 if (mSectionNumber == 0) {
-                    final View view = activity.findViewById(R.id.searchView);
-                    view.setVisibility(View.VISIBLE);
-                    final TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
-                    tabLayout.removeAllTabs();
+                    FeedNavigationFragment.showSearchBar(activity);
                     //tabLayout.setVisibility(View.GONE);
                 } else {
                     final TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
@@ -210,19 +206,6 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
             }
         }
 
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void AnimateAppBarColor(final View view, final Animator.AnimatorListener listener) {
-        final int cx = view.getWidth() / 2;
-        final int cy = view.getHeight() / 2;
-        final float finalRadius = Math.max(view.getWidth(), view.getHeight());
-        final Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
-        anim.setInterpolator(new AccelerateDecelerateInterpolator());
-        anim.setDuration(1000);
-        view.setVisibility(View.VISIBLE);
-        anim.addListener(listener);
-        anim.start();
     }
 
     @OnClick(R.id.fab)
@@ -270,23 +253,6 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
     @Override
     public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         // Handle navigation view item clicks here.
-        final int id = item.getItemId();
-
-        if (id == R.id.nav_profile) {
-            // Handle the camera action
-        } else if (id == R.id.nav_friends) {
-
-        } else if (id == R.id.nav_followers) {
-
-        } else if (id == R.id.nav_achievements) {
-
-        } else if (id == R.id.nav_settings_account) {
-
-        } else if (id == R.id.nav_settings_notifications) {
-
-        }
-
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+        return NavFragmentUtils.handleNavigationDrawer(mDrawerLayout, item);
     }
 }

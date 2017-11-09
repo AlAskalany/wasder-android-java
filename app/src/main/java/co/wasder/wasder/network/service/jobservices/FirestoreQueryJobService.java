@@ -6,6 +6,7 @@ import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.Utils;
 
 import co.wasder.wasder.Util.FirebaseUtil;
 
@@ -27,7 +28,8 @@ public class FirestoreQueryJobService extends JobService {
                 try {
                     final FirebaseFirestore firestore = FirebaseUtil.getFirestore();
                     @SuppressWarnings("unused") final String collectionName = null;
-                    @SuppressWarnings("unused") final Query query = firestore.collection("restaurants");
+                    @SuppressWarnings("unused") final Query query = firestore.collection(Utils
+                            .RESTAURANTS);
                 } finally {
                     //Tell the framework that the job has completed and doesn't needs to be
                     // reschedule

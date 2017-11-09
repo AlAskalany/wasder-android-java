@@ -85,7 +85,7 @@ public class PmTabFragment extends Fragment implements TabFragment, LifecycleOwn
         if (getArguments() != null) {
             final int mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-        mCollectionReferenceString = "restaurants";
+        mCollectionReferenceString = Utils.RESTAURANTS;
         super.onCreate(savedInstanceState);
     }
 

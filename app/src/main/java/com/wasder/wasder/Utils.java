@@ -13,4 +13,5 @@ public class Utils {
     public static final String USERS = "users";
     public static final String GROUPS = "groups";
     public static final String EVENTS = "events";
+    public static final String RESTAURANTS = "restaurants";
 }
