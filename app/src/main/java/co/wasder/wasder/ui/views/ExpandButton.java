@@ -2,6 +2,7 @@ package co.wasder.wasder.ui.views;
 
 import android.content.Context;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
 import co.wasder.wasder.R;
@@ -13,7 +14,7 @@ import co.wasder.wasder.R;
 @Keep
 public class ExpandButton extends android.support.v7.widget.AppCompatImageButton {
 
-    public ExpandButton(final Context context, final AttributeSet attrs) {
+    public ExpandButton(@NonNull final Context context, final AttributeSet attrs) {
         super(context, attrs);
         this.setImageDrawable(getResources().getDrawable(R.drawable.mr_group_expand));
     }

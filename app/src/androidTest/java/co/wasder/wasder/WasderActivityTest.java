@@ -1,6 +1,7 @@
 package co.wasder.wasder;
 
 
+import android.support.annotation.NonNull;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -35,22 +36,23 @@ import static org.hamcrest.Matchers.is;
 @RunWith(AndroidJUnit4.class)
 public class WasderActivityTest {
 
+    @NonNull
     @Rule
     public ActivityTestRule<WasderActivity> mActivityTestRule = new ActivityTestRule<>
             (WasderActivity.class);
 
-    private static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int
+    private static Matcher<View> childAtPosition(@NonNull final Matcher<View> parentMatcher, final int
             position) {
 
         return new TypeSafeMatcher<View>() {
             @Override
-            public void describeTo(final Description description) {
+            public void describeTo(@NonNull final Description description) {
                 description.appendText("Child at position " + position + " in parent ");
                 parentMatcher.describeTo(description);
             }
 
             @Override
-            public boolean matchesSafely(final View view) {
+            public boolean matchesSafely(@NonNull final View view) {
                 final ViewParent parent = view.getParent();
                 return parent instanceof ViewGroup && parentMatcher.matches(parent) && view
                         .equals(((ViewGroup) parent)
@@ -67,7 +69,7 @@ public class WasderActivityTest {
         // /index.html
         try {
             Thread.sleep(60000);
-        } catch (final InterruptedException e) {
+        } catch (@NonNull final InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -85,7 +87,7 @@ public class WasderActivityTest {
         // /index.html
         try {
             Thread.sleep(60000);
-        } catch (final InterruptedException e) {
+        } catch (@NonNull final InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -109,7 +111,7 @@ public class WasderActivityTest {
         // /index.html
         try {
             Thread.sleep(3422155);
-        } catch (final InterruptedException e) {
+        } catch (@NonNull final InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -128,7 +130,7 @@ public class WasderActivityTest {
         // /index.html
         try {
             Thread.sleep(3551585);
-        } catch (final InterruptedException e) {
+        } catch (@NonNull final InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -142,7 +144,7 @@ public class WasderActivityTest {
         // /index.html
         try {
             Thread.sleep(3577298);
-        } catch (final InterruptedException e) {
+        } catch (@NonNull final InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -156,7 +158,7 @@ public class WasderActivityTest {
         // /index.html
         try {
             Thread.sleep(3591362);
-        } catch (final InterruptedException e) {
+        } catch (@NonNull final InterruptedException e) {
             e.printStackTrace();
         }
 

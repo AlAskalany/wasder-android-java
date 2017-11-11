@@ -14,6 +14,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -22,9 +23,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-
-import co.wasder.wasder.NavFragmentUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -147,7 +148,15 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
             public void run() {
                 appbar.setVisibility(View.INVISIBLE);
                 appbar.setBackgroundColor(Color.RED);
-                NavFragmentUtils.AnimateAppBarColor(appbar, animatorListener);
+                final int cx = appbar.getWidth() / 2;
+                final int cy = appbar.getHeight() / 2;
+                final float finalRadius = Math.max(appbar.getWidth(), appbar.getHeight());
+                final Animator anim = ViewAnimationUtils.createCircularReveal(appbar, cx, cy, 0, finalRadius);
+                anim.setInterpolator(new AccelerateDecelerateInterpolator());
+                anim.setDuration(1000);
+                appbar.setVisibility(View.VISIBLE);
+                anim.addListener(animatorListener);
+                anim.start();
             }
         };
     }
@@ -261,6 +270,24 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
     @Override
     public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         // Handle navigation view item clicks here.
-        return NavFragmentUtils.handleNavigationDrawer(mDrawerLayout, item);
+        // Handle navigation view item clicks here.
+        final int id = item.getItemId();
+
+        if (id == R.id.nav_profile) {
+            // Handle the camera action
+        } else if (id == R.id.nav_friends) {
+
+        } else if (id == R.id.nav_followers) {
+
+        } else if (id == R.id.nav_achievements) {
+
+        } else if (id == R.id.nav_settings_account) {
+
+        } else if (id == R.id.nav_settings_notifications) {
+
+        }
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

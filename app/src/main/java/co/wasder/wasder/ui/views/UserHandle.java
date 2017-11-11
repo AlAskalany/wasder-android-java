@@ -2,6 +2,7 @@ package co.wasder.wasder.ui.views;
 
 import android.content.Context;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
@@ -12,7 +13,7 @@ import android.util.AttributeSet;
 @Keep
 public class UserHandle extends android.support.v7.widget.AppCompatTextView {
 
-    public UserHandle(final Context context, @Nullable final AttributeSet attrs) {
+    public UserHandle(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
         this.setText("@AlAskalany");
     }

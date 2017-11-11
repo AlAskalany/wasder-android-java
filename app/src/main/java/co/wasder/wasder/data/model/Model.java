@@ -1,6 +1,7 @@
 package co.wasder.wasder.data.model;
 
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseUser;
 
@@ -36,7 +37,7 @@ public class Model {
     }
 
     @SuppressWarnings("unused")
-    public static Rating Rating(final FirebaseUser user, @SuppressWarnings("SameParameterValue") final
+    public static Rating Rating(@NonNull final FirebaseUser user, @SuppressWarnings("SameParameterValue") final
     double rating, @SuppressWarnings("SameParameterValue") final String text) {
         Model.rating = rating;
         Model.text = text;
