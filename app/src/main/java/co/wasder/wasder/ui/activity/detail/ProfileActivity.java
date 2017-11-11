@@ -24,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
-import com.wasder.wasder.Utils;
+import co.wasder.wasder.Utils;
 
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;

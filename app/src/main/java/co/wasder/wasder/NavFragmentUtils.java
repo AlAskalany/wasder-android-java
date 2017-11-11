@@ -1,4 +1,4 @@
-package com.wasder.wasder;
+package co.wasder.wasder;
 
 import android.animation.Animator;
 import android.os.Build;

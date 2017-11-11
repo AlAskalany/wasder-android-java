@@ -8,7 +8,7 @@ import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.wasder.wasder.Utils;
+import co.wasder.wasder.Utils;
 
 import co.wasder.wasder.Util.FirebaseUtil;
 

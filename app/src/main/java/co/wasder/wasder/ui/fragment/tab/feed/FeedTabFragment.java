@@ -38,7 +38,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.wasder.wasder.Utils;
+import co.wasder.wasder.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

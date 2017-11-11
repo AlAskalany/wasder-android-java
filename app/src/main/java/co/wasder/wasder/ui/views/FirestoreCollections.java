@@ -2,7 +2,7 @@ package co.wasder.wasder.ui.views;
 
 import android.support.annotation.Keep;
 
-import com.wasder.wasder.Utils;
+import co.wasder.wasder.Utils;
 
 /**
  * Created by Ahmed AlAskalany on 10/31/2017.

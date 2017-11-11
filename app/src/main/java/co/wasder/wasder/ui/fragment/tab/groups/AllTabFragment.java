@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.wasder.wasder.Utils;
+import co.wasder.wasder.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

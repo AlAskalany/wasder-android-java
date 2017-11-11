@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
-import com.wasder.wasder.Utils;
+import co.wasder.wasder.Utils;
 
 import co.wasder.wasder.R;
 

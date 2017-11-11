@@ -45,7 +45,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.wasder.wasder.Utils;
+import co.wasder.wasder.Utils;
 
 import java.text.MessageFormat;
 import java.util.UUID;

@@ -24,7 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wasder.wasder.NavFragmentUtils;
+import co.wasder.wasder.NavFragmentUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;

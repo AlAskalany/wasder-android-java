@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.wasder.wasder.Utils;
+import co.wasder.wasder.Utils;
 
 import java.util.Arrays;
 import java.util.Random;

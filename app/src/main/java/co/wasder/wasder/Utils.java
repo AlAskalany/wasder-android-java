@@ -1,4 +1,4 @@
-package com.wasder.wasder;
+package co.wasder.wasder;
 
 /**
  * Created by Ahmed AlAskalany on 11/9/2017.
