@@ -11,11 +11,11 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="5dp"
     app:contentPadding="8dp"
-    tools:context=".ui.WasderActivity">
+    tools:context=".WasderActivity">
 
     <include
-        layout="@layout/event"
         android:id="@+id/feedView"
+        layout="@layout/event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
