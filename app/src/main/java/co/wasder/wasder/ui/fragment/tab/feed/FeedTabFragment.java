@@ -179,7 +179,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
             @Override
             public void onItemRangeInserted(final int positionStart, final int itemCount) {
                 assert mRecyclerView != null;
-                mRecyclerView.smoothScrollToPosition(adapter.getItemCount());
+                mRecyclerView.smoothScrollToPosition(0);
             }
         });
         assert mRecyclerView != null;
