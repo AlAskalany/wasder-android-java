@@ -51,7 +51,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <co.wasder.wasder.ui.views.ProfilePhoto
+            <include
+                layout="@layout/item_profile_photo"
                 android:id="@+id/profilePhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

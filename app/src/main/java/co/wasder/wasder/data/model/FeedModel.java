@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @Keep
 @IgnoreExtraProperties
-public class FirestoreItem extends AbstractFirestoreItem {
+public class FeedModel extends AbstractFirestoreItem {
 
     @SuppressWarnings("unused")
     private static final String FIELD_UID = "uId";
@@ -35,10 +35,10 @@ public class FirestoreItem extends AbstractFirestoreItem {
     private double avgRating;
     private String feedText;
 
-    public FirestoreItem() {
+    public FeedModel() {
     }
 
-    public FirestoreItem(final String uId, final String profilePhoto, final String photo, final int numRatings, final double
+    public FeedModel(final String uId, final String profilePhoto, final String photo, final int numRatings, final double
             avgRating, final String
             feedText) {
         this.uId = uId;

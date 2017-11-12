@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.model.FirestoreItem;
+import co.wasder.wasder.data.model.FeedModel;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
@@ -48,11 +48,11 @@ public class FirestoreItemUtil {
 
 
     /**
-     * Create a random FirestoreItem POJO.
+     * Create a random FeedModel POJO.
      */
     @NonNull
-    public static FirestoreItem getRandom(@NonNull final Context context) {
-        final FirestoreItem firestoreItem = new FirestoreItem();
+    public static FeedModel getRandom(@NonNull final Context context) {
+        final FeedModel feedModel = new FeedModel();
         final Random random = new Random();
 
         // Cities (first element is 'Any')
@@ -69,23 +69,23 @@ public class FirestoreItemUtil {
         if (user != null) {
             final String uId = user.getUid();
             final String name = user.getDisplayName();
-            firestoreItem.setUid(uId);
-            firestoreItem.setName(name);
+            feedModel.setUid(uId);
+            feedModel.setName(name);
             final Uri profilePhotoUri = user.getPhotoUrl();
             String profilePhotoUrl = null;
             if (profilePhotoUri != null) {
                 profilePhotoUrl = profilePhotoUri.toString();
                 if (!TextUtils.isEmpty(profilePhotoUrl)) {
-                    firestoreItem.setProfilePhoto(profilePhotoUrl);
+                    feedModel.setProfilePhoto(profilePhotoUrl);
                 }
             }
         }
 
-        firestoreItem.setPhoto(getRandomImageUrl(random));
-        firestoreItem.setAvgRating(getRandomRating(random));
-        firestoreItem.setNumRatings(random.nextInt(20));
+        feedModel.setPhoto(getRandomImageUrl(random));
+        feedModel.setAvgRating(getRandomRating(random));
+        feedModel.setNumRatings(random.nextInt(20));
 
-        return firestoreItem;
+        return feedModel;
     }
 
 
@@ -132,7 +132,7 @@ public class FirestoreItemUtil {
 
         for (int i = 0; i < 10; i++) {
             // Get a random events POJO
-            final FirestoreItem event = getRandom(context);
+            final FeedModel event = getRandom(context);
 
             // Add a new document to the events collection
             events.add(event);

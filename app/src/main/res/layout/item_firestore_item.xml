@@ -10,7 +10,8 @@
     app:contentPadding="8dp"
     tools:context=".ui.activity.WasderActivity">
 
-    <co.wasder.wasder.ui.views.FeedView
+    <include
+        layout="@layout/feed"
         android:id="@+id/feedView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

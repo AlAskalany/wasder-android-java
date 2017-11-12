@@ -8,7 +8,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 
 import co.wasder.wasder.data.model.Event;
-import co.wasder.wasder.data.model.FirestoreItem;
+import co.wasder.wasder.data.model.FeedModel;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
@@ -19,8 +19,8 @@ public class Adapters {
 
     public static FirestoreItemsAdapter PostAdapter(@NonNull final LifecycleOwner lifecycleOwner, final Query
             query, final FirestoreItemsAdapter.OnFirestoreItemSelected listener) {
-        final FirestoreRecyclerOptions<FirestoreItem> options = new FirestoreRecyclerOptions.Builder<FirestoreItem>().setLifecycleOwner(lifecycleOwner)
-                .setQuery(query, FirestoreItem.class)
+        final FirestoreRecyclerOptions<FeedModel> options = new FirestoreRecyclerOptions.Builder<FeedModel>().setLifecycleOwner(lifecycleOwner)
+                .setQuery(query, FeedModel.class)
                 .build();
         return new FirestoreItemAdapter(options, listener);
     }

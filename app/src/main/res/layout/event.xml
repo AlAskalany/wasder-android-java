@@ -9,8 +9,9 @@
     tools:layout_editor_absoluteX="8dp"
     tools:layout_editor_absoluteY="81dp">
 
-    <co.wasder.wasder.ui.views.ProfilePhoto
+    <include
         android:id="@+id/profilePhoto"
+        layout="@layout/item_profile_photo"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -31,8 +32,9 @@
         app:layout_constraintStart_toEndOf="@+id/profilePhoto"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <co.wasder.wasder.ui.views.Header
+    <include
         android:id="@+id/header"
+        layout="@layout/item_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/itemText"
@@ -42,8 +44,9 @@
         app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
 
 
-    <co.wasder.wasder.ui.views.ItemText
+    <include
         android:id="@+id/itemText"
+        layout="@layout/item_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/itemImage"
@@ -52,8 +55,9 @@
         app:layout_constraintStart_toStartOf="@+id/header"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
-    <co.wasder.wasder.ui.views.ItemImage
+    <include
         android:id="@+id/itemImage"
+        layout="@layout/item_image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/actions"
@@ -62,8 +66,9 @@
         app:layout_constraintStart_toStartOf="@+id/itemText"
         app:layout_constraintTop_toBottomOf="@+id/itemText" />
 
-    <co.wasder.wasder.ui.views.Actions
+    <include
         android:id="@+id/actions"
+        layout="@layout/item_action_buttons"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginBottom="8dp"

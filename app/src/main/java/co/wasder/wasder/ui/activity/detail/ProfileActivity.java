@@ -1,6 +1,8 @@
 package co.wasder.wasder.ui.activity.detail;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
@@ -15,8 +17,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -24,17 +31,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
-import co.wasder.wasder.Utils;
 
+import butterknife.BindView;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;
+import co.wasder.wasder.Utils;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
-import co.wasder.wasder.data.model.FirestoreItem;
+import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.fragment.tab.adapter.Adapters;
 import co.wasder.wasder.ui.fragment.tab.adapter.FirestoreItemsAdapter;
-import co.wasder.wasder.ui.views.ProfilePhoto;
 
 @Keep
 public class ProfileActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
@@ -42,25 +49,27 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     public static final String ARG_USER_REFERENCE = "user-reference";
     public static final String TAG = "ProfileActivity";
     public CollapsingToolbarLayout collapsingToolbarLayout;
-    public ProfilePhoto profilePhoto;
-    @Nullable
     public String mUserReference;
     public FirebaseFirestore mFirestore;
     public DocumentReference mDocumentReference;
-    @Nullable
     public ListenerRegistration mModelRegistration;
     public ProfileActivityViewModel viewModel;
     public FirestoreItemsAdapter adapter;
     public Query mQuery;
-    @NonNull
     public FirestoreItemsAdapter.OnFirestoreItemSelected mItemSelectedListener = new
             FirestoreItemsAdapter.OnFirestoreItemSelected() {
 
         @Override
-        public void onFirestoreItemSelected(final AbstractFirestoreItem event, final View itemView) {
+        public void onFirestoreItemSelected(final AbstractFirestoreItem event, final View
+                itemView) {
 
         }
     };
+    @BindView(R.id.itemProfileImageView)
+    ImageView profileImageView;
+    @BindView(R.id.presenceImageView)
+    ImageView presenceImageView;
+    private String userId;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -90,7 +99,6 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         collapsingToolbarLayout = findViewById(R.id.collapsingToolbarLayout);
-        profilePhoto = findViewById(R.id.profilePhoto);
 
         mFirestore = FirebaseUtil.getFirestore();
         mDocumentReference = mFirestore.collection("users").document(mUserReference);
@@ -123,18 +131,21 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     }
 
     @Override
-    public void onEvent(@NonNull final DocumentSnapshot documentSnapshot, @Nullable final FirebaseFirestoreException e) {
+    public void onEvent(@NonNull final DocumentSnapshot documentSnapshot, @Nullable final
+    FirebaseFirestoreException e) {
         if (e != null) {
             Log.w(TAG, "restaurant:onEvent", e);
             return;
         }
 
         onUserModelLoaded(documentSnapshot.toObject(User.class));
-        onItemModelLoaded(documentSnapshot.toObject(FirestoreItem.class));
+        onItemModelLoaded(documentSnapshot.toObject(FeedModel.class));
     }
 
-    public void onItemModelLoaded(final FirestoreItem firestoreItem) {
-
+    public void onItemModelLoaded(final FeedModel feedModel) {
+        userId = feedModel.getUid();
+        String photoUrl = feedModel.getPhoto();
+        downloadProfilePictureIntoView(userId, photoUrl, this);
     }
 
     public void onUserModelLoaded(@NonNull final User user) {
@@ -144,10 +155,53 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         // Background image
         final String uuid = user.getPhotoUrl();
         if (uuid != null) {
-            GlideApp.with(this)
-                    .load(uuid)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(profilePhoto.getProfileImageView(user.getUid()));
+
         }
+    }
+
+    private void downloadProfilePictureIntoView(String userId, String profilePhotoUrl, Context
+            context) {
+        if (profilePhotoUrl != null) {
+            GlideApp.with(context)
+                    .load(profilePhotoUrl)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(getProfileImageView(userId));
+        }
+    }
+
+    ImageView getProfileImageView(@NonNull final String uid) {
+        FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child("online")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            final String myPresence = dataSnapshot.getValue().toString();
+                            handlePresence(myPresence, getResources().getDrawable(R.drawable
+                                    .ic_presence_status_online), getResources()
+                                    .getDrawable(R.drawable.ic_presence_status_offline));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(final DatabaseError databaseError) {
+
+                    }
+                });
+        return profileImageView;
+    }
+
+    private void handlePresence(String myPresence, Drawable onlineDrawable, Drawable
+            offlineDrawable) {
+        if (myPresence.equals("true")) {
+            setPresence(onlineDrawable, presenceImageView);
+        } else if (myPresence.equals("false")) {
+            setPresence(offlineDrawable, presenceImageView);
+        }
+    }
+
+    private void setPresence(Drawable drawable, ImageView presenceImageView) {
+        presenceImageView.setImageDrawable(drawable);
     }
 }

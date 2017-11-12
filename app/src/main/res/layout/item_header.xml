@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     tools:layout_editor_absoluteY="81dp">
 
-    <co.wasder.wasder.ui.views.UserName
+    <TextView
         android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <co.wasder.wasder.ui.views.UserHandle
+    <TextView
         android:id="@+id/userHandle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/item_user_handle" />
 
-    <co.wasder.wasder.ui.views.TimeStamp
+    <TextView
         android:id="@+id/timeStamp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="2h" />
 
-    <co.wasder.wasder.ui.views.ExpandButton
+    <ImageButton
         android:id="@+id/expandButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

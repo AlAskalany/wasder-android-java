@@ -47,7 +47,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;
-import co.wasder.wasder.data.model.FirestoreItem;
+import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.Rating;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.dialog.AddRatingDialogFragment;
@@ -166,23 +166,23 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
             @Override
             public Void apply(@NonNull final Transaction transaction) throws FirebaseFirestoreException {
 
-                final FirestoreItem firestoreItem = transaction.get(documentRef)
-                        .toObject(FirestoreItem.class);
+                final FeedModel feedModel = transaction.get(documentRef)
+                        .toObject(FeedModel.class);
 
                 // Compute new number of ratings
-                final int newNumRatings = firestoreItem.getNumRatings() + 1;
+                final int newNumRatings = feedModel.getNumRatings() + 1;
 
                 // Compute new average rating
-                final double oldRatingTotal = firestoreItem.getAvgRating() * firestoreItem
+                final double oldRatingTotal = feedModel.getAvgRating() * feedModel
                         .getNumRatings();
                 final double newAvgRating = (oldRatingTotal + rating.getRating()) / newNumRatings;
 
-                // Set new firestoreItem info
-                firestoreItem.setNumRatings(newNumRatings);
-                firestoreItem.setAvgRating(newAvgRating);
+                // Set new feedModel info
+                feedModel.setNumRatings(newNumRatings);
+                feedModel.setAvgRating(newAvgRating);
 
                 // Commit to Firestore
-                transaction.set(documentRef, firestoreItem);
+                transaction.set(documentRef, feedModel);
                 transaction.set(ratingRef, rating);
 
                 return null;
@@ -191,7 +191,7 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
     }
 
     /**
-     * Listener for the FirestoreItem document ({@link #mDocumentRef}).
+     * Listener for the FeedModel document ({@link #mDocumentRef}).
      */
     @Override
     public void onEvent(@NonNull final DocumentSnapshot snapshot, @Nullable final FirebaseFirestoreException e) {
@@ -200,16 +200,16 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
             return;
         }
 
-        onModelLoaded(snapshot.toObject(FirestoreItem.class));
+        onModelLoaded(snapshot.toObject(FeedModel.class));
     }
 
-    public void onModelLoaded(@NonNull final FirestoreItem firestoreItem) {
-        mNameView.setText(firestoreItem.getName());
-        mRatingIndicator.setRating((float) firestoreItem.getAvgRating());
-        mNumRatingsView.setText(getString(R.string.fmt_num_ratings, firestoreItem.getNumRatings()));
+    public void onModelLoaded(@NonNull final FeedModel feedModel) {
+        mNameView.setText(feedModel.getName());
+        mRatingIndicator.setRating((float) feedModel.getAvgRating());
+        mNumRatingsView.setText(getString(R.string.fmt_num_ratings, feedModel.getNumRatings()));
 
         // Background image
-        final String uuid = firestoreItem.getPhoto();
+        final String uuid = feedModel.getPhoto();
         if (uuid != null) {
             final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
             GlideApp.with(mImageView.getContext())

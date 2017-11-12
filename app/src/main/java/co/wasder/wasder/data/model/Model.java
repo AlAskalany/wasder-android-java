@@ -20,15 +20,15 @@ public class Model {
     private static String text;
 
     @SuppressWarnings("unused")
-    public static FirestoreItem FirestoreItem() {
+    public static FeedModel FirestoreItem() {
         return FirestoreItem("ASD", FirebaseUtil.getCurrentUser()
                 .getPhotoUrl()
                 .toString(), "AD", 2, 2, "Feed text");
     }
 
-    public static FirestoreItem FirestoreItem(final String uId, final String profilePhotoUrl, final String photo,
-                                              final int numRatings, final double avgRating, final String feedText) {
-        return new FirestoreItem(uId, profilePhotoUrl, photo, numRatings, avgRating, feedText);
+    public static FeedModel FirestoreItem(final String uId, final String profilePhotoUrl, final String photo,
+                                          final int numRatings, final double avgRating, final String feedText) {
+        return new FeedModel(uId, profilePhotoUrl, photo, numRatings, avgRating, feedText);
     }
 
     @SuppressWarnings("unused")

@@ -56,7 +56,7 @@ import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;
 import co.wasder.wasder.data.filter.FirestoreItemFilters;
-import co.wasder.wasder.data.model.FirestoreItem;
+import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.Model;
 
 import static android.app.Activity.RESULT_OK;
@@ -114,7 +114,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     }
 
     @NonNull
-    public FirestoreItem createPostFromFields() {
+    public FeedModel createPostFromFields() {
         final FirebaseAuth auth = FirebaseUtil.getAuth();
         final FirebaseUser user = auth.getCurrentUser();
         String uId = null;
@@ -144,9 +144,9 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         }
     }
 
-    public static void addPostToDatabase(@NonNull final FirestoreItem firestoreItem) {
+    public static void addPostToDatabase(@NonNull final FeedModel feedModel) {
         final CollectionReference posts = FirebaseUtil.getUsersCollectionReference(Utils.POSTS);
-        posts.add(firestoreItem).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        posts.add(feedModel).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull final Task<DocumentReference> task) {
                 if (task.isSuccessful()) {
