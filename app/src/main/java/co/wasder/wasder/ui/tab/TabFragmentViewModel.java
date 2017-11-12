@@ -10,19 +10,11 @@ import co.wasder.wasder.data.filter.FirestoreItemFilters;
  * Wasder AB
  */
 @Keep
-public class TabFragmentViewModel extends ViewModel {
+public abstract class TabFragmentViewModel extends ViewModel {
 
     public FirestoreItemFilters mFirestoreItemFilters;
 
-    public TabFragmentViewModel() {
-        mFirestoreItemFilters = FirestoreItemFilters.getDefault();
-    }
+    public abstract FirestoreItemFilters getFilters();
 
-    public FirestoreItemFilters getFilters() {
-        return mFirestoreItemFilters;
-    }
-
-    public void setFilters(final FirestoreItemFilters mFirestoreItemFilters) {
-        this.mFirestoreItemFilters = mFirestoreItemFilters;
-    }
+    public abstract void setFilters(final FirestoreItemFilters mFirestoreItemFilters);
 }

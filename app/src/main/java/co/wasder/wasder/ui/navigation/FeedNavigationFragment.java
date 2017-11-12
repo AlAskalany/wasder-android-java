@@ -161,7 +161,7 @@ public class FeedNavigationFragment extends Fragment implements NavigationFragme
             TAG = getArguments().getString(ARG_TAG);
 
 
-            final FeedTabFragment feedTab = (FeedTabFragment) FeedTabFragment.newInstance(0,
+            final FeedTabFragment feedTab = FeedTabFragment.newInstance(0,
                     "Feed");
             this.addTab(feedTab);
 

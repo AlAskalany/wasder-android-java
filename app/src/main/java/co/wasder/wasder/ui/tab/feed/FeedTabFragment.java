@@ -116,7 +116,7 @@ public class FeedTabFragment extends TabFragment {
                              final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_tab, container, false);
         ButterKnife.bind(this, view);
-        mViewModel = ViewModelProviders.of(this).get(TabFragmentViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(FeedTabFragmentViewModel.class);
         assert mRecyclerView != null;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAddPostDialog = Dialogs.AddPostDialogFragment();
