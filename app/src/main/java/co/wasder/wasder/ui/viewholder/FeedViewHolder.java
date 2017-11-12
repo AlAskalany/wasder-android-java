@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -54,7 +53,7 @@ import co.wasder.wasder.ui.tab.feed.FeedTabFragment;
  * Navigator
  */
 @SuppressWarnings("WeakerAccess")
-public class FeedViewHolder extends RecyclerView.ViewHolder {
+public class FeedViewHolder extends BaseViewHolder {
 
     private static final String USERS = "users";
     private static final String FOLLOWERS = "followers";

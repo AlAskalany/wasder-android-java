@@ -9,6 +9,7 @@ import com.google.firebase.firestore.Query;
 
 import co.wasder.wasder.data.model.Event;
 import co.wasder.wasder.data.model.FeedModel;
+import co.wasder.wasder.ui.recycleradpater.EventAdapter;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.

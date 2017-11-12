@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.adapter;
+package co.wasder.wasder.ui.recycleradpater;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Intent;
@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,14 +48,14 @@ import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.ProfileActivity;
+import co.wasder.wasder.ui.adapter.EventsAdapter;
 
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
  * Wasder AB
  */
 @Keep
-public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.EventHolder>
-        implements EventsAdapter {
+public class EventAdapter extends BaseRecyclerAdapter implements EventsAdapter {
 
     public static final String TAG = "EventAdapter";
     public OnEventSelected mListener;

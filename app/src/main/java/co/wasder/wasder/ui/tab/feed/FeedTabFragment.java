@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +25,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.wasder.wasder.RecyclerAdapterFactory;
 
 import java.util.List;
 
@@ -38,13 +38,13 @@ import co.wasder.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.User;
-import co.wasder.wasder.ui.SignInResultNotifier;
-import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
-import co.wasder.wasder.ui.dialog.Dialogs;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
+import co.wasder.wasder.ui.SignInResultNotifier;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.ui.TabFragmentViewModel;
 import co.wasder.wasder.ui.adapter.FirestoreItemsAdapter;
+import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
+import co.wasder.wasder.ui.dialog.Dialogs;
 import co.wasder.wasder.ui.viewholder.FeedViewHolder;
 
 /**
@@ -173,7 +173,8 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                 .Builder<FeedModel>()
                 .setQuery(mQuery, FeedModel.class)
                 .build();
-        final RecyclerView.Adapter<FeedViewHolder> adapter = newAdapter();
+        final RecyclerView.Adapter<FeedViewHolder> adapter = RecyclerAdapterFactory.newAdapter
+                (this, onFirestoreItemSelected, mQuery, FeedModel.class);
 
         // Scroll to bottom on new messages
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -186,7 +187,6 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         assert mRecyclerView != null;
         mRecyclerView.setAdapter(adapter);
     }
-
 
     @Override
     public void onStop() {
@@ -209,38 +209,6 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @NonNull
-    protected RecyclerView.Adapter<FeedViewHolder> newAdapter() {
-        final FirestoreRecyclerOptions<FeedModel> options =
-                getFirestoreItemFirestoreRecyclerOptions();
-
-        return new FirestoreRecyclerAdapter<FeedModel, FeedViewHolder>(options) {
-            @NonNull
-            @Override
-            public FeedViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int
-                    viewType) {
-                return new FeedViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_firestore_item, parent, false));
-            }
-
-            @Override
-            protected void onBindViewHolder(@NonNull final FeedViewHolder holder, final int
-                    position, @NonNull final FeedModel model) {
-                holder.bind(model, onFirestoreItemSelected);
-            }
-
-            @Override
-            public void onDataChanged() {
-            }
-        };
-    }
-
-    private FirestoreRecyclerOptions<FeedModel> getFirestoreItemFirestoreRecyclerOptions() {
-        return new FirestoreRecyclerOptions.Builder<FeedModel>().setQuery(mQuery, FeedModel.class)
-                .setLifecycleOwner(this)
-                .build();
     }
 
     @Override
