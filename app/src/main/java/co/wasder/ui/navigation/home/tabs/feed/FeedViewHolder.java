@@ -36,12 +36,12 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import co.wasder.data.model.AbstractFirestoreItem;
+import co.wasder.data.model.FeedModel;
+import co.wasder.data.model.User;
 import co.wasder.ui.detal.profile.ProfileActivity;
 import co.wasder.ui.navigation.tab.BaseViewHolder;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.model.AbstractFirestoreItem;
-import co.wasder.wasder.data.model.FeedModel;
-import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
 

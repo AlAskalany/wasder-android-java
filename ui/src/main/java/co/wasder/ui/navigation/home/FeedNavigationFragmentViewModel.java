@@ -1,6 +1,6 @@
 package co.wasder.ui.navigation.home;
 
-import co.wasder.ui.navigation.NavigationFragmentViewModel;
+import co.wasder.ui.NavigationFragmentViewModel;
 
 /**
  * Created by Ahmed AlAskalany on 11/12/2017.

@@ -1,4 +1,4 @@
-package co.wasder.wasder.data.filter;
+package co.wasder.data.filter;
 
 import android.support.annotation.Keep;
 

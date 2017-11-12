@@ -53,10 +53,10 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.data.filter.FirestoreItemFilters;
+import co.wasder.data.model.FeedModel;
+import co.wasder.data.model.Model;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.filter.FirestoreItemFilters;
-import co.wasder.wasder.data.model.FeedModel;
-import co.wasder.wasder.data.model.Model;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -79,6 +79,18 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     public String uuid;
     public String feedText;
     public String postProfilePhotoUrl;
+
+    public static void addPostToDatabase(@NonNull final FeedModel feedModel) {
+        final CollectionReference posts = FirebaseFirestore.getInstance().collection("posts");
+        posts.add(feedModel).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull final Task<DocumentReference> task) {
+                if (task.isSuccessful()) {
+
+                }
+            }
+        });
+    }
 
     @Nullable
     @Override
@@ -141,18 +153,6 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         } else {
             return null;
         }
-    }
-
-    public static void addPostToDatabase(@NonNull final FeedModel feedModel) {
-        final CollectionReference posts = FirebaseFirestore.getInstance().collection("posts");
-        posts.add(feedModel).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull final Task<DocumentReference> task) {
-                if (task.isSuccessful()) {
-
-                }
-            }
-        });
     }
 
     @OnClick(R.id.button_cancel)

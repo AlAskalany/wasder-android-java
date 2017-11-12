@@ -1,4 +1,4 @@
-package co.wasder.ui.navigation;
+package co.wasder.ui;
 
 import android.arch.lifecycle.ViewModel;
 

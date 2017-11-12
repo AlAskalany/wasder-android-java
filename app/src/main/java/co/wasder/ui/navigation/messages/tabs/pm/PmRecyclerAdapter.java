@@ -10,10 +10,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 
+import co.wasder.data.model.FeedModel;
 import co.wasder.ui.navigation.home.tabs.feed.FeedViewHolder;
 import co.wasder.ui.navigation.tab.BaseRecyclerAdapter;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
 
 /**

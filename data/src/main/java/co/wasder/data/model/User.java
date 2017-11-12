@@ -1,4 +1,4 @@
-package co.wasder.wasder.data.model;
+package co.wasder.data.model;
 
 import android.net.Uri;
 import android.support.annotation.Keep;

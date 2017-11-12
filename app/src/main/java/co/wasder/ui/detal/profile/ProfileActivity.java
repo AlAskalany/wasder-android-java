@@ -34,12 +34,12 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
 import butterknife.BindView;
+import co.wasder.data.model.AbstractFirestoreItem;
+import co.wasder.data.model.FeedModel;
+import co.wasder.data.model.User;
 import co.wasder.ui.navigation.home.tabs.feed.FeedViewHolder;
 import co.wasder.ui.navigation.live.tabs.following.FollowingRecyclerAdapter;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.model.AbstractFirestoreItem;
-import co.wasder.wasder.data.model.FeedModel;
-import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
 

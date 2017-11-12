@@ -1,6 +1,7 @@
-package co.wasder.ui.navigation.groups;
+package co.wasder.ui.groups;
 
-import co.wasder.ui.navigation.NavigationFragmentViewModel;
+
+import co.wasder.ui.NavigationFragmentViewModel;
 
 /**
  * Created by Ahmed AlAskalany on 11/12/2017.

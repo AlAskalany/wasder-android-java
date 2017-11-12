@@ -53,10 +53,10 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.data.filter.FirestoreItemFilters;
+import co.wasder.data.model.Event;
+import co.wasder.data.model.Model;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.filter.FirestoreItemFilters;
-import co.wasder.wasder.data.model.Event;
-import co.wasder.wasder.data.model.Model;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -85,6 +85,35 @@ public class AddEventDialogFragment extends DialogFragment {
     public String feedText;
     public String postProfilePhotoUrl;
     public String title;
+
+    public static void addPostToDatabase(@NonNull final Event event) {
+        final CollectionReference posts = FirebaseFirestore.getInstance().collection("events");
+        posts.add(event).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull final Task<DocumentReference> task) {
+                if (task.isSuccessful()) {
+
+                }
+            }
+        });
+    }
+
+    @Nullable
+    public static String getPostProfilePhotoUrl() {
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        final FirebaseUser user = auth.getCurrentUser();
+        Uri profilePhotoUri = null;
+        if (user != null) {
+            profilePhotoUri = user.getPhotoUrl();
+            if (profilePhotoUri != null) {
+                final String profilePhotoUrl = profilePhotoUri.toString();
+                if (!TextUtils.isEmpty(profilePhotoUrl)) {
+                    return profilePhotoUrl;
+                }
+            }
+        }
+        return null;
+    }
 
     @Nullable
     @Override
@@ -159,23 +188,10 @@ public class AddEventDialogFragment extends DialogFragment {
         }
     }
 
-    public static void addPostToDatabase(@NonNull final Event event) {
-        final CollectionReference posts = FirebaseFirestore.getInstance().collection("events");
-        posts.add(event).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull final Task<DocumentReference> task) {
-                if (task.isSuccessful()) {
-
-                }
-            }
-        });
-    }
-
     @OnClick(R.id.button_cancel)
     public void onCancelClicked() {
         dismiss();
     }
-
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, @NonNull final Intent data) {
@@ -245,23 +261,6 @@ public class AddEventDialogFragment extends DialogFragment {
                         Toast.makeText(getContext(), "Upload failed", Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    @Nullable
-    public static String getPostProfilePhotoUrl() {
-        final FirebaseAuth auth = FirebaseAuth.getInstance();
-        final FirebaseUser user = auth.getCurrentUser();
-        Uri profilePhotoUri = null;
-        if (user != null) {
-            profilePhotoUri = user.getPhotoUrl();
-            if (profilePhotoUri != null) {
-                final String profilePhotoUrl = profilePhotoUri.toString();
-                if (!TextUtils.isEmpty(profilePhotoUrl)) {
-                    return profilePhotoUrl;
-                }
-            }
-        }
-        return null;
     }
 
     @SuppressWarnings("WeakerAccess")

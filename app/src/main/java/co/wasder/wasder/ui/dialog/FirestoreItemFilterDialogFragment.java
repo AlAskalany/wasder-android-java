@@ -32,9 +32,9 @@ import com.google.firebase.firestore.Query;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.data.filter.Filters;
+import co.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.filter.Filters;
-import co.wasder.wasder.data.filter.FirestoreItemFilters;
 
 /**
  * Dialog Fragment containing filter form.

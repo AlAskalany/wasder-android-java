@@ -1,7 +1,6 @@
-package co.wasder.wasder.data.model;
+package co.wasder.data.model;
 
 import android.support.annotation.Keep;
-import android.support.annotation.Nullable;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
@@ -14,7 +13,7 @@ import java.util.Date;
  */
 @Keep
 @IgnoreExtraProperties
-public class FeedModel extends AbstractFirestoreItem {
+public class Event {
 
     @SuppressWarnings("unused")
     private static final String FIELD_UID = "uId";
@@ -26,6 +25,7 @@ public class FeedModel extends AbstractFirestoreItem {
     private static final String FIELD_AVG_RATING = "avgRating";
 
     private String uId;
+    private String title;
     private @ServerTimestamp
     Date timestamp;
     private String name;
@@ -35,13 +35,13 @@ public class FeedModel extends AbstractFirestoreItem {
     private double avgRating;
     private String feedText;
 
-    public FeedModel() {
+    public Event() {
     }
 
-    public FeedModel(final String uId, final String profilePhoto, final String photo, final int numRatings, final double
-            avgRating, final String
-            feedText) {
+    public Event(final String uId, final String title, final String profilePhoto, final String photo, final int numRatings, final double
+            avgRating, final String feedText) {
         this.uId = uId;
+        this.title = title;
         this.name = name;
         this.profilePhoto = profilePhoto;
         this.photo = photo;
@@ -58,6 +58,14 @@ public class FeedModel extends AbstractFirestoreItem {
         this.uId = uId;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
     public String getName() {
         return name;
     }
@@ -66,11 +74,6 @@ public class FeedModel extends AbstractFirestoreItem {
         this.name = name;
     }
 
-    @Nullable
-    @Override
-    public String getMessage() {
-        return null;
-    }
 
     public String getPhoto() {
         return photo;

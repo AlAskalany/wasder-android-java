@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.firebase.ui.firestore.ChangeEventListener;
 
-import co.wasder.wasder.data.model.AbstractFirestoreItem;
+import co.wasder.data.model.AbstractFirestoreItem;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.
