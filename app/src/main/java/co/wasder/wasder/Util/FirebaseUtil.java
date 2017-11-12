@@ -27,9 +27,9 @@ import java.util.Arrays;
 import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
 import co.wasder.wasder.network.service.jobservices.FirestoreQueryJobService;
-import co.wasder.wasder.ui.activity.WasderActivity;
-import co.wasder.wasder.ui.activity.WasderActivityViewModel;
-import co.wasder.wasder.ui.fragment.tab.TabFragment;
+import co.wasder.wasder.ui.WasderActivity;
+import co.wasder.wasder.ui.WasderActivityViewModel;
+import co.wasder.wasder.ui.TabFragment;
 
 /**
  * Created by Ahmed AlAskalany on 10/21/2017.

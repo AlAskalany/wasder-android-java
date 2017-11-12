@@ -11,7 +11,7 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="5dp"
     app:contentPadding="8dp"
-    tools:context=".ui.activity.WasderActivity">
+    tools:context=".ui.WasderActivity">
 
     <include
         layout="@layout/event"

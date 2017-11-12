@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activity.WasderActivity"
+            android:name=".ui.WasderActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.detail.FirestoreItemDetailActivity"
+            android:name=".ui.FirestoreItemDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
@@ -70,8 +70,8 @@
         </service>
 
         <activity
-            android:name=".ui.activity.detail.ProfileActivity"
-            android:parentActivityName=".ui.activity.WasderActivity"
+            android:name=".ui.ProfileActivity"
+            android:parentActivityName=".ui.WasderActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"

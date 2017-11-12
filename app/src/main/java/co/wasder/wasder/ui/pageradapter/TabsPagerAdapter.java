@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.wasder.wasder.ui.fragment.tab.TabFragment;
+import co.wasder.wasder.ui.TabFragment;
 
 /**
  * Created by Ahmed AlAskalany on 10/14/2017.
