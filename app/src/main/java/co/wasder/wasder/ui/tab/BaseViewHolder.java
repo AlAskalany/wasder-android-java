@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.viewholder;
+package co.wasder.wasder.ui.tab;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.view.View;
  * Navigator
  */
 
-abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
     public BaseViewHolder(View itemView) {
         super(itemView);

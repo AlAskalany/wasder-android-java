@@ -41,7 +41,7 @@ import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
-import co.wasder.wasder.ui.viewholder.FeedViewHolder;
+import co.wasder.wasder.ui.tab.feed.FeedViewHolder;
 
 @Keep
 public class ProfileActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {

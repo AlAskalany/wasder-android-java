@@ -1,6 +1,8 @@
-package co.wasder.wasder.ui.viewholder;
+package co.wasder.wasder.ui.tab.live;
 
 import android.view.View;
+
+import co.wasder.wasder.ui.tab.BaseViewHolder;
 
 /**
  * Created by Ahmed AlAskalany on 11/12/2017.

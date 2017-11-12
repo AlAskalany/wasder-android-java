@@ -43,7 +43,6 @@ import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.dialog.Dialogs;
 import co.wasder.wasder.ui.recycleradpater.RecyclerAdapterFactory;
 import co.wasder.wasder.ui.tab.TabFragment;
-import co.wasder.wasder.ui.viewholder.FeedViewHolder;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.

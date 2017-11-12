@@ -13,7 +13,7 @@ import com.google.firebase.firestore.Query;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
-import co.wasder.wasder.ui.viewholder.FeedViewHolder;
+import co.wasder.wasder.ui.tab.feed.FeedViewHolder;
 
 /**
  * Created by Ahmed AlAskalany on 11/12/2017.

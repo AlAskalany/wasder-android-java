@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.viewholder;
+package co.wasder.wasder.ui.tab.feed;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,6 +43,7 @@ import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.detail.ProfileActivity;
 import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
+import co.wasder.wasder.ui.tab.BaseViewHolder;
 
 /**
  * Created by Ahmed AlAskalany on 11/12/2017.
