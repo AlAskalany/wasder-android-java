@@ -13,11 +13,7 @@ import co.wasder.wasder.data.model.AbstractFirestoreItem;
  * Navigator
  */
 @Keep
-public interface FirestoreItemsAdapter extends ChangeEventListener, LifecycleObserver {
+public interface OnFirestoreItemSelected extends ChangeEventListener, LifecycleObserver {
 
-    interface OnFirestoreItemSelected {
-
-        void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView);
-
-    }
+    void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView);
 }

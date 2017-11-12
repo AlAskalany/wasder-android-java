@@ -15,9 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.common.ChangeEventType;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.RecyclerAdapterFactory;
+
 import co.wasder.wasder.Utils;
 
 import butterknife.BindView;
@@ -25,14 +30,15 @@ import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
+import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.dialog.Dialogs;
 import co.wasder.wasder.ui.dialog.FirestoreItemFilterDialogFragment;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.ui.TabFragmentViewModel;
-import co.wasder.wasder.ui.adapter.Adapters;
-import co.wasder.wasder.ui.adapter.FirestoreItemsAdapter;
+import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
+import co.wasder.wasder.ui.viewholder.FeedViewHolder;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.
@@ -56,15 +62,30 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
     @Nullable
     public OnFragmentInteractionListener mListener;
     @NonNull
-    public FirestoreItemsAdapter.OnFirestoreItemSelected mPostSelectedListener = new
-            FirestoreItemsAdapter.OnFirestoreItemSelected() {
+    public OnFirestoreItemSelected mPostSelectedListener = new OnFirestoreItemSelected() {
+        @Override
+        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
+
+        }
 
         @Override
-        public void onFirestoreItemSelected(final AbstractFirestoreItem event, final View itemView) {
-            Log.d(TAG, "onFirestoreItemSelected: " + itemView);
+        public void onChildChanged(ChangeEventType type, DocumentSnapshot snapshot, int newIndex,
+                                   int oldIndex) {
+
+        }
+
+        @Override
+        public void onDataChanged() {
+
+        }
+
+        @Override
+        public void onError(FirebaseFirestoreException e) {
+
         }
     };
     public String mTitle;
+    private OnFirestoreItemSelected mItemSelectedListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -142,7 +163,8 @@ public class MentionsTabFragment extends Fragment implements TabFragment, Lifecy
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        final FirestoreItemsAdapter adapter = Adapters.PostAdapter(this, mQuery, mPostSelectedListener);
+        final RecyclerView.Adapter<FeedViewHolder> adapter = RecyclerAdapterFactory.getFeedRecyclerAdapter(this, mItemSelectedListener,
+                mQuery, FeedModel.class);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter((RecyclerView.Adapter<? extends RecyclerView.ViewHolder>) adapter);
     }

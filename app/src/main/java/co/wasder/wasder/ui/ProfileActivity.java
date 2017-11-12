@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.firebase.ui.common.ChangeEventType;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.wasder.wasder.RecyclerAdapterFactory;
 
 import butterknife.BindView;
 import co.wasder.wasder.R;
@@ -40,8 +42,8 @@ import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
-import co.wasder.wasder.ui.adapter.Adapters;
-import co.wasder.wasder.ui.adapter.FirestoreItemsAdapter;
+import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
+import co.wasder.wasder.ui.viewholder.FeedViewHolder;
 
 @Keep
 public class ProfileActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
@@ -54,14 +56,27 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     public DocumentReference mDocumentReference;
     public ListenerRegistration mModelRegistration;
     public ProfileActivityViewModel viewModel;
-    public FirestoreItemsAdapter adapter;
+    public RecyclerView.Adapter<FeedViewHolder> adapter;
     public Query mQuery;
-    public FirestoreItemsAdapter.OnFirestoreItemSelected mItemSelectedListener = new
-            FirestoreItemsAdapter.OnFirestoreItemSelected() {
+    public OnFirestoreItemSelected mItemSelectedListener = new OnFirestoreItemSelected() {
+        @Override
+        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
+
+        }
 
         @Override
-        public void onFirestoreItemSelected(final AbstractFirestoreItem event, final View
-                itemView) {
+        public void onChildChanged(ChangeEventType type, DocumentSnapshot snapshot, int newIndex,
+                                   int oldIndex) {
+
+        }
+
+        @Override
+        public void onDataChanged() {
+
+        }
+
+        @Override
+        public void onError(FirebaseFirestoreException e) {
 
         }
     };
@@ -85,10 +100,11 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
                 .whereEqualTo("uid", mUserReference)
                 .orderBy(Utils.TIMESTAMP)
                 .limit(FirebaseUtil.LIMIT);
-        adapter = Adapters.PostAdapter(this, mQuery, mItemSelectedListener);
+        adapter = RecyclerAdapterFactory.getFeedRecyclerAdapter(this, mItemSelectedListener,
+                mQuery, FeedModel.class);
         final RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter((RecyclerView.Adapter<? extends RecyclerView.ViewHolder>) adapter);
+        mRecyclerView.setAdapter(adapter);
 
         viewModel = ViewModelProviders.of(this).get(ProfileActivityViewModel.class);
 

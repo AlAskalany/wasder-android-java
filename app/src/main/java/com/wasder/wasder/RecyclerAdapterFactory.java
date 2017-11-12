@@ -12,7 +12,7 @@ import com.google.firebase.firestore.Query;
 
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.model.FeedModel;
-import co.wasder.wasder.ui.adapter.FirestoreItemsAdapter;
+import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
 import co.wasder.wasder.ui.viewholder.FeedViewHolder;
 
 /**
@@ -22,12 +22,20 @@ import co.wasder.wasder.ui.viewholder.FeedViewHolder;
 
 public class RecyclerAdapterFactory {
 
+    /**
+     * @param owner      LifecycleOwner
+     * @param listener   OnItemSelectedListener
+     * @param query      Query
+     * @param modelClass ModelCalss
+     * @return
+     */
     @NonNull
-    public static RecyclerView.Adapter<FeedViewHolder> newAdapter(LifecycleOwner lifecycleOwner,
-                                                                  final FirestoreItemsAdapter
-                                                                          .OnFirestoreItemSelected onFirestoreItemSelected, Query query, Class<FeedModel> modelClass) {
+    public static RecyclerView.Adapter<FeedViewHolder> getFeedRecyclerAdapter(LifecycleOwner
+                                                                                          owner,
+                                                                              final
+                                                                              OnFirestoreItemSelected listener, Query query, Class<FeedModel> modelClass) {
         final FirestoreRecyclerOptions<FeedModel> options =
-                getFirestoreItemFirestoreRecyclerOptions(query, modelClass, lifecycleOwner);
+                getFirestoreItemFirestoreRecyclerOptions(query, modelClass, owner);
 
         return new FirestoreRecyclerAdapter<FeedModel, FeedViewHolder>(options) {
             @NonNull
@@ -41,7 +49,7 @@ public class RecyclerAdapterFactory {
             @Override
             protected void onBindViewHolder(@NonNull final FeedViewHolder holder, final int
                     position, @NonNull final FeedModel model) {
-                holder.bind(model, onFirestoreItemSelected);
+                holder.bind(model, listener);
             }
 
             @Override

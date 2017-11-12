@@ -19,20 +19,23 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.Query;
-import co.wasder.wasder.Utils;
+import com.wasder.wasder.RecyclerAdapterFactory;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirebaseUtil;
-import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
-import co.wasder.wasder.ui.dialog.Dialogs;
-import co.wasder.wasder.ui.dialog.FirestoreItemFilterDialogFragment;
+import co.wasder.wasder.Utils;
+import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.ui.TabFragmentViewModel;
-import co.wasder.wasder.ui.adapter.Adapters;
 import co.wasder.wasder.ui.adapter.EventsAdapter;
+import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
+import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
+import co.wasder.wasder.ui.dialog.Dialogs;
+import co.wasder.wasder.ui.dialog.FirestoreItemFilterDialogFragment;
+import co.wasder.wasder.ui.viewholder.FeedViewHolder;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.
@@ -65,6 +68,7 @@ public class FollowingTabFragment extends Fragment implements TabFragment, Lifec
         }
     };
     public String mTitle;
+    private OnFirestoreItemSelected mItemSelectedListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -142,7 +146,8 @@ public class FollowingTabFragment extends Fragment implements TabFragment, Lifec
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
-        final EventsAdapter adapter = Adapters.eventAdapter(this, mQuery, mPostSelectedListener);
+        final RecyclerView.Adapter<FeedViewHolder> adapter = RecyclerAdapterFactory.getFeedRecyclerAdapter(this, mItemSelectedListener,
+                mQuery, FeedModel.class);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter((RecyclerView.Adapter<? extends RecyclerView.ViewHolder>) adapter);
     }

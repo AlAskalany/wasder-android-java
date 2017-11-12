@@ -45,7 +45,7 @@ import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.ProfileActivity;
-import co.wasder.wasder.ui.adapter.FirestoreItemsAdapter;
+import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
 import co.wasder.wasder.ui.tab.feed.FeedTabFragment;
 
 /**
@@ -85,8 +85,8 @@ public class FeedViewHolder extends BaseViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(@NonNull final FeedModel model, final FirestoreItemsAdapter
-            .OnFirestoreItemSelected onFirestoreItemSelected) {
+    public void bind(@NonNull final FeedModel model, final OnFirestoreItemSelected
+            onFirestoreItemSelected) {
         final String userId = model.getUid();
         final CollectionReference users = FirebaseUtil.getUsersCollectionReference(Utils.USERS);
         final DocumentReference userReference = users.document(userId);
@@ -139,8 +139,8 @@ public class FeedViewHolder extends BaseViewHolder {
         return itemView.getVisibility() == View.GONE;
     }
 
-    private void handleItemViewClick(@NonNull AbstractFirestoreItem model, FirestoreItemsAdapter
-            .OnFirestoreItemSelected onFirestoreItemSelected) {
+    private void handleItemViewClick(@NonNull AbstractFirestoreItem model,
+                                     OnFirestoreItemSelected onFirestoreItemSelected) {
         onFirestoreItemSelected.onFirestoreItemSelected(model, itemView);
     }
 

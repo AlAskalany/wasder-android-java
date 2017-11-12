@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.wasder.wasder.RecyclerAdapterFactory;
@@ -42,7 +44,7 @@ import co.wasder.wasder.ui.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.SignInResultNotifier;
 import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.ui.TabFragmentViewModel;
-import co.wasder.wasder.ui.adapter.FirestoreItemsAdapter;
+import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
 import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.dialog.Dialogs;
 import co.wasder.wasder.ui.viewholder.FeedViewHolder;
@@ -79,13 +81,25 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
     public String mTitle;
     @NonNull
-    private FirestoreItemsAdapter.OnFirestoreItemSelected onFirestoreItemSelected = new
-            FirestoreItemsAdapter.OnFirestoreItemSelected() {
+    private OnFirestoreItemSelected onFirestoreItemSelected = new OnFirestoreItemSelected() {
+        @Override
+        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
 
+        }
 
         @Override
-        public void onFirestoreItemSelected(final AbstractFirestoreItem event, final View
-                itemView) {
+        public void onChildChanged(ChangeEventType type, DocumentSnapshot snapshot, int newIndex,
+                                   int oldIndex) {
+
+        }
+
+        @Override
+        public void onDataChanged() {
+
+        }
+
+        @Override
+        public void onError(FirebaseFirestoreException e) {
 
         }
     };
@@ -173,8 +187,8 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
                 .Builder<FeedModel>()
                 .setQuery(mQuery, FeedModel.class)
                 .build();
-        final RecyclerView.Adapter<FeedViewHolder> adapter = RecyclerAdapterFactory.newAdapter
-                (this, onFirestoreItemSelected, mQuery, FeedModel.class);
+        final RecyclerView.Adapter<FeedViewHolder> adapter = RecyclerAdapterFactory
+                .getFeedRecyclerAdapter(this, onFirestoreItemSelected, mQuery, FeedModel.class);
 
         // Scroll to bottom on new messages
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
