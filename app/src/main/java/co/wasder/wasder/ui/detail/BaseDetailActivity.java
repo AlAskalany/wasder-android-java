@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
-import co.wasder.wasder.ui.detail.profile.post.ProfilePostAdapter;
+import co.wasder.ui.detal.profile.post.ProfilePostAdapter;
 import co.wasder.wasder.ui.dialog.AddRatingDialogFragment;
 
 /**
