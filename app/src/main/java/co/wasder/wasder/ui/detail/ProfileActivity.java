@@ -32,7 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
-import co.wasder.wasder.ui.recycleradpater.RecyclerAdapterFactory;
+import co.wasder.wasder.ui.tab.RecyclerAdapterFactory;
 
 import butterknife.BindView;
 import co.wasder.wasder.R;

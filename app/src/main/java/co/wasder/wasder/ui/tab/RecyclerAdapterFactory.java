@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.recycleradpater;
+package co.wasder.wasder.ui.tab;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.support.annotation.NonNull;
