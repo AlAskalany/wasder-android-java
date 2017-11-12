@@ -45,7 +45,7 @@ import co.wasder.wasder.data.model.Event;
 import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
-import co.wasder.wasder.ui.ProfileActivity;
+import co.wasder.wasder.ui.detail.ProfileActivity;
 import co.wasder.wasder.ui.adapter.EventsAdapter;
 
 /**

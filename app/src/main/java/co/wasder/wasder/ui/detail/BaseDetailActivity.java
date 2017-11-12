@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.detail;
 
 import android.content.Context;
 import android.os.Bundle;

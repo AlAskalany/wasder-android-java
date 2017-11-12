@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.tab;
 
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.Keep;

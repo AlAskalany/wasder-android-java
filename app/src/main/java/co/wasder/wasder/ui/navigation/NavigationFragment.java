@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.navigation;
 
 import android.support.annotation.Keep;
 

@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.tab;
 
 import android.net.Uri;
 import android.support.annotation.Keep;

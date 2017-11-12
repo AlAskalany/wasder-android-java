@@ -53,6 +53,7 @@ import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.data.model.User;
+import co.wasder.wasder.ui.detail.ProfileActivity;
 import co.wasder.wasder.ui.dialog.AddEventDialogFragment;
 import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.dialog.Dialogs;
@@ -61,6 +62,8 @@ import co.wasder.wasder.ui.navigation.FeedNavigationFragment;
 import co.wasder.wasder.ui.navigation.GroupsNavigationFragment;
 import co.wasder.wasder.ui.navigation.LiveNavigationFragment;
 import co.wasder.wasder.ui.navigation.MessagesNavigationFragment;
+import co.wasder.wasder.ui.navigation.NavigationFragment;
+import co.wasder.wasder.ui.tab.OnFragmentInteractionListener;
 import io.fabric.sdk.android.Fabric;
 
 @Keep

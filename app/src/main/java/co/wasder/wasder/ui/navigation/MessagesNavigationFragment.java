@@ -32,8 +32,7 @@ import java.util.Collection;
 
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.ui.NavigationFragment;
-import co.wasder.wasder.ui.OnFragmentInteractionListener;
+import co.wasder.wasder.ui.tab.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.WasderActivity;
 import co.wasder.wasder.ui.pageradapter.TabsPagerAdapter;
 import co.wasder.wasder.ui.tab.TabFragment;
