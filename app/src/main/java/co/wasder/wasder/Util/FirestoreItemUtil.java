@@ -6,10 +6,10 @@ import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import co.wasder.wasder.Utils;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -65,7 +65,7 @@ public class FirestoreItemUtil {
 
         final int[] prices = new int[]{1, 2, 3};
 
-        final FirebaseUser user = FirebaseUtil.getCurrentUser();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             final String uId = user.getUid();
             final String name = user.getDisplayName();
@@ -127,8 +127,8 @@ public class FirestoreItemUtil {
 
     public static void onAddItemsClicked(@NonNull final Context context) {
         // Get a reference to the events collection
-        final FirebaseFirestore mFirestore = FirebaseUtil.getFirestore();
-        final CollectionReference events = mFirestore.collection(Utils.RESTAURANTS);
+        final FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        final CollectionReference events = mFirestore.collection("restaurants");
 
         for (int i = 0; i < 10; i++) {
             // Get a random events POJO

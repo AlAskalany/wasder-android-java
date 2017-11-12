@@ -33,12 +33,12 @@ import java.util.Collection;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.ui.NavigationFragment;
-import co.wasder.wasder.ui.WasderActivity;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
-import co.wasder.wasder.ui.TabFragment;
+import co.wasder.wasder.ui.WasderActivity;
+import co.wasder.wasder.ui.pageradapter.TabsPagerAdapter;
+import co.wasder.wasder.ui.tab.TabFragment;
 import co.wasder.wasder.ui.tab.groups.AllTabFragment;
 import co.wasder.wasder.ui.tab.groups.OwnedTabFragment;
-import co.wasder.wasder.ui.pageradapter.TabsPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,7 +56,6 @@ public class GroupsNavigationFragment extends Fragment implements NavigationFrag
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String ARG_SECTION_NUMBER = "param1";
-    public static final String ARG_SECTION_TYPE = "param2";
     public final Collection<TabFragment> fragments = new ArrayList<>();
     @Nullable
     public String TAG;
@@ -115,30 +114,6 @@ public class GroupsNavigationFragment extends Fragment implements NavigationFrag
     }
 
     @NonNull
-    public GroupsNavigationFragment addTab(final TabFragment tab) {
-        fragments.add(tab);
-        return this;
-    }
-
-    @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        if (getArguments() != null) {
-            mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
-            TAG = getArguments().getString(ARG_TAG);
-
-
-            final AllTabFragment all = AllTabFragment.newInstance(0);
-            final OwnedTabFragment owned = OwnedTabFragment.newInstance(1);
-            this.addTab(all).addTab(owned);
-
-
-        }
-        Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
-    }
-
-    @NonNull
     @SuppressWarnings("unused")
     public static Runnable createRunnable(@NonNull final View appbar, final Animator
             .AnimatorListener animatorListener) {
@@ -153,9 +128,47 @@ public class GroupsNavigationFragment extends Fragment implements NavigationFrag
         };
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static void AnimateAppBarColor(@NonNull final View view, final Animator
+            .AnimatorListener listener) {
+        final int cx = view.getWidth() / 2;
+        final int cy = view.getHeight() / 2;
+        final float finalRadius = Math.max(view.getWidth(), view.getHeight());
+        final Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setDuration(1000);
+        view.setVisibility(View.VISIBLE);
+        anim.addListener(listener);
+        anim.start();
+    }
+
+    @NonNull
+    public GroupsNavigationFragment addTab(final TabFragment tab) {
+        fragments.add(tab);
+        return this;
+    }
+
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle
-            savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        if (getArguments() != null) {
+            mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+            TAG = getArguments().getString(ARG_TAG);
+
+
+            final AllTabFragment all = AllTabFragment.newInstance(0, "Following");
+            final OwnedTabFragment owned = OwnedTabFragment.newInstance(1, "Owned");
+            this.addTab(all).addTab(owned);
+
+
+        }
+        Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
+    }
+
+    @Override
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final
+    Bundle savedInstanceState) {
         Log.d(TAG, "Navigation Fragment onCreateView: " + mSectionNumber);
         return inflater.inflate(R.layout.fragment_navigation, container, false);
     }
@@ -208,25 +221,12 @@ public class GroupsNavigationFragment extends Fragment implements NavigationFrag
                         tabLayout.setVisibility(View.VISIBLE);
                     }
                     final View view = activity.findViewById(R.id.searchView);
-                    view.setVisibility(View.GONE);
+                    //view.setVisibility(View.GONE);
                     tabLayout.setupWithViewPager(this.viewPager);
                 }
             }
         }
 
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void AnimateAppBarColor(@NonNull final View view, final Animator.AnimatorListener listener) {
-        final int cx = view.getWidth() / 2;
-        final int cy = view.getHeight() / 2;
-        final float finalRadius = Math.max(view.getWidth(), view.getHeight());
-        final Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
-        anim.setInterpolator(new AccelerateDecelerateInterpolator());
-        anim.setDuration(1000);
-        view.setVisibility(View.VISIBLE);
-        anim.addListener(listener);
-        anim.start();
     }
 
     @SuppressWarnings("MethodMayBeStatic")

@@ -41,11 +41,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import co.wasder.wasder.Utils;
 
 import java.text.MessageFormat;
 import java.util.UUID;
@@ -54,7 +54,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.Util.FirebaseUtil;
 import co.wasder.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.data.model.Event;
 import co.wasder.wasder.data.model.Model;
@@ -121,7 +120,7 @@ public class AddEventDialogFragment extends DialogFragment {
 
     @NonNull
     public Event createPostFromFields() {
-        final FirebaseAuth auth = FirebaseUtil.getAuth();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
         String uId = null;
         if (user != null) {
@@ -161,7 +160,7 @@ public class AddEventDialogFragment extends DialogFragment {
     }
 
     public static void addPostToDatabase(@NonNull final Event event) {
-        final CollectionReference posts = FirebaseUtil.getUsersCollectionReference(Utils.EVENTS);
+        final CollectionReference posts = FirebaseFirestore.getInstance().collection("events");
         posts.add(event).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull final Task<DocumentReference> task) {
@@ -250,7 +249,7 @@ public class AddEventDialogFragment extends DialogFragment {
 
     @Nullable
     public static String getPostProfilePhotoUrl() {
-        final FirebaseAuth auth = FirebaseUtil.getAuth();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
         Uri profilePhotoUri = null;
         if (user != null) {

@@ -35,18 +35,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import co.wasder.wasder.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.Util.FirebaseUtil;
 import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.Rating;
 import co.wasder.wasder.network.GlideApp;
@@ -125,15 +124,15 @@ public class FirestoreItemDetailActivity extends BaseDetailActivity {
         assert postId != null : "Must pass extra " + KEY_POST_ID;
 
         // Initialize Firestore
-        mFirestore = FirebaseUtil.getFirestore();
+        mFirestore = FirebaseFirestore.getInstance();
 
         // Get reference to the post
-        mDocumentRef = mFirestore.collection(Utils.RESTAURANTS).document(postId);
+        mDocumentRef = mFirestore.collection("restaurants").document(postId);
 
         // Get ratings
         ratingsQuery = mDocumentRef.collection("ratings")
-                .orderBy(Utils.TIMESTAMP, Query.Direction.DESCENDING)
-                .limit(FirebaseUtil.LIMIT);
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .limit((long) 50);
 
         // RecyclerView
         mRatingAdapter = new RatingAdapter(ratingsQuery) {

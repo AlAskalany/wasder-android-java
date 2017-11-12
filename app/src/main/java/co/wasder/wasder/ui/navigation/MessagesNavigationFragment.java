@@ -33,12 +33,12 @@ import java.util.Collection;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.ui.NavigationFragment;
-import co.wasder.wasder.ui.WasderActivity;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
-import co.wasder.wasder.ui.TabFragment;
+import co.wasder.wasder.ui.WasderActivity;
+import co.wasder.wasder.ui.pageradapter.TabsPagerAdapter;
+import co.wasder.wasder.ui.tab.TabFragment;
 import co.wasder.wasder.ui.tab.messages.MentionsTabFragment;
 import co.wasder.wasder.ui.tab.messages.PmTabFragment;
-import co.wasder.wasder.ui.pageradapter.TabsPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,7 +56,6 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String ARG_SECTION_NUMBER = "param1";
-    public static final String ARG_SECTION_TYPE = "param2";
     public final Collection<TabFragment> fragments = new ArrayList<>();
     @Nullable
     public String TAG;
@@ -115,31 +114,6 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
     }
 
     @NonNull
-    public MessagesNavigationFragment addTab(final TabFragment tab) {
-        fragments.add(tab);
-        return this;
-    }
-
-    @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        if (getArguments() != null) {
-            mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
-            final int mSectionType = getArguments().getInt(ARG_SECTION_TYPE);
-            TAG = getArguments().getString(ARG_TAG);
-
-
-            final MentionsTabFragment mentions = MentionsTabFragment.newInstance(0);
-            final PmTabFragment pm = PmTabFragment.newInstance(1);
-            this.addTab(mentions).addTab(pm);
-
-
-        }
-        Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
-    }
-
-    @NonNull
     @SuppressWarnings("unused")
     public static Runnable createRunnable(@NonNull final View appbar, final Animator
             .AnimatorListener animatorListener) {
@@ -152,7 +126,8 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
                 final int cx = appbar.getWidth() / 2;
                 final int cy = appbar.getHeight() / 2;
                 final float finalRadius = Math.max(appbar.getWidth(), appbar.getHeight());
-                final Animator anim = ViewAnimationUtils.createCircularReveal(appbar, cx, cy, 0, finalRadius);
+                final Animator anim = ViewAnimationUtils.createCircularReveal(appbar, cx, cy, 0,
+                        finalRadius);
                 anim.setInterpolator(new AccelerateDecelerateInterpolator());
                 anim.setDuration(1000);
                 appbar.setVisibility(View.VISIBLE);
@@ -162,9 +137,33 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
         };
     }
 
+    @NonNull
+    public MessagesNavigationFragment addTab(final TabFragment tab) {
+        fragments.add(tab);
+        return this;
+    }
+
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle
-            savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        if (getArguments() != null) {
+            mSectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+            TAG = getArguments().getString(ARG_TAG);
+
+
+            final MentionsTabFragment mentions = MentionsTabFragment.newInstance(0, "Mentions");
+            final PmTabFragment pm = PmTabFragment.newInstance(1, "PM");
+            this.addTab(mentions).addTab(pm);
+
+
+        }
+        Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
+    }
+
+    @Override
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final
+    Bundle savedInstanceState) {
         Log.d(TAG, "Navigation Fragment onCreateView: " + mSectionNumber);
         return inflater.inflate(R.layout.fragment_navigation, container, false);
     }

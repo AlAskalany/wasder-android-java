@@ -41,14 +41,15 @@ import net.hockeyapp.android.FeedbackManager;
 import net.hockeyapp.android.UpdateManager;
 import net.hockeyapp.android.metrics.MetricsManager;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
-import co.wasder.wasder.Util.FirebaseUtil;
 import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.data.model.User;
@@ -133,7 +134,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         ButterKnife.bind(this);
         MetricsManager.register(getApplication());
         MetricsManager.trackEvent("WasderActivity");
-        firebaseAuth = FirebaseUtil.getAuth();
+        firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser != null) {
             final String userId = firebaseUser.getUid();
@@ -262,8 +263,19 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onStart() {
         super.onStart();
-        if (FirebaseUtil.shouldStartSignIn(this, mViewModel)) {
-            FirebaseUtil.startSignIn(this, mViewModel, RC_SIGN_IN);
+        if ((!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() == null)) {
+            // Sign in with FirebaseUI
+            final Intent intent = AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setTheme(R.style.GreenTheme)
+                    .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
+                            .EMAIL_PROVIDER)
+                            .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                    .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                    .build();
+
+            startActivityForResult(intent, RC_SIGN_IN);
+            mViewModel.setIsSigningIn(true);
             return;
         } else {
             if (firebaseAuth != null) {
@@ -308,7 +320,18 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 return true;
             case R.id.menu_sign_out:
                 AuthUI.getInstance().signOut(this);
-                FirebaseUtil.startSignIn(this, mViewModel, RC_SIGN_IN);
+                // Sign in with FirebaseUI
+                final Intent intent = AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setTheme(R.style.GreenTheme)
+                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
+                                .EMAIL_PROVIDER)
+                                .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                        .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                        .build();
+
+                startActivityForResult(intent, RC_SIGN_IN);
+                mViewModel.setIsSigningIn(true);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -320,7 +343,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         final int id = item.getItemId();
         if (id == R.id.nav_profile) {
             final Intent intent = new Intent(this, ProfileActivity.class);
-            intent.putExtra("user-reference", FirebaseUtil.getCurrentUser().getUid());
+            intent.putExtra("user-reference", FirebaseAuth.getInstance().getCurrentUser().getUid());
             startActivity(intent);
         } else if (id == R.id.nav_friends) {
         } else if (id == R.id.nav_followers) {
@@ -345,8 +368,21 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             mViewModel.setIsSigningIn(false);
-            if (resultCode != RESULT_OK && FirebaseUtil.shouldStartSignIn(this, mViewModel)) {
-                FirebaseUtil.startSignIn(this, mViewModel, RC_SIGN_IN);
+            if (resultCode != RESULT_OK && (!mViewModel.getIsSigningIn() && FirebaseAuth
+                    .getInstance()
+                    .getCurrentUser() == null)) {
+                // Sign in with FirebaseUI
+                final Intent intent = AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setTheme(R.style.GreenTheme)
+                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
+                                .EMAIL_PROVIDER)
+                                .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                        .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                        .build();
+
+                startActivityForResult(intent, RC_SIGN_IN);
+                mViewModel.setIsSigningIn(true);
             }
         }
     }

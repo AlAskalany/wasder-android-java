@@ -32,12 +32,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
-import com.wasder.wasder.RecyclerAdapterFactory;
+import co.wasder.wasder.ui.recycleradpater.RecyclerAdapterFactory;
 
 import butterknife.BindView;
 import co.wasder.wasder.R;
-import co.wasder.wasder.Util.FirebaseUtil;
-import co.wasder.wasder.Utils;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.User;
@@ -96,10 +94,10 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         }
         assert mUserReference != null : "Must pass extra " + ARG_USER_REFERENCE;
 
-        mQuery = FirebaseUtil.getUsersCollectionReference(Utils.POSTS)
+        mQuery = FirebaseFirestore.getInstance().collection("posts")
                 .whereEqualTo("uid", mUserReference)
-                .orderBy(Utils.TIMESTAMP)
-                .limit(FirebaseUtil.LIMIT);
+                .orderBy("timestamp")
+                .limit((long) 50);
         adapter = RecyclerAdapterFactory.getFeedRecyclerAdapter(this, mItemSelectedListener,
                 mQuery, FeedModel.class);
         final RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
@@ -116,7 +114,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         }
         collapsingToolbarLayout = findViewById(R.id.collapsingToolbarLayout);
 
-        mFirestore = FirebaseUtil.getFirestore();
+        mFirestore = FirebaseFirestore.getInstance();
         mDocumentReference = mFirestore.collection("users").document(mUserReference);
     }
 

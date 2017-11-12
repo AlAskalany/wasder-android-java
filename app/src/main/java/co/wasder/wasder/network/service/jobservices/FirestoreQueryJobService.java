@@ -8,9 +8,6 @@ import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import co.wasder.wasder.Utils;
-
-import co.wasder.wasder.Util.FirebaseUtil;
 
 
 /**
@@ -29,10 +26,9 @@ public class FirestoreQueryJobService extends JobService {
             @Override
             public void run() {
                 try {
-                    final FirebaseFirestore firestore = FirebaseUtil.getFirestore();
+                    final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
                     @SuppressWarnings("unused") final String collectionName = null;
-                    @SuppressWarnings("unused") final Query query = firestore.collection(Utils
-                            .RESTAURANTS);
+                    @SuppressWarnings("unused") final Query query = firestore.collection("restaurants");
                 } finally {
                     //Tell the framework that the job has completed and doesn't needs to be
                     // reschedule

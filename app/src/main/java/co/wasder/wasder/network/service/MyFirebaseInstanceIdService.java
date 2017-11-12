@@ -12,8 +12,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import co.wasder.wasder.Util.FirebaseUtil;
-
 /**
  * Created by Ahmed AlAskalany on 10/13/2017.
  * Wasder AB
@@ -41,7 +39,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     }
 
     private static void sendRegistrationToServer(@NonNull final String token) {
-        final FirebaseAuth auth = FirebaseUtil.getAuth();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
         String uId = null;
         if (user != null) {

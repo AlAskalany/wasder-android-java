@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -38,15 +37,12 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
-import co.wasder.wasder.Util.FirebaseUtil;
-import co.wasder.wasder.Utils;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.network.GlideApp;
 import co.wasder.wasder.ui.ProfileActivity;
 import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
-import co.wasder.wasder.ui.tab.feed.FeedTabFragment;
 
 /**
  * Created by Ahmed AlAskalany on 11/12/2017.
@@ -88,7 +84,7 @@ public class FeedViewHolder extends BaseViewHolder {
     public void bind(@NonNull final FeedModel model, final OnFirestoreItemSelected
             onFirestoreItemSelected) {
         final String userId = model.getUid();
-        final CollectionReference users = FirebaseUtil.getUsersCollectionReference(Utils.USERS);
+        final CollectionReference users = FirebaseFirestore.getInstance().collection("users");
         final DocumentReference userReference = users.document(userId);
         userReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -159,7 +155,7 @@ public class FeedViewHolder extends BaseViewHolder {
 
     @NonNull
     private String getCurrentUserId() {
-        final FirebaseAuth auth = FirebaseUtil.getAuth();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
         assert user != null;
         return user.getUid();
@@ -274,8 +270,8 @@ public class FeedViewHolder extends BaseViewHolder {
     }
 
     private void deletePost(@NonNull AbstractFirestoreItem model) {
-        final FirebaseFirestore firestore = FirebaseUtil.getFirestore();
-        firestore.collection(Utils.POSTS)
+        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("posts")
                 .document(model.getUid())
                 .delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -283,7 +279,7 @@ public class FeedViewHolder extends BaseViewHolder {
                     @Override
                     public void onComplete(@NonNull final Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d(FeedTabFragment.TAG, "onComplete: ");
+
                         }
                     }
                 });

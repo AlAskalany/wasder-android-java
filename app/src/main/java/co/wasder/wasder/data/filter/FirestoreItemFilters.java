@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
-import co.wasder.wasder.Utils;
 
 import co.wasder.wasder.R;
 
@@ -35,7 +34,7 @@ public class FirestoreItemFilters {
     @NonNull
     public static FirestoreItemFilters getDefault() {
         final FirestoreItemFilters firestoreItemFilters = new FirestoreItemFilters();
-        firestoreItemFilters.setSortBy(Utils.TIMESTAMP);
+        firestoreItemFilters.setSortBy("timestamp");
         firestoreItemFilters.setSortDirection(Query.Direction.DESCENDING);
 
         return firestoreItemFilters;

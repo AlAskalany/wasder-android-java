@@ -1,13 +1,11 @@
 package co.wasder.wasder.ui.tab.feed;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +18,7 @@ import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,26 +26,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.wasder.wasder.RecyclerAdapterFactory;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
-import co.wasder.wasder.Util.FirebaseUtil;
-import co.wasder.wasder.Utils;
 import co.wasder.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.data.model.AbstractFirestoreItem;
 import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
-import co.wasder.wasder.ui.SignInResultNotifier;
-import co.wasder.wasder.ui.TabFragment;
 import co.wasder.wasder.ui.TabFragmentViewModel;
 import co.wasder.wasder.ui.adapter.OnFirestoreItemSelected;
 import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.dialog.Dialogs;
+import co.wasder.wasder.ui.recycleradpater.RecyclerAdapterFactory;
+import co.wasder.wasder.ui.tab.TabFragment;
 import co.wasder.wasder.ui.viewholder.FeedViewHolder;
 
 /**
@@ -54,32 +50,27 @@ import co.wasder.wasder.ui.viewholder.FeedViewHolder;
  * Navigator
  */
 @Keep
-public class FeedTabFragment extends Fragment implements TabFragment, LifecycleOwner,
-        FirebaseAuth.AuthStateListener {
+public class FeedTabFragment extends TabFragment {
 
-    public static final long LIMIT = FirebaseUtil.LIMIT;
-    public static final String TAG = "TabFragment";
-    public static final String ARG_SECTION_NUMBER = Utils.ARG_SECTION_NUMBER;
-    public static final String USERS = "users";
-    private static final CollectionReference postsCollection = FirebaseUtil
-            .getUsersCollectionReference(Utils.POSTS);
-    private static final Query mQuery = postsCollection.orderBy(Utils.TIMESTAMP, Query.Direction
-            .DESCENDING)
-            .limit(LIMIT);
-
-    static {
-        FirebaseFirestore.setLoggingEnabled(true);
-    }
-
-    @Nullable
+    public String TAG;
+    public static String ARG_SECTION_NUMBER = "section-number";
+    public String USERS;
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
     public AddFirestoreItemDialogFragment mAddPostDialog;
     public TabFragmentViewModel mViewModel;
     @Nullable
     public OnFragmentInteractionListener mListener;
-
     public String mTitle;
+    private long LIMIT;
+    private static final CollectionReference postsCollection = FirebaseFirestore.getInstance().collection("posts");
+    private static final Query mQuery = postsCollection.orderBy("timestamp", Query.Direction
+            .DESCENDING)
+            .limit(50);
+
+    static {
+        FirebaseFirestore.setLoggingEnabled(true);
+    }
     @NonNull
     private OnFirestoreItemSelected onFirestoreItemSelected = new OnFirestoreItemSelected() {
         @Override
@@ -104,10 +95,12 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         }
     };
 
-    @NonNull
-    public static FeedTabFragment newInstance() {
-        final FeedTabFragment fragment = new FeedTabFragment();
-        fragment.mTitle = "Feed";
+    public static FeedTabFragment newInstance(int sectionNumber, String title) {
+        FeedTabFragment fragment = new FeedTabFragment();
+        final Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.mTitle = title;
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -131,7 +124,8 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         return view;
     }
 
-    private void setupSearchAndFilters() {
+    @Override
+    protected void setupSearchAndFilters() {
         final SearchView mSearchView = getActivity().findViewById(R.id.searchView);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -143,8 +137,8 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String search) {
-                final CollectionReference usersReference = FirebaseUtil
-                        .getUsersCollectionReference(USERS);
+                final CollectionReference usersReference = FirebaseFirestore.getInstance()
+                        .collection("users");
                 final Query query = usersReference.whereEqualTo("displayName", search);
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -176,13 +170,14 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
     @Override
     public void onStart() {
         super.onStart();
-        if (FirebaseUtil.getCurrentUser() != null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             attachRecyclerViewAdapter();
         }
-        FirebaseUtil.getAuth().addAuthStateListener(this);
+        FirebaseAuth.getInstance().addAuthStateListener(this);
     }
 
-    private void attachRecyclerViewAdapter() {
+    @Override
+    protected void attachRecyclerViewAdapter() {
         final FirestoreRecyclerOptions<FeedModel> options = new FirestoreRecyclerOptions
                 .Builder<FeedModel>()
                 .setQuery(mQuery, FeedModel.class)
@@ -205,7 +200,7 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
     @Override
     public void onStop() {
         super.onStop();
-        FirebaseUtil.getAuth().removeAuthStateListener(this);
+        FirebaseAuth.getInstance().removeAuthStateListener(this);
     }
 
     @Override
@@ -227,17 +222,22 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
     @Override
     public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
-        if (FirebaseUtil.getCurrentUser() != null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             attachRecyclerViewAdapter();
         } else {
             Toast.makeText(getContext(), R.string.signing_in, Toast.LENGTH_SHORT).show();
             firebaseAuth.signInAnonymously()
-                    .addOnCompleteListener(new SignInResultNotifier(getContext()));
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        }
+                    });
         }
     }
 
-    @Nullable
     @Override
+    @Nullable
     public FirebaseFirestore getFirestore() {
         return null;
     }
@@ -247,8 +247,8 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
     }
 
-    @Nullable
     @Override
+    @Nullable
     public Query getQuery() {
         return null;
     }
@@ -258,10 +258,9 @@ public class FeedTabFragment extends Fragment implements TabFragment, LifecycleO
 
     }
 
-    @Nullable
     @Override
+    @Nullable
     public String getTitle() {
-        return null;
+        return mTitle;
     }
-
 }
