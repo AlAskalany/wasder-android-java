@@ -8,8 +8,6 @@ import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
 
-import co.wasder.wasder.R;
-
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
  * Wasder AB
@@ -105,7 +103,7 @@ public class FirestoreItemFilters {
     }
 
     @NonNull
-    public String getSearchDescription(@NonNull final Context context) {
+    public String getSearchDescription(@NonNull final Context context, int resIdAllItem) {
         final StringBuilder desc = new StringBuilder();
 
         if(uid != null){
@@ -116,7 +114,7 @@ public class FirestoreItemFilters {
 
         if (category == null && city == null) {
             desc.append("<b>");
-            desc.append(context.getString(R.string.all_items));
+            desc.append(context.getString(resIdAllItem));
             desc.append("</b>");
         }
 
@@ -140,13 +138,14 @@ public class FirestoreItemFilters {
     }
 
     @NonNull
-    public String getOrderDescription(@NonNull final Context context) {
+    public String getOrderDescription(@NonNull final Context context, int resId, int
+            resIdPopularity, int resIdRating) {
         if ("price".equals(sortBy)) {
-            return context.getString(R.string.items_sorted_by_price);
+            return context.getString(resId);
         } else if ("numRatings".equals(sortBy)) {
-            return context.getString(R.string.items_sorted_by_popularity);
+            return context.getString(resIdPopularity);
         } else {
-            return context.getString(R.string.items_sorted_by_rating);
+            return context.getString(resIdRating);
         }
     }
 

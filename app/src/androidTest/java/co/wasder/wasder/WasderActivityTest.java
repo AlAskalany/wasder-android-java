@@ -148,9 +148,10 @@ public class WasderActivityTest {
             e.printStackTrace();
         }
 
-        final ViewInteraction appCompatImageView = onView(allOf(withId(R.id.post_button_back), childAtPosition(allOf(withId(R.id.item_top_card), childAtPosition(withClassName
+        /*final ViewInteraction appCompatImageView = onView(allOf(withId(R.id.post_button_back),
+        childAtPosition(allOf(withId(R.id.item_top_card), childAtPosition(withClassName
                         (is("android.widget.RelativeLayout")), 0)), 2), isDisplayed()));
-        appCompatImageView.perform(click());
+        appCompatImageView.perform(click());*/
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
