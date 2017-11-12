@@ -39,7 +39,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
     @Nullable
     public ListenerRegistration mRegistration;
 
-    FirestoreAdapter(final Query query) {
+    protected FirestoreAdapter(final Query query) {
         mQuery = query;
     }
 
@@ -131,7 +131,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
         return mSnapshots.size();
     }
 
-    DocumentSnapshot getSnapshot(final int index) {
+    protected DocumentSnapshot getSnapshot(final int index) {
         return mSnapshots.get(index);
     }
 

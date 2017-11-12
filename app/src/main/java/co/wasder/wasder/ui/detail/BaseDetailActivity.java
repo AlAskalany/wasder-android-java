@@ -16,8 +16,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
+import co.wasder.wasder.ui.detail.profile.post.ProfilePostAdapter;
 import co.wasder.wasder.ui.dialog.AddRatingDialogFragment;
-import co.wasder.wasder.ui.adapter.RatingAdapter;
 
 /**
  * Created by Ahmed AlAskalany on 10/22/2017.
@@ -28,7 +28,7 @@ public abstract class BaseDetailActivity extends AppCompatActivity implements
         EventListener<DocumentSnapshot>, AddRatingDialogFragment.RatingListener {
 
     public FirebaseFirestore mFirestore;
-    public RatingAdapter mRatingAdapter;
+    public ProfilePostAdapter mProfilePostAdapter;
     public DocumentReference mDocumentRef;
     public Query ratingsQuery;
     @Nullable
@@ -49,7 +49,7 @@ public abstract class BaseDetailActivity extends AppCompatActivity implements
     public void onStart() {
         super.onStart();
 
-        mRatingAdapter.startListening();
+        mProfilePostAdapter.startListening();
         mModelRegistration = mDocumentRef.addSnapshotListener(this);
     }
 
@@ -57,7 +57,7 @@ public abstract class BaseDetailActivity extends AppCompatActivity implements
     public void onStop() {
         super.onStop();
 
-        mRatingAdapter.stopListening();
+        mProfilePostAdapter.stopListening();
 
         if (mModelRegistration != null) {
             mModelRegistration.remove();

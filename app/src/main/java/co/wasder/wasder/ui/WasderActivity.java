@@ -41,8 +41,10 @@ import net.hockeyapp.android.FeedbackManager;
 import net.hockeyapp.android.UpdateManager;
 import net.hockeyapp.android.metrics.MetricsManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -53,17 +55,18 @@ import co.wasder.wasder.R;
 import co.wasder.wasder.Util.FirestoreItemUtil;
 import co.wasder.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.wasder.data.model.User;
-import co.wasder.wasder.ui.detail.ProfileActivity;
+import co.wasder.wasder.ui.detail.profile.ProfileActivity;
 import co.wasder.wasder.ui.dialog.AddEventDialogFragment;
 import co.wasder.wasder.ui.dialog.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.dialog.Dialogs;
 import co.wasder.wasder.ui.dialog.FirestoreItemFilterDialogFragment;
-import co.wasder.wasder.ui.navigation.FeedNavigationFragment;
-import co.wasder.wasder.ui.navigation.GroupsNavigationFragment;
-import co.wasder.wasder.ui.navigation.LiveNavigationFragment;
-import co.wasder.wasder.ui.navigation.MessagesNavigationFragment;
 import co.wasder.wasder.ui.navigation.NavigationFragment;
-import co.wasder.wasder.ui.tab.OnFragmentInteractionListener;
+import co.wasder.wasder.ui.navigation.groups.GroupsNavigationFragment;
+import co.wasder.wasder.ui.navigation.home.FeedNavigationFragment;
+import co.wasder.wasder.ui.navigation.live.LiveNavigationFragment;
+import co.wasder.wasder.ui.navigation.messages.MessagesNavigationFragment;
+import co.wasder.wasder.ui.navigation.tab.BaseTabFragment;
+import co.wasder.wasder.ui.navigation.tab.OnFragmentInteractionListener;
 import io.fabric.sdk.android.Fabric;
 
 @Keep
@@ -128,6 +131,10 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private FirebaseAuth firebaseAuth;
     @Nullable
     private FirebaseUser firebaseUser;
+
+    public static void unregisterManagers() {
+        UpdateManager.unregister();
+    }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -211,10 +218,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public void checkForUpdates() {
         // Remove this for store builds!
         UpdateManager.register(this);
-    }
-
-    public static void unregisterManagers() {
-        UpdateManager.unregister();
     }
 
     @Override
@@ -438,6 +441,42 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         public int getCount() {
             // Show 3 total pages.
             return 4;
+        }
+    }
+
+    /**
+     * Created by Ahmed AlAskalany on 10/14/2017.
+     * Wasder AB
+     */
+    @Keep
+    public static class TabsPagerAdapter extends FragmentPagerAdapter {
+
+        public final List<BaseTabFragment> fragments = new ArrayList<>();
+        public final List<String> titles = new ArrayList<>();
+
+        public TabsPagerAdapter(final FragmentManager fm) {
+            super(fm);
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(final int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(final int position) {
+            return titles.get(position);
+        }
+
+        public void addFragment(@NonNull final BaseTabFragment fragment) {
+            fragments.add(fragment);
+            titles.add(fragment.getTitle());
         }
     }
 }
