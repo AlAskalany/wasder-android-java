@@ -10,7 +10,6 @@ import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -71,31 +70,32 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener,
         FirestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
 
-    public static final String TAG = "WasderActivity";
-    public static final int RC_SIGN_IN = 9001;
+    private static final String TAG = "WasderActivity";
+    private static final int RC_SIGN_IN = 9001;
     private static final java.lang.String AMPLITUDE_API_KEY = "937ae55b73eb164890021fe9b2d4fa63";
     @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.drawer_layout)
-    public DrawerLayout mDrawerLayout;
+    DrawerLayout mDrawerLayout;
     @Nullable
     @BindView(R.id.nav_view)
-    public NavigationView mNavigationView;
+    NavigationView mNavigationView;
     @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.navigation2)
-    public BottomNavigationView mBottomNavigationView;
+    BottomNavigationView mBottomNavigationView;
     @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.container)
-    public NonSwipeableViewPager mViewPager;
-    public final BottomNavigationView.OnNavigationItemSelectedListener
+    NonSwipeableViewPager mViewPager;
+    private final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
             final int id = item.getItemId();
+            assert mViewPager != null;
             switch (id) {
                 case R.id.navigation_home:
                     mViewPager.setCurrentItem(0, false);
@@ -116,20 +116,17 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     };
     @Nullable
     @BindView(R.id.swipeRefreshLayout)
-    public SwipeRefreshLayout mSwipeRefreshLayout;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @SuppressWarnings("unused")
-    public GoogleApiClient mGoogleApiClient;
-    public SectionsPagerAdapter mSectionsPagerAdapter;
-    public WasderActivityViewModel mViewModel;
+    private GoogleApiClient mGoogleApiClient;
+    private WasderActivityViewModel mViewModel;
     @SuppressWarnings("unused")
-    public ActionBarDrawerToggle toggle;
-    public FirestoreItemFilterDialogFragment mFilterDialog;
-    public boolean enableCrashButton = false;
+    private ActionBarDrawerToggle toggle;
     private FirebaseAuth firebaseAuth;
     @Nullable
     private FirebaseUser firebaseUser;
 
-    public static void unregisterManagers() {
+    private static void unregisterManagers() {
         UpdateManager.unregister();
     }
 
@@ -150,15 +147,16 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                     .enableForegroundTracking(getApplication())
                     .setUserId(userId);
             Amplitude.getInstance().trackSessionEvents(true);
-            final long sessionId = Amplitude.getInstance().getSessionId();
         }
         final Map<String, String> properties = new HashMap<>();
         properties.put("Property1", "Value1");
         final Map<String, Double> measurements = new HashMap<>();
         measurements.put("Measurement1", 1.0);
         MetricsManager.trackEvent("YOUR_EVENT_NAME", properties, measurements);
-        checkForUpdates();
+        // Remove this for store builds!
+        UpdateManager.register(this);
         mViewModel = ViewModelProviders.of(this).get(WasderActivityViewModel.class);
+        assert mBottomNavigationView != null;
         mBottomNavigationView.setOnNavigationItemSelectedListener
                 (mOnNavigationItemSelectedListener);
         final Toolbar toolbar = findViewById(R.id.toolbar);
@@ -175,34 +173,37 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         mDrawerLayout = findViewById(R.id.drawer_layout);
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        assert mDrawerLayout != null;
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(this,
+                getSupportFragmentManager());
         Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        final CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)
-                mBottomNavigationView
-                .getLayoutParams();
-        mFilterDialog = Dialogs.PostsFilterDialogFragment();
         @SuppressWarnings("unused") final AddFirestoreItemDialogFragment mAddPostDialog = Dialogs
                 .AddPostDialogFragment();
+        assert mSwipeRefreshLayout != null;
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 Log.d(TAG, "onRefresh: ");
+                assert mSwipeRefreshLayout != null;
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
         FeedbackManager.register(this);
+        boolean enableCrashButton = false;
+        //noinspection ConstantConditions
         if (enableCrashButton) {
             final Button crashButton = new Button(this);
-            crashButton.setText("Crash!");
+            crashButton.setText(R.string.crash);
             crashButton.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(final View view) {
                     Crashlytics.getInstance().crash(); // Force a crash
                 }
@@ -210,11 +211,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             addContentView(crashButton, new ViewGroup.LayoutParams(ViewGroup.LayoutParams
                     .MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
-    }
-
-    public void checkForUpdates() {
-        // Remove this for store builds!
-        UpdateManager.register(this);
     }
 
     @Override
@@ -233,6 +229,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public void submit(@SuppressWarnings("unused") final View view) {
         /**/
         /**/
+        assert mViewPager != null;
         if (mViewPager.getCurrentItem() == 0) {
             Dialogs.AddPostDialogFragment()
                     .show(getSupportFragmentManager(), AddFirestoreItemDialogFragment.TAG);
@@ -279,7 +276,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
             startActivityForResult(intent, RC_SIGN_IN);
             mViewModel.setIsSigningIn(true);
-            return;
         } else {
             if (firebaseAuth != null) {
                 if (firebaseUser != null) {
@@ -293,10 +289,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onResume() {
         super.onResume();
-        checkForCrashes();
-    }
-
-    public void checkForCrashes() {
         CrashManager.register(this);
     }
 
@@ -308,6 +300,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public void onBackPressed() {
+        assert mDrawerLayout != null;
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
@@ -327,9 +320,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 final Intent intent = AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setTheme(R.style.GreenTheme)
-                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
-                                .EMAIL_PROVIDER).build(), new AuthUI.IdpConfig.Builder(AuthUI
-                                .GOOGLE_PROVIDER)
+                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                                .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER)
                                 .build()))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                         .build();
@@ -347,7 +339,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         final int id = item.getItemId();
         if (id == R.id.nav_profile) {
             final Intent intent = new Intent(this, ProfileActivity.class);
-            intent.putExtra("user-reference", FirebaseAuth.getInstance().getCurrentUser().getUid());
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            assert currentUser != null;
+            intent.putExtra("user-reference", currentUser.getUid());
             startActivity(intent);
         } else if (id == R.id.nav_friends) {
         } else if (id == R.id.nav_followers) {
@@ -358,6 +352,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             FeedbackManager.showFeedbackActivity(this);
         }
 
+        assert mDrawerLayout != null;
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -379,9 +374,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 final Intent intent = AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setTheme(R.style.GreenTheme)
-                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
-                                .EMAIL_PROVIDER).build(), new AuthUI.IdpConfig.Builder(AuthUI
-                                .GOOGLE_PROVIDER)
+                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                                .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER)
                                 .build()))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                         .build();
@@ -405,35 +399,28 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
      * one of the sections/tabs/pages.
      */
     @Keep
-    public static class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private static class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(@SuppressWarnings("unused") final WasderActivity activity,
-                                    final FragmentManager fm) {
+        SectionsPagerAdapter(@SuppressWarnings("unused") final WasderActivity activity, final
+        FragmentManager fm) {
             super(fm);
         }
 
         @NonNull
         @Override
         public Fragment getItem(final int position) {
-            final Fragment fragment;
             switch (position) {
                 case 0:
-                    fragment = FeedNavigationFragment.newInstance(0);
-                    break;
+                    return FeedNavigationFragment.newInstance(0);
                 case 1:
-                    fragment = LiveNavigationFragment.newInstance(1);
-                    break;
+                    return LiveNavigationFragment.newInstance(1);
                 case 2:
-                    fragment = GroupsNavigationFragment.newInstance(2);
-                    break;
+                    return GroupsNavigationFragment.newInstance(2);
                 case 3:
-                    fragment = MessagesNavigationFragment.newInstance(3);
-                    break;
+                    return MessagesNavigationFragment.newInstance(3);
                 default:
-                    fragment = null;
-                    break;
+                    return FeedNavigationFragment.newInstance(0);
             }
-            return fragment;
         }
 
         @Override

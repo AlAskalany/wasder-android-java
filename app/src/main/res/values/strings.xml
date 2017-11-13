@@ -155,4 +155,5 @@
     <string name="signed_in">Signed In</string>
     <string name="anonymous_auth_failed_msg">Anonymous Sign In Failed</string>
     <string name="follow">Follow</string>
+    <string name="crash">Crash!</string>
 </resources>
