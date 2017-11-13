@@ -173,8 +173,7 @@ public class WasderActivityTest {
                 isDisplayed()));
         appCompatButton3.perform(click());
 
-        final ViewInteraction bottomNavigationItemView = onView(allOf(withId(R.id.navigation_live),
-                childAtPosition(childAtPosition(withId(R.id.navigation2), 0), 1), isDisplayed()));
+        final ViewInteraction bottomNavigationItemView = onView(allOf(withId(R.id.navigation_live), childAtPosition(childAtPosition(withId(R.id.bottomNavigationView), 0), 1), isDisplayed()));
         bottomNavigationItemView.perform(click());
 
     }
