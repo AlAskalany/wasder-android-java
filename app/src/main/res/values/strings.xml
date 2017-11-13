@@ -157,4 +157,9 @@
     <string name="follow">Follow</string>
     <string name="crash">Crash!</string>
     <string name="event_title">Event Title</string>
+    <string name="post">Post</string>
+    <string name="write_post">Write post</string>
+    <string name="image">Image</string>
+    <string name="date">11/1/11</string>
+    <string name="wasder_logo">Wasder Logo</string>
 </resources>

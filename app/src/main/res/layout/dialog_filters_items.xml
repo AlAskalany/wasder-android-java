@@ -31,7 +31,6 @@
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/icon_category"
-            android:layout_toRightOf="@+id/icon_category"
             android:entries="@array/categories_items" />
 
     </RelativeLayout>
@@ -53,7 +52,6 @@
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/icon_city"
-            android:layout_toRightOf="@+id/icon_city"
             android:entries="@array/cities" />
 
     </RelativeLayout>
@@ -75,7 +73,6 @@
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/icon_price"
-            android:layout_toRightOf="@+id/icon_price"
             android:entries="@array/prices_items" />
 
     </RelativeLayout>
@@ -97,7 +94,6 @@
             style="@style/AppTheme.FilterSpinner"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/icon_sort"
-            android:layout_toRightOf="@+id/icon_sort"
             android:entries="@array/sort_by_items" />
     </RelativeLayout>
 

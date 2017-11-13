@@ -119,7 +119,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="11/1/11"
+                    android:text="@string/date"
                     app:layout_constraintEnd_toStartOf="@+id/expandButton"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/userHandle"

@@ -53,7 +53,7 @@ public class ProfilePostAdapter extends FirestoreAdapter<ProfilePostAdapter.View
         TextView nameView;
 
         @Nullable
-        @BindView(R.id.profile_post_item_rating)
+        @BindView(R.id.rating_item_rating)
         MaterialRatingBar ratingBar;
 
         @Nullable
