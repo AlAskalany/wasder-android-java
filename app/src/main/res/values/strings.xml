@@ -1,58 +1,30 @@
 <resources>
     <string name="app_name">Wasder</string>
-    <string name="fabric_api_key">8df3619c6e081ddf78247924077b51d93acca7fb</string>
-    <string name="com_apsee_api_key">29e9a300c73d4dc1bf56f20335ea4479</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="facebook_app_id">1909212625762516</string>
-    <string name="fb_login_protocol_scheme">fb1909212625762516</string>
 
     <string name="add_random_items">Add Random Posts</string>
     <string name="add_random_events">Add Random Events</string>
     <string name="sign_out">Sign Out</string>
-    <string name="delete_all">Delete All</string>
     <string name="divider_bullet">•</string>
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
-    <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
     <string name="message_no_reviews">Be the first to leave a review!</string>
     <string name="hint_review">How was your experience?</string>
     <string name="submit">Submit</string>
     <string name="filter_add_review">Add review</string>
-    <string name="image_description">image description</string>
-    <string name="text_view">text view</string>
-    <string name="delete_feed">delete feed</string>
-    <string name="add_item">Add Item</string>
-    <string name="name">Name</string>
     <string name="add">Add</string>
-    <string name="add_event">Add Event</string>
 
     <!-- Firebase AppInvites -->
-    <string name="invitation_title">Send App Invite Quickstart Invitation</string>
-    <string name="invitation_message">This app is terrific, give it a try and get $5 off!</string>
-    <string name="invitation_deep_link">http://example.com/offer/five_dollar_offer</string>
-    <string name="invitation_custom_image">https://developers.google.com/identity/images/g-logo.png</string>
-    <string name="invitation_cta">Install!</string>
     <string name="menu_invite_friends">Invite</string>
-    <string name="snackbar_event_added">Event_Added</string>
-    <string name="snackbar_event_add_failed">Failed to Add Event</string>
     <string name="snackbar_rating_added">Rating Added</string>
     <string name="snackbar_rating_add_failed">Adding Rating Failed</string>
-    <string name="sign_in_cancelled">Sign-in cancelled</string>
-    <string name="no_internet_connection">No internet connection</string>
-    <string name="unknown_error">Unknown error</string>
-    <string name="unknown_sign_in_response">Unknown response</string>
-    <string name="title_activity_wasder">WasderActivity</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_bottom_nav">BottomNavActivity</string>
     <string name="title_home">Home</string>
     <string name="title_live">Live</string>
     <string name="title_messages">Messages</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_groups">Groups</string>
     <string name="nav_drawer_profile">Profile</string>
     <string name="nav_drawer_friends">Friends</string>
@@ -63,22 +35,15 @@
     <string name="nav_drawer_notifications">Notifications</string>
     <string name="nav_header_title">User Name</string>
     <string name="nav_header_subtitle">User Details</string>
-    <string name="title_activity_tabbed">TabbedActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="textview">TextView</string>
-    <string name="todo">TODO</string>
     <string name="feed">Feed</string>
     <string name="description">TODO</string>
     <string name="desc">TODO</string>
-    <string name="event_name">EventName</string>
     <string name="item_user_handle">\@Askalany</string>
     <string name="item_time_stamp">2h</string>
     <string name="item_text">Have been playing a lot of games for a while now! And really enjoyed it beyond anything else. Anyone up for a new level?</string>
     <string name="item_num_likes">5</string>
     <string name="item_num_shares">2</string>
     <string name="item_num_comments">1</string>
-    <string name="item_user_name">Askalany</string>
     <string name="user_profile_photo">User Profile Photo</string>
     <string name="item_shate_button">Share Button</string>
     <string name="item_like_button">Like Button</string>
@@ -86,7 +51,6 @@
     <string name="item_comment_button">Comment Button</string>
     <string name="item_image">Image</string>
     <string name="profile_image">Profile Image</string>
-    <string name="profile_photo">Profile Photo</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
 
@@ -146,23 +110,13 @@
     <string name="value_any_category_items">All Channels</string>
     <string name="value_any_city">Anywhere</string>
 
-    <string name="label_category">Category</string>
-    <string name="label_city">City</string>
-    <string name="label_price">Price</string>
-    <string name="label_sort_by">Sort By</string>
-
     <string name="fmt_num_ratings" translatable="false">(%d)</string>
-    <string name="all_items">All Posts</string>
     <string name="header_filters">Filter</string>
-    <string name="search">Search</string>
     <!-- Posts Sorting Methods -->
     <string name="sort_items_by_rating">Sort by Rating</string>
     <string name="sort_items_by_popularity">Sort by Popularity</string>
     <string name="sort_items_by_price">Sort by Price</string>
     <!-- Posts Sorted By -->
-    <string name="items_sorted_by_rating">sorted by rating</string>
-    <string name="items_sorted_by_price">sorted by price</string>
-    <string name="items_sorted_by_popularity">sorted by popularity</string>
 
     <!-- Types of food I could think of in 5 minutes -->
     <string-array name="categories_items">
@@ -196,11 +150,11 @@
     <string name="price_3">$$$</string>
 
     <!-- Events Date -->
-    <string-array name="date_items">
-        <item>@string/value_any_date</item>
-        <item>@string/pick_a_date</item>
-    </string-array>
 
-    <string name="value_any_date">Anytime</string>
-    <string name="pick_a_date">Pick a date</string>
+    <string name="signing_in">Signing In</string>
+    <string name="signed_in">Signed In</string>
+    <string name="anonymous_auth_failed_msg">Anonymous Sign In Failed</string>
+    <string name="follow">Follow</string>
+    <string name="crash">Crash!</string>
+    <string name="event_title">Event Title</string>
 </resources>

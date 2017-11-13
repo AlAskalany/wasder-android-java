@@ -41,6 +41,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/profileNestedView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:behavior_overlapTop="32dp"
@@ -51,11 +52,44 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <co.wasder.wasder.views.ProfilePhoto
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/profilePhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal">
+
+                <FrameLayout
+                    android:id="@+id/frameLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/profilePhotoImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.85"
+                        android:background="@android:drawable/screen_background_dark_transparent"
+                        android:contentDescription="@string/user_profile_photo"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/ic_person_70dp"
+                        tools:layout_editor_absoluteX="209dp"
+                        tools:layout_editor_absoluteY="452dp" />
+
+                    <ImageView
+                        android:id="@+id/presenceImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:contentDescription="@string/description"
+                        app:srcCompat="@drawable/ic_presence_status_online"
+                        tools:layout_editor_absoluteX="241dp"
+                        tools:layout_editor_absoluteY="336dp" />
+                </FrameLayout>
+            </android.support.constraint.ConstraintLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"

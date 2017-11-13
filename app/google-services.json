@@ -15,11 +15,43 @@
       },
       "oauth_client": [
         {
-          "client_id": "459802515685-kks05ubj14i1afbkqgbkq43cpbvik51i.apps.googleusercontent.com",
+          "client_id": "459802515685-b8h5jgqh0v8qlmo0vu64rd7o28ou24aa.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "co.wasder.wasder",
             "certificate_hash": "0501813f73bd7e71cbc55fcf563a0c80697b8687"
+          }
+        },
+        {
+          "client_id": "459802515685-pvn3trn4i4vonhuidt04kd060pu1ledm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.wasder.wasder",
+            "certificate_hash": "5ca946f88092fe01f2e5b2fffeffb45958745917"
+          }
+        },
+        {
+          "client_id": "459802515685-kfa8u5fn18bhs80ccgls5b6jrqs3egmd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.wasder.wasder",
+            "certificate_hash": "9d4964b9b5b6532a5df94adcae7afbfed781213c"
+          }
+        },
+        {
+          "client_id": "459802515685-e9r1nfh6dtc8n9mc1ae524fnc7kjj2bj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.wasder.wasder",
+            "certificate_hash": "f8c4a5ba0455e81f5a2bc8f350c1d564f27f7f79"
+          }
+        },
+        {
+          "client_id": "459802515685-jookuq9rv3o39kru7tptr0gojpneicsr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.wasder.wasder",
+            "certificate_hash": "a9fbe822e7d8bb57e18ad6a74af990f846e9b953"
           }
         },
         {

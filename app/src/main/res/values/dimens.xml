@@ -4,7 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="item_category_text_view_margin_top">8dp</dimen>
     <dimen name="item_price_text_view_margin_top">8dp</dimen>
     <dimen name="item_activity_recycler_padding_bottom">16dp</dimen>
@@ -13,12 +12,5 @@
     <dimen name="item_top_card_elevation">4dp</dimen>
     <dimen name="dialog_filers_title_margin_bottom">8dp</dimen>
     <dimen name="dialog_filters_search_button_width">0dp</dimen>
-    <dimen name="event_top_card_elevation">2dp</dimen>
-    <dimen name="event_category_text_view_margin_top">8dp</dimen>
-    <dimen name="event_price_text_view_margin_top">8dp</dimen>
-    <dimen name="event_activity_recycler_padding_bottom">16dp</dimen>
-    <dimen name="event_activity_recycler_padding_top">28dp</dimen>
-    <dimen name="event_num_rating_margin_left">4dp</dimen>
-    <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="nav_drawer_width">250dp</dimen>
 </resources>

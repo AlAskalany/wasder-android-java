@@ -32,3 +32,7 @@
 -keep class javax.** { *; }
 
 -keep class android.arch.** { *; }
+
+# keep Google Play Advertising IDs and Amplitude dependencies
+-keep class com.google.android.gms.ads.** { *; }
+-dontwarn okio.**

@@ -25,22 +25,6 @@
         <!--<item name="android:windowBackground">@color/material_green_50</item>-->
     </style>
 
-    <style name="AppTheme.Activity" parent="AppTheme" />
-
-    <style name="AppTheme.Overflow" parent="Base.Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:padding">0dp</item>
-        <item name="android:tint">@android:color/white</item>
-    </style>
-
-    <style name="AppTheme.FormLabel">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginTop">8dp</item>
-    </style>
-
     <style name="AppTheme.Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
@@ -67,11 +51,6 @@
         <item name="colorButtonNormal">@color/colorPrimary</item>
     </style>
 
-    <style name="AppTheme.Headline">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">24sp</item>
-    </style>
-
     <style name="AppTheme.Title">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">20sp</item>
@@ -85,16 +64,6 @@
     <style name="AppTheme.Body1">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="AppTheme.Body2">
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="AppTheme.Caption">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="AppTheme.TextDivider">
