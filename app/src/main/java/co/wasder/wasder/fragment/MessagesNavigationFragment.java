@@ -33,7 +33,6 @@ import java.util.Collection;
 
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.activity.TabsPagerAdapter;
 import co.wasder.wasder.base.BaseTabFragment;
 import co.wasder.wasder.listener.OnFragmentInteractionListener;
 

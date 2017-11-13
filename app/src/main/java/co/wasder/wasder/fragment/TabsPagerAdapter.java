@@ -1,4 +1,4 @@
-package co.wasder.wasder.activity;
+package co.wasder.wasder.fragment;
 
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
@@ -16,10 +16,10 @@ import co.wasder.wasder.base.BaseTabFragment;
  * Wasder AB
  */
 @Keep
-public class TabsPagerAdapter extends FragmentPagerAdapter {
+class TabsPagerAdapter extends FragmentPagerAdapter {
 
-    public final List<BaseTabFragment> fragments = new ArrayList<>();
-    public final List<String> titles = new ArrayList<>();
+    private final List<BaseTabFragment> fragments = new ArrayList<>();
+    private final List<String> titles = new ArrayList<>();
 
     public TabsPagerAdapter(final FragmentManager fm) {
         super(fm);

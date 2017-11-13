@@ -1,11 +1,11 @@
 package co.wasder.wasder.fragment;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +15,6 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.firebase.ui.common.ChangeEventType;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,15 +34,11 @@ import co.wasder.data.base.BaseModel;
 import co.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.data.model.FeedModel;
 import co.wasder.data.model.User;
-import co.wasder.ui.base.BaseTabFragmentViewModel;
-import co.wasder.ui.viewmodel.PmTabFragmentViewModel;
 import co.wasder.wasder.R;
 import co.wasder.wasder.base.BaseTabFragment;
-import co.wasder.wasder.dialogfragment.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.listener.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.listener.OnFragmentInteractionListener;
 import co.wasder.wasder.recycleradapter.FollowingRecyclerAdapter;
-import co.wasder.wasder.util.Dialogs;
 import co.wasder.wasder.viewholder.FeedViewHolder;
 
 /**
@@ -58,22 +53,17 @@ public class PmTabFragment extends BaseTabFragment {
     private static final Query mQuery = postsCollection.orderBy("timestamp", Query.Direction
             .DESCENDING)
             .limit(50);
-    public static String ARG_SECTION_NUMBER = "section-number";
+    private static final String ARG_SECTION_NUMBER = "section-number";
 
     static {
         FirebaseFirestore.setLoggingEnabled(true);
     }
 
-    public String TAG;
-    public String USERS;
-    @BindView(R.id.recyclerView)
-    public RecyclerView mRecyclerView;
-    public AddFirestoreItemDialogFragment mAddPostDialog;
-    public BaseTabFragmentViewModel mViewModel;
     @Nullable
     public OnFragmentInteractionListener mListener;
-    public String mTitle;
-    private long LIMIT;
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
+    private String mTitle;
     @NonNull
     private OnFirestoreItemSelectedListener onFirestoreItemSelectedListener = new
             OnFirestoreItemSelectedListener() {
@@ -120,17 +110,17 @@ public class PmTabFragment extends BaseTabFragment {
                              final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_tab, container, false);
         ButterKnife.bind(this, view);
-        mViewModel = ViewModelProviders.of(this).get(PmTabFragmentViewModel.class);
         assert mRecyclerView != null;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAddPostDialog = Dialogs.AddPostDialogFragment();
         setupSearchAndFilters();
         return view;
     }
 
     @Override
     protected void setupSearchAndFilters() {
-        final SearchView mSearchView = getActivity().findViewById(R.id.searchView);
+        FragmentActivity activity = getActivity();
+        assert activity != null;
+        final SearchView mSearchView = activity.findViewById(R.id.searchView);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
@@ -182,10 +172,6 @@ public class PmTabFragment extends BaseTabFragment {
 
     @Override
     protected void attachRecyclerViewAdapter() {
-        final FirestoreRecyclerOptions<FeedModel> options = new FirestoreRecyclerOptions
-                .Builder<FeedModel>()
-                .setQuery(mQuery, FeedModel.class)
-                .build();
         final RecyclerView.Adapter<FeedViewHolder> adapter = FollowingRecyclerAdapter.getAdapter
                 (this, onFirestoreItemSelectedListener, mQuery, FeedModel.class);
 
