@@ -6,7 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    tools:showIn="@layout/item_firestore_item">
+    tools:showIn="@layout/item_feed">
 
     <ImageButton
         android:id="@+id/commentImageButton"

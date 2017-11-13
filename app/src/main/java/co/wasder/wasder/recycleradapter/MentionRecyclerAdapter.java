@@ -42,7 +42,7 @@ public class MentionRecyclerAdapter extends BaseRecyclerAdapter {
             public FeedViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int
                     viewType) {
                 return new FeedViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_firestore_item, parent, false));
+                        .inflate(R.layout.item_feed, parent, false));
             }
 
             @Override
