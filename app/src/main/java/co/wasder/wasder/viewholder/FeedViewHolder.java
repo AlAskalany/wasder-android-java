@@ -34,8 +34,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import co.wasder.data.base.BaseModel;
 import co.wasder.data.model.FeedModel;
 import co.wasder.data.model.User;
@@ -43,6 +41,7 @@ import co.wasder.wasder.GlideApp;
 import co.wasder.wasder.R;
 import co.wasder.wasder.activity.ProfileActivity;
 import co.wasder.wasder.base.BaseViewHolder;
+import co.wasder.wasder.databinding.ItemFeedBinding;
 import co.wasder.wasder.listener.OnFirestoreItemSelectedListener;
 
 /**
@@ -54,36 +53,19 @@ public class FeedViewHolder extends BaseViewHolder {
 
     private static final String USERS = "users";
     private static final String FOLLOWERS = "followers";
-    @BindView(R.id.itemProfileImageView)
-    ImageView profileImageView;
-    @BindView(R.id.presenceImageView)
-    ImageView presenceImageView;
-    @BindView(R.id.userName)
-    TextView userName;
-    @BindView(R.id.timeStamp)
-    TextView timeStamp;
-    @BindView(R.id.expandButton)
-    ImageButton expandButton;
-    @BindView(R.id.itemImageView)
-    ImageView itemImage;
-    @BindView(R.id.itemTextView)
-    TextView itemText;
-    @BindView(R.id.commentImageButton)
-    ImageButton commentImageButton;
-    @BindView(R.id.shareImageButton)
-    ImageButton shareImageButton;
-    @BindView(R.id.likeImageButton)
-    ImageButton likeImageButton;
-    @BindView(R.id.sendImageButton)
-    ImageButton sendImageButton;
+    private final ItemFeedBinding binding;
 
-    public FeedViewHolder(@NonNull final View itemView) {
-        super(itemView);
-        ButterKnife.bind(this, itemView);
+    public FeedViewHolder(@NonNull final ItemFeedBinding binding) {
+        super(binding.getRoot());
+        this.binding = binding;
     }
 
     public void bind(@NonNull final FeedModel model, final OnFirestoreItemSelectedListener
             onFirestoreItemSelectedListener) {
+
+        binding.setFeedModel(model);
+        binding.executePendingBindings();
+
         final String userId = model.getUid();
         final CollectionReference users = FirebaseFirestore.getInstance().collection("users");
         final DocumentReference userReference = users.document(userId);
@@ -91,18 +73,19 @@ public class FeedViewHolder extends BaseViewHolder {
             @Override
             public void onComplete(@NonNull final Task<DocumentSnapshot> task) {
                 final User user = task.getResult().toObject(User.class);
-                setUserName(user, userName);
+                setUserName(user, binding.userName);
             }
         });
         String uuid = model.getPhoto();
         if (isProfilePhotoUrlValid(uuid)) {
-            setPostImage(uuid, getContext(), itemImage, isViewInvisible(), itemImage);
+            setItemImage(uuid, getContext(), binding.itemImageView, isViewInvisible(), binding
+                    .itemImageView);
         }
         final String profilePhotoUrl = model.getProfilePhoto();
         if (profilePhotoUrl != null) {
             setProfilePicture(userId, profilePhotoUrl, getContext());
         }
-        getProfileImageView(userId).setOnClickListener(new View.OnClickListener() {
+        binding.itemProfileImageView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -111,16 +94,16 @@ public class FeedViewHolder extends BaseViewHolder {
         });
         final Date date = model.getTimestamp();
         if (date != null) {
-            setDate(date, timeStamp);
+            setDate(date, binding.timeStamp);
         }
-        setPostText(model, itemText);
+        setPostText(model, binding.itemTextView);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 handleItemViewClick(model, onFirestoreItemSelectedListener);
             }
         });
-        expandButton.setOnClickListener(new View.OnClickListener() {
+        binding.expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(@NonNull final View v) {
                 handleExpandButton(v, model);
@@ -136,14 +119,14 @@ public class FeedViewHolder extends BaseViewHolder {
         return itemView.getVisibility() == View.GONE;
     }
 
-    private void handleItemViewClick(@NonNull BaseModel model,
-                                     OnFirestoreItemSelectedListener onFirestoreItemSelectedListener) {
+    private void handleItemViewClick(@NonNull BaseModel model, OnFirestoreItemSelectedListener
+            onFirestoreItemSelectedListener) {
         onFirestoreItemSelectedListener.onFirestoreItemSelected(model, itemView);
     }
 
     private void handleExpandButton(@NonNull View v, @NonNull final BaseModel model) {
         final String currentUserId = getCurrentUserId();
-        final PopupMenu popup = getPopupMenu(v, currentUserId, model, expandButton);
+        final PopupMenu popup = getPopupMenu(v, currentUserId, model, binding.expandButton);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull final MenuItem item) {
@@ -188,8 +171,8 @@ public class FeedViewHolder extends BaseViewHolder {
         timeStamp.setText(dateString);
     }
 
-    private void startAuthProfileActivity(@NonNull BaseModel model, Context context,
-                                          View itemView) {
+    private void startAuthProfileActivity(@NonNull BaseModel model, Context context, View
+            itemView) {
         if (model.getUid() != null) {
             final Intent intent = new Intent(context, ProfileActivity.class);
             intent.putExtra("user-reference", model.getUid());
@@ -197,7 +180,7 @@ public class FeedViewHolder extends BaseViewHolder {
         }
     }
 
-    private void setPostImage(String uuid, Context context, ImageView itemImage, boolean
+    private void setItemImage(String uuid, Context context, ImageView itemImage, boolean
             isViewInvisible, ImageView itemImage1) {
         final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
         downloadPostImageIntoView(mImageRef, context, itemImage);
@@ -229,7 +212,7 @@ public class FeedViewHolder extends BaseViewHolder {
         GlideApp.with(context)
                 .load(profilePhotoUrl)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(getProfileImageView(userId));
+                .into(binding.itemProfileImageView);
     }
 
     private void handleMenu(@NonNull MenuItem item, @NonNull BaseModel model, String
@@ -303,7 +286,7 @@ public class FeedViewHolder extends BaseViewHolder {
 
             }
         });
-        return profileImageView;
+        return binding.itemProfileImageView;
     }
 
     private Drawable getOfflineDrawable(int ic_presence_status_offline) {
@@ -317,9 +300,9 @@ public class FeedViewHolder extends BaseViewHolder {
     private void handlePresence(String myPresence, Drawable onlineDrawable, Drawable
             offlineDrawable) {
         if (myPresence.equals("true")) {
-            setPresence(onlineDrawable, presenceImageView);
+            setPresence(onlineDrawable, binding.presenceImageView);
         } else if (myPresence.equals("false")) {
-            setPresence(offlineDrawable, presenceImageView);
+            setPresence(offlineDrawable, binding.presenceImageView);
         }
     }
 
