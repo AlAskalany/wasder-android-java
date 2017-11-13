@@ -50,24 +50,27 @@ public class ProfilePostAdapter extends FirestoreAdapter<ProfilePostAdapter.View
 
         @Nullable
         @BindView(R.id.profile_post_item_name)
-        public TextView nameView;
+        TextView nameView;
 
         @Nullable
         @BindView(R.id.profile_post_item_rating)
-        public MaterialRatingBar ratingBar;
+        MaterialRatingBar ratingBar;
 
         @Nullable
         @BindView(R.id.profile_post_item_text)
-        public TextView textView;
+        TextView textView;
 
-        public ViewHolder(@NonNull final View itemView) {
+        ViewHolder(@NonNull final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         public void bind(@NonNull final Rating rating) {
+            assert nameView != null;
             nameView.setText(rating.getUserName());
+            assert ratingBar != null;
             ratingBar.setRating((float) rating.getRating());
+            assert textView != null;
             textView.setText(rating.getText());
         }
     }

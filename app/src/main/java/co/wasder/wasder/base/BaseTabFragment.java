@@ -38,7 +38,7 @@ import co.wasder.data.model.User;
 import co.wasder.wasder.R;
 import co.wasder.wasder.listener.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.listener.OnFragmentInteractionListener;
-import co.wasder.wasder.recycleradapter.FollowingRecyclerAdapter;
+import co.wasder.wasder.recycleradapter.FeedRecyclerAdapter;
 import co.wasder.wasder.viewholder.FeedViewHolder;
 
 /**
@@ -149,7 +149,7 @@ public abstract class BaseTabFragment extends Fragment implements LifecycleOwner
                 .Builder<FeedModel>()
                 .setQuery(mQuery, FeedModel.class)
                 .build();
-        final RecyclerView.Adapter<FeedViewHolder> adapter = FollowingRecyclerAdapter.getAdapter
+        final RecyclerView.Adapter<FeedViewHolder> adapter = FeedRecyclerAdapter.getAdapter
                 (this, onFirestoreItemSelectedListener, mQuery, FeedModel.class);
 
         // Scroll to bottom on new messages
