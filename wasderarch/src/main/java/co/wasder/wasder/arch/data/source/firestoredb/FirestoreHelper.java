@@ -21,8 +21,8 @@ public class FirestoreHelper {
      *
      */
     public void setup() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
                 .build();
         db.setFirestoreSettings(settings);
@@ -34,7 +34,7 @@ public class FirestoreHelper {
      * @param doc Document
      * @return Document Reference {@link DocumentReference}
      */
-    public DocumentReference docReference(FirebaseFirestore db, String col, String doc) {
+    public DocumentReference docReference(final FirebaseFirestore db, final String col, final String doc) {
         return db.collection(col).document(col);
     }
 
@@ -43,7 +43,7 @@ public class FirestoreHelper {
      * @param col Collection
      * @return Collection Reference {@link CollectionReference}
      */
-    public CollectionReference collectionReference(FirebaseFirestore db, String col) {
+    public CollectionReference collectionReference(final FirebaseFirestore db, final String col) {
         return db.collection(col);
     }
 
@@ -55,8 +55,8 @@ public class FirestoreHelper {
      * @param doc     Document
      * @return Document Reference {@link DocumentReference}
      */
-    public DocumentReference subcollectionReference(FirebaseFirestore db, String rootCol, String
-            rootDoc, String col, String doc) {
+    public DocumentReference subcollectionReference(final FirebaseFirestore db, final String rootCol, final String
+            rootDoc, final String col, final String doc) {
         return db.collection(rootCol).document(rootDoc).collection(col).document(doc);
     }
 
@@ -65,7 +65,7 @@ public class FirestoreHelper {
      * @param colAndDoc Collection and Document "collection/document"
      * @return Document Reference {@link DocumentReference}
      */
-    public DocumentReference docReferenceAlternate(FirebaseFirestore db, String colAndDoc) {
+    public DocumentReference docReferenceAlternate(final FirebaseFirestore db, final String colAndDoc) {
         return db.document(colAndDoc);
     }
 
@@ -75,9 +75,9 @@ public class FirestoreHelper {
      * @param doc  Document name or id
      * @param data HashMap {@link Map}
      */
-    public void setDocument(FirebaseFirestore db, String col, String doc, Map<String, Object>
-            data, OnCompleteListener<Void> onCompleteListener) {
-        String TAG = "setDocument";
+    public void setDocument(final FirebaseFirestore db, final String col, final String doc, final Map<String, Object>
+            data, final OnCompleteListener<Void> onCompleteListener) {
+        final String TAG = "setDocument";
         db.collection(col).document(doc).set(data).addOnCompleteListener(onCompleteListener);
     }
 
@@ -89,8 +89,8 @@ public class FirestoreHelper {
      * @param model            DataModel {@link DataModel}
      * @param completeListener {@link OnCompleteListener}
      */
-    public void addCustomClass(FirebaseFirestore db, String col, String doc, DataModel model,
-                               OnCompleteListener<Void> completeListener) {
+    public void addCustomClass(final FirebaseFirestore db, final String col, final String doc, final DataModel model,
+                               final OnCompleteListener<Void> completeListener) {
         db.collection(col).document(doc).set(model).addOnCompleteListener(completeListener);
     }
 
@@ -100,12 +100,12 @@ public class FirestoreHelper {
      * @param data             data HashMap {@link Map}
      * @param completeListener completeListener {@link OnCompleteListener}
      */
-    public void addDocument(FirebaseFirestore db, String col, Map<String, Object> data,
-                            OnCompleteListener<DocumentReference> completeListener) {
+    public void addDocument(final FirebaseFirestore db, final String col, final Map<String, Object> data,
+                            final OnCompleteListener<DocumentReference> completeListener) {
         db.collection(col).add(data).addOnCompleteListener(completeListener);
     }
 
-    public DocumentReference newDocument(FirebaseFirestore db, String col, Map<String, Object>
+    public DocumentReference newDocument(final FirebaseFirestore db, final String col, final Map<String, Object>
             data) {
         // [START new_document]
 
@@ -116,11 +116,11 @@ public class FirestoreHelper {
 
         private DocumentReference ref;
 
-        public NewDocument(FirebaseFirestore db, String col) {
+        public NewDocument(final FirebaseFirestore db, final String col) {
             this.ref = db.collection(col).document();
         }
 
-        public void invoke(Map<String, Object> data) {
+        public void invoke(final Map<String, Object> data) {
             ref.set(data);
         }
     }

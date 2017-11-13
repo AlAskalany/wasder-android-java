@@ -11,12 +11,12 @@ import com.firebase.jobdispatcher.JobService;
 public class FirebaseJobService extends JobService {
 
     @Override
-    public boolean onStartJob(JobParameters job) {
+    public boolean onStartJob(final JobParameters job) {
         return false;
     }
 
     @Override
-    public boolean onStopJob(JobParameters job) {
+    public boolean onStopJob(final JobParameters job) {
         return false;
     }
 }

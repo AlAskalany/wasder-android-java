@@ -13,6 +13,6 @@
         android:background="@android:drawable/screen_background_dark_transparent"
         android:contentDescription="@string/item_image"
         android:scaleType="centerCrop"
-        android:visibility="visible"
+        android:visibility="gone"
         app:srcCompat="@android:drawable/screen_background_light_transparent" />
 </FrameLayout>

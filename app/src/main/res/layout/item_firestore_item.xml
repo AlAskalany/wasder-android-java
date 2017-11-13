@@ -8,10 +8,11 @@
     android:layout_marginBottom="2dp"
     android:foreground="?attr/selectableItemBackground"
     app:contentPadding="8dp"
-    tools:context=".ui.activity.WasderActivity">
+    tools:context=".activity.WasderActivity">
 
-    <co.wasder.wasder.ui.views.FeedView
+    <include
         android:id="@+id/feedView"
+        layout="@layout/feed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

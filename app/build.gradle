@@ -61,48 +61,43 @@ android {
 
 dependencies {
 
-    // Firebase Auth
-    implementation "com.google.firebase:firebase-auth:11.6.0"
-    implementation "com.google.android.gms:play-services-auth:11.6.0"
-    implementation "com.android.support:design:27.0.0"
-    implementation "com.android.support:customtabs:27.0.0"
-    implementation "com.android.support:cardview-v7:27.0.0"
-    // Firebase Real-time Database
-    implementation "com.google.firebase:firebase-database:11.6.0"
-    implementation "com.android.support:recyclerview-v7:27.0.0"
-    implementation "com.android.support:support-v4:27.0.0"
-    // Firebase Firestore
-    implementation "com.google.firebase:firebase-firestore:11.6.0"
-    // Firebase Storage
-    implementation "com.google.firebase:firebase-storage:11.6.0"
-    implementation "com.android.support:appcompat-v7:27.0.0"
-    implementation "com.android.support:palette-v7:27.0.0"
-    // Firebase Cloud Messaging
-    implementation 'com.google.firebase:firebase-messaging:11.6.0'
-    // Support
+    // Support Libs
+    implementation "com.android.support:support-v4:27.0.1"
+    implementation "com.android.support:support-vector-drawable:27.0.1"
+    implementation "com.android.support:support-annotations:27.0.1"
+    implementation "com.android.support:design:27.0.1"
+    implementation "com.android.support:customtabs:27.0.1"
+    implementation "com.android.support:recyclerview-v7:27.0.1"
+    implementation "com.android.support:appcompat-v7:27.0.1"
+    implementation "com.android.support:palette-v7:27.0.1"
+    implementation "com.android.support:cardview-v7:27.0.1"
+    implementation "com.android.support:mediarouter-v7:27.0.1"
     implementation "com.android.support.constraint:constraint-layout:1.0.2"
-    implementation "com.android.support:support-vector-drawable:27.0.0"
-    implementation "com.android.support:mediarouter-v7:27.0.0"
-    implementation "com.google.android.gms:play-services-auth:11.6.0"
-    //Firebase Job Dispatcher
-    implementation "com.firebase:firebase-jobdispatcher:0.8.4"
-    // Other Firebase/Play services dependencies
-    implementation "com.google.firebase:firebase-core:11.6.0"
-    implementation "com.google.firebase:firebase-config:11.6.0"
-    implementation "com.google.firebase:firebase-invites:11.6.0"
-    implementation "com.google.firebase:firebase-messaging:11.6.0"
-    implementation "com.google.firebase:firebase-appindexing:11.6.0"
+
     // FirebaseUI
     implementation "com.firebaseui:firebase-ui-auth:3.1.0"
     implementation "com.firebaseui:firebase-ui-firestore:3.1.0"
     implementation "com.firebaseui:firebase-ui-storage:3.1.0"
     implementation "com.firebaseui:firebase-ui-database:3.1.0"
+
+    implementation "com.google.android.gms:play-services-auth:11.6.0"
+    // Firebase
+    implementation "com.google.firebase:firebase-core:11.6.0"
+    implementation "com.google.firebase:firebase-auth:11.6.0"
+    implementation "com.google.firebase:firebase-storage:11.6.0"
+    implementation "com.google.firebase:firebase-config:11.6.0"
+    implementation "com.google.firebase:firebase-invites:11.6.0"
+    implementation "com.google.firebase:firebase-appindexing:11.6.0"
+    implementation "com.google.firebase:firebase-firestore:11.6.0"
+    implementation "com.google.firebase:firebase-database:11.6.0"
+    implementation 'com.google.firebase:firebase-messaging:11.6.0'
+
+    //Firebase Job Dispatcher
+    implementation "com.firebase:firebase-jobdispatcher:0.8.4"
+
     // ButterKnife
     implementation "com.jakewharton:butterknife:8.8.1"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
-    // Support Libs
-    implementation "com.android.support:support-annotations:27.0.0"
     // Android Architecture Components
     implementation "android.arch.lifecycle:runtime:1.0.3"
     implementation "android.arch.lifecycle:extensions:1.0.0"
@@ -132,5 +127,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
+    compile project(path: ':data')
+    compile project(path: ':ui')
 }
 apply plugin: 'com.google.gms.google-services'

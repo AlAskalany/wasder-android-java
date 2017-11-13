@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity implements FirebaseAuth.Au
     private SplashActivityModel model;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
@@ -56,7 +56,7 @@ public class SplashActivity extends AppCompatActivity implements FirebaseAuth.Au
     }
 
     @OnClick(R.id.signInButton)
-    public void signIn(View view) {
+    public void signIn(final View view) {
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setIsSmartLockEnabled(false)
@@ -67,7 +67,7 @@ public class SplashActivity extends AppCompatActivity implements FirebaseAuth.Au
     }
 
     @OnClick(R.id.skipButton)
-    public void skip(View view) {
+    public void skip(final View view) {
         if (model.isSignedIn().getValue() == Boolean.TRUE) {
             startActivity(MainActivity.createIntent(SplashActivity.this, null));
         } else {
@@ -76,12 +76,12 @@ public class SplashActivity extends AppCompatActivity implements FirebaseAuth.Au
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // RC_SIGN_IN is the request code you passed into startActivityForResult(...) when
         // starting the sign in flow.
         if (requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
+            final IdpResponse response = IdpResponse.fromResultIntent(data);
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
@@ -111,21 +111,21 @@ public class SplashActivity extends AppCompatActivity implements FirebaseAuth.Au
     }
 
     @MainThread
-    private void showSnackbar(@StringRes int errorMessageRes) {
+    private void showSnackbar(@StringRes final int errorMessageRes) {
         Snackbar.make(rootView, errorMessageRes, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
-    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+    public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
             Log.d(TAG, "onAuthStateChanged: " + user.getUid());
         }
     }
 
     @Override
-    public void onIdTokenChanged(@NonNull FirebaseAuth firebaseAuth) {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+    public void onIdTokenChanged(@NonNull final FirebaseAuth firebaseAuth) {
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
             Log.d(TAG, "onIdTokenChanged: " + user.getIdToken(true));
         }
