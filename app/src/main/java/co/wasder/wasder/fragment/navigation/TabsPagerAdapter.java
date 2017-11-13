@@ -1,4 +1,4 @@
-package co.wasder.wasder.fragment;
+package co.wasder.wasder.fragment.navigation;
 
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;

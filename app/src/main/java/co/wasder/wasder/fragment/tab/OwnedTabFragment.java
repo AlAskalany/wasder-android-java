@@ -1,4 +1,4 @@
-package co.wasder.wasder.fragment;
+package co.wasder.wasder.fragment.tab;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;

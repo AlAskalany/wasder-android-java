@@ -1,4 +1,4 @@
-package co.wasder.wasder.fragment;
+package co.wasder.wasder.fragment.tab;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import butterknife.ButterKnife;
 import co.wasder.ui.base.BaseTabFragmentViewModel;
-import co.wasder.ui.viewmodel.DiscoveryTabFragmentViewModel;
+import co.wasder.ui.viewmodel.FeedTabFragmentViewModel;
 import co.wasder.wasder.R;
 import co.wasder.wasder.base.BaseTabFragment;
 import co.wasder.wasder.dialogfragment.AddFirestoreItemDialogFragment;
@@ -24,7 +24,7 @@ import co.wasder.wasder.util.Dialogs;
  * Navigator
  */
 @Keep
-public class DiscoveryTabFragment extends BaseTabFragment {
+public class FeedTabFragment extends BaseTabFragment {
 
     public static String ARG_SECTION_NUMBER = "section-number";
 
@@ -38,8 +38,8 @@ public class DiscoveryTabFragment extends BaseTabFragment {
     public BaseTabFragmentViewModel mViewModel;
     private long LIMIT;
 
-    public static DiscoveryTabFragment newInstance(int sectionNumber, String title) {
-        DiscoveryTabFragment fragment = new DiscoveryTabFragment();
+    public static FeedTabFragment newInstance(int sectionNumber, String title) {
+        FeedTabFragment fragment = new FeedTabFragment();
         final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.mTitle = title;
@@ -52,7 +52,7 @@ public class DiscoveryTabFragment extends BaseTabFragment {
                              final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_tab, container, false);
         ButterKnife.bind(this, view);
-        mViewModel = ViewModelProviders.of(this).get(DiscoveryTabFragmentViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(FeedTabFragmentViewModel.class);
         assert mRecyclerView != null;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAddPostDialog = Dialogs.AddPostDialogFragment();

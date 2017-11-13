@@ -1,4 +1,4 @@
-package co.wasder.wasder.fragment;
+package co.wasder.wasder.fragment.tab;
 
 import android.os.Bundle;
 import android.support.annotation.Keep;
