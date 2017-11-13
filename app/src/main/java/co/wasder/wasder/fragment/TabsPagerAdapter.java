@@ -21,7 +21,7 @@ class TabsPagerAdapter extends FragmentPagerAdapter {
     private final List<BaseTabFragment> fragments = new ArrayList<>();
     private final List<String> titles = new ArrayList<>();
 
-    public TabsPagerAdapter(final FragmentManager fm) {
+    TabsPagerAdapter(final FragmentManager fm) {
         super(fm);
     }
 
@@ -41,7 +41,7 @@ class TabsPagerAdapter extends FragmentPagerAdapter {
         return titles.get(position);
     }
 
-    public void addFragment(@NonNull final BaseTabFragment fragment) {
+    void addFragment(@NonNull final BaseTabFragment fragment) {
         fragments.add(fragment);
         titles.add(fragment.getTitle());
     }

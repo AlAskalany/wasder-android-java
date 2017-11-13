@@ -1,7 +1,6 @@
 package co.wasder.wasder.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
@@ -11,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.firebase.ui.common.ChangeEventType;
@@ -25,23 +23,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.data.base.BaseModel;
-import co.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.data.model.FeedModel;
-import co.wasder.data.model.User;
 import co.wasder.ui.base.BaseTabFragmentViewModel;
 import co.wasder.ui.viewmodel.FollowingTabFragmentViewModel;
 import co.wasder.wasder.R;
 import co.wasder.wasder.base.BaseTabFragment;
 import co.wasder.wasder.dialogfragment.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.listener.OnFirestoreItemSelectedListener;
-import co.wasder.wasder.listener.OnFragmentInteractionListener;
 import co.wasder.wasder.recycleradapter.FollowingRecyclerAdapter;
 import co.wasder.wasder.util.Dialogs;
 import co.wasder.wasder.viewholder.FeedViewHolder;
@@ -70,8 +62,6 @@ public class FollowingTabFragment extends BaseTabFragment {
     public RecyclerView mRecyclerView;
     public AddFirestoreItemDialogFragment mAddPostDialog;
     public BaseTabFragmentViewModel mViewModel;
-    @Nullable
-    public OnFragmentInteractionListener mListener;
     public String mTitle;
     private long LIMIT;
     @NonNull
@@ -129,49 +119,6 @@ public class FollowingTabFragment extends BaseTabFragment {
     }
 
     @Override
-    protected void setupSearchAndFilters() {
-        final SearchView mSearchView = getActivity().findViewById(R.id.searchView);
-        mSearchView.setSubmitButtonEnabled(true);
-        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                return false;
-            }
-        });
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(final String search) {
-                final CollectionReference usersReference = FirebaseFirestore.getInstance()
-                        .collection("users");
-                final Query query = usersReference.whereEqualTo("displayName", search);
-                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull final Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            final QuerySnapshot queryResult = task.getResult();
-                            final List<DocumentSnapshot> usersDocuments = queryResult
-                                    .getDocuments();
-                            if (queryResult.size() > 0) {
-                                final User firstUser = usersDocuments.get(0).toObject(User.class);
-                                final String userId = firstUser.getUid();
-                                final FirestoreItemFilters firestoreItemFilters = new
-                                        FirestoreItemFilters();
-                                firestoreItemFilters.setUid(userId);
-                            }
-                        }
-                    }
-                });
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(final String search) {
-                return false;
-            }
-        });
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
@@ -205,17 +152,6 @@ public class FollowingTabFragment extends BaseTabFragment {
     public void onStop() {
         super.onStop();
         FirebaseAuth.getInstance().removeAuthStateListener(this);
-    }
-
-    @Override
-    public void onAttach(final Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement " +
-                    "OnFragmentInteractionListener");
-        }
     }
 
     @Override
