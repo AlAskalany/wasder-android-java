@@ -60,7 +60,6 @@ import co.wasder.wasder.fragment.navigation.GroupsNavigationFragment;
 import co.wasder.wasder.fragment.navigation.LiveNavigationFragment;
 import co.wasder.wasder.fragment.navigation.MessagesNavigationFragment;
 import co.wasder.wasder.listener.OnFragmentInteractionListener;
-import co.wasder.wasder.util.Dialogs;
 import co.wasder.wasder.util.FirestoreItemUtil;
 import co.wasder.wasder.viewpager.NonSwipeableViewPager;
 import io.fabric.sdk.android.Fabric;
@@ -185,7 +184,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         mViewPager = findViewById(R.id.container);
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        @SuppressWarnings("unused") final AddFirestoreItemDialogFragment mAddPostDialog = Dialogs
+        @SuppressWarnings("unused") final AddFirestoreItemDialogFragment mAddPostDialog = co
+                .wasder.wasder.util.Dialogs
                 .AddPostDialogFragment();
         assert mSwipeRefreshLayout != null;
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -231,7 +231,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         /**/
         assert mViewPager != null;
         if (mViewPager.getCurrentItem() == 0) {
-            Dialogs.AddPostDialogFragment()
+            co.wasder.wasder.util.Dialogs.AddPostDialogFragment()
                     .show(getSupportFragmentManager(), AddFirestoreItemDialogFragment.TAG);
         } else if (mViewPager.getCurrentItem() == 1) {
             new AddEventDialogFragment().show(getSupportFragmentManager(),
@@ -320,7 +320,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 final Intent intent = AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setTheme(R.style.GreenTheme)
-                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
+                                .EMAIL_PROVIDER)
                                 .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER)
                                 .build()))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
@@ -374,7 +375,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 final Intent intent = AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setTheme(R.style.GreenTheme)
-                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
+                                .EMAIL_PROVIDER)
                                 .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER)
                                 .build()))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
