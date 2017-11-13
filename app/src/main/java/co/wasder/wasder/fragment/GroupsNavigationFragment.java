@@ -14,6 +14,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -32,7 +33,7 @@ import java.util.Collection;
 
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.activity.WasderActivity;
+import co.wasder.wasder.activity.TabsPagerAdapter;
 import co.wasder.wasder.base.BaseTabFragment;
 import co.wasder.wasder.listener.OnFragmentInteractionListener;
 
@@ -171,8 +172,7 @@ public class GroupsNavigationFragment extends Fragment implements
 
     @Override
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
-        final WasderActivity.TabsPagerAdapter tabsPagerAdapter = new WasderActivity
-                .TabsPagerAdapter(getChildFragmentManager());
+        final TabsPagerAdapter tabsPagerAdapter = new TabsPagerAdapter(getChildFragmentManager());
         for (final BaseTabFragment tab : fragments) {
             tabsPagerAdapter.addFragment(tab);
         }
@@ -207,7 +207,7 @@ public class GroupsNavigationFragment extends Fragment implements
     public void setUserVisibleHint(final boolean isVisibleToUser) {
         if (isVisibleToUser) {
             Log.d(TAG, "setUserVisibleHint: " + this.mSectionNumber);
-            final WasderActivity activity = (WasderActivity) getActivity();
+            final FragmentActivity activity = getActivity();
             if (activity != null) {
                 if (mSectionNumber == 0) {
                     FeedNavigationFragment.showSearchBar(activity);

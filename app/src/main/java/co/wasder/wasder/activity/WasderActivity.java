@@ -41,10 +41,8 @@ import net.hockeyapp.android.FeedbackManager;
 import net.hockeyapp.android.UpdateManager;
 import net.hockeyapp.android.metrics.MetricsManager;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -55,7 +53,6 @@ import co.wasder.data.model.User;
 import co.wasder.ui.viewmodel.WasderActivityViewModel;
 import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
-import co.wasder.wasder.base.BaseTabFragment;
 import co.wasder.wasder.dialogfragment.AddEventDialogFragment;
 import co.wasder.wasder.dialogfragment.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialogfragment.FirestoreItemFilterDialogFragment;
@@ -70,7 +67,9 @@ import co.wasder.wasder.viewpager.NonSwipeableViewPager;
 import io.fabric.sdk.android.Fabric;
 
 @Keep
-public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView.OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener, FirestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
+public class WasderActivity extends AppCompatActivity implements LifecycleOwner, NavigationView
+        .OnNavigationItemSelectedListener, FirebaseAuth.AuthStateListener,
+        FirestoreItemFilterDialogFragment.FilterListener, OnFragmentInteractionListener {
 
     public static final String TAG = "WasderActivity";
     public static final int RC_SIGN_IN = 9001;
@@ -329,8 +328,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                         .createSignInIntentBuilder()
                         .setTheme(R.style.GreenTheme)
                         .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
-                                .EMAIL_PROVIDER)
-                                .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                                .EMAIL_PROVIDER).build(), new AuthUI.IdpConfig.Builder(AuthUI
+                                .GOOGLE_PROVIDER)
+                                .build()))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                         .build();
 
@@ -355,7 +355,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         } else if (id == R.id.nav_settings_account) {
         } else if (id == R.id.nav_settings_notifications) {
         } else if (id == R.id.nav_drawer_feedback) {
-            FeedbackManager.showFeedbackActivity(WasderActivity.this);
+            FeedbackManager.showFeedbackActivity(this);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -380,8 +380,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                         .createSignInIntentBuilder()
                         .setTheme(R.style.GreenTheme)
                         .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
-                                .EMAIL_PROVIDER)
-                                .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                                .EMAIL_PROVIDER).build(), new AuthUI.IdpConfig.Builder(AuthUI
+                                .GOOGLE_PROVIDER)
+                                .build()))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                         .build();
 
@@ -442,39 +443,4 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         }
     }
 
-    /**
-     * Created by Ahmed AlAskalany on 10/14/2017.
-     * Wasder AB
-     */
-    @Keep
-    public static class TabsPagerAdapter extends FragmentPagerAdapter {
-
-        public final List<BaseTabFragment> fragments = new ArrayList<>();
-        public final List<String> titles = new ArrayList<>();
-
-        public TabsPagerAdapter(final FragmentManager fm) {
-            super(fm);
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(final int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(final int position) {
-            return titles.get(position);
-        }
-
-        public void addFragment(@NonNull final BaseTabFragment fragment) {
-            fragments.add(fragment);
-            titles.add(fragment.getTitle());
-        }
-    }
 }
