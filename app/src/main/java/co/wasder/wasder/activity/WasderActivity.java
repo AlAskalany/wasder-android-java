@@ -56,7 +56,6 @@ import co.wasder.ui.viewmodel.WasderActivityViewModel;
 import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
 import co.wasder.wasder.base.BaseTabFragment;
-import co.wasder.wasder.base.NavigationFragment;
 import co.wasder.wasder.dialogfragment.AddEventDialogFragment;
 import co.wasder.wasder.dialogfragment.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialogfragment.FirestoreItemFilterDialogFragment;
@@ -415,7 +414,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         @NonNull
         @Override
         public Fragment getItem(final int position) {
-            final NavigationFragment fragment;
+            final Fragment fragment;
             switch (position) {
                 case 0:
                     fragment = FeedNavigationFragment.newInstance(0);
@@ -433,7 +432,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                     fragment = null;
                     break;
             }
-            return (Fragment) fragment;
+            return fragment;
         }
 
         @Override

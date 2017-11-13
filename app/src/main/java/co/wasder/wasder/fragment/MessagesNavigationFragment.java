@@ -34,7 +34,6 @@ import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.activity.WasderActivity;
 import co.wasder.wasder.base.BaseTabFragment;
-import co.wasder.wasder.base.NavigationFragment;
 import co.wasder.wasder.listener.OnFragmentInteractionListener;
 
 /**
@@ -46,7 +45,7 @@ import co.wasder.wasder.listener.OnFragmentInteractionListener;
  * create an instance of this fragment.
  */
 @Keep
-public class MessagesNavigationFragment extends Fragment implements NavigationFragment,
+public class MessagesNavigationFragment extends Fragment implements
         NavigationView.OnNavigationItemSelectedListener {
 
     public static final String ARG_TAG = "tag";
@@ -102,7 +101,7 @@ public class MessagesNavigationFragment extends Fragment implements NavigationFr
      */
     // TODO: Rename and change types and number of parameters
     @NonNull
-    public static NavigationFragment newInstance(final int sectionNumber) {
+    public static Fragment newInstance(final int sectionNumber) {
         final MessagesNavigationFragment fragment = new MessagesNavigationFragment();
         final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
