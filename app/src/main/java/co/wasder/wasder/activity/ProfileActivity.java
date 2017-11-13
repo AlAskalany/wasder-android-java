@@ -21,6 +21,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.common.ChangeEventType;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,6 +36,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import co.wasder.data.base.BaseModel;
 import co.wasder.data.model.FeedModel;
 import co.wasder.data.model.User;
@@ -80,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
 
         }
     };
-    @BindView(R.id.itemProfileImageView)
+    @BindView(R.id.profilePhotoImageView)
     ImageView profileImageView;
     @BindView(R.id.presenceImageView)
     ImageView presenceImageView;
@@ -90,6 +93,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        ButterKnife.bind(this);
         final Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mUserReference = extras.getString(ARG_USER_REFERENCE);
@@ -100,8 +104,8 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
                 .whereEqualTo("uid", mUserReference)
                 .orderBy("timestamp")
                 .limit((long) 50);
-        adapter = FollowingRecyclerAdapter.getAdapter(this, mItemSelectedListener,
-                mQuery, FeedModel.class);
+        adapter = FollowingRecyclerAdapter.getAdapter(this, mItemSelectedListener, mQuery,
+                FeedModel.class);
         final RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
@@ -160,8 +164,28 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
 
     public void onItemModelLoaded(final FeedModel feedModel) {
         userId = feedModel.getUid();
-        String photoUrl = feedModel.getPhoto();
-        downloadProfilePictureIntoView(userId, photoUrl, this);
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("users")
+                .document(feedModel.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot userDocumentSnapshot = task.getResult();
+                            User myUser = userDocumentSnapshot.toObject(User.class);
+                            String photoUrl = myUser.getPhotoUrl();
+                            if (photoUrl != null) {
+                                GlideApp.with(getApplicationContext())
+                                        .load(photoUrl)
+                                        .transition(DrawableTransitionOptions.withCrossFade())
+                                        .into(profileImageView);
+                            }
+                        }
+                    }
+                });
     }
 
     public void onUserModelLoaded(@NonNull final User user) {
