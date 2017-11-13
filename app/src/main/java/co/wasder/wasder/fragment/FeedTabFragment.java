@@ -87,12 +87,6 @@ public class FeedTabFragment extends BaseTabFragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    @Override
     @Nullable
     public FirebaseFirestore getFirestore() {
         return null;

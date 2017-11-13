@@ -184,6 +184,12 @@ public abstract class BaseTabFragment extends Fragment implements LifecycleOwner
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
     @Nullable
     public abstract FirebaseFirestore getFirestore();
 

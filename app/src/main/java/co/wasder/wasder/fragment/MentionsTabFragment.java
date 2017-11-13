@@ -10,21 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.firebase.ui.common.ChangeEventType;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 import butterknife.ButterKnife;
-import co.wasder.data.base.BaseModel;
 import co.wasder.ui.base.BaseTabFragmentViewModel;
 import co.wasder.ui.viewmodel.MentionsTabFragmentViewModel;
 import co.wasder.wasder.R;
 import co.wasder.wasder.base.BaseTabFragment;
 import co.wasder.wasder.dialogfragment.AddFirestoreItemDialogFragment;
-import co.wasder.wasder.listener.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.util.Dialogs;
 
 /**
@@ -46,30 +41,6 @@ public class MentionsTabFragment extends BaseTabFragment {
     public BaseTabFragmentViewModel mViewModel;
     public String mTitle;
     private long LIMIT;
-    @NonNull
-    private OnFirestoreItemSelectedListener onFirestoreItemSelectedListener = new
-            OnFirestoreItemSelectedListener() {
-        @Override
-        public void onFirestoreItemSelected(BaseModel event, View itemView) {
-
-        }
-
-        @Override
-        public void onChildChanged(ChangeEventType type, DocumentSnapshot snapshot, int newIndex,
-                                   int oldIndex) {
-
-        }
-
-        @Override
-        public void onDataChanged() {
-
-        }
-
-        @Override
-        public void onError(FirebaseFirestoreException e) {
-
-        }
-    };
 
     public static MentionsTabFragment newInstance(int sectionNumber, String title) {
         MentionsTabFragment fragment = new MentionsTabFragment();
@@ -113,12 +84,6 @@ public class MentionsTabFragment extends BaseTabFragment {
     public void onStop() {
         super.onStop();
         FirebaseAuth.getInstance().removeAuthStateListener(this);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override

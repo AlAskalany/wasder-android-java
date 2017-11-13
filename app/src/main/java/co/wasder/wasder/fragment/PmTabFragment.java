@@ -9,18 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.firebase.ui.common.ChangeEventType;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 import butterknife.ButterKnife;
-import co.wasder.data.base.BaseModel;
 import co.wasder.wasder.R;
 import co.wasder.wasder.base.BaseTabFragment;
-import co.wasder.wasder.listener.OnFirestoreItemSelectedListener;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.
@@ -36,30 +31,6 @@ public class PmTabFragment extends BaseTabFragment {
     }
 
     private String mTitle;
-    @NonNull
-    private OnFirestoreItemSelectedListener onFirestoreItemSelectedListener = new
-            OnFirestoreItemSelectedListener() {
-        @Override
-        public void onFirestoreItemSelected(BaseModel event, View itemView) {
-
-        }
-
-        @Override
-        public void onChildChanged(ChangeEventType type, DocumentSnapshot snapshot, int newIndex,
-                                   int oldIndex) {
-
-        }
-
-        @Override
-        public void onDataChanged() {
-
-        }
-
-        @Override
-        public void onError(FirebaseFirestoreException e) {
-
-        }
-    };
 
     public static PmTabFragment newInstance(int sectionNumber, String title) {
         PmTabFragment fragment = new PmTabFragment();
@@ -101,12 +72,6 @@ public class PmTabFragment extends BaseTabFragment {
     public void onStop() {
         super.onStop();
         FirebaseAuth.getInstance().removeAuthStateListener(this);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
