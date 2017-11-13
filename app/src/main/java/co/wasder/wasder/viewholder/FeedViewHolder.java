@@ -36,7 +36,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import co.wasder.data.base.AbstractFirestoreItem;
+import co.wasder.data.base.BaseModel;
 import co.wasder.data.model.FeedModel;
 import co.wasder.data.model.User;
 import co.wasder.wasder.GlideApp;
@@ -136,12 +136,12 @@ public class FeedViewHolder extends BaseViewHolder {
         return itemView.getVisibility() == View.GONE;
     }
 
-    private void handleItemViewClick(@NonNull AbstractFirestoreItem model,
+    private void handleItemViewClick(@NonNull BaseModel model,
                                      OnFirestoreItemSelectedListener onFirestoreItemSelectedListener) {
         onFirestoreItemSelectedListener.onFirestoreItemSelected(model, itemView);
     }
 
-    private void handleExpandButton(@NonNull View v, @NonNull final AbstractFirestoreItem model) {
+    private void handleExpandButton(@NonNull View v, @NonNull final BaseModel model) {
         final String currentUserId = getCurrentUserId();
         final PopupMenu popup = getPopupMenu(v, currentUserId, model, expandButton);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -163,8 +163,8 @@ public class FeedViewHolder extends BaseViewHolder {
     }
 
     @NonNull
-    private PopupMenu getPopupMenu(@NonNull View v, String currentUserId, @NonNull
-            AbstractFirestoreItem model, ImageButton expandButton) {
+    private PopupMenu getPopupMenu(@NonNull View v, String currentUserId, @NonNull BaseModel
+            model, ImageButton expandButton) {
         final PopupMenu popup = new PopupMenu(v.getContext(), expandButton);
         popup.inflate(R.menu.menu_item);
         if (!TextUtils.equals(model.getUid(), currentUserId)) {
@@ -179,7 +179,7 @@ public class FeedViewHolder extends BaseViewHolder {
         userName.setText(name);
     }
 
-    private void setPostText(@NonNull AbstractFirestoreItem model, TextView itemText) {
+    private void setPostText(@NonNull BaseModel model, TextView itemText) {
         itemText.setText(model.getFeedText());
     }
 
@@ -188,7 +188,7 @@ public class FeedViewHolder extends BaseViewHolder {
         timeStamp.setText(dateString);
     }
 
-    private void startAuthProfileActivity(@NonNull AbstractFirestoreItem model, Context context,
+    private void startAuthProfileActivity(@NonNull BaseModel model, Context context,
                                           View itemView) {
         if (model.getUid() != null) {
             final Intent intent = new Intent(context, ProfileActivity.class);
@@ -232,7 +232,7 @@ public class FeedViewHolder extends BaseViewHolder {
                 .into(getProfileImageView(userId));
     }
 
-    private void handleMenu(@NonNull MenuItem item, @NonNull AbstractFirestoreItem model, String
+    private void handleMenu(@NonNull MenuItem item, @NonNull BaseModel model, String
             currentUserId) {
         switch (item.getItemId()) {
             case R.id.edit:
@@ -246,7 +246,7 @@ public class FeedViewHolder extends BaseViewHolder {
         }
     }
 
-    private void followAuthor(@NonNull AbstractFirestoreItem model, String currentUserId) {
+    private void followAuthor(@NonNull BaseModel model, String currentUserId) {
         addCurrentUidToAuthorFollowers(currentUserId, getAuthorFollowersReference(model));
     }
 
@@ -262,7 +262,7 @@ public class FeedViewHolder extends BaseViewHolder {
         return data;
     }
 
-    private DatabaseReference getAuthorFollowersReference(@NonNull AbstractFirestoreItem model) {
+    private DatabaseReference getAuthorFollowersReference(@NonNull BaseModel model) {
         return getAuthorUserId(model.getUid()).child(FOLLOWERS);
     }
 
@@ -270,7 +270,7 @@ public class FeedViewHolder extends BaseViewHolder {
         return FirebaseDatabase.getInstance().getReference(USERS);
     }
 
-    private void deletePost(@NonNull AbstractFirestoreItem model) {
+    private void deletePost(@NonNull BaseModel model) {
         final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("posts")
                 .document(model.getUid())

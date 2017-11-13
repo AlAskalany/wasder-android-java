@@ -31,7 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import co.wasder.data.base.AbstractFirestoreItem;
+import co.wasder.data.base.BaseModel;
 import co.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.data.model.FeedModel;
 import co.wasder.data.model.User;
@@ -78,7 +78,7 @@ public class DiscoveryTabFragment extends BaseTabFragment {
     private OnFirestoreItemSelectedListener onFirestoreItemSelectedListener = new
             OnFirestoreItemSelectedListener() {
         @Override
-        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
+        public void onFirestoreItemSelected(BaseModel event, View itemView) {
 
         }
 

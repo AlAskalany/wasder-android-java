@@ -8,7 +8,7 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
-import co.wasder.data.base.AbstractFirestoreItem;
+import co.wasder.data.base.BaseModel;
 
 /**
  * Created by Ahmed AlAskalany on 10/11/2017.
@@ -16,7 +16,7 @@ import co.wasder.data.base.AbstractFirestoreItem;
  */
 @Keep
 @IgnoreExtraProperties
-public class FeedModel extends AbstractFirestoreItem {
+public class FeedModel extends BaseModel {
 
     @SuppressWarnings("unused")
     private static final String FIELD_UID = "uId";

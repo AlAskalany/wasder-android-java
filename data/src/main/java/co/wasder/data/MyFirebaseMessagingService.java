@@ -14,7 +14,7 @@ import com.google.firebase.messaging.RemoteMessage;
 @Keep
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
-    public static final String TAG = "MyFMService";
+    private static final String TAG = "MyFMService";
 
     private static boolean isProcessingNeeded() {
         /* Check if data needs to be processed by long running job */
@@ -46,10 +46,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // message, here is where that should be initiated. See sendNotification method below.
     }
 
+    @SuppressWarnings("EmptyMethod")
     private void scheduleJob() {
 
     }
 
+    @SuppressWarnings("EmptyMethod")
     private void handleNow() {
 
     }

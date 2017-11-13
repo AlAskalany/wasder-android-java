@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.firebase.ui.firestore.ChangeEventListener;
 
-import co.wasder.data.base.AbstractFirestoreItem;
+import co.wasder.data.base.BaseModel;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.
@@ -15,5 +15,5 @@ import co.wasder.data.base.AbstractFirestoreItem;
 @Keep
 public interface OnFirestoreItemSelectedListener extends ChangeEventListener, LifecycleObserver {
 
-    void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView);
+    void onFirestoreItemSelected(BaseModel event, View itemView);
 }

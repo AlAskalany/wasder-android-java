@@ -9,7 +9,7 @@ import java.util.Date;
  * Navigator
  */
 
-public abstract class AbstractFirestoreItem {
+public abstract class BaseModel {
 
     private String photo;
 

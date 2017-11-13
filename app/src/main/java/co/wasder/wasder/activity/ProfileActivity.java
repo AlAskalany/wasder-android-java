@@ -34,7 +34,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
 import butterknife.BindView;
-import co.wasder.data.base.AbstractFirestoreItem;
+import co.wasder.data.base.BaseModel;
 import co.wasder.data.model.FeedModel;
 import co.wasder.data.model.User;
 import co.wasder.ui.viewmodel.ProfileActivityViewModel;
@@ -60,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     public OnFirestoreItemSelectedListener mItemSelectedListener = new
             OnFirestoreItemSelectedListener() {
         @Override
-        public void onFirestoreItemSelected(AbstractFirestoreItem event, View itemView) {
+        public void onFirestoreItemSelected(BaseModel event, View itemView) {
 
         }
 

@@ -16,14 +16,14 @@ import com.google.firebase.firestore.Query;
 public class FirestoreItemFilters {
 
     @Nullable
-    public String category = null;
+    private String category = null;
     @Nullable
-    public String city = null;
-    public int price = -1;
+    private String city = null;
+    private int price = -1;
     @Nullable
-    public String sortBy = null;
+    private String sortBy = null;
     @Nullable
-    public Query.Direction sortDirection = null;
+    private Query.Direction sortDirection = null;
     private String uid;
 
     public FirestoreItemFilters() {
