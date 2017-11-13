@@ -11,7 +11,7 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="5dp"
     app:contentPadding="8dp"
-    tools:context=".WasderActivity">
+    tools:context=".activity.WasderActivity">
 
     <include
         android:id="@+id/feedView"
