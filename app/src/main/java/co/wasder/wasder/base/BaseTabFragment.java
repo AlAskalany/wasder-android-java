@@ -58,6 +58,7 @@ public abstract class BaseTabFragment extends Fragment implements LifecycleOwner
     public OnFragmentInteractionListener mListener;
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
+    public String mTitle;
     @NonNull
     protected OnFirestoreItemSelectedListener onFirestoreItemSelectedListener = new
             OnFirestoreItemSelectedListener() {
@@ -82,6 +83,12 @@ public abstract class BaseTabFragment extends Fragment implements LifecycleOwner
 
         }
     };
+
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        setUserVisibleHint(true);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public abstract View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -190,17 +197,42 @@ public abstract class BaseTabFragment extends Fragment implements LifecycleOwner
         mListener = null;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            attachRecyclerViewAdapter();
+        }
+        FirebaseAuth.getInstance().addAuthStateListener(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        FirebaseAuth.getInstance().removeAuthStateListener(this);
+    }
+
     @Nullable
-    public abstract FirebaseFirestore getFirestore();
+    public FirebaseFirestore getFirestore() {
+        return null;
+    }
 
-    public abstract void setFirestore(FirebaseFirestore instance);
+    public void setFirestore(final FirebaseFirestore instance) {
+
+    }
 
     @Nullable
-    public abstract Query getQuery();
+    public Query getQuery() {
+        return null;
+    }
 
-    public abstract void setQuery(Query timestamp);
+    public void setQuery(final Query timestamp) {
+
+    }
 
     @Nullable
-    public abstract String getTitle();
+    public String getTitle() {
+        return mTitle;
+    }
 
 }
