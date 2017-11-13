@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/data/data.iml" filepath="$PROJECT_DIR$/data/data.iml" />
       <module fileurl="file://$PROJECT_DIR$/repository/repository.iml" filepath="$PROJECT_DIR$/repository/repository.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui/ui.iml" filepath="$PROJECT_DIR$/ui/ui.iml" />
-      <module fileurl="file://C:\Users\Ahmed AlAskalany\AndroidStudioProjects\Wasder\data\ui.iml" filepath="C:\Users\Ahmed AlAskalany\AndroidStudioProjects\Wasder\data\ui.iml" />
     </modules>
   </component>
 </project>
