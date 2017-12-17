@@ -24,6 +24,8 @@ import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,28 +77,30 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     @Nullable
     @BindView(R.id.itemEditText)
     public EditText mFeedEditText;
-
     public String uuid;
-    public String feedText;
-    public String postProfilePhotoUrl;
+    private Context context;
 
-    public static void addPostToDatabase(@NonNull final FeedModel feedModel) {
+    public void addPostToDatabase(@NonNull final FeedModel feedModel) {
         final CollectionReference posts = FirebaseFirestore.getInstance().collection("posts");
-        posts.add(feedModel).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull final Task<DocumentReference> task) {
-                if (task.isSuccessful()) {
-
+        if (feedModel.getUid() != null && feedModel.getFeedText() != null) {
+            posts.add(feedModel).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                @Override
+                public void onComplete(@NonNull final Task<DocumentReference> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(context, "Post Added", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup
+            container, @Nullable final Bundle savedInstanceState) {
         final View mRootView = inflater.inflate(R.layout.dialog_add_item, container, false);
         ButterKnife.bind(this, mRootView);
+        context = getActivity();
         return mRootView;
     }
 
@@ -104,7 +108,8 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     public void onAttach(final Context context) {
         super.onAttach(context);
         if (context instanceof FilterListener) {
-            @SuppressWarnings("unused") final FilterListener mFilterListener = (FilterListener) context;
+            @SuppressWarnings("unused") final FilterListener mFilterListener = (FilterListener)
+                    context;
         }
     }
 
@@ -147,7 +152,9 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
 
     @Nullable
     public String getFeedText() {
-        final String feedText = mFeedEditText.getText().toString();
+        assert mFeedEditText != null;
+        Editable text = mFeedEditText.getText();
+        final String feedText = text.toString();
         if (!TextUtils.isEmpty(feedText)) {
             return feedText;
         } else {
@@ -162,7 +169,8 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
 
 
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, @NonNull final Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode, @NonNull final
+    Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_CHOOSE_PHOTO) {
@@ -188,7 +196,8 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
             return;
         }*/
 
-        final Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        final Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media
+                .EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RC_CHOOSE_PHOTO);
     }
 
@@ -200,9 +209,10 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
         // Upload to Cloud Storage
         uuid = UUID.randomUUID().toString();
         final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
+        FragmentActivity activity = getActivity();
+        assert activity != null;
         mImageRef.putFile(uri)
-                .addOnSuccessListener(getActivity(), new OnSuccessListener<UploadTask
-                        .TaskSnapshot>() {
+                .addOnSuccessListener(activity, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(@NonNull final UploadTask.TaskSnapshot taskSnapshot) {
                         //noinspection LogConditional
@@ -222,7 +232,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
                         //showDownloadUI();
                     }
                 })
-                .addOnFailureListener(getActivity(), new OnFailureListener() {
+                .addOnFailureListener(activity, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull final Exception e) {
                         Log.w(TAG, "uploadPhoto:onError", e);
@@ -235,7 +245,7 @@ public class AddFirestoreItemDialogFragment extends DialogFragment {
     public String getPostProfilePhotoUrl() {
         final FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
-        Uri profilePhotoUri = null;
+        Uri profilePhotoUri;
         if (user != null) {
             profilePhotoUri = user.getPhotoUrl();
             if (profilePhotoUri != null) {

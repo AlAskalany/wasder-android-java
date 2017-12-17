@@ -21,6 +21,11 @@ android {
             storePassword 'wasder-keystore-!@#'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
         debug {
             ext.enableCrashlytics = false

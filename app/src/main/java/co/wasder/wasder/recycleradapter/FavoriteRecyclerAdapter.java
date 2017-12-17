@@ -1,6 +1,7 @@
 package co.wasder.wasder.recycleradapter;
 
 import android.arch.lifecycle.LifecycleOwner;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.google.firebase.firestore.Query;
 import co.wasder.data.model.FeedModel;
 import co.wasder.wasder.R;
 import co.wasder.wasder.base.BaseRecyclerAdapter;
+import co.wasder.wasder.databinding.ItemFeedBinding;
 import co.wasder.wasder.listener.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.viewholder.FeedViewHolder;
 
@@ -41,8 +43,10 @@ public class FavoriteRecyclerAdapter extends BaseRecyclerAdapter {
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int
                     viewType) {
-                return new FeedViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_firestore_item, parent, false));
+                LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+                ItemFeedBinding itemFeedBinding = DataBindingUtil.inflate(layoutInflater, R
+                        .layout.item_feed, parent, false);
+                return new FeedViewHolder(itemFeedBinding);
             }
 
             @Override

@@ -4,23 +4,21 @@ import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,14 +42,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import co.wasder.data.filter.FirestoreItemFilters;
 import co.wasder.data.model.User;
 import co.wasder.ui.viewmodel.WasderActivityViewModel;
 import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
+import co.wasder.wasder.databinding.ActivityWasderBinding;
 import co.wasder.wasder.dialogfragment.AddEventDialogFragment;
 import co.wasder.wasder.dialogfragment.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialogfragment.FirestoreItemFilterDialogFragment;
@@ -60,9 +56,7 @@ import co.wasder.wasder.fragment.navigation.GroupsNavigationFragment;
 import co.wasder.wasder.fragment.navigation.LiveNavigationFragment;
 import co.wasder.wasder.fragment.navigation.MessagesNavigationFragment;
 import co.wasder.wasder.listener.OnFragmentInteractionListener;
-import co.wasder.wasder.util.Dialogs;
 import co.wasder.wasder.util.FirestoreItemUtil;
-import co.wasder.wasder.viewpager.NonSwipeableViewPager;
 import io.fabric.sdk.android.Fabric;
 
 @Keep
@@ -73,21 +67,12 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final java.lang.String AMPLITUDE_API_KEY = "937ae55b73eb164890021fe9b2d4fa63";
-    @Nullable
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
-    @Nullable
-    @BindView(R.id.nav_view)
-    NavigationView mNavigationView;
-    @Nullable
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.navigation2)
-    BottomNavigationView mBottomNavigationView;
-    @Nullable
-    @SuppressWarnings("WeakerAccess")
-    @BindView(R.id.container)
-    NonSwipeableViewPager mViewPager;
+    private GoogleApiClient mGoogleApiClient;
+    private WasderActivityViewModel mViewModel;
+    private ActionBarDrawerToggle toggle;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private ActivityWasderBinding binding;
     private final BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView
             .OnNavigationItemSelectedListener() {
@@ -95,36 +80,24 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         @Override
         public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
             final int id = item.getItemId();
-            assert mViewPager != null;
             switch (id) {
                 case R.id.navigation_home:
-                    mViewPager.setCurrentItem(0, false);
+                    binding.include.container.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_live:
-                    mViewPager.setCurrentItem(1, false);
+                    binding.include.container.setCurrentItem(1, false);
                     return true;
                 case R.id.navigation_groups:
-                    mViewPager.setCurrentItem(2, false);
+                    binding.include.container.setCurrentItem(2, false);
                     return true;
                 case R.id.navigation_messages:
-                    mViewPager.setCurrentItem(3, false);
+                    binding.include.container.setCurrentItem(3, false);
                     return true;
                 default:
                     return false;
             }
         }
     };
-    @Nullable
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    @SuppressWarnings("unused")
-    private GoogleApiClient mGoogleApiClient;
-    private WasderActivityViewModel mViewModel;
-    @SuppressWarnings("unused")
-    private ActionBarDrawerToggle toggle;
-    private FirebaseAuth firebaseAuth;
-    @Nullable
-    private FirebaseUser firebaseUser;
 
     private static void unregisterManagers() {
         UpdateManager.unregister();
@@ -133,9 +106,11 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_wasder);
+        binding.setActivity(this);
+
         Fabric.with(this, new Crashlytics());
-        setContentView(R.layout.activity_wasder);
-        ButterKnife.bind(this);
         MetricsManager.register(getApplication());
         MetricsManager.trackEvent("WasderActivity");
         firebaseAuth = FirebaseAuth.getInstance();
@@ -156,11 +131,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         // Remove this for store builds!
         UpdateManager.register(this);
         mViewModel = ViewModelProviders.of(this).get(WasderActivityViewModel.class);
-        assert mBottomNavigationView != null;
-        mBottomNavigationView.setOnNavigationItemSelectedListener
+        binding.include.bottomNavigationView.setOnNavigationItemSelectedListener
                 (mOnNavigationItemSelectedListener);
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.include.toolbar);
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.addOnMenuVisibilityListener(new ActionBar.OnMenuVisibilityListener() {
@@ -170,30 +143,27 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 }
             });
         }
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        assert mDrawerLayout != null;
-        mDrawerLayout.addDrawerListener(toggle);
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding
+                .drawerLayout, binding.include.toolbar, R.string.navigation_drawer_open, R.string
+                .navigation_drawer_close);
+        binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        final NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        binding.navView.setNavigationItemSelectedListener(this);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(this,
                 getSupportFragmentManager());
         Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
         // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
-        mViewPager.setOffscreenPageLimit(3);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        @SuppressWarnings("unused") final AddFirestoreItemDialogFragment mAddPostDialog = Dialogs
+        binding.include.container.setOffscreenPageLimit(3);
+        binding.include.container.setAdapter(mSectionsPagerAdapter);
+        @SuppressWarnings("unused") final AddFirestoreItemDialogFragment mAddPostDialog = co
+                .wasder.wasder.util.Dialogs
                 .AddPostDialogFragment();
-        assert mSwipeRefreshLayout != null;
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.include.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout
+                .OnRefreshListener() {
             @Override
             public void onRefresh() {
                 Log.d(TAG, "onRefresh: ");
-                assert mSwipeRefreshLayout != null;
-                mSwipeRefreshLayout.setRefreshing(false);
+                binding.include.swipeRefreshLayout.setRefreshing(false);
             }
         });
         FeedbackManager.register(this);
@@ -223,20 +193,6 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public void onDestroy() {
         super.onDestroy();
         unregisterManagers();
-    }
-
-    @OnClick(R.id.fab)
-    public void submit(@SuppressWarnings("unused") final View view) {
-        /**/
-        /**/
-        assert mViewPager != null;
-        if (mViewPager.getCurrentItem() == 0) {
-            Dialogs.AddPostDialogFragment()
-                    .show(getSupportFragmentManager(), AddFirestoreItemDialogFragment.TAG);
-        } else if (mViewPager.getCurrentItem() == 1) {
-            new AddEventDialogFragment().show(getSupportFragmentManager(),
-                    AddFirestoreItemDialogFragment.TAG);
-        }
     }
 
     @Override
@@ -300,9 +256,9 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public void onBackPressed() {
-        assert mDrawerLayout != null;
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
+        assert binding.drawerLayout != null;
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -320,7 +276,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 final Intent intent = AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setTheme(R.style.GreenTheme)
-                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
+                                .EMAIL_PROVIDER)
                                 .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER)
                                 .build()))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
@@ -352,8 +309,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             FeedbackManager.showFeedbackActivity(this);
         }
 
-        assert mDrawerLayout != null;
-        mDrawerLayout.closeDrawer(GravityCompat.START);
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -374,7 +330,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 final Intent intent = AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setTheme(R.style.GreenTheme)
-                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
+                                .EMAIL_PROVIDER)
                                 .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER)
                                 .build()))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
@@ -392,6 +349,17 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
 
     @Override
     public void onFilter(final FirestoreItemFilters firestoreItemFilters) {
+    }
+
+    public void onClickAdd(View view) {
+        assert binding.include.container != null;
+        if (binding.include.container.getCurrentItem() == 0) {
+            co.wasder.wasder.util.Dialogs.AddPostDialogFragment()
+                    .show(getSupportFragmentManager(), AddFirestoreItemDialogFragment.TAG);
+        } else if (binding.include.container.getCurrentItem() == 1) {
+            new AddEventDialogFragment().show(getSupportFragmentManager(),
+                    AddFirestoreItemDialogFragment.TAG);
+        }
     }
 
     /**
