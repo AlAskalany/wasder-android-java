@@ -39,15 +39,15 @@ allprojects {
 }
 
 ext {
-    versionCode = 6
+    versionCode = 5
     versionName = '1.0'
     compileSdkVersion = 27
     minSdkVersion = 19
     targetSdkVersion = 27
-    GMS = "11.6.0"
-    SUPPORT = "27.0.1"
+    GMS = "11.6.2"
+    SUPPORT = "27.0.2"
     FIREBASEUI = "3.1.0"
-    CONSTRAINTLAYOUT = "1.1.0-beta3"
+    CONSTRAINTLAYOUT = "1.1.0-beta4"
     GLIDE = "4.2.0"
     SUPPORTTEST = "2.2.2"
     FIREBASEJOBDISPATCHER = "0.8.4"
