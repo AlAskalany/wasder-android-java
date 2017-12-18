@@ -49,6 +49,7 @@ import co.wasder.ui.viewmodel.WasderActivityViewModel;
 import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
 import co.wasder.wasder.databinding.ActivityWasderBinding;
+import co.wasder.wasder.dialogfragment.AddEventDialogFragment;
 import co.wasder.wasder.dialogfragment.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialogfragment.FirestoreItemFilterDialogFragment;
 import co.wasder.wasder.fragment.navigation.FeedNavigationFragment;
@@ -93,6 +94,15 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 case R.id.navigation_messages:
                     binding.include.container.setCurrentItem(3, false);
                     return true;
+                case R.id.navigation_add:
+                    if (binding.include.container.getCurrentItem() == 0) {
+                        co.wasder.wasder.util.Dialogs.AddPostDialogFragment()
+                                .show(getSupportFragmentManager(), AddFirestoreItemDialogFragment
+                                        .TAG);
+                    } else if (binding.include.container.getCurrentItem() == 1) {
+                        new AddEventDialogFragment().show(getSupportFragmentManager(),
+                                AddFirestoreItemDialogFragment.TAG);
+                    }
                 default:
                     return false;
             }
