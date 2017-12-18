@@ -162,4 +162,8 @@
     <string name="image">Image</string>
     <string name="date">11/1/11</string>
     <string name="wasder_logo">Wasder Logo</string>
+    <string name="todo">TODO</string>
+    <string name="calendar">Calendar</string>
+    <string name="wallet">Wallet</string>
+    <string name="market">Market</string>
 </resources>

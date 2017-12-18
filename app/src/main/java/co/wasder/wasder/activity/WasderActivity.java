@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -48,7 +49,6 @@ import co.wasder.ui.viewmodel.WasderActivityViewModel;
 import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
 import co.wasder.wasder.databinding.ActivityWasderBinding;
-import co.wasder.wasder.dialogfragment.AddEventDialogFragment;
 import co.wasder.wasder.dialogfragment.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.dialogfragment.FirestoreItemFilterDialogFragment;
 import co.wasder.wasder.fragment.navigation.FeedNavigationFragment;
@@ -354,11 +354,16 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     public void onClickAdd(View view) {
         assert binding.include.container != null;
         if (binding.include.container.getCurrentItem() == 0) {
-            co.wasder.wasder.util.Dialogs.AddPostDialogFragment()
-                    .show(getSupportFragmentManager(), AddFirestoreItemDialogFragment.TAG);
+            /*co.wasder.wasder.util.Dialogs.AddPostDialogFragment()
+                    .show(getSupportFragmentManager(), AddFirestoreItemDialogFragment.TAG);*/
+            final BottomSheetDialog controlCenter = new BottomSheetDialog(this);
+            View controlCenterView = getLayoutInflater().inflate(R.layout
+                    .bottom_sheet_control_center, null);
+            controlCenter.setContentView(controlCenterView);
+            controlCenter.show();
         } else if (binding.include.container.getCurrentItem() == 1) {
-            new AddEventDialogFragment().show(getSupportFragmentManager(),
-                    AddFirestoreItemDialogFragment.TAG);
+            /*new AddEventDialogFragment().show(getSupportFragmentManager(),
+                    AddFirestoreItemDialogFragment.TAG);*/
         }
     }
 
