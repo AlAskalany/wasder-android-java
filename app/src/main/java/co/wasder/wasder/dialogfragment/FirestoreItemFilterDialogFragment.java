@@ -73,7 +73,8 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
+                             @Nullable final Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.dialog_filters_items, container, false);
         ButterKnife.bind(this, mRootView);
 

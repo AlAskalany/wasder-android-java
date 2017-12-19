@@ -117,7 +117,8 @@ public class AddEventDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
+                             @Nullable final Bundle savedInstanceState) {
         final View mRootView = inflater.inflate(R.layout.dialog_add_event, container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
@@ -127,7 +128,8 @@ public class AddEventDialogFragment extends DialogFragment {
     public void onAttach(final Context context) {
         super.onAttach(context);
         if (context instanceof FilterListener) {
-            @SuppressWarnings("unused") final FilterListener mFilterListener = (FilterListener) context;
+            @SuppressWarnings("unused") final FilterListener mFilterListener = (FilterListener)
+                    context;
         }
     }
 
@@ -194,7 +196,8 @@ public class AddEventDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, @NonNull final Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode, @NonNull final
+    Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_CHOOSE_PHOTO) {
@@ -220,7 +223,8 @@ public class AddEventDialogFragment extends DialogFragment {
             return;
         }*/
 
-        final Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        final Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media
+                .EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RC_CHOOSE_PHOTO);
     }
 
