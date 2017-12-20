@@ -25,8 +25,8 @@ public class Model {
                 .toString(), "AD", 2, 2, "Feed text");
     }
 
-    public static FeedModel FirestoreItem(final String uId, final String profilePhotoUrl, final String photo,
-                                          final int numRatings, final double avgRating, final String feedText) {
+    public static FeedModel FirestoreItem(final String uId, final String profilePhotoUrl, final
+    String photo, final int numRatings, final double avgRating, final String feedText) {
         return new FeedModel(uId, profilePhotoUrl, photo, numRatings, avgRating, feedText);
     }
 
@@ -36,16 +36,17 @@ public class Model {
     }
 
     @SuppressWarnings("unused")
-    public static Rating Rating(@NonNull final FirebaseUser user, @SuppressWarnings("SameParameterValue") final
-    double rating, @SuppressWarnings("SameParameterValue") final String text) {
+    public static Rating Rating(@NonNull final FirebaseUser user, @SuppressWarnings
+            ("SameParameterValue") final double rating, @SuppressWarnings("SameParameterValue")
+    final String text) {
         Model.rating = rating;
         Model.text = text;
         return new Rating(user, rating, text);
     }
 
-    public static Event Event(final String uId, final String title, final String profilePhotoUrl, final String photo, final int
-            numRatings,
-                              final double avgRating, final String feedText) {
+    public static Event Event(final String uId, final String title, final String profilePhotoUrl,
+                              final String photo, final int numRatings, final double avgRating,
+                              final String feedText) {
         return new Event(uId, title, profilePhotoUrl, photo, numRatings, avgRating, feedText);
     }
 }

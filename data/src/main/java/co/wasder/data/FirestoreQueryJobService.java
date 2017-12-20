@@ -28,7 +28,8 @@ public class FirestoreQueryJobService extends JobService {
                 try {
                     final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
                     @SuppressWarnings("unused") final String collectionName = null;
-                    @SuppressWarnings("unused") final Query query = firestore.collection("restaurants");
+                    @SuppressWarnings("unused") final Query query = firestore.collection
+                            ("restaurants");
                 } finally {
                     //Tell the framework that the job has completed and doesn't needs to be
                     // reschedule

@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_message_black_24dp"
         android:title="@string/title_messages" />
 
+    <item
+        android:id="@+id/navigation_add"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="@string/title_add" />
+
 </menu>

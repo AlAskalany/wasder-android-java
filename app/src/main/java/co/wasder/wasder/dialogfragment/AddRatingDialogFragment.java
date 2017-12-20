@@ -56,7 +56,8 @@ public class AddRatingDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
+                             @Nullable final Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.dialog_rating, container, false);
         ButterKnife.bind(this, v);
 
@@ -85,8 +86,8 @@ public class AddRatingDialogFragment extends DialogFragment {
 
     @OnClick(R.id.post_form_button)
     public void onSubmitClicked(@SuppressWarnings("unused") final View view) {
-        final Rating rating = new Rating(FirebaseAuth.getInstance().getCurrentUser(), mRatingBar
-                .getRating(), mRatingText.getText().toString());
+        final Rating rating = new Rating(FirebaseAuth.getInstance()
+                .getCurrentUser(), mRatingBar.getRating(), mRatingText.getText().toString());
 
         if (mRatingListener != null) {
             mRatingListener.onRating(rating);

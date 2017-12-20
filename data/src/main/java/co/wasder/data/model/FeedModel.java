@@ -40,9 +40,8 @@ public class FeedModel extends BaseModel {
     public FeedModel() {
     }
 
-    public FeedModel(final String uId, final String profilePhoto, final String photo, final int numRatings, final double
-            avgRating, final String
-            feedText) {
+    public FeedModel(final String uId, final String profilePhoto, final String photo, final int
+            numRatings, final double avgRating, final String feedText) {
         this.uId = uId;
         this.name = name;
         this.profilePhoto = profilePhoto;
