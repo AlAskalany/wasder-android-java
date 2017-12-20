@@ -38,8 +38,8 @@ public class Event {
     public Event() {
     }
 
-    public Event(final String uId, final String title, final String profilePhoto, final String photo, final int numRatings, final double
-            avgRating, final String feedText) {
+    public Event(final String uId, final String title, final String profilePhoto, final String
+            photo, final int numRatings, final double avgRating, final String feedText) {
         this.uId = uId;
         this.title = title;
         this.name = name;

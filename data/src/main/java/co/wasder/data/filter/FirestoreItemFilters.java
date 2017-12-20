@@ -38,7 +38,7 @@ public class FirestoreItemFilters {
         return firestoreItemFilters;
     }
 
-    public boolean hasUid(){
+    public boolean hasUid() {
         return !(TextUtils.isEmpty(uid));
     }
 
@@ -106,7 +106,7 @@ public class FirestoreItemFilters {
     public String getSearchDescription(@NonNull final Context context, int resIdAllItem) {
         final StringBuilder desc = new StringBuilder();
 
-        if(uid != null){
+        if (uid != null) {
             desc.append("<b>");
             desc.append(uid);
             desc.append("</b>");
@@ -149,7 +149,7 @@ public class FirestoreItemFilters {
         }
     }
 
-    public String getUid(){
+    public String getUid() {
         return uid;
     }
 

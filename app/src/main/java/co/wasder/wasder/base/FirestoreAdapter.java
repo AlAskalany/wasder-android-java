@@ -44,7 +44,8 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
     }
 
     @Override
-    public void onEvent(@NonNull final QuerySnapshot documentSnapshots, @Nullable final FirebaseFirestoreException e) {
+    public void onEvent(@NonNull final QuerySnapshot documentSnapshots, @Nullable final
+    FirebaseFirestoreException e) {
 
         // Handle errors
         if (e != null) {

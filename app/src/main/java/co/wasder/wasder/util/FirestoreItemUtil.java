@@ -35,8 +35,8 @@ public class FirestoreItemUtil {
             .SECONDS, new LinkedBlockingQueue<Runnable>());
 
     @SuppressWarnings("unused")
-    public static final String RESTAURANT_URL_FMT = "https://storage.googleapis" + "" + "" + ""
-            + ".com/firestorequickstarts.appspot.com/food_%d.png";
+    public static final String RESTAURANT_URL_FMT = "https://storage.googleapis" + "" + "" + "" +
+            ".com/firestorequickstarts.appspot.com/food_%d.png";
 
     public static final int MAX_IMAGE_NUM = 22;
 
@@ -114,7 +114,8 @@ public class FirestoreItemUtil {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static String getRandomString(@NonNull final String[] array, @NonNull final Random random) {
+    public static String getRandomString(@NonNull final String[] array, @NonNull final Random
+            random) {
         final int ind = random.nextInt(array.length);
         return array[ind];
     }
