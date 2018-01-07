@@ -196,11 +196,14 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     }
 
     private void setOnlineStatus(String status) {
-        FirebaseDatabase.getInstance()
-                .getReference("users")
-                .child(firebaseUser.getUid())
-                .child("online")
-                .setValue(status);
+        if (firebaseUser != null) {
+            String uid = firebaseUser.getUid();
+            FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(uid)
+                    .child("online")
+                    .setValue(status);
+        }
     }
 
     @Override
