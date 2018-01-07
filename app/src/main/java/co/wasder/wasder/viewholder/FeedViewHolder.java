@@ -2,7 +2,6 @@ package co.wasder.wasder.viewholder;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
@@ -230,7 +229,10 @@ public class FeedViewHolder extends BaseViewHolder {
     }
 
     private void followAuthor(@NonNull BaseModel model, String currentUserId) {
-        addCurrentUidToAuthorFollowers(currentUserId, getAuthorFollowersReference(model));
+        addCurrentUidToAuthorFollowers(currentUserId, FirebaseDatabase.getInstance()
+                .getReference(USERS)
+                .child(model.getUid())
+                .child(FOLLOWERS));
     }
 
     private void addCurrentUidToAuthorFollowers(String currentUserId, DatabaseReference
@@ -243,14 +245,6 @@ public class FeedViewHolder extends BaseViewHolder {
         final Map<String, Object> data = new HashMap<>();
         data.put(currentUserId, true);
         return data;
-    }
-
-    private DatabaseReference getAuthorFollowersReference(@NonNull BaseModel model) {
-        return getAuthorUserId(model.getUid()).child(FOLLOWERS);
-    }
-
-    private DatabaseReference getUsersDatabaseReference() {
-        return FirebaseDatabase.getInstance().getReference(USERS);
     }
 
     private void deletePost(@NonNull BaseModel model) {
@@ -270,43 +264,31 @@ public class FeedViewHolder extends BaseViewHolder {
     }
 
     ImageView getProfileImageView(@NonNull final String uid) {
-        getAuthorUserId(uid).child("online").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    final String myPresence = dataSnapshot.getValue().toString();
-                    handlePresence(myPresence, itemView.getResources()
-                            .getDrawable(R.drawable.ic_presence_status_online),
-                            getOfflineDrawable(R.drawable.ic_presence_status_offline));
-                }
-            }
+        FirebaseDatabase.getInstance()
+                .getReference(USERS)
+                .child(uid)
+                .child("online")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            final String myPresence = dataSnapshot.getValue().toString();
+                            if (myPresence.equals("true")) {
+                                binding.presenceImageView.setImageDrawable(itemView.getResources()
+                                        .getDrawable(R.drawable.ic_presence_status_online));
+                            } else if (myPresence.equals("false")) {
+                                binding.presenceImageView.setImageDrawable(itemView.getResources()
+                                        .getDrawable(R.drawable.ic_presence_status_offline));
+                            }
+                        }
+                    }
 
-            @Override
-            public void onCancelled(final DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(final DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
         return binding.itemProfileImageView;
     }
 
-    private Drawable getOfflineDrawable(int ic_presence_status_offline) {
-        return itemView.getResources().getDrawable(ic_presence_status_offline);
-    }
-
-    private DatabaseReference getAuthorUserId(@NonNull String uid) {
-        return getUsersDatabaseReference().child(uid);
-    }
-
-    private void handlePresence(String myPresence, Drawable onlineDrawable, Drawable
-            offlineDrawable) {
-        if (myPresence.equals("true")) {
-            setPresence(onlineDrawable, binding.presenceImageView);
-        } else if (myPresence.equals("false")) {
-            setPresence(offlineDrawable, binding.presenceImageView);
-        }
-    }
-
-    private void setPresence(Drawable drawable, ImageView presenceImageView) {
-        presenceImageView.setImageDrawable(drawable);
-    }
 }

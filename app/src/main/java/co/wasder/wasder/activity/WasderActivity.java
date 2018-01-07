@@ -33,6 +33,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.FeedbackManager;
@@ -191,18 +192,32 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             addContentView(crashButton, new ViewGroup.LayoutParams(ViewGroup.LayoutParams
                     .MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
+        setOnlineStatus("true");
+    }
+
+    private void setOnlineStatus(String status) {
+        if (firebaseUser != null) {
+            String uid = firebaseUser.getUid();
+            FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(uid)
+                    .child("online")
+                    .setValue(status);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         unregisterManagers();
+        setOnlineStatus("false");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         unregisterManagers();
+        setOnlineStatus("false");
     }
 
     @Override
