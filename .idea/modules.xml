@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Wasder.iml" filepath="$PROJECT_DIR$/Wasder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WasderBusiness/WasderBusiness.iml" filepath="$PROJECT_DIR$/WasderBusiness/WasderBusiness.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/data/data.iml" filepath="$PROJECT_DIR$/data/data.iml" />
       <module fileurl="file://$PROJECT_DIR$/repository/repository.iml" filepath="$PROJECT_DIR$/repository/repository.iml" />
