@@ -10,24 +10,18 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
-/**
- * Created by Ahmed AlAskalany on 10/11/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/11/2017. Wasder AB */
 @Keep
 public class Rating {
 
     private String uId;
-    @Nullable
-    private String userName;
+    @Nullable private String userName;
     private double rating;
     private String text;
-    private @ServerTimestamp
-    Date timestamp;
+    private @ServerTimestamp Date timestamp;
 
     @SuppressWarnings("unused")
-    public Rating() {
-    }
+    public Rating() {}
 
     public Rating(@NonNull final FirebaseUser user, final double rating, final String text) {
         this.uId = user.getUid();
@@ -78,13 +72,13 @@ public class Rating {
         this.text = text;
     }
 
-    @SuppressWarnings("unused")
     public Date getTimestamp() {
-        return timestamp;
+        Date myTimestamp = timestamp;
+        return myTimestamp;
     }
 
-    @SuppressWarnings("unused")
     public void setTimestamp(final Date timestamp) {
-        this.timestamp = timestamp;
+        Date myTimeStampe = timestamp;
+        this.timestamp = myTimeStampe;
     }
 }

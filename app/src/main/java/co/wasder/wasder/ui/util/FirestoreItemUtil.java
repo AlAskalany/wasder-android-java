@@ -20,10 +20,7 @@ import java.util.concurrent.TimeUnit;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.model.FeedModel;
 
-/**
- * Created by Ahmed AlAskalany on 10/11/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/11/2017. Wasder AB */
 @Keep
 public class FirestoreItemUtil {
 
@@ -31,25 +28,28 @@ public class FirestoreItemUtil {
     public static final String TAG = "FirestoreItemUtil";
 
     @SuppressWarnings("unused")
-    public static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60, TimeUnit
-            .SECONDS, new LinkedBlockingQueue<Runnable>());
+    public static final ThreadPoolExecutor EXECUTOR =
+            new ThreadPoolExecutor(2, 4, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
     @SuppressWarnings("unused")
-    public static final String RESTAURANT_URL_FMT = "https://storage.googleapis" + "" + "" + "" +
-            ".com/firestorequickstarts.appspot.com/food_%d.png";
+    public static final String RESTAURANT_URL_FMT =
+            "https://storage.googleapis"
+                    + ""
+                    + ""
+                    + ""
+                    + ".com/firestorequickstarts.appspot.com/food_%d.png";
 
     public static final int MAX_IMAGE_NUM = 22;
 
-    public static final String[] NAME_FIRST_WORDS = {"John", "David", "Buz", "Laura", "Mike",
-            "Sam's", "World Famous", "Google", "The Best",};
+    static final String[] NAME_FIRST_WORDS = {
+        "John", "David", "Buz", "Laura", "Mike", "Sam's", "World Famous", "Google", "The Best",
+    };
 
-    public static final String[] NAME_SECOND_WORDS = {"Norman", "Kelley", "Lauren", "Al' " +
-            "Mark", "Mendley", "Gamer", "Alex",};
+    static final String[] NAME_SECOND_WORDS = {
+        "Norman", "Kelley", "Lauren", "Al' " + "Mark", "Mendley", "Gamer", "Alex",
+    };
 
-
-    /**
-     * Create a random FeedModel POJO.
-     */
+    /** Create a random FeedModel POJO. */
     @NonNull
     public static FeedModel getRandom(@NonNull final Context context) {
         final FeedModel feedModel = new FeedModel();
@@ -63,7 +63,7 @@ public class FirestoreItemUtil {
         String[] categories = context.getResources().getStringArray(R.array.categories_items);
         categories = Arrays.copyOfRange(categories, 1, categories.length);
 
-        final int[] prices = new int[]{1, 2, 3};
+        final int[] prices = new int[] {1, 2, 3};
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -88,16 +88,14 @@ public class FirestoreItemUtil {
         return feedModel;
     }
 
-
-    /**
-     * Get a random image.
-     */
+    /** Get a random image. */
     @SuppressWarnings("SameReturnValue")
     public static String getRandomImageUrl(@NonNull final Random random) {
         // Integer between 1 and MAX_IMAGE_NUM (inclusive)
-        @SuppressWarnings("unused") final int id = random.nextInt(MAX_IMAGE_NUM) + 1;
+        @SuppressWarnings("unused")
+        final int id = random.nextInt(MAX_IMAGE_NUM) + 1;
 
-        //return String.format(Locale.getDefault(), RESTAURANT_URL_FMT, id);
+        // return String.format(Locale.getDefault(), RESTAURANT_URL_FMT, id);
         return "f07fafef-219a-4d10-90b5-bcabc1c82348";
     }
 
@@ -109,13 +107,14 @@ public class FirestoreItemUtil {
 
     @SuppressWarnings("WeakerAccess")
     public static String getRandomName(@NonNull final Random random) {
-        return getRandomString(NAME_FIRST_WORDS, random) + " " + getRandomString
-                (NAME_SECOND_WORDS, random);
+        return getRandomString(NAME_FIRST_WORDS, random)
+                + " "
+                + getRandomString(NAME_SECOND_WORDS, random);
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static String getRandomString(@NonNull final String[] array, @NonNull final Random
-            random) {
+    public static String getRandomString(
+            @NonNull final String[] array, @NonNull final Random random) {
         final int ind = random.nextInt(array.length);
         return array[ind];
     }
@@ -139,5 +138,4 @@ public class FirestoreItemUtil {
             events.add(event);
         }
     }
-
 }

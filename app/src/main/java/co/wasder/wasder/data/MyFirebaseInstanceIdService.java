@@ -12,10 +12,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-/**
- * Created by Ahmed AlAskalany on 10/13/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/13/2017. Wasder AB */
 @Keep
 public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
@@ -28,18 +25,19 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
         String uId = null;
         if (user != null) {
             uId = user.getUid();
-            final DatabaseReference database = FirebaseDatabase.getInstance()
-                    .getReference("users")
-                    .child(uId)
-                    .child("asd")
-                    .push()
-                    .child(token);
+            final DatabaseReference database =
+                    FirebaseDatabase.getInstance()
+                            .getReference("users")
+                            .child(uId)
+                            .child("asd")
+                            .push()
+                            .child(token);
         }
     }
 
     /**
-     * The Application's current Instance ID token is no longer valid
-     * and thus a new one must be requested.
+     * The Application's current Instance ID token is no longer valid and thus a new one must be
+     * requested.
      */
     @Override
     public void onTokenRefresh() {

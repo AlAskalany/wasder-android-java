@@ -1,9 +1,9 @@
 package co.wasder.wasder.ui.base;
 
 /*
-  Created by Ahmed AlAskalany on 10/11/2017.
-  Wasder AB
- */
+ Created by Ahmed AlAskalany on 10/11/2017.
+ Wasder AB
+*/
 
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
@@ -24,28 +24,28 @@ import java.util.List;
 
 /**
  * RecyclerView adapter for displaying the results of a Firestore {@link Query}.
- * <p>
- * Note that this class forgoes some efficiency to gain simplicity. For example, the result of
+ *
+ * <p>Note that this class forgoes some efficiency to gain simplicity. For example, the result of
  * {@link DocumentSnapshot#toObject(Class)} is not cached so the same object may be deserialized
  * many times as the user scrolls.
  */
 @Keep
-public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView
-        .Adapter<VH> implements EventListener<QuerySnapshot> {
+public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
+        extends RecyclerView.Adapter<VH> implements EventListener<QuerySnapshot> {
 
     public static final String TAG = "Firestore Adapter";
     public final List<DocumentSnapshot> mSnapshots = new ArrayList<>();
     public Query mQuery;
-    @Nullable
-    public ListenerRegistration mRegistration;
+    @Nullable public ListenerRegistration mRegistration;
 
     protected FirestoreAdapter(final Query query) {
         mQuery = query;
     }
 
     @Override
-    public void onEvent(@NonNull final QuerySnapshot documentSnapshots, @Nullable final
-    FirebaseFirestoreException e) {
+    public void onEvent(
+            @NonNull final QuerySnapshot documentSnapshots,
+            @Nullable final FirebaseFirestoreException e) {
 
         // Handle errors
         if (e != null) {
@@ -56,7 +56,8 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
         // Dispatch the event
         for (final DocumentChange change : documentSnapshots.getDocumentChanges()) {
             // Snapshot of the changed document
-            @SuppressWarnings("unused") final DocumentSnapshot snapshot = change.getDocument();
+            @SuppressWarnings("unused")
+            final DocumentSnapshot snapshot = change.getDocument();
 
             switch (change.getType()) {
                 case ADDED:
@@ -137,9 +138,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder> exten
     }
 
     @SuppressWarnings("unused")
-    public void onError(@SuppressWarnings("unused") final FirebaseFirestoreException e) {
-    }
+    public void onError(@SuppressWarnings("unused") final FirebaseFirestoreException e) {}
 
-    public void onDataChanged() {
-    }
+    public void onDataChanged() {}
 }

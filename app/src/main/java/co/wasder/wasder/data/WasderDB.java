@@ -8,15 +8,14 @@ import co.wasder.wasder.data.vo.Repo;
 import co.wasder.wasder.data.vo.RepoSearchResult;
 import co.wasder.wasder.data.vo.User;
 
-/**
- * Created by Ahmed AlAskalany on 11/13/2017.
- * Navigator
- */
-@Database(entities = {User.class, Repo.class, Contributer.class, RepoSearchResult.class}, version
-        = 1)
+/** Created by Ahmed AlAskalany on 11/13/2017. Navigator */
+@Database(
+    entities = {User.class, Repo.class, Contributer.class, RepoSearchResult.class},
+    version = 1
+)
 public abstract class WasderDB extends RoomDatabase {
 
-    abstract public UserDao userDao();
+    public abstract UserDao userDao();
 
-    abstract public RepoDao repoDao();
+    public abstract RepoDao repoDao();
 }

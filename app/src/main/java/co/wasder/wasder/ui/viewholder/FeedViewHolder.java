@@ -43,10 +43,7 @@ import co.wasder.wasder.ui.activity.ProfileActivity;
 import co.wasder.wasder.ui.base.BaseViewHolder;
 import co.wasder.wasder.ui.listener.OnFirestoreItemSelectedListener;
 
-/**
- * Created by Ahmed AlAskalany on 11/12/2017.
- * Navigator
- */
+/** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
 @SuppressWarnings("WeakerAccess")
 public class FeedViewHolder extends BaseViewHolder {
 
@@ -59,8 +56,9 @@ public class FeedViewHolder extends BaseViewHolder {
         this.binding = binding;
     }
 
-    public void bind(@NonNull final FeedModel model, final OnFirestoreItemSelectedListener
-            onFirestoreItemSelectedListener) {
+    public void bind(
+            @NonNull final FeedModel model,
+            final OnFirestoreItemSelectedListener onFirestoreItemSelectedListener) {
 
         binding.setFeedModel(model);
         binding.executePendingBindings();
@@ -68,46 +66,56 @@ public class FeedViewHolder extends BaseViewHolder {
         final String userId = model.getUid();
         final CollectionReference users = FirebaseFirestore.getInstance().collection("users");
         final DocumentReference userReference = users.document(userId);
-        userReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull final Task<DocumentSnapshot> task) {
-                final User user = task.getResult().toObject(User.class);
-                setUserName(user, binding.userName);
-            }
-        });
+        userReference
+                .get()
+                .addOnCompleteListener(
+                        new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull final Task<DocumentSnapshot> task) {
+                                final User user = task.getResult().toObject(User.class);
+                                setUserName(user, binding.userName);
+                            }
+                        });
         String uuid = model.getPhoto();
         if (isProfilePhotoUrlValid(uuid)) {
-            setItemImage(uuid, getContext(), binding.itemImageView, isViewInvisible(), binding
-                    .itemImageView);
+            setItemImage(
+                    uuid,
+                    getContext(),
+                    binding.itemImageView,
+                    isViewInvisible(),
+                    binding.itemImageView);
         }
         final String profilePhotoUrl = model.getProfilePhoto();
         if (profilePhotoUrl != null) {
             setProfilePicture(userId, profilePhotoUrl, getContext());
         }
-        binding.itemProfileImageView.setOnClickListener(new View.OnClickListener() {
+        binding.itemProfileImageView.setOnClickListener(
+                new View.OnClickListener() {
 
-            @Override
-            public void onClick(final View v) {
-                startAuthProfileActivity(model, getContext(), itemView);
-            }
-        });
+                    @Override
+                    public void onClick(final View v) {
+                        startAuthProfileActivity(model, getContext(), itemView);
+                    }
+                });
         final Date date = model.getTimestamp();
         if (date != null) {
             setDate(date, binding.timeStamp);
         }
         setPostText(model, binding.itemTextView);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                handleItemViewClick(model, onFirestoreItemSelectedListener);
-            }
-        });
-        binding.expandButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(@NonNull final View v) {
-                handleExpandButton(v, model);
-            }
-        });
+        itemView.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View view) {
+                        handleItemViewClick(model, onFirestoreItemSelectedListener);
+                    }
+                });
+        binding.expandButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(@NonNull final View v) {
+                        handleExpandButton(v, model);
+                    }
+                });
     }
 
     private Context getContext() {
@@ -118,21 +126,23 @@ public class FeedViewHolder extends BaseViewHolder {
         return itemView.getVisibility() == View.GONE;
     }
 
-    private void handleItemViewClick(@NonNull BaseModel model, OnFirestoreItemSelectedListener
-            onFirestoreItemSelectedListener) {
+    private void handleItemViewClick(
+            @NonNull BaseModel model,
+            OnFirestoreItemSelectedListener onFirestoreItemSelectedListener) {
         onFirestoreItemSelectedListener.onFirestoreItemSelected(model, itemView);
     }
 
     private void handleExpandButton(@NonNull View v, @NonNull final BaseModel model) {
         final String currentUserId = getCurrentUserId();
         final PopupMenu popup = getPopupMenu(v, currentUserId, model, binding.expandButton);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(@NonNull final MenuItem item) {
-                handleMenu(item, model, currentUserId);
-                return false;
-            }
-        });
+        popup.setOnMenuItemClickListener(
+                new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(@NonNull final MenuItem item) {
+                        handleMenu(item, model, currentUserId);
+                        return false;
+                    }
+                });
         popup.show();
     }
 
@@ -145,8 +155,11 @@ public class FeedViewHolder extends BaseViewHolder {
     }
 
     @NonNull
-    private PopupMenu getPopupMenu(@NonNull View v, String currentUserId, @NonNull BaseModel
-            model, ImageButton expandButton) {
+    private PopupMenu getPopupMenu(
+            @NonNull View v,
+            String currentUserId,
+            @NonNull BaseModel model,
+            ImageButton expandButton) {
         final PopupMenu popup = new PopupMenu(v.getContext(), expandButton);
         popup.inflate(R.menu.menu_item);
         if (!TextUtils.equals(model.getUid(), currentUserId)) {
@@ -170,8 +183,8 @@ public class FeedViewHolder extends BaseViewHolder {
         timeStamp.setText(dateString);
     }
 
-    private void startAuthProfileActivity(@NonNull BaseModel model, Context context, View
-            itemView) {
+    private void startAuthProfileActivity(
+            @NonNull BaseModel model, Context context, View itemView) {
         if (model.getUid() != null) {
             final Intent intent = new Intent(context, ProfileActivity.class);
             intent.putExtra("user-reference", model.getUid());
@@ -179,8 +192,12 @@ public class FeedViewHolder extends BaseViewHolder {
         }
     }
 
-    private void setItemImage(String uuid, Context context, ImageView itemImage, boolean
-            isViewInvisible, ImageView itemImage1) {
+    private void setItemImage(
+            String uuid,
+            Context context,
+            ImageView itemImage,
+            boolean isViewInvisible,
+            ImageView itemImage1) {
         final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
         downloadPostImageIntoView(mImageRef, context, itemImage);
         if (itemImage.getVisibility() == View.GONE) {
@@ -188,8 +205,8 @@ public class FeedViewHolder extends BaseViewHolder {
         }
     }
 
-    private void downloadPostImageIntoView(StorageReference mImageRef, Context context, ImageView
-            itemImage) {
+    private void downloadPostImageIntoView(
+            StorageReference mImageRef, Context context, ImageView itemImage) {
         GlideApp.with(context)
                 .load(mImageRef)
                 .transition(DrawableTransitionOptions.withCrossFade())
@@ -206,16 +223,16 @@ public class FeedViewHolder extends BaseViewHolder {
         return !TextUtils.isEmpty(profilePhotoUrl);
     }
 
-    private void downloadProfilePictureIntoView(String userId, String profilePhotoUrl, Context
-            context) {
+    private void downloadProfilePictureIntoView(
+            String userId, String profilePhotoUrl, Context context) {
         GlideApp.with(context)
                 .load(profilePhotoUrl)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(binding.itemProfileImageView);
     }
 
-    private void handleMenu(@NonNull MenuItem item, @NonNull BaseModel model, String
-            currentUserId) {
+    private void handleMenu(
+            @NonNull MenuItem item, @NonNull BaseModel model, String currentUserId) {
         switch (item.getItemId()) {
             case R.id.edit:
                 break;
@@ -229,14 +246,16 @@ public class FeedViewHolder extends BaseViewHolder {
     }
 
     private void followAuthor(@NonNull BaseModel model, String currentUserId) {
-        addCurrentUidToAuthorFollowers(currentUserId, FirebaseDatabase.getInstance()
-                .getReference(USERS)
-                .child(model.getUid())
-                .child(FOLLOWERS));
+        addCurrentUidToAuthorFollowers(
+                currentUserId,
+                FirebaseDatabase.getInstance()
+                        .getReference(USERS)
+                        .child(model.getUid())
+                        .child(FOLLOWERS));
     }
 
-    private void addCurrentUidToAuthorFollowers(String currentUserId, DatabaseReference
-            followedFollowersRef) {
+    private void addCurrentUidToAuthorFollowers(
+            String currentUserId, DatabaseReference followedFollowersRef) {
         followedFollowersRef.updateChildren(getCurrentUidStringObjectMap(currentUserId));
     }
 
@@ -249,18 +268,18 @@ public class FeedViewHolder extends BaseViewHolder {
 
     private void deletePost(@NonNull BaseModel model) {
         final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        firestore.collection("posts")
+        firestore
+                .collection("posts")
                 .document(model.getUid())
                 .delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                .addOnCompleteListener(
+                        new OnCompleteListener<Void>() {
 
-                    @Override
-                    public void onComplete(@NonNull final Task<Void> task) {
-                        if (task.isSuccessful()) {
-
-                        }
-                    }
-                });
+                            @Override
+                            public void onComplete(@NonNull final Task<Void> task) {
+                                if (task.isSuccessful()) {}
+                            }
+                        });
     }
 
     ImageView getProfileImageView(@NonNull final String uid) {
@@ -268,27 +287,31 @@ public class FeedViewHolder extends BaseViewHolder {
                 .getReference(USERS)
                 .child(uid)
                 .child("online")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            final String myPresence = dataSnapshot.getValue().toString();
-                            if (myPresence.equals("true")) {
-                                binding.presenceImageView.setImageDrawable(itemView.getResources()
-                                        .getDrawable(R.drawable.ic_presence_status_online));
-                            } else if (myPresence.equals("false")) {
-                                binding.presenceImageView.setImageDrawable(itemView.getResources()
-                                        .getDrawable(R.drawable.ic_presence_status_offline));
+                .addValueEventListener(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    final String myPresence = dataSnapshot.getValue().toString();
+                                    if (myPresence.equals("true")) {
+                                        binding.presenceImageView.setImageDrawable(
+                                                itemView.getResources()
+                                                        .getDrawable(
+                                                                R.drawable
+                                                                        .ic_presence_status_online));
+                                    } else if (myPresence.equals("false")) {
+                                        binding.presenceImageView.setImageDrawable(
+                                                itemView.getResources()
+                                                        .getDrawable(
+                                                                R.drawable
+                                                                        .ic_presence_status_offline));
+                                    }
+                                }
                             }
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(final DatabaseError databaseError) {
-
-                    }
-                });
+                            @Override
+                            public void onCancelled(final DatabaseError databaseError) {}
+                        });
         return binding.itemProfileImageView;
     }
-
 }

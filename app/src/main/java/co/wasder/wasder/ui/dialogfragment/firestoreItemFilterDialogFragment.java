@@ -1,18 +1,18 @@
 /*
-  Copyright 2017 Google Inc. All Rights Reserved.
-  <p>
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-  <p>
-  http://www.apache.org/licenses/LICENSE-2.0
-  <p>
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
- */
+ Copyright 2017 Google Inc. All Rights Reserved.
+ <p>
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ <p>
+ http://www.apache.org/licenses/LICENSE-2.0
+ <p>
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
 package co.wasder.wasder.ui.dialogfragment;
 
 import android.content.Context;
@@ -34,47 +34,51 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.filter.Filters;
-import co.wasder.wasder.data.filter.FirestoreItemFilters;
+import co.wasder.wasder.data.filter.firestoreItemFilters;
 import co.wasder.wasder.ui.util.Dialogs;
 
-/**
- * Dialog Fragment containing filter form.
- */
+/** Dialog Fragment containing filter form. */
 @Keep
-public class FirestoreItemFilterDialogFragment extends DialogFragment {
+public class firestoreItemFilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "FilterDialog";
+
     @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_category)
     public Spinner mCategorySpinner;
+
     @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_city)
     public Spinner mCitySpinner;
+
     @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_sort)
     public Spinner mSortSpinner;
+
     @Nullable
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.spinner_price)
     public Spinner mPriceSpinner;
+
     public View mRootView;
     public FilterListener mFilterListener;
 
-    public FirestoreItemFilterDialogFragment() {
-    }
+    public firestoreItemFilterDialogFragment() {}
 
     @SuppressWarnings("unused")
-    public static FirestoreItemFilterDialogFragment newInstance() {
+    public static firestoreItemFilterDialogFragment newInstance() {
         return Dialogs.PostsFilterDialogFragment();
     }
 
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-                             @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(
+            final LayoutInflater inflater,
+            @Nullable final ViewGroup container,
+            @Nullable final Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.dialog_filters_items, container, false);
         ButterKnife.bind(this, mRootView);
 
@@ -97,8 +101,8 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
         super.onResume();
         final Window window = getDialog().getWindow();
         if (window != null) {
-            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
-                    .WRAP_CONTENT);
+            window.setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
 
@@ -192,8 +196,8 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     @NonNull
     @SuppressWarnings("WeakerAccess")
-    public FirestoreItemFilters getFilters() {
-        final FirestoreItemFilters firestoreItemFilters = Filters.PostsFilters();
+    public firestoreItemFilters getFilters() {
+        final firestoreItemFilters firestoreItemFilters = Filters.PostsFilters();
 
         if (mRootView != null) {
             firestoreItemFilters.setCategory(getSelectedCategory());
@@ -208,7 +212,6 @@ public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     public interface FilterListener {
 
-        void onFilter(FirestoreItemFilters firestoreItemFilters);
-
+        void onFilter(firestoreItemFilters firestoreItemFilters);
     }
 }

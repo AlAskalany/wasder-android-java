@@ -2,22 +2,18 @@ package co.wasder.wasder.ui.util;
 
 import android.support.annotation.Keep;
 
-import co.wasder.wasder.ui.dialogfragment.AddFirestoreItemDialogFragment;
-import co.wasder.wasder.ui.dialogfragment.FirestoreItemFilterDialogFragment;
+import co.wasder.wasder.ui.dialogfragment.addFirestoreItemDialogFragment;
+import co.wasder.wasder.ui.dialogfragment.firestoreItemFilterDialogFragment;
 
-/**
- * Created by Ahmed AlAskalany on 10/13/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/13/2017. Wasder AB */
 @Keep
 public class Dialogs {
 
-    public static FirestoreItemFilterDialogFragment PostsFilterDialogFragment() {
-        return new FirestoreItemFilterDialogFragment();
+    public static firestoreItemFilterDialogFragment PostsFilterDialogFragment() {
+        return new firestoreItemFilterDialogFragment();
     }
 
-    public static AddFirestoreItemDialogFragment AddPostDialogFragment() {
-        return new AddFirestoreItemDialogFragment();
+    public static addFirestoreItemDialogFragment AddPostDialogFragment() {
+        return new addFirestoreItemDialogFragment();
     }
-
 }

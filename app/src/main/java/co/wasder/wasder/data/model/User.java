@@ -15,25 +15,19 @@ import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
-/**
- * Created by Ahmed AlAskalany on 10/31/2017.
- * Navigator
- */
+/** Created by Ahmed AlAskalany on 10/31/2017. Navigator */
 @Keep
 @IgnoreExtraProperties
 public class User {
 
     private String uId;
-    @Nullable
-    private String displayName;
-    @Nullable
-    private String email;
+    @Nullable private String displayName;
+    @Nullable private String email;
     private String photoUrl;
     private String firstName;
     private String lastName;
 
-    public User() {
-    }
+    public User() {}
 
     public User(@NonNull final FirebaseUser user, final String firstName, final String lastName) {
         uId = user.getUid();
@@ -103,15 +97,18 @@ public class User {
         final CollectionReference reference = firestore.collection("users");
         final DocumentReference documentReference = reference.document(uId);
         final User myUser = this;
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull final Task<DocumentSnapshot> task) {
-                if (task.getResult() != null) {
-                    if (!task.getResult().exists()) {
-                        documentReference.set(myUser);
-                    }
-                }
-            }
-        });
+        documentReference
+                .get()
+                .addOnCompleteListener(
+                        new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull final Task<DocumentSnapshot> task) {
+                                if (task.getResult() != null) {
+                                    if (!task.getResult().exists()) {
+                                        documentReference.set(myUser);
+                                    }
+                                }
+                            }
+                        });
     }
 }

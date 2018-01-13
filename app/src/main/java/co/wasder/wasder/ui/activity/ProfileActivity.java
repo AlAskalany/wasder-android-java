@@ -51,29 +51,24 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     public ProfileActivityViewModel viewModel;
     public RecyclerView.Adapter<FeedViewHolder> adapter;
     public Query mQuery;
-    public OnFirestoreItemSelectedListener mItemSelectedListener = new
-            OnFirestoreItemSelectedListener() {
-        @Override
-        public void onFirestoreItemSelected(BaseModel event, View itemView) {
+    public OnFirestoreItemSelectedListener mItemSelectedListener =
+            new OnFirestoreItemSelectedListener() {
+                @Override
+                public void onFirestoreItemSelected(BaseModel event, View itemView) {}
 
-        }
+                @Override
+                public void onChildChanged(
+                        ChangeEventType type,
+                        DocumentSnapshot snapshot,
+                        int newIndex,
+                        int oldIndex) {}
 
-        @Override
-        public void onChildChanged(ChangeEventType type, DocumentSnapshot snapshot, int newIndex,
-                                   int oldIndex) {
+                @Override
+                public void onDataChanged() {}
 
-        }
-
-        @Override
-        public void onDataChanged() {
-
-        }
-
-        @Override
-        public void onError(FirebaseFirestoreException e) {
-
-        }
-    };
+                @Override
+                public void onError(FirebaseFirestoreException e) {}
+            };
     private ActivityProfileBinding binding;
 
     @Override
@@ -88,12 +83,15 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         }
         assert mUserReference != null : "Must pass extra " + ARG_USER_REFERENCE;
 
-        mQuery = FirebaseFirestore.getInstance().collection("posts")
-                .whereEqualTo("uid", mUserReference)
-                .orderBy("timestamp")
-                .limit((long) 50);
-        adapter = FollowingRecyclerAdapter.getAdapter(this, mItemSelectedListener, mQuery,
-                FeedModel.class);
+        mQuery =
+                FirebaseFirestore.getInstance()
+                        .collection("posts")
+                        .whereEqualTo("uid", mUserReference)
+                        .orderBy("timestamp")
+                        .limit((long) 50);
+        adapter =
+                FollowingRecyclerAdapter.getAdapter(
+                        this, mItemSelectedListener, mQuery, FeedModel.class);
         final RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
@@ -121,7 +119,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     @Override
     public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
+                // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
@@ -139,8 +137,9 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     }
 
     @Override
-    public void onEvent(@NonNull final DocumentSnapshot documentSnapshot, @Nullable final
-    FirebaseFirestoreException e) {
+    public void onEvent(
+            @NonNull final DocumentSnapshot documentSnapshot,
+            @Nullable final FirebaseFirestoreException e) {
         if (e != null) {
             Log.w(TAG, "restaurant:onEvent", e);
             return;

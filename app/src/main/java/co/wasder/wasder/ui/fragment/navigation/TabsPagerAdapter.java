@@ -11,10 +11,7 @@ import java.util.List;
 
 import co.wasder.wasder.ui.base.BaseTabFragment;
 
-/**
- * Created by Ahmed AlAskalany on 10/14/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/14/2017. Wasder AB */
 @Keep
 class TabsPagerAdapter extends FragmentPagerAdapter {
 

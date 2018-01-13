@@ -13,20 +13,17 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.InputStream;
 
-/**
- * Created by Ahmed AlAskalany on 10/13/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/13/2017. Wasder AB */
 @Keep
 @SuppressWarnings("WeakerAccess")
 @GlideModule
 public class MyAppGlideModule extends AppGlideModule {
 
     @Override
-    public void registerComponents(final Context context, final Glide glide, @NonNull final
-    Registry registry) {
+    public void registerComponents(
+            final Context context, final Glide glide, @NonNull final Registry registry) {
         // Register FirebaseImageLoader to handle StorageReference
-        registry.append(StorageReference.class, InputStream.class, new FirebaseImageLoader
-                .Factory());
+        registry.append(
+                StorageReference.class, InputStream.class, new FirebaseImageLoader.Factory());
     }
 }

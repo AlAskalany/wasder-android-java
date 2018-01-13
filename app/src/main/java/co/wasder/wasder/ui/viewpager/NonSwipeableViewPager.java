@@ -12,10 +12,7 @@ import android.widget.Scroller;
 
 import java.lang.reflect.Field;
 
-/**
- * Created by Ahmed AlAskalany on 10/15/2017.
- * Navigator
- */
+/** Created by Ahmed AlAskalany on 10/15/2017. Navigator */
 @Keep
 public class NonSwipeableViewPager extends ViewPager {
 
@@ -42,7 +39,7 @@ public class NonSwipeableViewPager extends ViewPager {
         return false;
     }
 
-    //down one is added for smooth scrolling
+    // down one is added for smooth scrolling
 
     public void setMyScroller() {
         try {
@@ -62,8 +59,12 @@ public class NonSwipeableViewPager extends ViewPager {
         }
 
         @Override
-        public void startScroll(final int startX, final int startY, final int dx, final int dy,
-                                final int duration) {
+        public void startScroll(
+                final int startX,
+                final int startY,
+                final int dx,
+                final int dy,
+                final int duration) {
             super.startScroll(startX, startY, dx, dy, 350 /*1 secs*/);
         }
     }

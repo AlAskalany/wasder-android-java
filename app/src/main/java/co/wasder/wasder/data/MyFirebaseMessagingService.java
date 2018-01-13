@@ -7,10 +7,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-/**
- * Created by Ahmed AlAskalany on 10/13/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/13/2017. Wasder AB */
 @Keep
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -47,12 +44,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     @SuppressWarnings("EmptyMethod")
-    private void scheduleJob() {
-
-    }
+    private void scheduleJob() {}
 
     @SuppressWarnings("EmptyMethod")
-    private void handleNow() {
-
-    }
+    private void handleNow() {}
 }

@@ -7,27 +7,26 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
-/**
- * Created by Ahmed AlAskalany on 10/11/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/11/2017. Wasder AB */
 @Keep
 @IgnoreExtraProperties
 public class Event {
 
     @SuppressWarnings("unused")
     private static final String FIELD_UID = "uId";
+
     private static final String FIELD_CITY = "city";
+
     @SuppressWarnings("unused")
     private static final String FIELD_CATEGORY = "category";
+
     private static final String FIELD_PRICE = "price";
     private static final String FIELD_POPULARITY = "numRatings";
     private static final String FIELD_AVG_RATING = "avgRating";
 
     private String uId;
     private String title;
-    private @ServerTimestamp
-    Date timestamp;
+    private @ServerTimestamp Date timestamp;
     private String name;
     private String profilePhoto;
     private String photo;
@@ -35,11 +34,17 @@ public class Event {
     private double avgRating;
     private String feedText;
 
-    public Event() {
-    }
+    public Event() {}
 
-    public Event(final String uId, final String title, final String profilePhoto, final String
-            photo, final int numRatings, final double avgRating, final String feedText) {
+    public Event(
+            final String uId,
+            String name,
+            final String title,
+            final String profilePhoto,
+            final String photo,
+            final int numRatings,
+            final double avgRating,
+            final String feedText) {
         this.uId = uId;
         this.title = title;
         this.name = name;
@@ -73,7 +78,6 @@ public class Event {
     public void setName(final String name) {
         this.name = name;
     }
-
 
     public String getPhoto() {
         return photo;
@@ -116,10 +120,12 @@ public class Event {
     }
 
     public Date getTimestamp() {
-        return timestamp;
+        Date myTimestamp = timestamp;
+        return myTimestamp;
     }
 
     public void setTimestamp(final Date timestamp) {
-        this.timestamp = timestamp;
+        Date myTimeStampe = timestamp;
+        this.timestamp = myTimeStampe;
     }
 }

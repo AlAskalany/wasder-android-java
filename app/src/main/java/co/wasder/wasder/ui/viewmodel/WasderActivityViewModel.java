@@ -3,10 +3,7 @@ package co.wasder.wasder.ui.viewmodel;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.Keep;
 
-/**
- * Created by Ahmed AlAskalany on 10/13/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/13/2017. Wasder AB */
 @Keep
 public class WasderActivityViewModel extends ViewModel {
 

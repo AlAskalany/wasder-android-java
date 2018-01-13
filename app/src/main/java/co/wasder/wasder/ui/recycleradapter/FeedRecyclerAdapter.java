@@ -18,55 +18,53 @@ import co.wasder.wasder.ui.base.BaseRecyclerAdapter;
 import co.wasder.wasder.ui.listener.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.ui.viewholder.FeedViewHolder;
 
-/**
- * Created by Ahmed AlAskalany on 11/12/2017.
- * Navigator
- */
-
+/** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
 public class FeedRecyclerAdapter extends BaseRecyclerAdapter {
 
     /**
-     * @param owner      LifecycleOwner
-     * @param listener   OnItemSelectedListener
-     * @param query      Query
+     * @param owner LifecycleOwner
+     * @param listener OnItemSelectedListener
+     * @param query Query
      * @param modelClass ModelCalss
      * @return
      */
     @NonNull
-    public static RecyclerView.Adapter<FeedViewHolder> getAdapter(LifecycleOwner owner, final
-    OnFirestoreItemSelectedListener listener, Query query, Class<FeedModel> modelClass) {
-        final FirestoreRecyclerOptions<FeedModel> options = FeedRecyclerAdapter.getAdapterOptions
-                (query, modelClass, owner);
+    public static RecyclerView.Adapter<FeedViewHolder> getAdapter(
+            LifecycleOwner owner,
+            final OnFirestoreItemSelectedListener listener,
+            Query query,
+            Class<FeedModel> modelClass) {
+        final FirestoreRecyclerOptions<FeedModel> options =
+                FeedRecyclerAdapter.getAdapterOptions(query, modelClass, owner);
 
         return new FirestoreRecyclerAdapter<FeedModel, FeedViewHolder>(options) {
             @NonNull
             @Override
-            public FeedViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int
-                    viewType) {
+            public FeedViewHolder onCreateViewHolder(
+                    @NonNull final ViewGroup parent, final int viewType) {
                 LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-                ItemFeedBinding itemFeedBinding = DataBindingUtil.inflate(layoutInflater, R
-                        .layout.item_feed, parent, false);
+                ItemFeedBinding itemFeedBinding =
+                        DataBindingUtil.inflate(layoutInflater, R.layout.item_feed, parent, false);
                 return new FeedViewHolder(itemFeedBinding);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull final FeedViewHolder holder, final int
-                    position, @NonNull final FeedModel model) {
+            protected void onBindViewHolder(
+                    @NonNull final FeedViewHolder holder,
+                    final int position,
+                    @NonNull final FeedModel model) {
                 holder.bind(model, listener);
             }
 
             @Override
-            public void onDataChanged() {
-            }
+            public void onDataChanged() {}
         };
     }
 
-    private static FirestoreRecyclerOptions<FeedModel> getAdapterOptions(Query query,
-                                                                         Class<FeedModel>
-                                                                                 modelClass,
-                                                                         LifecycleOwner
-                                                                                 lifecycleOwner) {
-        return new FirestoreRecyclerOptions.Builder<FeedModel>().setQuery(query, modelClass)
+    private static FirestoreRecyclerOptions<FeedModel> getAdapterOptions(
+            Query query, Class<FeedModel> modelClass, LifecycleOwner lifecycleOwner) {
+        return new FirestoreRecyclerOptions.Builder<FeedModel>()
+                .setQuery(query, modelClass)
                 .setLifecycleOwner(lifecycleOwner)
                 .build();
     }

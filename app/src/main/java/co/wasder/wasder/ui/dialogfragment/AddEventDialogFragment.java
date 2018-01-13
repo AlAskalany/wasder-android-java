@@ -1,18 +1,18 @@
 /*
-  Copyright 2017 Google Inc. All Rights Reserved.
-  <p>
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-  <p>
-  http://www.apache.org/licenses/LICENSE-2.0
-  <p>
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
- */
+ Copyright 2017 Google Inc. All Rights Reserved.
+ <p>
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ <p>
+ http://www.apache.org/licenses/LICENSE-2.0
+ <p>
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
 package co.wasder.wasder.ui.dialogfragment;
 
 import android.content.Context;
@@ -54,15 +54,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.filter.FirestoreItemFilters;
+import co.wasder.wasder.data.filter.firestoreItemFilters;
 import co.wasder.wasder.data.model.Event;
 import co.wasder.wasder.data.model.Model;
 
 import static android.app.Activity.RESULT_OK;
 
-/**
- * Dialog Fragment containing filter form.
- */
+/** Dialog Fragment containing filter form. */
 @Keep
 public class AddEventDialogFragment extends DialogFragment {
 
@@ -70,6 +68,7 @@ public class AddEventDialogFragment extends DialogFragment {
     public static final int INITIAL_AVG_RATING = 0;
     public static final int INITIAL_NUM_RATINGS = 0;
     public static final int RC_CHOOSE_PHOTO = 101;
+
     @SuppressWarnings("unused")
     public static final int RC_IMAGE_PERMS = 102;
 
@@ -88,14 +87,14 @@ public class AddEventDialogFragment extends DialogFragment {
 
     public static void addPostToDatabase(@NonNull final Event event) {
         final CollectionReference posts = FirebaseFirestore.getInstance().collection("events");
-        posts.add(event).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull final Task<DocumentReference> task) {
-                if (task.isSuccessful()) {
-
-                }
-            }
-        });
+        posts.add(event)
+                .addOnCompleteListener(
+                        new OnCompleteListener<DocumentReference>() {
+                            @Override
+                            public void onComplete(@NonNull final Task<DocumentReference> task) {
+                                if (task.isSuccessful()) {}
+                            }
+                        });
     }
 
     @Nullable
@@ -117,8 +116,10 @@ public class AddEventDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-                             @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(
+            final LayoutInflater inflater,
+            @Nullable final ViewGroup container,
+            @Nullable final Bundle savedInstanceState) {
         final View mRootView = inflater.inflate(R.layout.dialog_add_event, container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
@@ -128,8 +129,8 @@ public class AddEventDialogFragment extends DialogFragment {
     public void onAttach(final Context context) {
         super.onAttach(context);
         if (context instanceof FilterListener) {
-            @SuppressWarnings("unused") final FilterListener mFilterListener = (FilterListener)
-                    context;
+            @SuppressWarnings("unused")
+            final FilterListener mFilterListener = (FilterListener) context;
         }
     }
 
@@ -138,8 +139,8 @@ public class AddEventDialogFragment extends DialogFragment {
         super.onResume();
         final Window window = getDialog().getWindow();
         if (window != null) {
-            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
-                    .WRAP_CONTENT);
+            window.setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
 
@@ -157,8 +158,14 @@ public class AddEventDialogFragment extends DialogFragment {
         if (user != null) {
             uId = user.getUid();
         }
-        return Model.Event(uId, getTitle(), getPostProfilePhotoUrl(), getUuid(),
-                INITIAL_AVG_RATING, INITIAL_NUM_RATINGS, getFeedText());
+        return Model.Event(
+                uId,
+                getTitle(),
+                getPostProfilePhotoUrl(),
+                getUuid(),
+                INITIAL_AVG_RATING,
+                INITIAL_NUM_RATINGS,
+                getFeedText());
     }
 
     @Nullable
@@ -196,8 +203,8 @@ public class AddEventDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, @NonNull final
-    Intent data) {
+    public void onActivityResult(
+            final int requestCode, final int resultCode, @NonNull final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_CHOOSE_PHOTO) {
@@ -210,9 +217,9 @@ public class AddEventDialogFragment extends DialogFragment {
                 Toast.makeText(getContext(), "No image chosen", Toast.LENGTH_SHORT).show();
             }
         } /*else if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE
-                && EasyPermissions.hasPermissions(this, PERMS)) {
-            choosePhoto();
-        }*/
+                  && EasyPermissions.hasPermissions(this, PERMS)) {
+              choosePhoto();
+          }*/
     }
 
     @OnClick(R.id.selected_item_image)
@@ -223,55 +230,65 @@ public class AddEventDialogFragment extends DialogFragment {
             return;
         }*/
 
-        final Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media
-                .EXTERNAL_CONTENT_URI);
+        final Intent i =
+                new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RC_CHOOSE_PHOTO);
     }
 
     public void uploadPhoto(@NonNull final Uri uri) {
         // Reset UI
-        //hideDownloadUI();
+        // hideDownloadUI();
         Toast.makeText(getContext(), "Uploading...", Toast.LENGTH_SHORT).show();
 
         // Upload to Cloud Storage
         uuid = UUID.randomUUID().toString();
         final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
-        mImageRef.putFile(uri)
-                .addOnSuccessListener(getActivity(), new OnSuccessListener<UploadTask
-                        .TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(@NonNull final UploadTask.TaskSnapshot taskSnapshot) {
-                        //noinspection LogConditional
-                        final StorageMetadata storageMetadata = taskSnapshot.getMetadata();
-                        final StorageReference storageReference;
-                        if (storageMetadata != null) {
-                            storageReference = storageMetadata.getReference();
-                            if (storageReference != null) {
-                                Log.d(TAG, MessageFormat.format("uploadPhoto:onSuccess:{0}",
-                                        storageReference
-                                        .getPath()));
-                            }
-                            Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT)
-                                    .show();
-                        }
+        mImageRef
+                .putFile(uri)
+                .addOnSuccessListener(
+                        getActivity(),
+                        new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(
+                                    @NonNull final UploadTask.TaskSnapshot taskSnapshot) {
+                                //noinspection LogConditional
+                                final StorageMetadata storageMetadata = taskSnapshot.getMetadata();
+                                final StorageReference storageReference;
+                                if (storageMetadata != null) {
+                                    storageReference = storageMetadata.getReference();
+                                    if (storageReference != null) {
+                                        Log.d(
+                                                TAG,
+                                                MessageFormat.format(
+                                                        "uploadPhoto:onSuccess:{0}",
+                                                        storageReference.getPath()));
+                                    }
+                                    Toast.makeText(
+                                                    getContext(),
+                                                    "Image uploaded",
+                                                    Toast.LENGTH_SHORT)
+                                            .show();
+                                }
 
-                        //showDownloadUI();
-                    }
-                })
-                .addOnFailureListener(getActivity(), new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull final Exception e) {
-                        Log.w(TAG, "uploadPhoto:onError", e);
-                        Toast.makeText(getContext(), "Upload failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                                // showDownloadUI();
+                            }
+                        })
+                .addOnFailureListener(
+                        getActivity(),
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull final Exception e) {
+                                Log.w(TAG, "uploadPhoto:onError", e);
+                                Toast.makeText(getContext(), "Upload failed", Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        });
     }
 
     @SuppressWarnings("WeakerAccess")
     interface FilterListener {
 
         @SuppressWarnings("unused")
-        void onFilter(FirestoreItemFilters firestoreItemFilters);
-
+        void onFilter(firestoreItemFilters firestoreItemFilters);
     }
 }

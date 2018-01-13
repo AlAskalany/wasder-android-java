@@ -28,17 +28,14 @@ import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.databinding.FragmentTabBinding;
 import co.wasder.wasder.ui.base.BaseTabFragment;
 import co.wasder.wasder.ui.base.BaseTabFragmentViewModel;
-import co.wasder.wasder.ui.dialogfragment.AddFirestoreItemDialogFragment;
+import co.wasder.wasder.ui.dialogfragment.addFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.listener.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.ui.recycleradapter.FeedRecyclerAdapter;
 import co.wasder.wasder.ui.util.Dialogs;
 import co.wasder.wasder.ui.viewholder.FeedViewHolder;
 import co.wasder.wasder.ui.viewmodel.AllTabFragmentViewModel;
 
-/**
- * Created by Ahmed AlAskalany on 10/30/2017.
- * Navigator
- */
+/** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep
 public class AllTabFragment extends BaseTabFragment {
 
@@ -50,32 +47,29 @@ public class AllTabFragment extends BaseTabFragment {
 
     public String TAG;
     public String USERS;
-    public AddFirestoreItemDialogFragment mAddPostDialog;
+    public addFirestoreItemDialogFragment mAddPostDialog;
     public BaseTabFragmentViewModel mViewModel;
+
     @NonNull
-    protected OnFirestoreItemSelectedListener onFirestoreItemSelectedListener = new
-            OnFirestoreItemSelectedListener() {
-        @Override
-        public void onFirestoreItemSelected(BaseModel event, View itemView) {
+    protected OnFirestoreItemSelectedListener onFirestoreItemSelectedListener =
+            new OnFirestoreItemSelectedListener() {
+                @Override
+                public void onFirestoreItemSelected(BaseModel event, View itemView) {}
 
-        }
+                @Override
+                public void onChildChanged(
+                        ChangeEventType type,
+                        DocumentSnapshot snapshot,
+                        int newIndex,
+                        int oldIndex) {}
 
-        @Override
-        public void onChildChanged(ChangeEventType type, DocumentSnapshot snapshot, int newIndex,
-                                   int oldIndex) {
+                @Override
+                public void onDataChanged() {}
 
-        }
+                @Override
+                public void onError(FirebaseFirestoreException e) {}
+            };
 
-        @Override
-        public void onDataChanged() {
-
-        }
-
-        @Override
-        public void onError(FirebaseFirestoreException e) {
-
-        }
-    };
     private long LIMIT;
     private FragmentTabBinding binding;
 
@@ -89,8 +83,10 @@ public class AllTabFragment extends BaseTabFragment {
     }
 
     @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container,
-                             final Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab, container, false);
         mViewModel = ViewModelProviders.of(this).get(AllTabFragmentViewModel.class);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -100,20 +96,22 @@ public class AllTabFragment extends BaseTabFragment {
     }
 
     protected void attachRecyclerViewAdapter() {
-        final FirestoreRecyclerOptions<FeedModel> options = new FirestoreRecyclerOptions
-                .Builder<FeedModel>()
-                .setQuery(mQuery, FeedModel.class)
-                .build();
-        final RecyclerView.Adapter<FeedViewHolder> adapter = FeedRecyclerAdapter.getAdapter(this,
-                onFirestoreItemSelectedListener, mQuery, FeedModel.class);
+        final FirestoreRecyclerOptions<FeedModel> options =
+                new FirestoreRecyclerOptions.Builder<FeedModel>()
+                        .setQuery(mQuery, FeedModel.class)
+                        .build();
+        final RecyclerView.Adapter<FeedViewHolder> adapter =
+                FeedRecyclerAdapter.getAdapter(
+                        this, onFirestoreItemSelectedListener, mQuery, FeedModel.class);
 
         // Scroll to bottom on new messages
-        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(final int positionStart, final int itemCount) {
-                binding.recyclerView.smoothScrollToPosition(0);
-            }
-        });
+        adapter.registerAdapterDataObserver(
+                new RecyclerView.AdapterDataObserver() {
+                    @Override
+                    public void onItemRangeInserted(final int positionStart, final int itemCount) {
+                        binding.recyclerView.smoothScrollToPosition(0);
+                    }
+                });
         binding.recyclerView.setAdapter(adapter);
     }
 
@@ -123,13 +121,13 @@ public class AllTabFragment extends BaseTabFragment {
             attachRecyclerViewAdapter();
         } else {
             Toast.makeText(getContext(), R.string.signing_in, Toast.LENGTH_SHORT).show();
-            firebaseAuth.signInAnonymously()
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        }
-                    });
+            firebaseAuth
+                    .signInAnonymously()
+                    .addOnCompleteListener(
+                            new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {}
+                            });
         }
     }
 

@@ -14,15 +14,13 @@ import com.firebase.jobdispatcher.Trigger;
 
 import co.wasder.wasder.data.FirestoreQueryJobService;
 
-/**
- * Created by Ahmed AlAskalany on 10/21/2017.
- * Navigator
- */
+/** Created by Ahmed AlAskalany on 10/21/2017. Navigator */
 @Keep
 public class FirebaseJobFactory {
 
     public static Job createJob(@NonNull final FirebaseJobDispatcher dispatcher) {
-        return dispatcher.newJobBuilder()
+        return dispatcher
+                .newJobBuilder()
                 // persist the task across boots
                 .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
                 // Call this service when the criteria are met.
@@ -37,15 +35,15 @@ public class FirebaseJobFactory {
                 .setReplaceCurrent(false)
                 // retry with exponential backoff
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
-                //Run this job only when the network is available.
-                .setConstraints(Constraint.ON_ANY_NETWORK).build();
+                // Run this job only when the network is available.
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .build();
     }
 
     public static void scheduleJob(final Context context) {
-        final FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver
-                (context));
+        final FirebaseJobDispatcher dispatcher =
+                new FirebaseJobDispatcher(new GooglePlayDriver(context));
         final Job job = createJob(dispatcher);
         dispatcher.schedule(job);
     }
-
 }

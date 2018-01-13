@@ -1,18 +1,18 @@
 /*
-  Copyright 2017 Google Inc. All Rights Reserved.
-  <p>
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-  <p>
-  http://www.apache.org/licenses/LICENSE-2.0
-  <p>
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
- */
+ Copyright 2017 Google Inc. All Rights Reserved.
+ <p>
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ <p>
+ http://www.apache.org/licenses/LICENSE-2.0
+ <p>
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
 package co.wasder.wasder.ui.dialogfragment;
 
 import android.content.Context;
@@ -35,9 +35,7 @@ import co.wasder.wasder.R;
 import co.wasder.wasder.data.model.Rating;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-/**
- * Dialog Fragment containing rating form.
- */
+/** Dialog Fragment containing rating form. */
 @Keep
 public class AddRatingDialogFragment extends DialogFragment {
 
@@ -52,12 +50,15 @@ public class AddRatingDialogFragment extends DialogFragment {
     @SuppressWarnings("WeakerAccess")
     @BindView(R.id.post_form_text)
     public EditText mRatingText;
+
     public RatingListener mRatingListener;
 
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-                             @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(
+            final LayoutInflater inflater,
+            @Nullable final ViewGroup container,
+            @Nullable final Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.dialog_rating, container, false);
         ButterKnife.bind(this, v);
 
@@ -78,16 +79,18 @@ public class AddRatingDialogFragment extends DialogFragment {
         super.onResume();
         final Window window = getDialog().getWindow();
         if (window != null) {
-            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
-                    .WRAP_CONTENT);
+            window.setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
-
     }
 
     @OnClick(R.id.post_form_button)
     public void onSubmitClicked(@SuppressWarnings("unused") final View view) {
-        final Rating rating = new Rating(FirebaseAuth.getInstance()
-                .getCurrentUser(), mRatingBar.getRating(), mRatingText.getText().toString());
+        final Rating rating =
+                new Rating(
+                        FirebaseAuth.getInstance().getCurrentUser(),
+                        mRatingBar.getRating(),
+                        mRatingText.getText().toString());
 
         if (mRatingListener != null) {
             mRatingListener.onRating(rating);
@@ -104,6 +107,5 @@ public class AddRatingDialogFragment extends DialogFragment {
     public interface RatingListener {
 
         void onRating(Rating rating);
-
     }
 }

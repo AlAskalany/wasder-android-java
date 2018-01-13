@@ -10,26 +10,25 @@ import java.util.Date;
 
 import co.wasder.wasder.data.base.BaseModel;
 
-/**
- * Created by Ahmed AlAskalany on 10/11/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/11/2017. Wasder AB */
 @Keep
 @IgnoreExtraProperties
 public class FeedModel extends BaseModel {
 
     @SuppressWarnings("unused")
     private static final String FIELD_UID = "uId";
+
     private static final String FIELD_CITY = "city";
+
     @SuppressWarnings("unused")
     private static final String FIELD_CATEGORY = "category";
+
     private static final String FIELD_PRICE = "price";
     private static final String FIELD_POPULARITY = "numRatings";
     private static final String FIELD_AVG_RATING = "avgRating";
 
     private String uId;
-    private @ServerTimestamp
-    Date timestamp;
+    private @ServerTimestamp Date timestamp;
     private String name;
     private String profilePhoto;
     private String photo;
@@ -37,11 +36,16 @@ public class FeedModel extends BaseModel {
     private double avgRating;
     private String feedText;
 
-    public FeedModel() {
-    }
+    public FeedModel() {}
 
-    public FeedModel(final String uId, final String profilePhoto, final String photo, final int
-            numRatings, final double avgRating, final String feedText) {
+    public FeedModel(
+            final String uId,
+            String name,
+            final String profilePhoto,
+            final String photo,
+            final int numRatings,
+            final double avgRating,
+            final String feedText) {
         this.uId = uId;
         this.name = name;
         this.profilePhoto = profilePhoto;
@@ -114,10 +118,12 @@ public class FeedModel extends BaseModel {
     }
 
     public Date getTimestamp() {
-        return timestamp;
+        Date myTimestamp = timestamp;
+        return myTimestamp;
     }
 
     public void setTimestamp(final Date timestamp) {
-        this.timestamp = timestamp;
+        Date myTimeStampe = timestamp;
+        this.timestamp = myTimeStampe;
     }
 }

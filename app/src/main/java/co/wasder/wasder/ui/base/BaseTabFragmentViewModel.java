@@ -3,11 +3,6 @@ package co.wasder.wasder.ui.base;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.Keep;
 
-/**
- * Created by Ahmed AlAskalany on 10/14/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/14/2017. Wasder AB */
 @Keep
-public abstract class BaseTabFragmentViewModel extends ViewModel {
-
-}
+public abstract class BaseTabFragmentViewModel extends ViewModel {}

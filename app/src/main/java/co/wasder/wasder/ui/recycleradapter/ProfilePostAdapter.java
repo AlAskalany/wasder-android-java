@@ -1,9 +1,9 @@
 package co.wasder.wasder.ui.recycleradapter;
 
 /*
-  Created by Ahmed AlAskalany on 10/11/2017.
-  Wasder AB
- */
+ Created by Ahmed AlAskalany on 10/11/2017.
+ Wasder AB
+*/
 
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
@@ -23,9 +23,7 @@ import co.wasder.wasder.data.model.Rating;
 import co.wasder.wasder.ui.base.FirestoreAdapter;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-/**
- * RecyclerView adapter for a bunch of Ratings.
- */
+/** RecyclerView adapter for a bunch of Ratings. */
 @Keep
 public class ProfilePostAdapter extends FirestoreAdapter<ProfilePostAdapter.ViewHolder> {
 
@@ -36,8 +34,9 @@ public class ProfilePostAdapter extends FirestoreAdapter<ProfilePostAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_profile_post, parent, false));
+        return new ViewHolder(
+                LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_profile_post, parent, false));
     }
 
     @Override
@@ -74,5 +73,4 @@ public class ProfilePostAdapter extends FirestoreAdapter<ProfilePostAdapter.View
             textView.setText(rating.getText());
         }
     }
-
 }

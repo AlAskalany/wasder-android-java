@@ -11,14 +11,11 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
-/**
- * Created by Ahmed AlAskalany on 10/12/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/12/2017. Wasder AB */
 @Keep
 @SuppressWarnings("unused")
-public class DatePickerFragment extends DialogFragment implements DatePickerDialog
-        .OnDateSetListener {
+public class DatePickerFragment extends DialogFragment
+        implements DatePickerDialog.OnDateSetListener {
 
     @NonNull
     @RequiresApi(api = Build.VERSION_CODES.N)

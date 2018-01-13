@@ -4,11 +4,7 @@ import android.support.annotation.Nullable;
 
 import java.util.Date;
 
-/**
- * Created by Ahmed AlAskalany on 11/3/2017.
- * Navigator
- */
-
+/** Created by Ahmed AlAskalany on 11/3/2017. Navigator */
 public abstract class BaseModel {
 
     private String photo;

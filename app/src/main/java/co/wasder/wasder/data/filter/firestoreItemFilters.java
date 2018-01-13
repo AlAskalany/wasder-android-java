@@ -8,30 +8,22 @@ import android.text.TextUtils;
 
 import com.google.firebase.firestore.Query;
 
-/**
- * Created by Ahmed AlAskalany on 10/11/2017.
- * Wasder AB
- */
+/** Created by Ahmed AlAskalany on 10/11/2017. Wasder AB */
 @Keep
-public class FirestoreItemFilters {
+public class firestoreItemFilters {
 
-    @Nullable
-    private String category = null;
-    @Nullable
-    private String city = null;
+    @Nullable private String category = null;
+    @Nullable private String city = null;
     private int price = -1;
-    @Nullable
-    private String sortBy = null;
-    @Nullable
-    private Query.Direction sortDirection = null;
+    @Nullable private String sortBy = null;
+    @Nullable private Query.Direction sortDirection = null;
     private String uid;
 
-    public FirestoreItemFilters() {
-    }
+    public firestoreItemFilters() {}
 
     @NonNull
-    public static FirestoreItemFilters getDefault() {
-        final FirestoreItemFilters firestoreItemFilters = new FirestoreItemFilters();
+    public static firestoreItemFilters getDefault() {
+        final firestoreItemFilters firestoreItemFilters = new firestoreItemFilters();
         firestoreItemFilters.setSortBy("timestamp");
         firestoreItemFilters.setSortDirection(Query.Direction.DESCENDING);
 
@@ -138,8 +130,8 @@ public class FirestoreItemFilters {
     }
 
     @NonNull
-    public String getOrderDescription(@NonNull final Context context, int resId, int
-            resIdPopularity, int resIdRating) {
+    public String getOrderDescription(
+            @NonNull final Context context, int resId, int resIdPopularity, int resIdRating) {
         if ("price".equals(sortBy)) {
             return context.getString(resId);
         } else if ("numRatings".equals(sortBy)) {

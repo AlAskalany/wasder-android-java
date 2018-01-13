@@ -21,41 +21,34 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import co.wasder.wasder.R;
 import co.wasder.wasder.ui.base.BaseTabFragment;
 
-/**
- * Created by Ahmed AlAskalany on 11/13/2017.
- * Navigator
- */
-
-abstract class BaseNavigationFragment extends Fragment implements NavigationView
-        .OnNavigationItemSelectedListener {
-
+/** Created by Ahmed AlAskalany on 11/13/2017. Navigator */
+abstract class BaseNavigationFragment extends Fragment
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String ARG_SECTION_NUMBER = "param1";
+
     @SuppressWarnings("unused")
     public View appBarLayout;
+
     @NonNull
     @SuppressWarnings("unused")
-    public Animator.AnimatorListener mAnimationListener = new Animator.AnimatorListener() {
-        @Override
-        public void onAnimationStart(final Animator animation) {
+    public Animator.AnimatorListener mAnimationListener =
+            new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(final Animator animation) {}
 
-        }
+                @Override
+                public void onAnimationEnd(final Animator animation) {
+                    appBarLayout.setBackgroundColor(Color.RED);
+                }
 
-        @Override
-        public void onAnimationEnd(final Animator animation) {
-            appBarLayout.setBackgroundColor(Color.RED);
-        }
+                @Override
+                public void onAnimationCancel(final Animator animation) {}
 
-        @Override
-        public void onAnimationCancel(final Animator animation) {
+                @Override
+                public void onAnimationRepeat(final Animator animation) {}
+            };
 
-        }
-
-        @Override
-        public void onAnimationRepeat(final Animator animation) {
-
-        }
-    };
     @SuppressWarnings("unused")
     public DrawerLayout mDrawerLayout;
 
@@ -64,13 +57,13 @@ abstract class BaseNavigationFragment extends Fragment implements NavigationView
         view.setVisibility(View.VISIBLE);
         final TabLayout tabLayout = activity.findViewById(R.id.tabLayout);
         tabLayout.removeAllTabs();
-        //tabLayout.setVisibility(View.GONE);
+        // tabLayout.setVisibility(View.GONE);
     }
 
     @NonNull
     @SuppressWarnings("unused")
-    public static Runnable createRunnable(@NonNull final View appbar, final Animator
-            .AnimatorListener animatorListener) {
+    public static Runnable createRunnable(
+            @NonNull final View appbar, final Animator.AnimatorListener animatorListener) {
         return new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -83,8 +76,8 @@ abstract class BaseNavigationFragment extends Fragment implements NavigationView
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void AnimateAppBarColor(@NonNull final View view, final Animator
-            .AnimatorListener listener) {
+    public static void AnimateAppBarColor(
+            @NonNull final View view, final Animator.AnimatorListener listener) {
         final int cx = view.getWidth() / 2;
         final int cy = view.getHeight() / 2;
         final float finalRadius = Math.max(view.getWidth(), view.getHeight());
@@ -100,7 +93,7 @@ abstract class BaseNavigationFragment extends Fragment implements NavigationView
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        //inflater.inflate(R.menu.menu_main, menu);
+        // inflater.inflate(R.menu.menu_main, menu);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

@@ -8,10 +8,7 @@ import com.firebase.ui.firestore.ChangeEventListener;
 
 import co.wasder.wasder.data.base.BaseModel;
 
-/**
- * Created by Ahmed AlAskalany on 10/30/2017.
- * Navigator
- */
+/** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep
 public interface OnFirestoreItemSelectedListener extends ChangeEventListener, LifecycleObserver {
 

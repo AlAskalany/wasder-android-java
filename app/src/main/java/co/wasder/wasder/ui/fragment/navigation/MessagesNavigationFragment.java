@@ -29,23 +29,18 @@ import co.wasder.wasder.ui.fragment.tab.PmTabFragment;
 import co.wasder.wasder.ui.listener.OnFragmentInteractionListener;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MessagesNavigationFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
+ * {@link OnFragmentInteractionListener} interface to handle interaction events. Use the {@link
+ * MessagesNavigationFragment#newInstance} factory method to create an instance of this fragment.
  */
 @Keep
 public class MessagesNavigationFragment extends BaseNavigationFragment {
 
     public final Collection<BaseTabFragment> fragments = new ArrayList<>();
-    @Nullable
-    public String TAG;
+    @Nullable public String TAG;
     public ViewPager viewPager;
     public int mSectionNumber;
-    @Nullable
-    public OnFragmentInteractionListener mListener;
+    @Nullable public OnFragmentInteractionListener mListener;
     private FragmentNavigationBinding binding;
 
     public MessagesNavigationFragment() {
@@ -81,20 +76,20 @@ public class MessagesNavigationFragment extends BaseNavigationFragment {
         if (getArguments() != null) {
             mSectionNumber = getArguments().getInt(BaseNavigationFragment.ARG_SECTION_NUMBER);
 
-            final MentionsTabFragment mentionsTabFragment = MentionsTabFragment.newInstance(0,
-                    "Mentions");
+            final MentionsTabFragment mentionsTabFragment =
+                    MentionsTabFragment.newInstance(0, "Mentions");
             final PmTabFragment pmTabFragment = PmTabFragment.newInstance(0, "PM");
             addTab(mentionsTabFragment);
             addTab(pmTabFragment);
-
-
         }
         Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
     }
 
     @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container,
-                             final Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
         Log.d(TAG, "Navigation Fragment onCreateView: " + mSectionNumber);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_navigation, container, false);
         return binding.getRoot();
@@ -113,7 +108,6 @@ public class MessagesNavigationFragment extends BaseNavigationFragment {
                 }
             }
         }
-
     }
 
     private void hideSearchBar(@NonNull FragmentActivity activity) {
@@ -135,23 +129,22 @@ public class MessagesNavigationFragment extends BaseNavigationFragment {
 
         viewPager = view.findViewById(R.id.fragment_navigation_viewPager);
         viewPager.setAdapter(tabsPagerAdapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(final int position, final float positionOffset, final int
-                    positionOffsetPixels) {
+        viewPager.addOnPageChangeListener(
+                new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(
+                            final int position,
+                            final float positionOffset,
+                            final int positionOffsetPixels) {}
 
-            }
+                    @Override
+                    public void onPageSelected(final int position) {
+                        Log.d(TAG, "onPageSelected: Tab" + position);
+                    }
 
-            @Override
-            public void onPageSelected(final int position) {
-                Log.d(TAG, "onPageSelected: Tab" + position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(final int state) {
-
-            }
-        });
+                    @Override
+                    public void onPageScrollStateChanged(final int state) {}
+                });
     }
 
     @SuppressWarnings("unused")
@@ -168,8 +161,8 @@ public class MessagesNavigationFragment extends BaseNavigationFragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString() + " must implement " +
-                    "OnFragmentInteractionListener");
+            throw new RuntimeException(
+                    context.toString() + " must implement " + "OnFragmentInteractionListener");
         }
     }
 

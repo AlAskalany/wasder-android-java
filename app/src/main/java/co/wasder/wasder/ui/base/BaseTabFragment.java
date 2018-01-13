@@ -25,25 +25,20 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.filter.FirestoreItemFilters;
+import co.wasder.wasder.data.filter.firestoreItemFilters;
 import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.ui.listener.OnFragmentInteractionListener;
 
-/**
- * Created by Ahmed AlAskalany on 11/12/2017.
- * Navigator
- */
+/** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
 @Keep
-public abstract class BaseTabFragment extends Fragment implements LifecycleOwner, FirebaseAuth
-        .AuthStateListener {
+public abstract class BaseTabFragment extends Fragment
+        implements LifecycleOwner, FirebaseAuth.AuthStateListener {
 
-    protected static final CollectionReference postsCollection = FirebaseFirestore.getInstance()
-            .collection("posts");
-    protected static final Query mQuery = postsCollection.orderBy("timestamp", Query.Direction
-            .DESCENDING)
-            .limit(50);
-    @Nullable
-    public OnFragmentInteractionListener mListener;
+    protected static final CollectionReference postsCollection =
+            FirebaseFirestore.getInstance().collection("posts");
+    protected static final Query mQuery =
+            postsCollection.orderBy("timestamp", Query.Direction.DESCENDING).limit(50);
+    @Nullable public OnFragmentInteractionListener mListener;
     public String mTitle;
 
     @Override
@@ -53,50 +48,60 @@ public abstract class BaseTabFragment extends Fragment implements LifecycleOwner
     }
 
     @Override
-    public abstract View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                                      Bundle savedInstanceState);
+    public abstract View onCreateView(
+            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     protected void setupSearchAndFilters() {
         FragmentActivity activity = getFragmentActivity();
         final SearchView mSearchView = activity.findViewById(R.id.searchView);
         mSearchView.setSubmitButtonEnabled(true);
-        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                return false;
-            }
-        });
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(final String search) {
-                final CollectionReference usersReference = FirebaseFirestore.getInstance()
-                        .collection("users");
-                final Query query = usersReference.whereEqualTo("displayName", search);
-                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mSearchView.setOnCloseListener(
+                new SearchView.OnCloseListener() {
                     @Override
-                    public void onComplete(@NonNull final Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            final QuerySnapshot queryResult = task.getResult();
-                            final List<DocumentSnapshot> usersDocuments = queryResult
-                                    .getDocuments();
-                            if (queryResult.size() > 0) {
-                                final User firstUser = usersDocuments.get(0).toObject(User.class);
-                                final String userId = firstUser.getUid();
-                                final FirestoreItemFilters firestoreItemFilters = new
-                                        FirestoreItemFilters();
-                                firestoreItemFilters.setUid(userId);
-                            }
-                        }
+                    public boolean onClose() {
+                        return false;
                     }
                 });
-                return false;
-            }
+        mSearchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(final String search) {
+                        final CollectionReference usersReference =
+                                FirebaseFirestore.getInstance().collection("users");
+                        final Query query = usersReference.whereEqualTo("displayName", search);
+                        query.get()
+                                .addOnCompleteListener(
+                                        new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(
+                                                    @NonNull final Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    final QuerySnapshot queryResult =
+                                                            task.getResult();
+                                                    final List<DocumentSnapshot> usersDocuments =
+                                                            queryResult.getDocuments();
+                                                    if (queryResult.size() > 0) {
+                                                        final User firstUser =
+                                                                usersDocuments
+                                                                        .get(0)
+                                                                        .toObject(User.class);
+                                                        final String userId = firstUser.getUid();
+                                                        final firestoreItemFilters
+                                                                firestoreItemFilters =
+                                                                        new firestoreItemFilters();
+                                                        firestoreItemFilters.setUid(userId);
+                                                    }
+                                                }
+                                            }
+                                        });
+                        return false;
+                    }
 
-            @Override
-            public boolean onQueryTextChange(final String search) {
-                return false;
-            }
-        });
+                    @Override
+                    public boolean onQueryTextChange(final String search) {
+                        return false;
+                    }
+                });
     }
 
     @NonNull
@@ -112,8 +117,8 @@ public abstract class BaseTabFragment extends Fragment implements LifecycleOwner
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString() + " must implement " +
-                    "OnFragmentInteractionListener");
+            throw new RuntimeException(
+                    context.toString() + " must implement " + "OnFragmentInteractionListener");
         }
     }
 
@@ -134,22 +139,17 @@ public abstract class BaseTabFragment extends Fragment implements LifecycleOwner
         return null;
     }
 
-    public void setFirestore(final FirebaseFirestore instance) {
-
-    }
+    public void setFirestore(final FirebaseFirestore instance) {}
 
     @Nullable
     public Query getQuery() {
         return null;
     }
 
-    public void setQuery(final Query timestamp) {
-
-    }
+    public void setQuery(final Query timestamp) {}
 
     @Nullable
     public String getTitle() {
         return mTitle;
     }
-
 }
