@@ -1,6 +1,5 @@
 package co.wasder.wasder.ui;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Keep;
@@ -80,7 +79,8 @@ public class AllTabFragment extends BaseTabFragment {
             final ViewGroup container,
             final Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab, container, false);
-        mViewModel = ViewModelProviders.of(this).get(AllTabFragmentViewModel.class);
+        // TODO create AllTabFragmentViewModel
+        //mViewModel = ViewModelProviders.of(this).get(AllTabFragmentViewModel.class);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAddPostDialog = Dialogs.AddPostDialogFragment();
         setupSearchAndFilters();
