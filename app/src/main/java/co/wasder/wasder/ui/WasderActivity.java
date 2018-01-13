@@ -56,7 +56,7 @@ public class WasderActivity extends AppCompatActivity
         implements LifecycleOwner,
                 NavigationView.OnNavigationItemSelectedListener,
                 FirebaseAuth.AuthStateListener,
-                firestoreItemFilterDialogFragment.FilterListener,
+                FirestoreItemFilterDialogFragment.FilterListener,
                 OnFragmentInteractionListener {
 
     private static final String TAG = "WasderActivity";

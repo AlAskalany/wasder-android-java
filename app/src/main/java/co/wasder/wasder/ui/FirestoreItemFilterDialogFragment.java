@@ -38,7 +38,7 @@ import co.wasder.wasder.data.FirestoreItemFilters;
 
 /** Dialog Fragment containing filter form. */
 @Keep
-public class firestoreItemFilterDialogFragment extends DialogFragment {
+public class FirestoreItemFilterDialogFragment extends DialogFragment {
 
     public static final String TAG = "FilterDialog";
 
@@ -65,10 +65,10 @@ public class firestoreItemFilterDialogFragment extends DialogFragment {
     public View mRootView;
     public FilterListener mFilterListener;
 
-    public firestoreItemFilterDialogFragment() {}
+    public FirestoreItemFilterDialogFragment() {}
 
     @SuppressWarnings("unused")
-    public static firestoreItemFilterDialogFragment newInstance() {
+    public static FirestoreItemFilterDialogFragment newInstance() {
         return Dialogs.PostsFilterDialogFragment();
     }
 

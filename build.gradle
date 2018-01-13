@@ -44,7 +44,7 @@ ext {
     compileSdkVersion = 27
     minSdkVersion = 19
     targetSdkVersion = 27
-    GMS = "11.6.2"
+    GMS = "11.8.0"
     SUPPORT = "27.0.2"
     FIREBASEUI = "3.1.0"
     CONSTRAINTLAYOUT = "1.1.0-beta4"
