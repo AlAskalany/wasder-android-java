@@ -17,7 +17,7 @@
         android:layout_marginBottom="2dp"
         android:foreground="?attr/selectableItemBackground"
         app:contentPadding="8dp"
-        tools:context=".ui.activity.WasderActivity">
+        tools:context=".ui.WasderActivity">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/feedView"
