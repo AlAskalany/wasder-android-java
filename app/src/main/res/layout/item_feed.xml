@@ -5,7 +5,7 @@
 
         <variable
             name="feedModel"
-            type="co.wasder.data.model.FeedModel" />
+            type="co.wasder.wasder.data.FeedModel" />
     </data>
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,7 +17,7 @@
         android:layout_marginBottom="2dp"
         android:foreground="?attr/selectableItemBackground"
         app:contentPadding="8dp"
-        tools:context=".activity.WasderActivity">
+        tools:context=".ui.WasderActivity">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/feedView"

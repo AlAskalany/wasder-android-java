@@ -11,7 +11,7 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="5dp"
     app:contentPadding="8dp"
-    tools:context=".activity.WasderActivity">
+    tools:context=".ui.WasderActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/feedView"
