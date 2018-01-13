@@ -46,7 +46,7 @@ import java.util.Map;
 
 import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.firestoreItemFilters;
+import co.wasder.wasder.data.FirestoreItemFilters;
 import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ActivityWasderBinding;
 import io.fabric.sdk.android.Fabric;
@@ -386,7 +386,7 @@ public class WasderActivity extends AppCompatActivity
     public void onFragmentInteractionListener(final Uri uri) {}
 
     @Override
-    public void onFilter(final firestoreItemFilters firestoreItemFilters) {}
+    public void onFilter(final FirestoreItemFilters firestoreItemFilters) {}
 
     public void onClickAdd(View view) {
         assert binding.include.container != null;

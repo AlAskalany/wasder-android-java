@@ -10,7 +10,7 @@ import com.google.firebase.firestore.Query;
 
 /** Created by Ahmed AlAskalany on 10/11/2017. Wasder AB */
 @Keep
-public class firestoreItemFilters {
+public class FirestoreItemFilters {
 
     @Nullable private String category = null;
     @Nullable private String city = null;
@@ -19,11 +19,11 @@ public class firestoreItemFilters {
     @Nullable private Query.Direction sortDirection = null;
     private String uid;
 
-    public firestoreItemFilters() {}
+    public FirestoreItemFilters() {}
 
     @NonNull
-    public static firestoreItemFilters getDefault() {
-        final firestoreItemFilters firestoreItemFilters = new firestoreItemFilters();
+    public static FirestoreItemFilters getDefault() {
+        final FirestoreItemFilters firestoreItemFilters = new FirestoreItemFilters();
         firestoreItemFilters.setSortBy("timestamp");
         firestoreItemFilters.setSortDirection(Query.Direction.DESCENDING);
 

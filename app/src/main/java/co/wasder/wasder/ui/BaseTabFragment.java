@@ -25,7 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.firestoreItemFilters;
+import co.wasder.wasder.data.FirestoreItemFilters;
 import co.wasder.wasder.data.User;
 
 /** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
@@ -85,9 +85,9 @@ public abstract class BaseTabFragment extends Fragment
                                                                         .get(0)
                                                                         .toObject(User.class);
                                                         final String userId = firstUser.getUid();
-                                                        final firestoreItemFilters
+                                                        final FirestoreItemFilters
                                                                 firestoreItemFilters =
-                                                                        new firestoreItemFilters();
+                                                                        new FirestoreItemFilters();
                                                         firestoreItemFilters.setUid(userId);
                                                     }
                                                 }

@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.Filters;
-import co.wasder.wasder.data.firestoreItemFilters;
+import co.wasder.wasder.data.FirestoreItemFilters;
 
 /** Dialog Fragment containing filter form. */
 @Keep
@@ -195,8 +195,8 @@ public class firestoreItemFilterDialogFragment extends DialogFragment {
 
     @NonNull
     @SuppressWarnings("WeakerAccess")
-    public firestoreItemFilters getFilters() {
-        final firestoreItemFilters firestoreItemFilters = Filters.PostsFilters();
+    public FirestoreItemFilters getFilters() {
+        final FirestoreItemFilters firestoreItemFilters = Filters.PostsFilters();
 
         if (mRootView != null) {
             firestoreItemFilters.setCategory(getSelectedCategory());
@@ -211,6 +211,6 @@ public class firestoreItemFilterDialogFragment extends DialogFragment {
 
     public interface FilterListener {
 
-        void onFilter(firestoreItemFilters firestoreItemFilters);
+        void onFilter(FirestoreItemFilters firestoreItemFilters);
     }
 }

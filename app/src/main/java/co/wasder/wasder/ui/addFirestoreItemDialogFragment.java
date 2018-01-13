@@ -56,7 +56,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.firestoreItemFilters;
+import co.wasder.wasder.data.FirestoreItemFilters;
 import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.data.Model;
 
@@ -285,6 +285,6 @@ public class addFirestoreItemDialogFragment extends DialogFragment {
     interface FilterListener {
 
         @SuppressWarnings("unused")
-        void onFilter(firestoreItemFilters firestoreItemFilters);
+        void onFilter(FirestoreItemFilters firestoreItemFilters);
     }
 }

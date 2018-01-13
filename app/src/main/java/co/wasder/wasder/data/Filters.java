@@ -6,7 +6,7 @@ import android.support.annotation.Keep;
 @Keep
 public class Filters {
 
-    public static firestoreItemFilters PostsFilters() {
-        return new firestoreItemFilters();
+    public static FirestoreItemFilters PostsFilters() {
+        return new FirestoreItemFilters();
     }
 }
