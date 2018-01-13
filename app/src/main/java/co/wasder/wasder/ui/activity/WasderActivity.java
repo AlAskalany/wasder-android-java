@@ -75,9 +75,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private ActivityWasderBinding binding;
-    private final BottomNavigationView.OnNavigationItemSelectedListener
-            mOnNavigationItemSelectedListener = new BottomNavigationView
-            .OnNavigationItemSelectedListener() {
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
@@ -142,8 +140,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         // Remove this for store builds!
         UpdateManager.register(this);
         mViewModel = ViewModelProviders.of(this).get(WasderActivityViewModel.class);
-        binding.include.bottomNavigationView.setOnNavigationItemSelectedListener
-                (mOnNavigationItemSelectedListener);
+        binding.include.bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         setSupportActionBar(binding.include.toolbar);
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -154,14 +151,11 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 }
             });
         }
-        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding
-                .drawerLayout, binding.include.toolbar, R.string.navigation_drawer_open, R.string
-                .navigation_drawer_close);
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.include.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         binding.navView.setNavigationItemSelectedListener(this);
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(this,
-                getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
         // Set up the ViewPager with the sections adapter.
         binding.include.container.setOffscreenPageLimit(3);
@@ -249,8 +243,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             final Intent intent = AuthUI.getInstance()
                     .createSignInIntentBuilder()
                     .setTheme(R.style.GreenTheme)
-                    .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
-                            .EMAIL_PROVIDER)
+                    .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
                             .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
                     .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                     .build();
@@ -301,10 +294,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 final Intent intent = AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setTheme(R.style.GreenTheme)
-                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
-                                .EMAIL_PROVIDER)
-                                .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER)
-                                .build()))
+                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                                .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                         .build();
 
@@ -355,10 +346,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
                 final Intent intent = AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setTheme(R.style.GreenTheme)
-                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI
-                                .EMAIL_PROVIDER)
-                                .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER)
-                                .build()))
+                        .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER)
+                                .build(), new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
                         .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                         .build();
 
@@ -380,7 +369,7 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         assert binding.include.container != null;
         if (binding.include.container.getCurrentItem() == 0) {
             /*co.wasder.wasder.ui.util.Dialogs.AddPostDialogFragment()
-                    .show(getSupportFragmentManager(), AddFirestoreItemDialogFragment.TAG);*/
+            .show(getSupportFragmentManager(), AddFirestoreItemDialogFragment.TAG);*/
             final BottomSheetDialog controlCenter = new BottomSheetDialog(this);
             View controlCenterView = getLayoutInflater().inflate(R.layout
                     .bottom_sheet_control_center, null);
@@ -388,13 +377,13 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             controlCenter.show();
         } else if (binding.include.container.getCurrentItem() == 1) {
             /*new AddEventDialogFragment().show(getSupportFragmentManager(),
-                    AddFirestoreItemDialogFragment.TAG);*/
+            AddFirestoreItemDialogFragment.TAG);*/
         }
     }
 
     /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the
+     * sections/tabs/pages.
      */
     @Keep
     private static class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -427,5 +416,4 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
             return 4;
         }
     }
-
 }

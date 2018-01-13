@@ -1,6 +1,5 @@
 package co.wasder.wasder;
 
-
 import android.support.annotation.NonNull;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
@@ -89,9 +88,7 @@ public class WasderActivityTest {
             e.printStackTrace();
         }
 
-        final ViewInteraction textInputEditText3 = onView(allOf(withId(R.id.email), withText
-                ("ahmed"), childAtPosition(childAtPosition(withId(R.id.email_layout), 0), 0),
-                isDisplayed()));
+        final ViewInteraction textInputEditText3 = onView(allOf(withId(R.id.email), withText("ahmed"), childAtPosition(childAtPosition(withId(R.id.email_layout), 0), 0), isDisplayed()));
         textInputEditText3.perform(replaceText("ahmed.alaskalany@gmail.com"));
 
         final ViewInteraction textInputEditText4 = onView(allOf(withId(R.id.email), withText
@@ -119,9 +116,7 @@ public class WasderActivityTest {
                         ()));
         textInputEditText5.perform(replaceText("Nader-2004"), closeSoftKeyboard());
 
-        final ViewInteraction appCompatButton2 = onView(allOf(withId(R.id.button_done), withText
-                ("Sign " + "" + "in"), childAtPosition(childAtPosition(withClassName(is("android"
-                + ".widget" + "" + ".LinearLayout")), 3), 1)));
+        final ViewInteraction appCompatButton2 = onView(allOf(withId(R.id.button_done), withText("Sign " + "" + "in"), childAtPosition(childAtPosition(withClassName(is("android" + ".widget" + "" + ".LinearLayout")), 3), 1)));
         appCompatButton2.perform(scrollTo(), click());
 
         // Added a sleep statement to match the app's execution delay.
@@ -134,8 +129,7 @@ public class WasderActivityTest {
             e.printStackTrace();
         }
 
-        final ViewInteraction recyclerView = onView(allOf(withId(R.id.recyclerView),
-                childAtPosition(withId(R.id.fragment_tab_home_feed_frameLayout), 0)));
+        final ViewInteraction recyclerView = onView(allOf(withId(R.id.recyclerView), childAtPosition(withId(R.id.fragment_tab_home_feed_frameLayout), 0)));
         recyclerView.perform(actionOnItemAtPosition(0, click()));
 
         // Added a sleep statement to match the app's execution delay.
@@ -169,14 +163,10 @@ public class WasderActivityTest {
         cardView.perform(click());*/
 
         final ViewInteraction appCompatButton3 = onView(allOf(withId(R.id.button_cancel),
-                withText("Cancel"), childAtPosition(childAtPosition(withId(R.id.filters_form), 5)
-                        , 1), isDisplayed()));
+                withText("Cancel"), childAtPosition(childAtPosition(withId(R.id.filters_form), 5), 1), isDisplayed()));
         appCompatButton3.perform(click());
 
-        final ViewInteraction bottomNavigationItemView = onView(allOf(withId(R.id
-                .navigation_live), childAtPosition(childAtPosition(withId(R.id
-                .bottomNavigationView), 0), 1), isDisplayed()));
+        final ViewInteraction bottomNavigationItemView = onView(allOf(withId(R.id.navigation_live), childAtPosition(childAtPosition(withId(R.id.bottomNavigationView), 0), 1), isDisplayed()));
         bottomNavigationItemView.perform(click());
-
     }
 }
