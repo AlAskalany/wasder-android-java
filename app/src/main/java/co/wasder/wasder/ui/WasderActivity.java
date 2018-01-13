@@ -154,12 +154,11 @@ public class WasderActivity extends AppCompatActivity
         toggle.syncState();
         binding.navView.setNavigationItemSelectedListener(this);
         SectionsPagerAdapter mSectionsPagerAdapter =
-                new SectionsPagerAdapter(this, getSupportFragmentManager());
+                new SectionsPagerAdapter(getSupportFragmentManager());
         Log.d(TAG, "onCreate: SectionAdapterCount" + mSectionsPagerAdapter.getCount());
         // Set up the ViewPager with the sections adapter.
         binding.include.container.setOffscreenPageLimit(3);
         binding.include.container.setAdapter(mSectionsPagerAdapter);
-        @SuppressWarnings("unused")
         final addFirestoreItemDialogFragment mAddPostDialog = Dialogs.AddPostDialogFragment();
         binding.include.swipeRefreshLayout.setOnRefreshListener(
                 () -> {
@@ -312,7 +311,6 @@ public class WasderActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         final int id = item.getItemId();
@@ -396,9 +394,7 @@ public class WasderActivity extends AppCompatActivity
     @Keep
     private static class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        SectionsPagerAdapter(
-                @SuppressWarnings("unused") final WasderActivity activity,
-                final FragmentManager fm) {
+        SectionsPagerAdapter(final FragmentManager fm) {
             super(fm);
         }
 
