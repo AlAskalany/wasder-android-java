@@ -82,43 +82,29 @@ dependencies {
     implementation "com.android.support:mediarouter-v7:${rootProject.ext.SUPPORT}"
     implementation "com.android.support.constraint:constraint-layout:${rootProject.ext.CONSTRAINTLAYOUT}"
 
+    // Dagger 2
+    implementation 'com.google.dagger:dagger-android:2.14.1'
+    implementation 'com.google.dagger:dagger-android-support:2.14.1'
+    // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.14.1'
+
     // FirebaseUI
     implementation "com.firebaseui:firebase-ui-auth:${rootProject.ext.FIREBASEUI}"
     implementation "com.firebaseui:firebase-ui-firestore:${rootProject.ext.FIREBASEUI}"
     implementation "com.firebaseui:firebase-ui-storage:${rootProject.ext.FIREBASEUI}"
     implementation "com.firebaseui:firebase-ui-database:${rootProject.ext.FIREBASEUI}"
 
-    // GMS
-    implementation "com.google.android.gms:play-services-auth:${rootProject.ext.GMS}"
-
     // Firebase
+    implementation "com.google.android.gms:play-services-auth:${rootProject.ext.GMS}"
     implementation "com.google.firebase:firebase-core:${rootProject.ext.GMS}"
-
-    // Core
     implementation "com.google.firebase:firebase-auth:${rootProject.ext.GMS}"
-
-    // Auth
     implementation "com.google.firebase:firebase-storage:${rootProject.ext.GMS}"
-
-    // Storage
     implementation "com.google.firebase:firebase-config:${rootProject.ext.GMS}"
-
-    // Config
     implementation "com.google.firebase:firebase-invites:${rootProject.ext.GMS}"
-
-    // Invites
     implementation "com.google.firebase:firebase-appindexing:${rootProject.ext.GMS}"
-
-    // App Indexing
     implementation "com.google.firebase:firebase-firestore:${rootProject.ext.GMS}"
-
-    // Firestore
     implementation "com.google.firebase:firebase-database:${rootProject.ext.GMS}"
-
-    // Database
     implementation "com.google.firebase:firebase-messaging:${rootProject.ext.GMS}"
-
-    // Messaging
 
     //Firebase Job Dispatcher
     implementation "com.firebase:firebase-jobdispatcher:${rootProject.ext.FIREBASEJOBDISPATCHER}"
