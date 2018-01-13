@@ -62,7 +62,6 @@ public class WasderActivity extends AppCompatActivity
     private static final int RC_SIGN_IN = 9001;
     private static final java.lang.String AMPLITUDE_API_KEY = "937ae55b73eb164890021fe9b2d4fa63";
     private WasderActivityViewModel mViewModel;
-    private ActionBarDrawerToggle toggle;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private ActivityWasderBinding binding;
@@ -103,6 +102,7 @@ public class WasderActivity extends AppCompatActivity
                             }
                         }
                     };
+    private ActionBarDrawerToggle toggle;
 
     private static void unregisterManagers() {
         UpdateManager.unregister();
@@ -149,7 +149,7 @@ public class WasderActivity extends AppCompatActivity
                         }
                     });
         }
-        final ActionBarDrawerToggle toggle =
+        toggle =
                 new ActionBarDrawerToggle(
                         this,
                         binding.drawerLayout,
@@ -166,8 +166,7 @@ public class WasderActivity extends AppCompatActivity
         binding.include.container.setOffscreenPageLimit(3);
         binding.include.container.setAdapter(mSectionsPagerAdapter);
         @SuppressWarnings("unused")
-        final addFirestoreItemDialogFragment mAddPostDialog =
-                Dialogs.AddPostDialogFragment();
+        final addFirestoreItemDialogFragment mAddPostDialog = Dialogs.AddPostDialogFragment();
         binding.include.swipeRefreshLayout.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override

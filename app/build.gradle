@@ -61,6 +61,10 @@ android {
         ignoreWarnings true
         baseline file("lint-baseline.xml")
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -88,15 +92,33 @@ dependencies {
     implementation "com.google.android.gms:play-services-auth:${rootProject.ext.GMS}"
 
     // Firebase
-    implementation "com.google.firebase:firebase-core:${rootProject.ext.GMS}" // Core
-    implementation "com.google.firebase:firebase-auth:${rootProject.ext.GMS}" // Auth
-    implementation "com.google.firebase:firebase-storage:${rootProject.ext.GMS}" // Storage
-    implementation "com.google.firebase:firebase-config:${rootProject.ext.GMS}" // Config
-    implementation "com.google.firebase:firebase-invites:${rootProject.ext.GMS}" // Invites
-    implementation "com.google.firebase:firebase-appindexing:${rootProject.ext.GMS}" // App Indexing
-    implementation "com.google.firebase:firebase-firestore:${rootProject.ext.GMS}" // Firestore
-    implementation "com.google.firebase:firebase-database:${rootProject.ext.GMS}" // Database
-    implementation "com.google.firebase:firebase-messaging:${rootProject.ext.GMS}" // Messaging
+    implementation "com.google.firebase:firebase-core:${rootProject.ext.GMS}"
+
+    // Core
+    implementation "com.google.firebase:firebase-auth:${rootProject.ext.GMS}"
+
+    // Auth
+    implementation "com.google.firebase:firebase-storage:${rootProject.ext.GMS}"
+
+    // Storage
+    implementation "com.google.firebase:firebase-config:${rootProject.ext.GMS}"
+
+    // Config
+    implementation "com.google.firebase:firebase-invites:${rootProject.ext.GMS}"
+
+    // Invites
+    implementation "com.google.firebase:firebase-appindexing:${rootProject.ext.GMS}"
+
+    // App Indexing
+    implementation "com.google.firebase:firebase-firestore:${rootProject.ext.GMS}"
+
+    // Firestore
+    implementation "com.google.firebase:firebase-database:${rootProject.ext.GMS}"
+
+    // Database
+    implementation "com.google.firebase:firebase-messaging:${rootProject.ext.GMS}"
+
+    // Messaging
 
     //Firebase Job Dispatcher
     implementation "com.firebase:firebase-jobdispatcher:${rootProject.ext.FIREBASEJOBDISPATCHER}"
@@ -104,6 +126,7 @@ dependencies {
     // ButterKnife
     implementation "com.jakewharton:butterknife:${rootProject.ext.BUTTERKNIFE}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.BUTTERKNIFE}"
+
     // Android Architecture Components
     implementation "android.arch.lifecycle:runtime:${rootProject.ext.ARCHRUNTIME}"
     implementation "android.arch.lifecycle:extensions:${rootProject.ext.ARCHCOMPONENTS}"
@@ -113,8 +136,9 @@ dependencies {
 
     // Amplitude
     implementation 'com.amplitude:android-sdk:2.14.1'
+
     // Third-party libraries
-    implementation "me.zhanghai.android.materialratingbar:library:1.0.2"
+    implementation 'me.zhanghai.android.materialratingbar:library:1.0.2'
 
     // HockeyApp
     implementation 'net.hockeyapp.android:HockeySDK:5.0.3'
@@ -124,10 +148,10 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.GLIDE}"
 
     // Crashlytics
-    implementation("com.crashlytics.sdk.android:crashlytics:2.7.1@aar") {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
         transitive = true
     }
-    implementation("io.fabric.sdk.android:fabric:1.3.10@aar") {
+    implementation('io.fabric.sdk.android:fabric:1.3.10@aar') {
         transitive = true
     }
 
