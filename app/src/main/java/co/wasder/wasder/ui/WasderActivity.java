@@ -46,8 +46,8 @@ import java.util.Map;
 
 import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.filter.firestoreItemFilters;
-import co.wasder.wasder.data.model.User;
+import co.wasder.wasder.data.firestoreItemFilters;
+import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ActivityWasderBinding;
 import io.fabric.sdk.android.Fabric;
 

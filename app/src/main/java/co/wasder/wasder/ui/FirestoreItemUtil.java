@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.model.FeedModel;
+import co.wasder.wasder.data.FeedModel;
 
 /** Created by Ahmed AlAskalany on 10/11/2017. Wasder AB */
 @Keep

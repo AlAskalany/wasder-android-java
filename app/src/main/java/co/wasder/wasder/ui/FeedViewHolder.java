@@ -34,14 +34,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.base.BaseModel;
-import co.wasder.wasder.data.model.FeedModel;
-import co.wasder.wasder.data.model.User;
+import co.wasder.wasder.data.BaseModel;
+import co.wasder.wasder.data.FeedModel;
+import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ItemFeedBinding;
-import co.wasder.wasder.ui.GlideApp;
-import co.wasder.wasder.ui.ProfileActivity;
-import co.wasder.wasder.ui.BaseViewHolder;
-import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
 
 /** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
 @SuppressWarnings("WeakerAccess")

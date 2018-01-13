@@ -12,11 +12,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.model.FeedModel;
+import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.databinding.ItemFeedBinding;
-import co.wasder.wasder.ui.BaseRecyclerAdapter;
-import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
-import co.wasder.wasder.ui.FeedViewHolder;
 
 /** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
 public class PmRecyclerAdapter extends BaseRecyclerAdapter {

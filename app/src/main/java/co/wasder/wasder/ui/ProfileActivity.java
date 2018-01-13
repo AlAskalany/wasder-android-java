@@ -28,9 +28,9 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.base.BaseModel;
-import co.wasder.wasder.data.model.FeedModel;
-import co.wasder.wasder.data.model.User;
+import co.wasder.wasder.data.BaseModel;
+import co.wasder.wasder.data.FeedModel;
+import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ActivityProfileBinding;
 
 @Keep

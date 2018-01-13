@@ -24,8 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.base.BaseModel;
-import co.wasder.wasder.data.model.FeedModel;
+import co.wasder.wasder.data.BaseModel;
+import co.wasder.wasder.data.FeedModel;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep

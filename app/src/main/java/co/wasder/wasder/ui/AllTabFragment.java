@@ -23,8 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.base.BaseModel;
-import co.wasder.wasder.data.model.FeedModel;
+import co.wasder.wasder.data.BaseModel;
+import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.databinding.FragmentTabBinding;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */

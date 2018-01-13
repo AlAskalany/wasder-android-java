@@ -1,19 +1,16 @@
-package co.wasder.wasder.data.model;
+package co.wasder.wasder.data;
 
 import android.support.annotation.Keep;
-import android.support.annotation.Nullable;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
-import co.wasder.wasder.data.base.BaseModel;
-
 /** Created by Ahmed AlAskalany on 10/11/2017. Wasder AB */
 @Keep
 @IgnoreExtraProperties
-public class FeedModel extends BaseModel {
+public class Event {
 
     @SuppressWarnings("unused")
     private static final String FIELD_UID = "uId";
@@ -28,6 +25,7 @@ public class FeedModel extends BaseModel {
     private static final String FIELD_AVG_RATING = "avgRating";
 
     private String uId;
+    private String title;
     private @ServerTimestamp Date timestamp;
     private String name;
     private String profilePhoto;
@@ -36,17 +34,19 @@ public class FeedModel extends BaseModel {
     private double avgRating;
     private String feedText;
 
-    public FeedModel() {}
+    public Event() {}
 
-    public FeedModel(
+    public Event(
             final String uId,
             String name,
+            final String title,
             final String profilePhoto,
             final String photo,
             final int numRatings,
             final double avgRating,
             final String feedText) {
         this.uId = uId;
+        this.title = title;
         this.name = name;
         this.profilePhoto = profilePhoto;
         this.photo = photo;
@@ -63,18 +63,20 @@ public class FeedModel extends BaseModel {
         this.uId = uId;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(final String name) {
         this.name = name;
-    }
-
-    @Nullable
-    @Override
-    public String getMessage() {
-        return null;
     }
 
     public String getPhoto() {

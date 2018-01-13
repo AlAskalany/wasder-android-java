@@ -25,8 +25,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.filter.firestoreItemFilters;
-import co.wasder.wasder.data.model.User;
+import co.wasder.wasder.data.firestoreItemFilters;
+import co.wasder.wasder.data.User;
 
 /** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
 @Keep

@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.firebase.ui.firestore.ChangeEventListener;
 
-import co.wasder.wasder.data.base.BaseModel;
+import co.wasder.wasder.data.BaseModel;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep

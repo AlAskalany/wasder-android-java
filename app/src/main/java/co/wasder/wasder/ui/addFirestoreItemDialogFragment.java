@@ -56,9 +56,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.filter.firestoreItemFilters;
-import co.wasder.wasder.data.model.FeedModel;
-import co.wasder.wasder.data.model.Model;
+import co.wasder.wasder.data.firestoreItemFilters;
+import co.wasder.wasder.data.FeedModel;
+import co.wasder.wasder.data.Model;
 
 import static android.app.Activity.RESULT_OK;
 

@@ -1,4 +1,4 @@
-package co.wasder.wasder.data.base;
+package co.wasder.wasder.data;
 
 import android.support.annotation.Nullable;
 
