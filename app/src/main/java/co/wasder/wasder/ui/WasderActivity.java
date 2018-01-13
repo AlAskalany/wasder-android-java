@@ -16,7 +16,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -142,12 +141,7 @@ public class WasderActivity extends AppCompatActivity
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.addOnMenuVisibilityListener(
-                    new ActionBar.OnMenuVisibilityListener() {
-                        @Override
-                        public void onMenuVisibilityChanged(final boolean isVisible) {
-                            Log.d(TAG, "onMenuVisibilityChanged: " + isVisible);
-                        }
-                    });
+                    isVisible -> Log.d(TAG, "onMenuVisibilityChanged: " + isVisible));
         }
         toggle =
                 new ActionBarDrawerToggle(
@@ -168,12 +162,9 @@ public class WasderActivity extends AppCompatActivity
         @SuppressWarnings("unused")
         final addFirestoreItemDialogFragment mAddPostDialog = Dialogs.AddPostDialogFragment();
         binding.include.swipeRefreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        Log.d(TAG, "onRefresh: ");
-                        binding.include.swipeRefreshLayout.setRefreshing(false);
-                    }
+                () -> {
+                    Log.d(TAG, "onRefresh: ");
+                    binding.include.swipeRefreshLayout.setRefreshing(false);
                 });
         FeedbackManager.register(this);
         boolean enableCrashButton = false;
@@ -182,11 +173,8 @@ public class WasderActivity extends AppCompatActivity
             final Button crashButton = new Button(this);
             crashButton.setText(R.string.crash);
             crashButton.setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(final View view) {
-                            Crashlytics.getInstance().crash(); // Force a crash
-                        }
+                    view -> {
+                        Crashlytics.getInstance().crash(); // Force a crash
                     });
             addContentView(
                     crashButton,
