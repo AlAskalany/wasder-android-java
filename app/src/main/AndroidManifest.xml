@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.WasderActivity"
+            android:name=".ui.activity.WasderActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -67,8 +67,8 @@
         </service>
 
         <activity
-            android:name=".activity.ProfileActivity"
-            android:parentActivityName=".activity.WasderActivity"
+            android:name=".ui.activity.ProfileActivity"
+            android:parentActivityName=".ui.activity.WasderActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
