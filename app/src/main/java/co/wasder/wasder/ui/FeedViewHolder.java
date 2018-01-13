@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,7 +42,7 @@ import co.wasder.wasder.databinding.ItemFeedBinding;
 
 /** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
 @SuppressWarnings("WeakerAccess")
-public class FeedViewHolder extends BaseViewHolder {
+public class FeedViewHolder extends RecyclerView.ViewHolder {
 
     private static final String USERS = "users";
     private static final String FOLLOWERS = "followers";

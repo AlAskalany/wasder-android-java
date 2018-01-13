@@ -16,7 +16,7 @@ import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.databinding.ItemFeedBinding;
 
 /** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
-public class FollowingRecyclerAdapter extends BaseRecyclerAdapter {
+public class FollowingRecyclerAdapter {
 
     /**
      * @param owner LifecycleOwner

@@ -30,7 +30,6 @@ import android.widget.Button;
 import com.amplitude.api.Amplitude;
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -62,7 +61,6 @@ public class WasderActivity extends AppCompatActivity
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final java.lang.String AMPLITUDE_API_KEY = "937ae55b73eb164890021fe9b2d4fa63";
-    private GoogleApiClient mGoogleApiClient;
     private WasderActivityViewModel mViewModel;
     private ActionBarDrawerToggle toggle;
     private FirebaseAuth firebaseAuth;
