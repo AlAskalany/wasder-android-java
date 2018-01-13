@@ -1,6 +1,5 @@
 package co.wasder.wasder.ui;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
@@ -83,7 +82,8 @@ public class DiscoveryTabFragment extends BaseTabFragment {
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_tab, container, false);
         ButterKnife.bind(this, view);
-        mViewModel = ViewModelProviders.of(this).get(DiscoveryTabFragmentViewModel.class);
+        // TODO create DiscoveryFragmentViewModel
+        //mViewModel = ViewModelProviders.of(this).get(DiscoveryTabFragmentViewModel.class);
         assert mRecyclerView != null;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAddPostDialog = Dialogs.AddPostDialogFragment();

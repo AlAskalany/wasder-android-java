@@ -1,6 +1,5 @@
 package co.wasder.wasder.ui;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Keep;
@@ -43,7 +42,8 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
     public FirebaseFirestore mFirestore;
     public DocumentReference mDocumentReference;
     public ListenerRegistration mModelRegistration;
-    public ProfileActivityViewModel viewModel;
+    // TODO create ProfileActivityViewModel
+    //public ProfileActivityViewModel viewModel;
     public RecyclerView.Adapter<FeedViewHolder> adapter;
     public Query mQuery;
     public OnFirestoreItemSelectedListener mItemSelectedListener =
@@ -91,7 +91,7 @@ public class ProfileActivity extends AppCompatActivity implements EventListener<
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
 
-        viewModel = ViewModelProviders.of(this).get(ProfileActivityViewModel.class);
+        //viewModel = ViewModelProviders.of(this).get(ProfileActivityViewModel.class);
 
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
