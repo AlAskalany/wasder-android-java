@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">UI</string>
-    <string name="all_items">All Posts</string>
-    <string name="items_sorted_by_popularity">sorted by popularity</string>
-    <string name="items_sorted_by_price">sorted by price</string>
-    <string name="items_sorted_by_rating">sorted by rating</string>
-</resources>

@@ -24,9 +24,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
-import co.wasder.data.filter.FirestoreItemFilters;
-import co.wasder.data.model.User;
 import co.wasder.wasder.R;
+import co.wasder.wasder.data.filter.FirestoreItemFilters;
+import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.ui.listener.OnFragmentInteractionListener;
 
 /**

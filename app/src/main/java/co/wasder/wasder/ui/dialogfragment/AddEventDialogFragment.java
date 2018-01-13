@@ -53,10 +53,10 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import co.wasder.data.filter.FirestoreItemFilters;
-import co.wasder.data.model.Event;
-import co.wasder.data.model.Model;
 import co.wasder.wasder.R;
+import co.wasder.wasder.data.filter.FirestoreItemFilters;
+import co.wasder.wasder.data.model.Event;
+import co.wasder.wasder.data.model.Model;
 
 import static android.app.Activity.RESULT_OK;
 

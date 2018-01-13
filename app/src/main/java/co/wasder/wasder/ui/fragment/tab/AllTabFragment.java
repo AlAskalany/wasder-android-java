@@ -22,18 +22,18 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import co.wasder.data.base.BaseModel;
-import co.wasder.data.model.FeedModel;
-import co.wasder.ui.base.BaseTabFragmentViewModel;
-import co.wasder.ui.viewmodel.AllTabFragmentViewModel;
 import co.wasder.wasder.R;
+import co.wasder.wasder.data.base.BaseModel;
+import co.wasder.wasder.data.model.FeedModel;
 import co.wasder.wasder.databinding.FragmentTabBinding;
 import co.wasder.wasder.ui.base.BaseTabFragment;
+import co.wasder.wasder.ui.base.BaseTabFragmentViewModel;
 import co.wasder.wasder.ui.dialogfragment.AddFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.listener.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.ui.recycleradapter.FeedRecyclerAdapter;
 import co.wasder.wasder.ui.util.Dialogs;
 import co.wasder.wasder.ui.viewholder.FeedViewHolder;
+import co.wasder.wasder.ui.viewmodel.AllTabFragmentViewModel;
 
 /**
  * Created by Ahmed AlAskalany on 10/30/2017.

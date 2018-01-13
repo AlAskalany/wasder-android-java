@@ -12,7 +12,7 @@ import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
 
-import co.wasder.data.FirestoreQueryJobService;
+import co.wasder.wasder.data.FirestoreQueryJobService;
 
 /**
  * Created by Ahmed AlAskalany on 10/21/2017.

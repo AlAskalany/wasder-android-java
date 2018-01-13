@@ -33,10 +33,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import co.wasder.data.base.BaseModel;
-import co.wasder.data.model.FeedModel;
-import co.wasder.data.model.User;
 import co.wasder.wasder.R;
+import co.wasder.wasder.data.base.BaseModel;
+import co.wasder.wasder.data.model.FeedModel;
+import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.databinding.ItemFeedBinding;
 import co.wasder.wasder.ui.GlideApp;
 import co.wasder.wasder.ui.activity.ProfileActivity;

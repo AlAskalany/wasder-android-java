@@ -27,14 +27,14 @@
         </activity>
 
         <service
-            android:name="co.wasder.data.MyFirebaseMessagingService"
+            android:name=".data.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name="co.wasder.data.MyFirebaseInstanceIdService"
+            android:name=".data.MyFirebaseInstanceIdService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -59,7 +59,7 @@
             tools:replace="android:value" />
 
         <service
-            android:name="co.wasder.data.FirestoreQueryJobService"
+            android:name=".data.FirestoreQueryJobService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />

@@ -44,11 +44,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import co.wasder.data.filter.FirestoreItemFilters;
-import co.wasder.data.model.User;
-import co.wasder.ui.viewmodel.WasderActivityViewModel;
 import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
+import co.wasder.wasder.data.filter.FirestoreItemFilters;
+import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.databinding.ActivityWasderBinding;
 import co.wasder.wasder.ui.dialogfragment.AddEventDialogFragment;
 import co.wasder.wasder.ui.dialogfragment.AddFirestoreItemDialogFragment;
@@ -59,6 +58,7 @@ import co.wasder.wasder.ui.fragment.navigation.LiveNavigationFragment;
 import co.wasder.wasder.ui.fragment.navigation.MessagesNavigationFragment;
 import co.wasder.wasder.ui.listener.OnFragmentInteractionListener;
 import co.wasder.wasder.ui.util.FirestoreItemUtil;
+import co.wasder.wasder.ui.viewmodel.WasderActivityViewModel;
 import io.fabric.sdk.android.Fabric;
 
 @Keep
@@ -166,7 +166,8 @@ public class WasderActivity extends AppCompatActivity implements LifecycleOwner,
         // Set up the ViewPager with the sections adapter.
         binding.include.container.setOffscreenPageLimit(3);
         binding.include.container.setAdapter(mSectionsPagerAdapter);
-        @SuppressWarnings("unused") final AddFirestoreItemDialogFragment mAddPostDialog = co.wasder.wasder.ui.util.Dialogs
+        @SuppressWarnings("unused") final AddFirestoreItemDialogFragment mAddPostDialog = co
+                .wasder.wasder.ui.util.Dialogs
                 .AddPostDialogFragment();
         binding.include.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout
                 .OnRefreshListener() {

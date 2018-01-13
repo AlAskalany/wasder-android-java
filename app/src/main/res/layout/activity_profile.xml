@@ -5,7 +5,7 @@
 
         <variable
             name="user"
-            type="co.wasder.data.model.User" />
+            type="co.wasder.wasder.data.model.User" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"

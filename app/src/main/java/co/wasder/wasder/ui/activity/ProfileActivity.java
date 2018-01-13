@@ -27,16 +27,16 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
-import co.wasder.data.base.BaseModel;
-import co.wasder.data.model.FeedModel;
-import co.wasder.data.model.User;
-import co.wasder.ui.viewmodel.ProfileActivityViewModel;
 import co.wasder.wasder.R;
+import co.wasder.wasder.data.base.BaseModel;
+import co.wasder.wasder.data.model.FeedModel;
+import co.wasder.wasder.data.model.User;
 import co.wasder.wasder.databinding.ActivityProfileBinding;
 import co.wasder.wasder.ui.GlideApp;
 import co.wasder.wasder.ui.listener.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.ui.recycleradapter.FollowingRecyclerAdapter;
 import co.wasder.wasder.ui.viewholder.FeedViewHolder;
+import co.wasder.wasder.ui.viewmodel.ProfileActivityViewModel;
 
 @Keep
 public class ProfileActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
