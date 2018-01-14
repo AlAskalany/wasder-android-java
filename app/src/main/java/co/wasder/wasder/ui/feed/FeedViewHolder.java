@@ -13,18 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -44,7 +38,6 @@ import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.ui.profile.ProfileActivity;
 
 /** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
-@SuppressWarnings("WeakerAccess")
 public class FeedViewHolder extends RecyclerView.ViewHolder {
 
     private static final String USERS = "users";
@@ -69,61 +62,32 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
         userReference
                 .get()
                 .addOnCompleteListener(
-                        new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull final Task<DocumentSnapshot> task) {
-                                final User user = task.getResult().toObject(User.class);
-                                setUserName(user, binding.userName);
-                            }
+                        task -> {
+                            final User user = task.getResult().toObject(User.class);
+                            setUserName(user, binding.userName);
                         });
         String uuid = model.getPhoto();
         if (isProfilePhotoUrlValid(uuid)) {
-            setItemImage(
-                    uuid,
-                    getContext(),
-                    binding.itemImageView,
-                    isViewInvisible(),
-                    binding.itemImageView);
+            setItemImage(uuid, getContext(), binding.itemImageView, binding.itemImageView);
         }
         final String profilePhotoUrl = model.getProfilePhoto();
         if (profilePhotoUrl != null) {
-            setProfilePicture(userId, profilePhotoUrl, getContext());
+            setProfilePicture(profilePhotoUrl, getContext());
         }
         binding.itemProfileImageView.setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(final View v) {
-                        startAuthProfileActivity(model, getContext(), itemView);
-                    }
-                });
+                v -> startAuthProfileActivity(model, getContext(), itemView));
         final Date date = model.getTimestamp();
         if (date != null) {
             setDate(date, binding.timeStamp);
         }
         setPostText(model, binding.itemTextView);
         itemView.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(final View view) {
-                        handleItemViewClick(model, onFirestoreItemSelectedListener);
-                    }
-                });
-        binding.expandButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(@NonNull final View v) {
-                        handleExpandButton(v, model);
-                    }
-                });
+                view -> handleItemViewClick(model, onFirestoreItemSelectedListener));
+        binding.expandButton.setOnClickListener(v -> handleExpandButton(v, model));
     }
 
     private Context getContext() {
         return itemView.getContext();
-    }
-
-    private boolean isViewInvisible() {
-        return itemView.getVisibility() == View.GONE;
     }
 
     private void handleItemViewClick(
@@ -136,12 +100,9 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
         final String currentUserId = getCurrentUserId();
         final PopupMenu popup = getPopupMenu(v, currentUserId, model, binding.expandButton);
         popup.setOnMenuItemClickListener(
-                new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(@NonNull final MenuItem item) {
-                        handleMenu(item, model, currentUserId);
-                        return false;
-                    }
+                item -> {
+                    handleMenu(item, model, currentUserId);
+                    return false;
                 });
         popup.show();
     }
@@ -193,11 +154,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setItemImage(
-            String uuid,
-            Context context,
-            ImageView itemImage,
-            boolean isViewInvisible,
-            ImageView itemImage1) {
+            String uuid, Context context, ImageView itemImage, ImageView itemImage1) {
         final StorageReference mImageRef = FirebaseStorage.getInstance().getReference(uuid);
         downloadPostImageIntoView(mImageRef, context, itemImage);
         if (itemImage.getVisibility() == View.GONE) {
@@ -213,9 +170,9 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                 .into(itemImage);
     }
 
-    private void setProfilePicture(String userId, String profilePhotoUrl, Context context) {
+    private void setProfilePicture(String profilePhotoUrl, Context context) {
         if (isProfilePhotoUrlValid(profilePhotoUrl)) {
-            downloadProfilePictureIntoView(userId, profilePhotoUrl, context);
+            downloadProfilePictureIntoView(profilePhotoUrl, context);
         }
     }
 
@@ -223,8 +180,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
         return !TextUtils.isEmpty(profilePhotoUrl);
     }
 
-    private void downloadProfilePictureIntoView(
-            String userId, String profilePhotoUrl, Context context) {
+    private void downloadProfilePictureIntoView(String profilePhotoUrl, Context context) {
         GlideApp.with(context)
                 .load(profilePhotoUrl)
                 .transition(DrawableTransitionOptions.withCrossFade())
@@ -273,45 +229,8 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                 .document(model.getUid())
                 .delete()
                 .addOnCompleteListener(
-                        new OnCompleteListener<Void>() {
-
-                            @Override
-                            public void onComplete(@NonNull final Task<Void> task) {
-                                if (task.isSuccessful()) {}
-                            }
+                        task -> {
+                            if (task.isSuccessful()) {}
                         });
-    }
-
-    ImageView getProfileImageView(@NonNull final String uid) {
-        FirebaseDatabase.getInstance()
-                .getReference(USERS)
-                .child(uid)
-                .child("online")
-                .addValueEventListener(
-                        new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    final String myPresence = dataSnapshot.getValue().toString();
-                                    if (myPresence.equals("true")) {
-                                        binding.presenceImageView.setImageDrawable(
-                                                itemView.getResources()
-                                                        .getDrawable(
-                                                                R.drawable
-                                                                        .ic_presence_status_online));
-                                    } else if (myPresence.equals("false")) {
-                                        binding.presenceImageView.setImageDrawable(
-                                                itemView.getResources()
-                                                        .getDrawable(
-                                                                R.drawable
-                                                                        .ic_presence_status_offline));
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(final DatabaseError databaseError) {}
-                        });
-        return binding.itemProfileImageView;
     }
 }
