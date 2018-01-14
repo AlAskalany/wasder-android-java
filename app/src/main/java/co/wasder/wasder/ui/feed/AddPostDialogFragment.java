@@ -35,19 +35,13 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.text.MessageFormat;
 import java.util.UUID;
@@ -66,8 +60,6 @@ import static android.app.Activity.RESULT_OK;
 public class AddPostDialogFragment extends DialogFragment {
 
     public static final String TAG = "AddPostDialog";
-    public static final int INITIAL_AVG_RATING = 0;
-    public static final int INITIAL_NUM_RATINGS = 0;
     public static final int RC_CHOOSE_PHOTO = 101;
 
     @SuppressWarnings("unused")
@@ -85,14 +77,9 @@ public class AddPostDialogFragment extends DialogFragment {
         if (feedModel.getUid() != null && feedModel.getFeedText() != null) {
             posts.add(feedModel)
                     .addOnCompleteListener(
-                            new OnCompleteListener<DocumentReference>() {
-                                @Override
-                                public void onComplete(
-                                        @NonNull final Task<DocumentReference> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(context, "Post Added", Toast.LENGTH_LONG)
-                                                .show();
-                                    }
+                            task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(context, "Post Added", Toast.LENGTH_LONG).show();
                                 }
                             });
         }
@@ -220,41 +207,31 @@ public class AddPostDialogFragment extends DialogFragment {
                 .putFile(uri)
                 .addOnSuccessListener(
                         activity,
-                        new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(
-                                    @NonNull final UploadTask.TaskSnapshot taskSnapshot) {
-                                //noinspection LogConditional
-                                final StorageMetadata storageMetadata = taskSnapshot.getMetadata();
-                                final StorageReference storageReference;
-                                if (storageMetadata != null) {
-                                    storageReference = storageMetadata.getReference();
-                                    if (storageReference != null) {
-                                        Log.d(
-                                                TAG,
-                                                MessageFormat.format(
-                                                        "uploadPhoto:onSuccess:{0}",
-                                                        storageReference.getPath()));
-                                    }
-                                    Toast.makeText(
-                                                    getContext(),
-                                                    "Image uploaded",
-                                                    Toast.LENGTH_SHORT)
-                                            .show();
+                        taskSnapshot -> {
+                            //noinspection LogConditional
+                            final StorageMetadata storageMetadata = taskSnapshot.getMetadata();
+                            final StorageReference storageReference;
+                            if (storageMetadata != null) {
+                                storageReference = storageMetadata.getReference();
+                                if (storageReference != null) {
+                                    Log.d(
+                                            TAG,
+                                            MessageFormat.format(
+                                                    "uploadPhoto:onSuccess:{0}",
+                                                    storageReference.getPath()));
                                 }
-
-                                // showDownloadUI();
+                                Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT)
+                                        .show();
                             }
+
+                            // showDownloadUI();
                         })
                 .addOnFailureListener(
                         activity,
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull final Exception e) {
-                                Log.w(TAG, "uploadPhoto:onError", e);
-                                Toast.makeText(getContext(), "Upload failed", Toast.LENGTH_SHORT)
-                                        .show();
-                            }
+                        e -> {
+                            Log.w(TAG, "uploadPhoto:onError", e);
+                            Toast.makeText(getContext(), "Upload failed", Toast.LENGTH_SHORT)
+                                    .show();
                         });
     }
 
