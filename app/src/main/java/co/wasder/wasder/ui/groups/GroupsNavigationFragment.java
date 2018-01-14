@@ -41,7 +41,7 @@ public class GroupsNavigationFragment extends BaseNavigationFragment {
     public ViewPager viewPager;
     public int mSectionNumber;
     @Nullable public OnFragmentInteractionListener mListener;
-    private FragmentNavigationBinding binding;
+    FragmentNavigationBinding binding;
 
     public GroupsNavigationFragment() {
         // Required empty public constructor

@@ -12,10 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.firebase.ui.common.ChangeEventType;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,12 +21,11 @@ import co.wasder.wasder.R;
 import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.databinding.FragmentTabBinding;
-import co.wasder.wasder.ui.feed.AddPostDialogFragment;
-import co.wasder.wasder.ui.navigation.BaseTabFragment;
-import co.wasder.wasder.ui.navigation.BaseTabFragmentViewModel;
 import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
+import co.wasder.wasder.ui.feed.AddPostDialogFragment;
 import co.wasder.wasder.ui.feed.FeedRecyclerAdapter;
 import co.wasder.wasder.ui.feed.FeedViewHolder;
+import co.wasder.wasder.ui.navigation.BaseTabFragment;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep
@@ -43,9 +38,7 @@ public class AllTabFragment extends BaseTabFragment {
     }
 
     public String TAG;
-    public String USERS;
     public AddPostDialogFragment mAddPostDialog;
-    public BaseTabFragmentViewModel mViewModel;
 
     @NonNull
     protected OnFirestoreItemSelectedListener onFirestoreItemSelectedListener =
@@ -67,7 +60,6 @@ public class AllTabFragment extends BaseTabFragment {
                 public void onError(FirebaseFirestoreException e) {}
             };
 
-    private long LIMIT;
     private FragmentTabBinding binding;
 
     public static AllTabFragment newInstance(int sectionNumber, String title) {
@@ -86,7 +78,6 @@ public class AllTabFragment extends BaseTabFragment {
             final Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab, container, false);
         // TODO create AllTabFragmentViewModel
-        //mViewModel = ViewModelProviders.of(this).get(AllTabFragmentViewModel.class);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAddPostDialog = new AddPostDialogFragment();
         setupSearchAndFilters();
@@ -94,10 +85,6 @@ public class AllTabFragment extends BaseTabFragment {
     }
 
     protected void attachRecyclerViewAdapter() {
-        final FirestoreRecyclerOptions<FeedModel> options =
-                new FirestoreRecyclerOptions.Builder<FeedModel>()
-                        .setQuery(mQuery, FeedModel.class)
-                        .build();
         final RecyclerView.Adapter<FeedViewHolder> adapter =
                 FeedRecyclerAdapter.getAdapter(
                         this, onFirestoreItemSelectedListener, mQuery, FeedModel.class);
@@ -119,13 +106,7 @@ public class AllTabFragment extends BaseTabFragment {
             attachRecyclerViewAdapter();
         } else {
             Toast.makeText(getContext(), R.string.signing_in, Toast.LENGTH_SHORT).show();
-            firebaseAuth
-                    .signInAnonymously()
-                    .addOnCompleteListener(
-                            new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {}
-                            });
+            firebaseAuth.signInAnonymously().addOnCompleteListener(task -> {});
         }
     }
 
