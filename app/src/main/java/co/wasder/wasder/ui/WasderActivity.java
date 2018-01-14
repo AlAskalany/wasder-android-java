@@ -33,8 +33,6 @@ import co.wasder.wasder.R;
 import co.wasder.wasder.data.FirestoreItemFilters;
 import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ActivityWasderBinding;
-import dagger.android.AndroidInjector;
-import dagger.android.HasFragmentInjector;
 import io.fabric.sdk.android.Fabric;
 
 @Keep
@@ -42,8 +40,7 @@ public class WasderActivity extends AppCompatActivity
         implements LifecycleOwner,
                 NavigationView.OnNavigationItemSelectedListener,
                 FirestoreItemFilterDialogFragment.FilterListener,
-                OnFragmentInteractionListener,
-                HasFragmentInjector {
+                OnFragmentInteractionListener {
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
     private WasderActivityViewModel mViewModel;
@@ -281,11 +278,6 @@ public class WasderActivity extends AppCompatActivity
             /*new AddEventDialogFragment().show(getSupportFragmentManager(),
             addFirestoreItemDialogFragment.TAG);*/
         }
-    }
-
-    @Override
-    public AndroidInjector<android.app.Fragment> fragmentInjector() {
-        return null;
     }
 
     /**
