@@ -75,11 +75,6 @@ public class WasderActivity extends AppCompatActivity
                                                 .show(
                                                         getSupportFragmentManager(),
                                                         AddPostDialogFragment.TAG);
-                                    } else if (binding.include.container.getCurrentItem() == 1) {
-                                        new AddEventDialogFragment()
-                                                .show(
-                                                        getSupportFragmentManager(),
-                                                        AddPostDialogFragment.TAG);
                                     }
                                 default:
                                     return false;
