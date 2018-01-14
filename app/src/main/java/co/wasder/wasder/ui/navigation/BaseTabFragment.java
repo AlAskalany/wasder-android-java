@@ -50,8 +50,10 @@ public abstract class BaseTabFragment extends Fragment
     @Nullable public OnFragmentInteractionListener mListener;
     public String mTitle;
     public AddPostDialogFragment mAddPostDialog;
+
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
+
     @NonNull
     protected OnFirestoreItemSelectedListener onFirestoreItemSelectedListener =
             new OnFirestoreItemSelectedListener() {
@@ -146,6 +148,15 @@ public abstract class BaseTabFragment extends Fragment
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            attachRecyclerViewAdapter();
+        }
+        FirebaseAuth.getInstance().addAuthStateListener(this);
     }
 
     @Override

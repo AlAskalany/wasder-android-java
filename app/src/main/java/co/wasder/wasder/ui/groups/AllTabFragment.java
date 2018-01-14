@@ -1,29 +1,18 @@
 package co.wasder.wasder.ui.groups;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.firebase.ui.common.ChangeEventType;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import butterknife.ButterKnife;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.BaseModel;
-import co.wasder.wasder.data.FeedModel;
-import co.wasder.wasder.databinding.FragmentTabBinding;
-import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.ui.feed.AddPostDialogFragment;
-import co.wasder.wasder.ui.feed.FeedRecyclerAdapter;
-import co.wasder.wasder.ui.feed.FeedViewHolder;
 import co.wasder.wasder.ui.navigation.BaseTabFragment;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
@@ -37,29 +26,6 @@ public class AllTabFragment extends BaseTabFragment {
     }
 
     public String TAG;
-    public AddPostDialogFragment mAddPostDialog;
-
-    @NonNull
-    protected OnFirestoreItemSelectedListener onFirestoreItemSelectedListener =
-            new OnFirestoreItemSelectedListener() {
-                @Override
-                public void onFirestoreItemSelected(BaseModel event, View itemView) {}
-
-                @Override
-                public void onChildChanged(
-                        ChangeEventType type,
-                        DocumentSnapshot snapshot,
-                        int newIndex,
-                        int oldIndex) {}
-
-                @Override
-                public void onDataChanged() {}
-
-                @Override
-                public void onError(FirebaseFirestoreException e) {}
-            };
-
-    private FragmentTabBinding binding;
 
     public static AllTabFragment newInstance(int sectionNumber, String title) {
         AllTabFragment fragment = new AllTabFragment();
@@ -75,41 +41,13 @@ public class AllTabFragment extends BaseTabFragment {
             @NonNull final LayoutInflater inflater,
             final ViewGroup container,
             final Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab, container, false);
-        // TODO create AllTabFragmentViewModel
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        final View view = inflater.inflate(R.layout.fragment_tab, container, false);
+        ButterKnife.bind(this, view);
+        // TODO create FeedTabFragmentViewModel
+        assert mRecyclerView != null;
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAddPostDialog = new AddPostDialogFragment();
         setupSearchAndFilters();
-        return binding.getRoot();
-    }
-
-    protected void attachRecyclerViewAdapter() {
-        final RecyclerView.Adapter<FeedViewHolder> adapter =
-                FeedRecyclerAdapter.getAdapter(
-                        this, onFirestoreItemSelectedListener, mQuery, FeedModel.class);
-
-        // Scroll to bottom on new messages
-        adapter.registerAdapterDataObserver(
-                new RecyclerView.AdapterDataObserver() {
-                    @Override
-                    public void onItemRangeInserted(final int positionStart, final int itemCount) {
-                        binding.recyclerView.smoothScrollToPosition(0);
-                    }
-                });
-        binding.recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
-        super.onAuthStateChanged(firebaseAuth);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            attachRecyclerViewAdapter();
-        }
-        FirebaseAuth.getInstance().addAuthStateListener(this);
+        return view;
     }
 }
