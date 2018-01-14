@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.live;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -23,28 +23,36 @@ import java.util.Collection;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.databinding.FragmentNavigationBinding;
+import co.wasder.wasder.ui.OnFragmentInteractionListener;
+import co.wasder.wasder.ui.discovery.DiscoveryTabFragment;
+import co.wasder.wasder.ui.favorites.FavoritesTabFragment;
+import co.wasder.wasder.ui.following.FollowingTabFragment;
+import co.wasder.wasder.ui.navigation.BaseNavigationFragment;
+import co.wasder.wasder.ui.navigation.BaseTabFragment;
+import co.wasder.wasder.ui.navigation.TabsPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
  * {@link OnFragmentInteractionListener} interface to handle interaction events. Use the {@link
- * FeedNavigationFragment#newInstance} factory method to create an instance of this fragment.
+ * LiveNavigationFragment#newInstance} factory method to create an instance of this fragment.
  */
 @Keep
-public class FeedNavigationFragment extends BaseNavigationFragment {
+public class LiveNavigationFragment extends BaseNavigationFragment {
 
     public final Collection<BaseTabFragment> fragments = new ArrayList<>();
     @Nullable public String TAG;
+    public ViewPager viewPager;
     public int mSectionNumber;
     @Nullable public OnFragmentInteractionListener mListener;
     private FragmentNavigationBinding binding;
 
-    public FeedNavigationFragment() {
+    public LiveNavigationFragment() {
         // Required empty public constructor
     }
 
     @NonNull
     public static Fragment newInstance(final int sectionNumber) {
-        final FeedNavigationFragment fragment = new FeedNavigationFragment();
+        final LiveNavigationFragment fragment = new LiveNavigationFragment();
         final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -71,8 +79,15 @@ public class FeedNavigationFragment extends BaseNavigationFragment {
         if (getArguments() != null) {
             mSectionNumber = getArguments().getInt(BaseNavigationFragment.ARG_SECTION_NUMBER);
 
-            final FeedTabFragment feedTab = FeedTabFragment.newInstance(0, "Feed");
-            this.addTab(feedTab);
+            final FollowingTabFragment followingTabFragment =
+                    FollowingTabFragment.newInstance(0, "Following");
+            final FavoritesTabFragment favoritesTabFragment =
+                    FavoritesTabFragment.newInstance(0, "Favorites");
+            final DiscoveryTabFragment discoveryTabFragment =
+                    DiscoveryTabFragment.newInstance(0, "Discovery");
+            addTab(followingTabFragment);
+            addTab(favoritesTabFragment);
+            addTab(discoveryTabFragment);
         }
         Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);
     }
@@ -109,7 +124,7 @@ public class FeedNavigationFragment extends BaseNavigationFragment {
         }
         final View view = activity.findViewById(R.id.searchView);
         view.setVisibility(View.GONE);
-        tabLayout.setupWithViewPager(binding.fragmentNavigationViewPager);
+        tabLayout.setupWithViewPager(this.viewPager);
     }
 
     @Override
@@ -119,8 +134,9 @@ public class FeedNavigationFragment extends BaseNavigationFragment {
             tabsPagerAdapter.addFragment(tab);
         }
 
-        binding.fragmentNavigationViewPager.setAdapter(tabsPagerAdapter);
-        binding.fragmentNavigationViewPager.addOnPageChangeListener(
+        viewPager = view.findViewById(R.id.fragment_navigation_viewPager);
+        viewPager.setAdapter(tabsPagerAdapter);
+        viewPager.addOnPageChangeListener(
                 new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(

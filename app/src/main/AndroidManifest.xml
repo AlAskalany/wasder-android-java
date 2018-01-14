@@ -67,7 +67,7 @@
         </service>
 
         <activity
-            android:name=".ui.ProfileActivity"
+            android:name=".ui.profile.ProfileActivity"
             android:parentActivityName=".ui.WasderActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <meta-data

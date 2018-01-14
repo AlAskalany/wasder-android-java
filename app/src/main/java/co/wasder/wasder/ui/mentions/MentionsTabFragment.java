@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.mentions;
 
 import android.os.Bundle;
 import android.support.annotation.Keep;
@@ -25,6 +25,13 @@ import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
+import co.wasder.wasder.ui.navigation.BaseTabFragment;
+import co.wasder.wasder.ui.navigation.BaseTabFragmentViewModel;
+import co.wasder.wasder.ui.Dialogs;
+import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
+import co.wasder.wasder.ui.addFirestoreItemDialogFragment;
+import co.wasder.wasder.ui.feed.FeedRecyclerAdapter;
+import co.wasder.wasder.ui.feed.FeedViewHolder;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep

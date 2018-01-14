@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.authentication;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,13 +10,14 @@ import java.util.List;
 
 import co.wasder.wasder.BuildConfig;
 import co.wasder.wasder.R;
+import co.wasder.wasder.ui.WasderActivity;
 
 public class AuthenticationComponent {
     private static final int RC_SIGN_IN = 9001;
 
     public AuthenticationComponent() {}
 
-    void signIn(AppCompatActivity activity) {
+    public void signIn(AppCompatActivity activity) {
         // Sign in with FirebaseUI
         List<AuthUI.IdpConfig> idpConfigs =
                 Arrays.asList(
@@ -33,7 +34,7 @@ public class AuthenticationComponent {
         activity.startActivityForResult(intent, RC_SIGN_IN);
     }
 
-    void signOut(WasderActivity wasderActivity) {
+    public void signOut(WasderActivity wasderActivity) {
         AuthUI.getInstance().signOut(wasderActivity);
     }
 }

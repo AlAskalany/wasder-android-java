@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.amplitude;
 
 import android.support.v7.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ public class AmplitudeComponent {
 
     public AmplitudeComponent() {}
 
-    void setupAmplitude(String userId, AppCompatActivity activity) {
+    public void setupAmplitude(String userId, AppCompatActivity activity) {
         Amplitude.getInstance()
                 .initialize(activity, AMPLITUDE_API_KEY)
                 .enableForegroundTracking(activity.getApplication())

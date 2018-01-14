@@ -33,6 +33,10 @@ import co.wasder.wasder.R;
 import co.wasder.wasder.data.FirestoreItemFilters;
 import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ActivityWasderBinding;
+import co.wasder.wasder.ui.feed.FeedNavigationFragment;
+import co.wasder.wasder.ui.groups.GroupsNavigationFragment;
+import co.wasder.wasder.ui.live.LiveNavigationFragment;
+import co.wasder.wasder.ui.profile.ProfileActivity;
 import io.fabric.sdk.android.Fabric;
 
 @Keep

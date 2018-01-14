@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.navigation;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
@@ -27,6 +27,7 @@ import java.util.List;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.FirestoreItemFilters;
 import co.wasder.wasder.data.User;
+import co.wasder.wasder.ui.OnFragmentInteractionListener;
 
 /** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
 @Keep

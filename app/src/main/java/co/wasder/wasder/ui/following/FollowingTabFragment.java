@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.following;
 
 import android.os.Bundle;
 import android.support.annotation.Keep;
@@ -25,10 +25,17 @@ import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
+import co.wasder.wasder.ui.navigation.BaseTabFragment;
+import co.wasder.wasder.ui.navigation.BaseTabFragmentViewModel;
+import co.wasder.wasder.ui.Dialogs;
+import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
+import co.wasder.wasder.ui.addFirestoreItemDialogFragment;
+import co.wasder.wasder.ui.feed.FeedRecyclerAdapter;
+import co.wasder.wasder.ui.feed.FeedViewHolder;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep
-public class FeedTabFragment extends BaseTabFragment {
+public class FollowingTabFragment extends BaseTabFragment {
 
     public static String ARG_SECTION_NUMBER = "section-number";
 
@@ -66,8 +73,8 @@ public class FeedTabFragment extends BaseTabFragment {
 
     private long LIMIT;
 
-    public static FeedTabFragment newInstance(int sectionNumber, String title) {
-        FeedTabFragment fragment = new FeedTabFragment();
+    public static FollowingTabFragment newInstance(int sectionNumber, String title) {
+        FollowingTabFragment fragment = new FollowingTabFragment();
         final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.mTitle = title;
@@ -82,8 +89,8 @@ public class FeedTabFragment extends BaseTabFragment {
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_tab, container, false);
         ButterKnife.bind(this, view);
-        // TODO create FeedTabFragmentViewModel
-        //mViewModel = ViewModelProviders.of(this).get(FeedTabFragmentViewModel.class);
+        // TODO create FollowingTabFragmentViewModel
+        //mViewModel = ViewModelProviders.of(this).get(FollowingTabFragmentViewModel.class);
         assert mRecyclerView != null;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAddPostDialog = Dialogs.AddPostDialogFragment();

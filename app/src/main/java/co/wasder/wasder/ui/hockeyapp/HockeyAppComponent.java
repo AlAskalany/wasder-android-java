@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.hockeyapp;
 
 import android.support.v7.app.AppCompatActivity;
 
@@ -13,11 +13,11 @@ public class HockeyAppComponent {
 
     public HockeyAppComponent() {}
 
-    void unregisterManagers() {
+    public void unregisterManagers() {
         UpdateManager.unregister();
     }
 
-    void setupHockeyApp(AppCompatActivity activity) {
+    public void setupHockeyApp(AppCompatActivity activity) {
         MetricsManager.register(activity.getApplication());
         MetricsManager.trackEvent("WasderActivity");
         final Map<String, String> properties = new HashMap<String, String>();

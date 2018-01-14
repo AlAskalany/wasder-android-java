@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.fabric;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
@@ -8,12 +8,12 @@ import com.crashlytics.android.Crashlytics;
 
 import co.wasder.wasder.R;
 
-class CrashlyticsComponent {
+public class CrashlyticsComponent {
 
-    CrashlyticsComponent() {
+    public CrashlyticsComponent() {
     }
 
-    void setUpCrashButton(AppCompatActivity activity, boolean enableCrashButton) {
+    public void setUpCrashButton(AppCompatActivity activity, boolean enableCrashButton) {
         if (enableCrashButton) {
             final Button crashButton = new Button(null);
             crashButton.setText(R.string.crash);

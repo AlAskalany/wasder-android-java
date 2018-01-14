@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.following;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.databinding.DataBindingUtil;
@@ -14,6 +14,8 @@ import com.google.firebase.firestore.Query;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.databinding.ItemFeedBinding;
+import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
+import co.wasder.wasder.ui.feed.FeedViewHolder;
 
 /** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
 public class FollowingRecyclerAdapter {

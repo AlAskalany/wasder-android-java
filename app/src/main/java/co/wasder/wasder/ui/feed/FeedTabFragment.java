@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.feed;
 
 import android.os.Bundle;
 import android.support.annotation.Keep;
@@ -25,16 +25,26 @@ import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
+import co.wasder.wasder.ui.navigation.BaseTabFragment;
+import co.wasder.wasder.ui.navigation.BaseTabFragmentViewModel;
+import co.wasder.wasder.ui.Dialogs;
+import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
+import co.wasder.wasder.ui.addFirestoreItemDialogFragment;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep
-public class PmTabFragment extends BaseTabFragment {
+public class FeedTabFragment extends BaseTabFragment {
 
-    private static final String ARG_SECTION_NUMBER = "section-number";
+    public static String ARG_SECTION_NUMBER = "section-number";
 
     static {
         FirebaseFirestore.setLoggingEnabled(true);
     }
+
+    public String TAG;
+    public String USERS;
+    public addFirestoreItemDialogFragment mAddPostDialog;
+    public BaseTabFragmentViewModel mViewModel;
 
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
@@ -59,8 +69,10 @@ public class PmTabFragment extends BaseTabFragment {
                 public void onError(FirebaseFirestoreException e) {}
             };
 
-    public static PmTabFragment newInstance(int sectionNumber, String title) {
-        PmTabFragment fragment = new PmTabFragment();
+    private long LIMIT;
+
+    public static FeedTabFragment newInstance(int sectionNumber, String title) {
+        FeedTabFragment fragment = new FeedTabFragment();
         final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.mTitle = title;
@@ -75,8 +87,11 @@ public class PmTabFragment extends BaseTabFragment {
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_tab, container, false);
         ButterKnife.bind(this, view);
+        // TODO create FeedTabFragmentViewModel
+        //mViewModel = ViewModelProviders.of(this).get(FeedTabFragmentViewModel.class);
         assert mRecyclerView != null;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAddPostDialog = Dialogs.AddPostDialogFragment();
         setupSearchAndFilters();
         return view;
     }

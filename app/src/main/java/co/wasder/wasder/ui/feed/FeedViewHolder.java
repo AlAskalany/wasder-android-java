@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.feed;
 
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +39,9 @@ import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ItemFeedBinding;
+import co.wasder.wasder.ui.GlideApp;
+import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
+import co.wasder.wasder.ui.profile.ProfileActivity;
 
 /** Created by Ahmed AlAskalany on 11/12/2017. Navigator */
 @SuppressWarnings("WeakerAccess")

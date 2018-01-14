@@ -1,5 +1,6 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.groups;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
@@ -20,15 +21,21 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
+import co.wasder.wasder.databinding.FragmentTabBinding;
+import co.wasder.wasder.ui.navigation.BaseTabFragment;
+import co.wasder.wasder.ui.navigation.BaseTabFragmentViewModel;
+import co.wasder.wasder.ui.Dialogs;
+import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
+import co.wasder.wasder.ui.addFirestoreItemDialogFragment;
+import co.wasder.wasder.ui.feed.FeedRecyclerAdapter;
+import co.wasder.wasder.ui.feed.FeedViewHolder;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep
-public class DiscoveryTabFragment extends BaseTabFragment {
+public class AllTabFragment extends BaseTabFragment {
 
     public static String ARG_SECTION_NUMBER = "section-number";
 
@@ -40,9 +47,6 @@ public class DiscoveryTabFragment extends BaseTabFragment {
     public String USERS;
     public addFirestoreItemDialogFragment mAddPostDialog;
     public BaseTabFragmentViewModel mViewModel;
-
-    @BindView(R.id.recyclerView)
-    public RecyclerView mRecyclerView;
 
     @NonNull
     protected OnFirestoreItemSelectedListener onFirestoreItemSelectedListener =
@@ -65,9 +69,10 @@ public class DiscoveryTabFragment extends BaseTabFragment {
             };
 
     private long LIMIT;
+    private FragmentTabBinding binding;
 
-    public static DiscoveryTabFragment newInstance(int sectionNumber, String title) {
-        DiscoveryTabFragment fragment = new DiscoveryTabFragment();
+    public static AllTabFragment newInstance(int sectionNumber, String title) {
+        AllTabFragment fragment = new AllTabFragment();
         final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.mTitle = title;
@@ -80,15 +85,13 @@ public class DiscoveryTabFragment extends BaseTabFragment {
             @NonNull final LayoutInflater inflater,
             final ViewGroup container,
             final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_tab, container, false);
-        ButterKnife.bind(this, view);
-        // TODO create DiscoveryFragmentViewModel
-        //mViewModel = ViewModelProviders.of(this).get(DiscoveryTabFragmentViewModel.class);
-        assert mRecyclerView != null;
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab, container, false);
+        // TODO create AllTabFragmentViewModel
+        //mViewModel = ViewModelProviders.of(this).get(AllTabFragmentViewModel.class);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAddPostDialog = Dialogs.AddPostDialogFragment();
         setupSearchAndFilters();
-        return view;
+        return binding.getRoot();
     }
 
     protected void attachRecyclerViewAdapter() {
@@ -105,12 +108,10 @@ public class DiscoveryTabFragment extends BaseTabFragment {
                 new RecyclerView.AdapterDataObserver() {
                     @Override
                     public void onItemRangeInserted(final int positionStart, final int itemCount) {
-                        assert mRecyclerView != null;
-                        mRecyclerView.smoothScrollToPosition(0);
+                        binding.recyclerView.smoothScrollToPosition(0);
                     }
                 });
-        assert mRecyclerView != null;
-        mRecyclerView.setAdapter(adapter);
+        binding.recyclerView.setAdapter(adapter);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.messaging;
 
 import android.os.Bundle;
 import android.support.annotation.Keep;
@@ -25,21 +25,20 @@ import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
+import co.wasder.wasder.ui.navigation.BaseTabFragment;
+import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
+import co.wasder.wasder.ui.feed.FeedRecyclerAdapter;
+import co.wasder.wasder.ui.feed.FeedViewHolder;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep
-public class FavoritesTabFragment extends BaseTabFragment {
+public class PmTabFragment extends BaseTabFragment {
 
-    public static String ARG_SECTION_NUMBER = "section-number";
+    private static final String ARG_SECTION_NUMBER = "section-number";
 
     static {
         FirebaseFirestore.setLoggingEnabled(true);
     }
-
-    public String TAG;
-    public String USERS;
-    public addFirestoreItemDialogFragment mAddPostDialog;
-    public BaseTabFragmentViewModel mViewModel;
 
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
@@ -64,10 +63,8 @@ public class FavoritesTabFragment extends BaseTabFragment {
                 public void onError(FirebaseFirestoreException e) {}
             };
 
-    private long LIMIT;
-
-    public static FavoritesTabFragment newInstance(int sectionNumber, String title) {
-        FavoritesTabFragment fragment = new FavoritesTabFragment();
+    public static PmTabFragment newInstance(int sectionNumber, String title) {
+        PmTabFragment fragment = new PmTabFragment();
         final Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.mTitle = title;
@@ -82,11 +79,8 @@ public class FavoritesTabFragment extends BaseTabFragment {
             final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_tab, container, false);
         ButterKnife.bind(this, view);
-        // TODO create FavoritesFragmentViewModel
-        //mViewModel = ViewModelProviders.of(this).get(FavoritesTabFragmentViewModel.class);
         assert mRecyclerView != null;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAddPostDialog = Dialogs.AddPostDialogFragment();
         setupSearchAndFilters();
         return view;
     }

@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.navigation;
 
 import android.animation.Animator;
 import android.graphics.Color;
@@ -19,10 +19,9 @@ import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.ui.BaseTabFragment;
 
 /** Created by Ahmed AlAskalany on 11/13/2017. Navigator */
-abstract class BaseNavigationFragment extends Fragment
+public abstract class BaseNavigationFragment extends Fragment
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String ARG_SECTION_NUMBER = "param1";

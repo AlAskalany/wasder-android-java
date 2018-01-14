@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.profile;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -31,6 +31,10 @@ import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ActivityProfileBinding;
+import co.wasder.wasder.ui.GlideApp;
+import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
+import co.wasder.wasder.ui.feed.FeedViewHolder;
+import co.wasder.wasder.ui.following.FollowingRecyclerAdapter;
 
 @Keep
 public class ProfileActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
