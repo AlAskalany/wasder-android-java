@@ -43,7 +43,7 @@ public class MessagesNavigationFragment extends BaseNavigationFragment {
     public ViewPager viewPager;
     public int mSectionNumber;
     @Nullable public OnFragmentInteractionListener mListener;
-    private FragmentNavigationBinding binding;
+    FragmentNavigationBinding binding;
 
     public MessagesNavigationFragment() {
         // Required empty public constructor

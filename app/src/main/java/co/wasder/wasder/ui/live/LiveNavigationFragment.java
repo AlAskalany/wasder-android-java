@@ -44,7 +44,7 @@ public class LiveNavigationFragment extends BaseNavigationFragment {
     public ViewPager viewPager;
     public int mSectionNumber;
     @Nullable public OnFragmentInteractionListener mListener;
-    private FragmentNavigationBinding binding;
+    FragmentNavigationBinding binding;
 
     public LiveNavigationFragment() {
         // Required empty public constructor
