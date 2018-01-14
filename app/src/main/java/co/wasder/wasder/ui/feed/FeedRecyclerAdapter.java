@@ -23,7 +23,7 @@ public class FeedRecyclerAdapter {
      * @param owner LifecycleOwner
      * @param listener OnItemSelectedListener
      * @param query Query
-     * @param modelClass ModelCalss
+     * @param modelClass ModelClass
      * @return Feed RecyclerView Adapter
      */
     @NonNull
