@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.mentions;
+package co.wasder.wasder.ui.messaging.mentions;
 
 import android.os.Bundle;
 import android.support.annotation.Keep;
@@ -25,10 +25,10 @@ import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
+import co.wasder.wasder.ui.feed.AddPostDialogFragment;
 import co.wasder.wasder.ui.navigation.BaseTabFragment;
 import co.wasder.wasder.ui.navigation.BaseTabFragmentViewModel;
 import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
-import co.wasder.wasder.ui.addFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.feed.FeedRecyclerAdapter;
 import co.wasder.wasder.ui.feed.FeedViewHolder;
 
@@ -44,7 +44,7 @@ public class MentionsTabFragment extends BaseTabFragment {
 
     public String TAG;
     public String USERS;
-    public addFirestoreItemDialogFragment mAddPostDialog;
+    public AddPostDialogFragment mAddPostDialog;
     public BaseTabFragmentViewModel mViewModel;
 
     @BindView(R.id.recyclerView)
@@ -92,7 +92,7 @@ public class MentionsTabFragment extends BaseTabFragment {
         //mViewModel = ViewModelProviders.of(this).get(MentionsTabFragmentViewModel.class);
         assert mRecyclerView != null;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAddPostDialog = new addFirestoreItemDialogFragment();
+        mAddPostDialog = new AddPostDialogFragment();
         setupSearchAndFilters();
         return view;
     }

@@ -32,9 +32,11 @@ import net.hockeyapp.android.FeedbackManager;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ActivityWasderBinding;
+import co.wasder.wasder.ui.feed.AddPostDialogFragment;
 import co.wasder.wasder.ui.feed.FeedNavigationFragment;
 import co.wasder.wasder.ui.groups.GroupsNavigationFragment;
 import co.wasder.wasder.ui.live.LiveNavigationFragment;
+import co.wasder.wasder.ui.messaging.MessagesNavigationFragment;
 import co.wasder.wasder.ui.profile.ProfileActivity;
 import io.fabric.sdk.android.Fabric;
 
@@ -69,15 +71,15 @@ public class WasderActivity extends AppCompatActivity
                                     return true;
                                 case R.id.navigation_add:
                                     if (binding.include.container.getCurrentItem() == 0) {
-                                        new addFirestoreItemDialogFragment()
+                                        new AddPostDialogFragment()
                                                 .show(
                                                         getSupportFragmentManager(),
-                                                        addFirestoreItemDialogFragment.TAG);
+                                                        AddPostDialogFragment.TAG);
                                     } else if (binding.include.container.getCurrentItem() == 1) {
                                         new AddEventDialogFragment()
                                                 .show(
                                                         getSupportFragmentManager(),
-                                                        addFirestoreItemDialogFragment.TAG);
+                                                        AddPostDialogFragment.TAG);
                                     }
                                 default:
                                     return false;
@@ -267,7 +269,7 @@ public class WasderActivity extends AppCompatActivity
         assert binding.include.container != null;
         if (binding.include.container.getCurrentItem() == 0) {
             /*co.wasder.wasder.ui.Dialogs.AddPostDialogFragment()
-            .show(getSupportFragmentManager(), addFirestoreItemDialogFragment.TAG);*/
+            .show(getSupportFragmentManager(), AddPostDialogFragment.TAG);*/
             final BottomSheetDialog controlCenter = new BottomSheetDialog(this);
             View controlCenterView =
                     getLayoutInflater().inflate(R.layout.bottom_sheet_control_center, null);
@@ -275,7 +277,7 @@ public class WasderActivity extends AppCompatActivity
             controlCenter.show();
         } else if (binding.include.container.getCurrentItem() == 1) {
             /*new AddEventDialogFragment().show(getSupportFragmentManager(),
-            addFirestoreItemDialogFragment.TAG);*/
+            AddPostDialogFragment.TAG);*/
         }
     }
 

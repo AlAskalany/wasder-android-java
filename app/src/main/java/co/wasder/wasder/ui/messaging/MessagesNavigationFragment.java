@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.messaging;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -23,8 +23,9 @@ import java.util.Collection;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.databinding.FragmentNavigationBinding;
-import co.wasder.wasder.ui.mentions.MentionsTabFragment;
-import co.wasder.wasder.ui.messaging.PmTabFragment;
+import co.wasder.wasder.ui.OnFragmentInteractionListener;
+import co.wasder.wasder.ui.messaging.mentions.MentionsTabFragment;
+import co.wasder.wasder.ui.messaging.messages.PmTabFragment;
 import co.wasder.wasder.ui.navigation.BaseNavigationFragment;
 import co.wasder.wasder.ui.navigation.BaseTabFragment;
 import co.wasder.wasder.ui.navigation.TabsPagerAdapter;

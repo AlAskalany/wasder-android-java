@@ -28,7 +28,6 @@ import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.ui.navigation.BaseTabFragment;
 import co.wasder.wasder.ui.navigation.BaseTabFragmentViewModel;
 import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
-import co.wasder.wasder.ui.addFirestoreItemDialogFragment;
 
 /** Created by Ahmed AlAskalany on 10/30/2017. Navigator */
 @Keep
@@ -42,7 +41,7 @@ public class FeedTabFragment extends BaseTabFragment {
 
     public String TAG;
     public String USERS;
-    public addFirestoreItemDialogFragment mAddPostDialog;
+    public AddPostDialogFragment mAddPostDialog;
     public BaseTabFragmentViewModel mViewModel;
 
     @BindView(R.id.recyclerView)
@@ -90,7 +89,7 @@ public class FeedTabFragment extends BaseTabFragment {
         //mViewModel = ViewModelProviders.of(this).get(FeedTabFragmentViewModel.class);
         assert mRecyclerView != null;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAddPostDialog = new addFirestoreItemDialogFragment();
+        mAddPostDialog = new AddPostDialogFragment();
         setupSearchAndFilters();
         return view;
     }

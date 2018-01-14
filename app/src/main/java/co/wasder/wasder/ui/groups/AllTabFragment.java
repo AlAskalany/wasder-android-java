@@ -25,10 +25,10 @@ import co.wasder.wasder.R;
 import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.databinding.FragmentTabBinding;
+import co.wasder.wasder.ui.feed.AddPostDialogFragment;
 import co.wasder.wasder.ui.navigation.BaseTabFragment;
 import co.wasder.wasder.ui.navigation.BaseTabFragmentViewModel;
 import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
-import co.wasder.wasder.ui.addFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.feed.FeedRecyclerAdapter;
 import co.wasder.wasder.ui.feed.FeedViewHolder;
 
@@ -44,7 +44,7 @@ public class AllTabFragment extends BaseTabFragment {
 
     public String TAG;
     public String USERS;
-    public addFirestoreItemDialogFragment mAddPostDialog;
+    public AddPostDialogFragment mAddPostDialog;
     public BaseTabFragmentViewModel mViewModel;
 
     @NonNull
@@ -88,7 +88,7 @@ public class AllTabFragment extends BaseTabFragment {
         // TODO create AllTabFragmentViewModel
         //mViewModel = ViewModelProviders.of(this).get(AllTabFragmentViewModel.class);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAddPostDialog = new addFirestoreItemDialogFragment();
+        mAddPostDialog = new AddPostDialogFragment();
         setupSearchAndFilters();
         return binding.getRoot();
     }

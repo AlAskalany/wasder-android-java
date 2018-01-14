@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 */
-package co.wasder.wasder.ui;
+package co.wasder.wasder.ui.feed;
 
 import android.content.Context;
 import android.content.Intent;
@@ -64,7 +64,7 @@ import static android.app.Activity.RESULT_OK;
 
 /** Dialog Fragment containing filter form. */
 @Keep
-public class addFirestoreItemDialogFragment extends DialogFragment {
+public class AddPostDialogFragment extends DialogFragment {
 
     public static final String TAG = "AddPostDialog";
     public static final int INITIAL_AVG_RATING = 0;

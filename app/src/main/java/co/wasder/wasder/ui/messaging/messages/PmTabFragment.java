@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.messaging;
+package co.wasder.wasder.ui.messaging.messages;
 
 import android.os.Bundle;
 import android.support.annotation.Keep;
