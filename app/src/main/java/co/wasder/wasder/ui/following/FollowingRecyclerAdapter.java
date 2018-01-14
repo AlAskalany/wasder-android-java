@@ -25,7 +25,7 @@ public class FollowingRecyclerAdapter {
      * @param listener OnItemSelectedListener
      * @param query Query
      * @param modelClass ModelCalss
-     * @return
+     * @return Following RecyclerView Adapter
      */
     @NonNull
     public static RecyclerView.Adapter<FeedViewHolder> getAdapter(
