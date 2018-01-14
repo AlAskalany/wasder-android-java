@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.databinding.FragmentNavigationBinding;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
+import co.wasder.wasder.ui.TabFragmentFactory;
 import co.wasder.wasder.ui.discovery.DiscoveryTabFragment;
 import co.wasder.wasder.ui.favorites.FavoritesTabFragment;
 import co.wasder.wasder.ui.following.FollowingTabFragment;
@@ -80,11 +81,11 @@ public class LiveNavigationFragment extends BaseNavigationFragment {
             mSectionNumber = getArguments().getInt(BaseNavigationFragment.ARG_SECTION_NUMBER);
 
             final FollowingTabFragment followingTabFragment =
-                    FollowingTabFragment.newInstance(0, "Following");
+                    TabFragmentFactory.getFollowingTabFragment(0, "Following");
             final FavoritesTabFragment favoritesTabFragment =
-                    FavoritesTabFragment.newInstance(0, "Favorites");
+                    TabFragmentFactory.getFavoritesTabFragment(0, "Favorites");
             final DiscoveryTabFragment discoveryTabFragment =
-                    DiscoveryTabFragment.newInstance(0, "Discovery");
+                    TabFragmentFactory.getDiscoveryTabFragment(0, "Discovery");
             addTab(followingTabFragment);
             addTab(favoritesTabFragment);
             addTab(discoveryTabFragment);

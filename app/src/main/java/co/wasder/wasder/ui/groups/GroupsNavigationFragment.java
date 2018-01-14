@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.databinding.FragmentNavigationBinding;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
+import co.wasder.wasder.ui.TabFragmentFactory;
 import co.wasder.wasder.ui.navigation.BaseNavigationFragment;
 import co.wasder.wasder.ui.navigation.BaseTabFragment;
 import co.wasder.wasder.ui.navigation.TabsPagerAdapter;
@@ -76,8 +77,8 @@ public class GroupsNavigationFragment extends BaseNavigationFragment {
         if (getArguments() != null) {
             mSectionNumber = getArguments().getInt(BaseNavigationFragment.ARG_SECTION_NUMBER);
 
-            final AllTabFragment allTabFragment = AllTabFragment.newInstance(0, "All");
-            final OwnedTabFragment ownedTabFragment = OwnedTabFragment.newInstance(0, "Owned");
+            final AllTabFragment allTabFragment = TabFragmentFactory.getAllTabFragment(0, "All");
+            final OwnedTabFragment ownedTabFragment = TabFragmentFactory.getOwnGroupsTabFragment(0, "Owned");
             addTab(allTabFragment);
             addTab(ownedTabFragment);
         }

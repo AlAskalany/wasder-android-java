@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.databinding.FragmentNavigationBinding;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
+import co.wasder.wasder.ui.TabFragmentFactory;
 import co.wasder.wasder.ui.messaging.mentions.MentionsTabFragment;
 import co.wasder.wasder.ui.messaging.messages.PmTabFragment;
 import co.wasder.wasder.ui.navigation.BaseNavigationFragment;
@@ -79,8 +80,8 @@ public class MessagesNavigationFragment extends BaseNavigationFragment {
             mSectionNumber = getArguments().getInt(BaseNavigationFragment.ARG_SECTION_NUMBER);
 
             final MentionsTabFragment mentionsTabFragment =
-                    MentionsTabFragment.newInstance(0, "Mentions");
-            final PmTabFragment pmTabFragment = PmTabFragment.newInstance(0, "PM");
+                    TabFragmentFactory.getMentionsTabFragment(0, "Mentions");
+            final PmTabFragment pmTabFragment = TabFragmentFactory.getPmTabFragment(0, "PM");
             addTab(mentionsTabFragment);
             addTab(pmTabFragment);
         }

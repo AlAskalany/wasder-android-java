@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import co.wasder.wasder.R;
 import co.wasder.wasder.databinding.FragmentNavigationBinding;
 import co.wasder.wasder.ui.OnFragmentInteractionListener;
+import co.wasder.wasder.ui.TabFragmentFactory;
 import co.wasder.wasder.ui.navigation.BaseNavigationFragment;
 import co.wasder.wasder.ui.navigation.BaseTabFragment;
 import co.wasder.wasder.ui.navigation.TabsPagerAdapter;
@@ -75,7 +76,7 @@ public class FeedNavigationFragment extends BaseNavigationFragment {
         if (getArguments() != null) {
             mSectionNumber = getArguments().getInt(BaseNavigationFragment.ARG_SECTION_NUMBER);
 
-            final FeedTabFragment feedTab = FeedTabFragment.newInstance(0, "Feed");
+            final FeedTabFragment feedTab = TabFragmentFactory.getFeedTabFragment(0, "Feed");
             this.addTab(feedTab);
         }
         Log.d(TAG, "Navigation Fragment onCreate: " + mSectionNumber);

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.BaseModel;
 import co.wasder.wasder.data.FeedModel;
@@ -81,8 +83,19 @@ public abstract class BaseTabFragment extends Fragment
     }
 
     @Override
-    public abstract View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    public View onCreateView(
+            @NonNull final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_tab, container, false);
+        ButterKnife.bind(this, view);
+        // TODO create FeedTabFragmentViewModel
+        assert mRecyclerView != null;
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAddPostDialog = new AddPostDialogFragment();
+        setupSearchAndFilters();
+        return view;
+    }
 
     protected void setupSearchAndFilters() {
         FragmentActivity activity = getFragmentActivity();
