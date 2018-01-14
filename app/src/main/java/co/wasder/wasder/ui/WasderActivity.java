@@ -213,7 +213,7 @@ public class WasderActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add_events:
-                FirestoreItemUtil.onAddItemsClicked(this);
+                FirestoreItemUtil.onAddItemsClicked();
                 return true;
             case R.id.menu_sign_out:
                 mViewModel.authenticationComponent.signOut(this);
