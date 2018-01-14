@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -55,13 +53,7 @@ public abstract class BaseTabFragment extends Fragment
         FragmentActivity activity = getFragmentActivity();
         final SearchView mSearchView = activity.findViewById(R.id.searchView);
         mSearchView.setSubmitButtonEnabled(true);
-        mSearchView.setOnCloseListener(
-                new SearchView.OnCloseListener() {
-                    @Override
-                    public boolean onClose() {
-                        return false;
-                    }
-                });
+        mSearchView.setOnCloseListener(() -> false);
         mSearchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
                     @Override
@@ -71,26 +63,21 @@ public abstract class BaseTabFragment extends Fragment
                         final Query query = usersReference.whereEqualTo("displayName", search);
                         query.get()
                                 .addOnCompleteListener(
-                                        new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(
-                                                    @NonNull final Task<QuerySnapshot> task) {
-                                                if (task.isSuccessful()) {
-                                                    final QuerySnapshot queryResult =
-                                                            task.getResult();
-                                                    final List<DocumentSnapshot> usersDocuments =
-                                                            queryResult.getDocuments();
-                                                    if (queryResult.size() > 0) {
-                                                        final User firstUser =
-                                                                usersDocuments
-                                                                        .get(0)
-                                                                        .toObject(User.class);
-                                                        final String userId = firstUser.getUid();
-                                                        final FirestoreItemFilters
-                                                                firestoreItemFilters =
-                                                                        new FirestoreItemFilters();
-                                                        firestoreItemFilters.setUid(userId);
-                                                    }
+                                        task -> {
+                                            if (task.isSuccessful()) {
+                                                final QuerySnapshot queryResult = task.getResult();
+                                                final List<DocumentSnapshot> usersDocuments =
+                                                        queryResult.getDocuments();
+                                                if (queryResult.size() > 0) {
+                                                    final User firstUser =
+                                                            usersDocuments
+                                                                    .get(0)
+                                                                    .toObject(User.class);
+                                                    final String userId = firstUser.getUid();
+                                                    final FirestoreItemFilters
+                                                            firestoreItemFilters =
+                                                                    new FirestoreItemFilters();
+                                                    firestoreItemFilters.setUid(userId);
                                                 }
                                             }
                                         });
