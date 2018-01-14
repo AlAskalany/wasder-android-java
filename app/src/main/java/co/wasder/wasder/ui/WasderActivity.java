@@ -29,10 +29,16 @@ import com.crashlytics.android.Crashlytics;
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.FeedbackManager;
 
+import javax.inject.Inject;
+
 import co.wasder.wasder.R;
 import co.wasder.wasder.data.FirestoreItemFilters;
 import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ActivityWasderBinding;
+import co.wasder.wasder.ui.common.NavigationController;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasFragmentInjector;
 import io.fabric.sdk.android.Fabric;
 
 @Keep
@@ -40,10 +46,12 @@ public class WasderActivity extends AppCompatActivity
         implements LifecycleOwner,
                 NavigationView.OnNavigationItemSelectedListener,
                 FirestoreItemFilterDialogFragment.FilterListener,
-                OnFragmentInteractionListener {
-
+                OnFragmentInteractionListener,
+                HasFragmentInjector {
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
+    @Inject DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
+    @Inject NavigationController navigationController;
     private WasderActivityViewModel mViewModel;
     private ActivityWasderBinding binding;
     private final BottomNavigationView.OnNavigationItemSelectedListener
@@ -88,7 +96,9 @@ public class WasderActivity extends AppCompatActivity
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (savedInstanceState != null) {
+            navigationController.navigateToSearch();
+        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wasder);
         binding.setActivity(this);
 
@@ -280,6 +290,11 @@ public class WasderActivity extends AppCompatActivity
             /*new AddEventDialogFragment().show(getSupportFragmentManager(),
             addFirestoreItemDialogFragment.TAG);*/
         }
+    }
+
+    @Override
+    public AndroidInjector<android.app.Fragment> fragmentInjector() {
+        return null;
     }
 
     /**
