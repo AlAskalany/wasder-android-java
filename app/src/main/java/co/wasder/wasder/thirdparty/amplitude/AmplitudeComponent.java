@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.amplitude;
+package co.wasder.wasder.thirdparty.amplitude;
 
 import android.support.v7.app.AppCompatActivity;
 

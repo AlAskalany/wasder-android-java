@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.fabric;
+package co.wasder.wasder.thirdparty.fabric;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;

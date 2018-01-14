@@ -1,4 +1,4 @@
-package co.wasder.wasder.ui.hockeyapp;
+package co.wasder.wasder.thirdparty.hockeyapp;
 
 import android.support.v7.app.AppCompatActivity;
 

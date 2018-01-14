@@ -7,10 +7,10 @@ import android.support.annotation.NonNull;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import co.wasder.wasder.ui.amplitude.AmplitudeComponent;
+import co.wasder.wasder.thirdparty.amplitude.AmplitudeComponent;
 import co.wasder.wasder.ui.authentication.AuthenticationComponent;
-import co.wasder.wasder.ui.fabric.CrashlyticsComponent;
-import co.wasder.wasder.ui.hockeyapp.HockeyAppComponent;
+import co.wasder.wasder.thirdparty.fabric.CrashlyticsComponent;
+import co.wasder.wasder.thirdparty.hockeyapp.HockeyAppComponent;
 import co.wasder.wasder.ui.presence.PresenceComponent;
 
 /** Created by Ahmed AlAskalany on 10/13/2017. Wasder AB */
