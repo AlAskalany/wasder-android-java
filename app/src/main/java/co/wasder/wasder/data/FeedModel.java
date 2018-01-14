@@ -18,8 +18,6 @@ public class FeedModel extends BaseModel {
     private String name;
     private String profilePhoto;
     private String photo;
-    private int numRatings;
-    private double avgRating;
     private String feedText;
 
     public FeedModel() {}
@@ -29,15 +27,11 @@ public class FeedModel extends BaseModel {
             String name,
             final String profilePhoto,
             final String photo,
-            final int numRatings,
-            final double avgRating,
             final String feedText) {
         this.uId = uId;
         this.name = name;
         this.profilePhoto = profilePhoto;
         this.photo = photo;
-        this.numRatings = numRatings;
-        this.avgRating = avgRating;
         this.feedText = feedText;
     }
 
@@ -69,22 +63,6 @@ public class FeedModel extends BaseModel {
 
     public void setPhoto(final String photo) {
         this.photo = photo;
-    }
-
-    public int getNumRatings() {
-        return numRatings;
-    }
-
-    public void setNumRatings(final int numRatings) {
-        this.numRatings = numRatings;
-    }
-
-    public double getAvgRating() {
-        return avgRating;
-    }
-
-    public void setAvgRating(final double avgRating) {
-        this.avgRating = avgRating;
     }
 
     public String getFeedText() {

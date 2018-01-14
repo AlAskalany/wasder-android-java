@@ -56,8 +56,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.FirestoreItemFilters;
 import co.wasder.wasder.data.FeedModel;
+import co.wasder.wasder.data.FirestoreItemFilters;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -144,8 +144,7 @@ public class AddPostDialogFragment extends DialogFragment {
             uId = user.getUid();
         }
         // TODO remove name parameter
-        return new FeedModel(uId, "NAME", getPostProfilePhotoUrl(), getUuid(), INITIAL_AVG_RATING, (double) INITIAL_NUM_RATINGS, getFeedText());
-
+        return new FeedModel(uId, "NAME", getPostProfilePhotoUrl(), getUuid(), getFeedText());
     }
 
     @Nullable

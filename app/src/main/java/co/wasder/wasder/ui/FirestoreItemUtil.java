@@ -45,8 +45,6 @@ public class FirestoreItemUtil {
         }
 
         feedModel.setPhoto(getRandomImageUrl(random));
-        feedModel.setAvgRating(getRandomRating(random));
-        feedModel.setNumRatings(random.nextInt(20));
 
         return feedModel;
     }
