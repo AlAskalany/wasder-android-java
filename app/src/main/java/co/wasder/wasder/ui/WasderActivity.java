@@ -30,7 +30,6 @@ import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.FeedbackManager;
 
 import co.wasder.wasder.R;
-import co.wasder.wasder.data.FirestoreItemFilters;
 import co.wasder.wasder.data.User;
 import co.wasder.wasder.databinding.ActivityWasderBinding;
 import co.wasder.wasder.ui.feed.FeedNavigationFragment;
@@ -43,7 +42,6 @@ import io.fabric.sdk.android.Fabric;
 public class WasderActivity extends AppCompatActivity
         implements LifecycleOwner,
                 NavigationView.OnNavigationItemSelectedListener,
-                FirestoreItemFilterDialogFragment.FilterListener,
                 OnFragmentInteractionListener {
     private static final String TAG = "WasderActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -71,7 +69,7 @@ public class WasderActivity extends AppCompatActivity
                                     return true;
                                 case R.id.navigation_add:
                                     if (binding.include.container.getCurrentItem() == 0) {
-                                        Dialogs.AddPostDialogFragment()
+                                        new addFirestoreItemDialogFragment()
                                                 .show(
                                                         getSupportFragmentManager(),
                                                         addFirestoreItemDialogFragment.TAG);
@@ -264,9 +262,6 @@ public class WasderActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteractionListener(final Uri uri) {}
-
-    @Override
-    public void onFilter(final FirestoreItemFilters firestoreItemFilters) {}
 
     public void onClickAdd(View view) {
         assert binding.include.container != null;

@@ -27,7 +27,6 @@ import co.wasder.wasder.data.FeedModel;
 import co.wasder.wasder.databinding.FragmentTabBinding;
 import co.wasder.wasder.ui.navigation.BaseTabFragment;
 import co.wasder.wasder.ui.navigation.BaseTabFragmentViewModel;
-import co.wasder.wasder.ui.Dialogs;
 import co.wasder.wasder.ui.OnFirestoreItemSelectedListener;
 import co.wasder.wasder.ui.addFirestoreItemDialogFragment;
 import co.wasder.wasder.ui.feed.FeedRecyclerAdapter;
@@ -89,7 +88,7 @@ public class AllTabFragment extends BaseTabFragment {
         // TODO create AllTabFragmentViewModel
         //mViewModel = ViewModelProviders.of(this).get(AllTabFragmentViewModel.class);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAddPostDialog = Dialogs.AddPostDialogFragment();
+        mAddPostDialog = new addFirestoreItemDialogFragment();
         setupSearchAndFilters();
         return binding.getRoot();
     }
