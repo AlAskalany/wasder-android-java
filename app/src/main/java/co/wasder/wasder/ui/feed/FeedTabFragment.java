@@ -35,30 +35,6 @@ public class FeedTabFragment extends BaseTabFragment {
     }
 
     public String TAG;
-    public AddPostDialogFragment mAddPostDialog;
-
-    @BindView(R.id.recyclerView)
-    public RecyclerView mRecyclerView;
-
-    @NonNull
-    protected OnFirestoreItemSelectedListener onFirestoreItemSelectedListener =
-            new OnFirestoreItemSelectedListener() {
-                @Override
-                public void onFirestoreItemSelected(BaseModel event, View itemView) {}
-
-                @Override
-                public void onChildChanged(
-                        ChangeEventType type,
-                        DocumentSnapshot snapshot,
-                        int newIndex,
-                        int oldIndex) {}
-
-                @Override
-                public void onDataChanged() {}
-
-                @Override
-                public void onError(FirebaseFirestoreException e) {}
-            };
 
     public static FeedTabFragment newInstance(int sectionNumber, String title) {
         FeedTabFragment fragment = new FeedTabFragment();
@@ -82,34 +58,6 @@ public class FeedTabFragment extends BaseTabFragment {
         mAddPostDialog = new AddPostDialogFragment();
         setupSearchAndFilters();
         return view;
-    }
-
-    protected void attachRecyclerViewAdapter() {
-        final RecyclerView.Adapter<FeedViewHolder> adapter =
-                FeedRecyclerAdapter.getAdapter(
-                        this, onFirestoreItemSelectedListener, mQuery, FeedModel.class);
-
-        // Scroll to bottom on new messages
-        adapter.registerAdapterDataObserver(
-                new RecyclerView.AdapterDataObserver() {
-                    @Override
-                    public void onItemRangeInserted(final int positionStart, final int itemCount) {
-                        assert mRecyclerView != null;
-                        mRecyclerView.smoothScrollToPosition(0);
-                    }
-                });
-        assert mRecyclerView != null;
-        mRecyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            attachRecyclerViewAdapter();
-        } else {
-            Toast.makeText(getContext(), R.string.signing_in, Toast.LENGTH_SHORT).show();
-            firebaseAuth.signInAnonymously().addOnCompleteListener(task -> {});
-        }
     }
 
     @Override

@@ -101,12 +101,7 @@ public class PmTabFragment extends BaseTabFragment {
 
     @Override
     public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            attachRecyclerViewAdapter();
-        } else {
-            Toast.makeText(getContext(), R.string.signing_in, Toast.LENGTH_SHORT).show();
-            firebaseAuth.signInAnonymously().addOnCompleteListener(task -> {});
-        }
+        super.onAuthStateChanged(firebaseAuth);
     }
 
     @Override

@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.firebase.ui.common.ChangeEventType;
 import com.google.firebase.auth.FirebaseAuth;
@@ -102,12 +101,7 @@ public class AllTabFragment extends BaseTabFragment {
 
     @Override
     public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            attachRecyclerViewAdapter();
-        } else {
-            Toast.makeText(getContext(), R.string.signing_in, Toast.LENGTH_SHORT).show();
-            firebaseAuth.signInAnonymously().addOnCompleteListener(task -> {});
-        }
+        super.onAuthStateChanged(firebaseAuth);
     }
 
     @Override
