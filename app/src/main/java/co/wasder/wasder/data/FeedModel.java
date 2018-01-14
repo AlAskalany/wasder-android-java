@@ -13,18 +13,6 @@ import java.util.Date;
 @IgnoreExtraProperties
 public class FeedModel extends BaseModel {
 
-    @SuppressWarnings("unused")
-    private static final String FIELD_UID = "uId";
-
-    private static final String FIELD_CITY = "city";
-
-    @SuppressWarnings("unused")
-    private static final String FIELD_CATEGORY = "category";
-
-    private static final String FIELD_PRICE = "price";
-    private static final String FIELD_POPULARITY = "numRatings";
-    private static final String FIELD_AVG_RATING = "avgRating";
-
     private String uId;
     private @ServerTimestamp Date timestamp;
     private String name;
