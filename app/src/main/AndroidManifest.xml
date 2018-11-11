@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.WasderActivity"
+            android:name=".ui.WasderActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,14 +27,14 @@
         </activity>
 
         <service
-            android:name="co.wasder.data.MyFirebaseMessagingService"
+            android:name=".data.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name="co.wasder.data.MyFirebaseInstanceIdService"
+            android:name=".data.MyFirebaseInstanceIdService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -58,17 +58,9 @@
             android:value="8df3619c6e081ddf78247924077b51d93acca7fb"
             tools:replace="android:value" />
 
-        <service
-            android:name="co.wasder.data.FirestoreQueryJobService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
-
         <activity
-            android:name=".activity.ProfileActivity"
-            android:parentActivityName=".activity.WasderActivity"
+            android:name=".ui.profile.ProfileActivity"
+            android:parentActivityName=".ui.WasderActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"

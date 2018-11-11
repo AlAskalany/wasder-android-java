@@ -5,7 +5,7 @@
 
         <variable
             name="user"
-            type="co.wasder.data.model.User" />
+            type="co.wasder.wasder.data.User" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -82,7 +82,7 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:alpha="0.85"
-                            android:background="@android:drawable/screen_background_dark_transparent"
+                            android:background="@android:drawable/screen_background_dark"
                             android:contentDescription="@string/user_profile_photo"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/ic_person_70dp"
@@ -91,9 +91,11 @@
 
                         <ImageView
                             android:id="@+id/presenceImageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="11dp"
+                            android:layout_height="13dp"
                             android:layout_gravity="bottom|end"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
                             android:contentDescription="@string/description"
                             app:srcCompat="@drawable/ic_presence_status_online"
                             tools:layout_editor_absoluteX="241dp"
@@ -105,11 +107,15 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
                     tools:listitem="@layout/item_feed">
 
                 </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
+
+
         </android.support.v4.widget.NestedScrollView>
+
     </android.support.design.widget.CoordinatorLayout>
 </layout>
